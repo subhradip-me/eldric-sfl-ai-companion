@@ -34,8 +34,8 @@ const TOOLS = {
   get_farm_state: {
     description: "Fresh canonical farm state: level, xp, FLOWER, coins, buildings, skills, and the COMPLETE inventory (every item and quantity).",
     parameters: { type: "object", properties: {} },
-    exec: async () => {
-      const { canonical: c, stale } = await getFarm();
+    exec: async (params, context) => {
+      const { canonical: c, stale } = await getFarm(context.farmId);
       return {
         stale, level: c.bumpkin.level, xp: c.bumpkin.xp, flower: c.currencies.flower, coins: c.currencies.coins,
         buildings: Object.keys(c.buildings), skills: Object.keys(c.skills), vip: c.buffs.vip,
@@ -46,8 +46,8 @@ const TOOLS = {
   get_farm_section: {
     description: "Read ANY section of the raw farm JSON by dot-path. Use when other tools don't cover it. Top-level keys include: inventory, previousInventory, greenhouse, calendar, crops, fruitPatches, flowers, beehives, henHouse, barn, trades, stock, npcs, delivery, choreBoard, bounties, farmActivity, buildings, collectibles, bumpkin (skills/equipped/achievements), wardrobe, vip, island, fishing, desert, faction, saltFarm, oilReserves, sunstones, crimstones, minigames, dailyRewards, floatingIsland, socialFarming. Example paths: 'greenhouse', 'npcs.betty', 'bumpkin.skills', 'calendar.dates'.",
     parameters: { type: "object", properties: { path: { type: "string", description: "dot-path into the farm object" } }, required: ["path"] },
-    exec: async ({ path }) => {
-      const { raw } = await getFarm();
+    exec: async ({ path }, context) => {
+      const { raw } = await getFarm(context.farmId);
       const farm = raw.farm ?? raw;
       const val = path.split(".").reduce((o, k) => (o == null ? undefined : o[k]), farm);
       if (val === undefined) return { error: `No data at '${path}'. Top-level keys: ${Object.keys(farm).join(", ")}` };
@@ -62,10 +62,10 @@ const TOOLS = {
   compute_recipe_cost: {
     description: "Deterministic recipe economics: effective XP/output, base-resource expansion, live-market cost after inventory offset.",
     parameters: { type: "object", properties: { recipe: { type: "string", description: "recipe name, e.g. 'Pizza Margherita'" } }, required: ["recipe"] },
-    exec: async ({ recipe }) => {
+    exec: async ({ recipe }, context) => {
       const r = recipes[recipe];
       if (!r) return { error: `Unknown recipe. Known: ${Object.keys(recipes).filter((k) => !k.startsWith("_")).join(", ")}` };
-      const [{ canonical }, { prices }] = await Promise.all([getFarm(), getPrices()]);
+      const [{ canonical }, { prices }] = await Promise.all([getFarm(context.farmId), getPrices()]);
       const eff = effective(recipe, r, canonical, modifiers);
       const dep = expand(recipe, recipes);
       const c = cost(dep.base, prices, items, canonical.inventory);
@@ -75,21 +75,24 @@ const TOOLS = {
   get_planner: {
     description: "Run the deterministic per-building planner: best recipe per building, affordability, Level-100 estimate.",
     parameters: { type: "object", properties: {} },
-    exec: async () => {
-      const [{ canonical }, { prices }] = await Promise.all([getFarm(), getPrices()]);
+    exec: async (params, context) => {
+      const [{ canonical }, { prices }] = await Promise.all([getFarm(context.farmId), getPrices()]);
       return plan(canonical, prices, recipes, items, modifiers);
     },
   },
   take_snapshot: {
     description: "Save a snapshot of the current farm state now (for later activity comparison).",
     parameters: { type: "object", properties: {} },
-    exec: async () => { const { canonical } = await getFarm(); return await save(canonical); },
+    exec: async (params, context) => {
+      const { canonical } = await getFarm(context.farmId);
+      return await save(canonical, context.userId);
+    },
   },
   get_activity_delta: {
     description: "Observed farmActivity deltas + inventory movement + XP gained between the last two snapshots.",
     parameters: { type: "object", properties: {} },
-    exec: async () => {
-      const snaps = await latest(2);
+    exec: async (params, context) => {
+      const snaps = await latest(2, context.userId);
       if (snaps.length < 2) return { note: "Need at least 2 snapshots — call take_snapshot now and again later." };
       return diffActivity(snaps[1], snaps[0]);
     },
@@ -97,8 +100,8 @@ const TOOLS = {
   get_quests: {
     description: "Current chore board, delivery orders and bounties: NPC, requested items, rewards, completion status. Use for any question about chores, deliveries, quests or bounty profit.",
     parameters: { type: "object", properties: {} },
-    exec: async () => {
-      const { canonical: c } = await getFarm();
+    exec: async (params, context) => {
+      const { canonical: c } = await getFarm(context.farmId);
       return {
         chores: Object.fromEntries(Object.entries(c.chores).map(([npc, ch]) => [npc, { task: ch.name, reward: ch.reward, done: !!ch.completedAt }])),
         deliveries: c.deliveries.map((d) => ({ from: d.from, items: d.items, reward: d.reward, done: !!d.completedAt })),
@@ -110,7 +113,7 @@ const TOOLS = {
   recall_memory: {
     description: "Semantic search over past conversations (pgvector) — use to learn from earlier plans and decisions.",
     parameters: { type: "object", properties: { query: { type: "string" } }, required: ["query"] },
-    exec: async ({ query }, sessionId) => ({ matches: await similar(query, sessionId, 5) }),
+    exec: async ({ query }, context) => ({ matches: await similar(query, context.sessionId, context.userId, 5) }),
   },
   get_expansion_guide: {
     description: "Land expansion roadmap. AUTO-DETECTS the player's current island and expansion progress from live farm data, then returns ONLY upcoming (not yet completed) expansion rows with affordability checks against live inventory. Defaults to the current island unless overridden. Use for ANY question about land expansion, plot unlocks, island progression, prestige, node counts, or expansion costs.",
@@ -131,8 +134,8 @@ const TOOLS = {
         }
       }
     },
-    exec: async ({ island, next_n = 3, show_all_islands = false }) => {
-      const { canonical: c, raw } = await getFarm();
+    exec: async ({ island, next_n = 3, show_all_islands = false }, context) => {
+      const { canonical: c, raw } = await getFarm(context.farmId);
       const inv = c.inventory;
       const bumpkinLevel = c.bumpkin.level;
       const farm = raw.farm ?? raw;
@@ -284,12 +287,16 @@ function safeParseArgs(raw) {
   try { return JSON.parse(raw); } catch { return {}; }
 }
 
-export async function runAgent(message, sessionId) {
+export async function runAgent(message, sessionId, userId, farmId) {
   const steps = [];
   const seen = new Map(); // dedupe repeated identical tool calls
   const messages = [{ role: "system", content: SYSTEM }, { role: "user", content: message }];
   const MAX_ROUNDS = 8;
   let toolErrors = 0; // track consecutive tool-parse failures
+  
+  // Context object passed to all tool executions
+  const context = { sessionId, userId, farmId };
+  
   for (let i = 0; i < MAX_ROUNDS; i++) {
     const j = await groq(messages);
 
@@ -328,7 +335,7 @@ export async function runAgent(message, sessionId) {
         steps.push({ tool: name, ok: true, cached: true });
       } else {
         try {
-          result = await (TOOLS[name]?.exec ?? (() => ({ error: `unknown tool ${name}` })))(safeParseArgs(tc.function.arguments), sessionId);
+          result = await (TOOLS[name]?.exec ?? (() => ({ error: `unknown tool ${name}` })))(safeParseArgs(tc.function.arguments), context);
           steps.push({ tool: name, ok: !result?.error });
         } catch (e) {
           result = { error: String(e.message ?? e) };

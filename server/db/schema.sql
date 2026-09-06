@@ -19,16 +19,36 @@ CREATE TABLE IF NOT EXISTS sessions (
 
 CREATE INDEX IF NOT EXISTS IDX_sessions_expire ON sessions (expire);
 
--- Update chat_history to link with users
-ALTER TABLE chat_history 
-ADD COLUMN IF NOT EXISTS user_id INTEGER REFERENCES users(id) ON DELETE CASCADE;
+-- Snapshots table with user association
+CREATE TABLE IF NOT EXISTS snapshots (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  created_at BIGINT NOT NULL,
+  xp DOUBLE PRECISION,
+  flower TEXT,
+  coins DOUBLE PRECISION,
+  state_hash TEXT,
+  data_json JSONB NOT NULL
+);
 
--- Update farm_snapshots to link with users
-ALTER TABLE farm_snapshots 
-ADD COLUMN IF NOT EXISTS user_id INTEGER REFERENCES users(id) ON DELETE CASCADE;
+CREATE INDEX IF NOT EXISTS idx_snapshots_user_created ON snapshots(user_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_snapshots_created ON snapshots(created_at);
 
--- Create index for better query performance
-CREATE INDEX IF NOT EXISTS idx_chat_history_user_id ON chat_history(user_id);
-CREATE INDEX IF NOT EXISTS idx_farm_snapshots_user_id ON farm_snapshots(user_id);
+-- Chat messages with vector support and user association
+CREATE TABLE IF NOT EXISTS chat_messages (
+  id SERIAL PRIMARY KEY,
+  session_id TEXT NOT NULL,
+  role TEXT NOT NULL,
+  content TEXT NOT NULL,
+  embedding vector(384),
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  created_at BIGINT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_chat_session ON chat_messages(session_id, created_at);
+CREATE INDEX IF NOT EXISTS idx_chat_user_session ON chat_messages(user_id, session_id, created_at);
+
+-- Indexes for better query performance
 CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+CREATE INDEX IF NOT EXISTS idx_users_farm_id ON users(farm_id);

@@ -25,11 +25,17 @@ async function get(url, headers = {}) {
   return res.json();
 }
 
-export function getFarm() {
+export function getFarm(farmId = null) {
   const { SUNFLOWER_API_URL, SUNFLOWER_FARM_ID, SUNFLOWER_API_KEY } = process.env;
-  return cached("farm", TTL.farm, async () => {
+  const targetFarmId = farmId || SUNFLOWER_FARM_ID;
+  
+  if (!targetFarmId) {
+    throw new Error('No farm ID provided and SUNFLOWER_FARM_ID is not set');
+  }
+  
+  return cached(`farm:${targetFarmId}`, TTL.farm, async () => {
     const raw = await get(
-      `${SUNFLOWER_API_URL}/community/farms/${SUNFLOWER_FARM_ID}`,
+      `${SUNFLOWER_API_URL}/community/farms/${targetFarmId}`,
       SUNFLOWER_API_KEY ? { "x-api-key": SUNFLOWER_API_KEY } : {}
     );
     return { canonical: toCanonical(raw), raw };
