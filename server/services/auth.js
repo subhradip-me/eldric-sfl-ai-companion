@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { db } from '../db/database.js';
+import { pool } from '../db/database.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 const JWT_EXPIRES_IN = '7d';
@@ -21,7 +21,7 @@ export const authService = {
       }
 
       // Check if user already exists
-      const existingUser = await db.query(
+      const existingUser = await pool.query(
         'SELECT id FROM users WHERE username = $1 OR email = $2',
         [username, email]
       );
@@ -35,7 +35,7 @@ export const authService = {
       const passwordHash = await bcrypt.hash(password, saltRounds);
 
       // Insert user
-      const result = await db.query(
+      const result = await pool.query(
         `INSERT INTO users (username, email, password_hash, farm_id) 
          VALUES ($1, $2, $3, $4) 
          RETURNING id, username, email, farm_id, created_at`,
@@ -82,7 +82,7 @@ export const authService = {
       }
 
       // Find user
-      const result = await db.query(
+      const result = await pool.query(
         'SELECT id, username, email, password_hash, farm_id FROM users WHERE username = $1 OR email = $1',
         [username]
       );
@@ -100,7 +100,7 @@ export const authService = {
       }
 
       // Update last login
-      await db.query(
+      await pool.query(
         'UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = $1',
         [user.id]
       );
@@ -155,7 +155,7 @@ export const authService = {
    */
   async getUserById(userId) {
     try {
-      const result = await db.query(
+      const result = await pool.query(
         'SELECT id, username, email, farm_id, created_at, last_login FROM users WHERE id = $1',
         [userId]
       );
@@ -181,7 +181,7 @@ export const authService = {
    */
   async updateFarmId(userId, farmId) {
     try {
-      await db.query(
+      await pool.query(
         'UPDATE users SET farm_id = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
         [farmId, userId]
       );
@@ -202,7 +202,7 @@ export const authService = {
   async changePassword(userId, oldPassword, newPassword) {
     try {
       // Get current password hash
-      const result = await db.query(
+      const result = await pool.query(
         'SELECT password_hash FROM users WHERE id = $1',
         [userId]
       );
@@ -222,7 +222,7 @@ export const authService = {
       const newPasswordHash = await bcrypt.hash(newPassword, saltRounds);
 
       // Update password
-      await db.query(
+      await pool.query(
         'UPDATE users SET password_hash = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
         [newPasswordHash, userId]
       );

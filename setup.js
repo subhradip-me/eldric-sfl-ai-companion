@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { db, init } from "./server/db/database.js";
+import { pool, init } from "./server/db/database.js";
 import bcrypt from "bcryptjs";
 import fs from "fs";
 import path from "path";
@@ -29,7 +29,7 @@ async function setup() {
 
     for (const statement of statements) {
       try {
-        await db.query(statement);
+        await pool.query(statement);
       } catch (error) {
         // Ignore "already exists" errors
         if (!error.message.includes("already exists")) {
@@ -46,7 +46,7 @@ async function setup() {
     const demoEmail = "demo@sunflower-ai.local";
 
     // Check if demo user exists
-    const existingUser = await db.query(
+    const existingUser = await pool.query(
       "SELECT id FROM users WHERE username = $1",
       [demoUsername]
     );
@@ -55,7 +55,7 @@ async function setup() {
       console.log("ℹ️  Demo user already exists");
     } else {
       const passwordHash = await bcrypt.hash(demoPassword, 10);
-      await db.query(
+      await pool.query(
         "INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3)",
         [demoUsername, demoEmail, passwordHash]
       );
