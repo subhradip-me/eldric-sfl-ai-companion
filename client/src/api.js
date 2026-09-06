@@ -1,4 +1,12 @@
-const get = (p) => fetch(`/api/${p}`).then((r) => r.json());
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('auth_token');
+  return token ? { 'Authorization': `Bearer ${token}` } : {};
+};
+
+const get = (p) => fetch(`/api/${p}`, {
+  headers: getAuthHeaders()
+}).then((r) => r.json());
+
 export const api = {
   farm: () => get("farm"),
   market: () => get("market"),
@@ -7,7 +15,10 @@ export const api = {
   chat: (message, sessionId) =>
     fetch("/api/chat", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        ...getAuthHeaders()
+      },
       body: JSON.stringify({ message, sessionId }),
     }).then((r) => r.json()),
   sessions: () => get("sessions"),
