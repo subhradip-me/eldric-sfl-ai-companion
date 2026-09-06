@@ -1,0 +1,10 @@
+{
+  "Tomato": { "tradable": true, "source": "crop" },
+  "Wheat": { "tradable": true, "source": "crop" },
+  "Lemon": { "tradable": true, "source": "fruit" },
+  "Honey": { "tradable": true, "source": "beehive" },
+  "Egg": { "tradable": true, "source": "animal" },
+  "Milk": { "tradable": true, "source": "animal" },
+  "Magic Mushroom": { "tradable": false, "source": "spawn" },
+  "Cheese": { "tradable": false, "source": "cooked", "building": "Deli" }
+}

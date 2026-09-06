@@ -1,0 +1,48 @@
+{
+  "Pizza Margherita": {
+    "building": "Deli",
+    "verified": false,
+    "xpIncludesSkills": true,
+    "baseOutput": 1,
+    "ingredients": { "Tomato": 60, "Cheese": 2, "Wheat": 40 },
+    "baseXp": 31762,
+    "baseCookMinutes": 583
+  },
+  "Lemon Cheesecake": {
+    "building": "Bakery",
+    "verified": false,
+    "xpIncludesSkills": true,
+    "baseOutput": 1,
+    "ingredients": { "Lemon": 20, "Cheese": 2, "Egg": 10 },
+    "baseXp": 38115,
+    "baseCookMinutes": 1620
+  },
+  "Honey Cheddar": {
+    "building": "Deli",
+    "verified": false,
+    "xpIncludesSkills": true,
+    "baseOutput": 1,
+    "ingredients": { "Cheese": 3, "Honey": 5 },
+    "baseXp": 21916,
+    "baseCookMinutes": 720
+  },
+  "Shroom Syrup": {
+    "building": "Deli",
+    "verified": false,
+    "xpIncludesSkills": true,
+    "baseOutput": 1,
+    "ingredients": { "Honey": 10, "Magic Mushroom": 10 },
+    "baseXp": 14611,
+    "baseCookMinutes": 600
+  },
+  "Cheese": {
+    "building": "Deli",
+    "verified": false,
+    "xpIncludesSkills": true,
+    "baseOutput": 1,
+    "ingredients": { "Milk": 3 },
+    "baseXp": 1,
+    "baseCookMinutes": 20
+  },
+  "_note": "baseXp values are screenshot-derived EFFECTIVE-per-food observations from this farm; ingredient lists for Lemon Cheesecake / Honey Cheddar / Shroom Syrup / Cheese times are UNVERIFIED — confirm in-game and set verified:true."
+}

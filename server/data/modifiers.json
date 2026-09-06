@@ -1,0 +1,8 @@
+{
+  "Double Nom": { "type": "skill", "effect": "outputMultiplier", "value": 2, "appliesTo": "food" },
+  "Swift Sizzle": { "type": "skill", "effect": "cookTimeMultiplier", "value": 0.6, "appliesTo": ["Fire Pit"] },
+  "Fast Feasts": { "type": "skill", "effect": "cookTimeMultiplier", "value": 0.6, "appliesTo": ["Kitchen", "Bakery"] },
+  "Munching Mastery": { "type": "skill", "effect": "xpMultiplier", "value": 1.05, "appliesTo": "food" },
+  "Drive-Through Deli": { "type": "skill", "effect": "xpMultiplier", "value": 1.15, "appliesTo": ["Deli"] },
+  "_note": "Effect values are BEST-GUESS placeholders except Double Nom. Verify each in-game; EFFECTIVE vs OBSERVED mismatches (design §14) will reveal wrong ones."
+}

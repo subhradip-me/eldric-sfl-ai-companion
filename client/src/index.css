@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+body { letter-spacing: -0.01em; }
+
+/* chat markdown styling */
+.chat-md p { margin: 0 0 0.5rem; }
+.chat-md p:last-child { margin-bottom: 0; }
+.chat-md strong { color: #0f172a; font-weight: 600; }
+.dark .chat-md strong { color: #ffffff; }
+.chat-md h1, .chat-md h2, .chat-md h3, .chat-md h4 { color: #0f172a; font-weight: 600; font-size: 13px; margin: 0.75rem 0 0.35rem; }
+.dark .chat-md h1, .dark .chat-md h2, .dark .chat-md h3, .dark .chat-md h4 { color: #ffffff; }
+.chat-md ul, .chat-md ol { margin: 0.25rem 0 0.5rem; padding-left: 1.1rem; }
+.chat-md li { margin: 0.15rem 0; }
+.chat-md ul li { list-style: disc; }
+.chat-md ol li { list-style: decimal; }
+.chat-md code { background: #f1f5f9; border-radius: 4px; padding: 1px 4px; font-size: 11px; }
+.dark .chat-md code { background: #424242; color: #e2e8f0; }
+.chat-md pre { background: #0f172a; color: #e2e8f0; border-radius: 10px; padding: 8px 12px; margin: 0.5rem 0; font-size: 11.5px; overflow-x: auto; }
+.dark .chat-md pre { background: #212121; }
+.chat-md pre code { background: none; color: inherit; padding: 0; }
+.chat-md table { width: 100%; margin: 0.5rem 0; border: 1px solid #e2e8f0; border-radius: 10px; border-collapse: separate; border-spacing: 0; overflow: hidden; display: block; overflow-x: auto; font-size: 12px; }
+.dark .chat-md table { border-color: #424242; }
+.chat-md th { background: #f1f5f9; color: #334155; font-weight: 600; text-align: left; padding: 5px 10px; white-space: nowrap; }
+.dark .chat-md th { background: #303030; color: #e2e8f0; }
+.chat-md td { padding: 5px 10px; border-top: 1px solid #f1f5f9; white-space: nowrap; color: #475569; }
+.dark .chat-md td { border-top-color: #424242; color: #cbd5e1; }
+.chat-md tr:nth-child(even) td { background: #f8fafc; }
+.dark .chat-md tr:nth-child(even) td { background: #212121; }
+.chat-md hr { border: 0; border-top: 1px solid #e2e8f0; margin: 0.6rem 0; }
+.dark .chat-md hr { border-top-color: #424242; }
+.chat-md blockquote { border-left: 3px solid #e2e8f0; padding-left: 0.6rem; color: #64748b; margin: 0.4rem 0; }
+.dark .chat-md blockquote { border-left-color: #424242; color: #94a3b8; }
+
+
