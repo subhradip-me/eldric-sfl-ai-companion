@@ -57,8 +57,27 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Initialize database and start server
-init()
+// Initialize database with retry (handles slow-starting Docker containers)
+async function connectWithRetry(maxAttempts = 10, baseDelayMs = 2000) {
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      await init();
+      return true;
+    } catch (err) {
+      const isLastAttempt = attempt === maxAttempts;
+      if (isLastAttempt) {
+        throw err;
+      }
+      const delay = Math.min(baseDelayMs * 2 ** (attempt - 1), 32000);
+      console.warn(
+        `⚠️  DB not ready (attempt ${attempt}/${maxAttempts}): ${err.message}. Retrying in ${delay / 1000}s...`
+      );
+      await new Promise((r) => setTimeout(r, delay));
+    }
+  }
+}
+
+connectWithRetry()
   .then(() => {
     console.log('✅ Database initialized');
     app.listen(port, () => {
