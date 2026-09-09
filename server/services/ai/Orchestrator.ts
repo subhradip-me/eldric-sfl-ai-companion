@@ -110,7 +110,7 @@ export class Orchestrator {
       },
     },
     compute_recipe_cost: {
-      description: 'Deterministic recipe economics: effective XP/output, base-resource expansion, live-market cost after inventory offset.',
+      description: 'Deterministic recipe economics: effective XP/output, base-resource expansion, live-market cost after inventory offset. Warns if the player does not own the required building.',
       parameters: { type: 'object', properties: { recipe: { type: 'string', description: "recipe name, e.g. 'Pizza Margherita'" } }, required: ['recipe'] },
       exec: async ({ recipe }: { recipe: string }, context) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -125,7 +125,17 @@ export class Orchestrator {
         const eff = xpEngine.effective(recipe, r, canonical, modifiers);
         const dep = recipeService.expand(recipe, recipes as unknown as Parameters<typeof recipeService.expand>[1], 0, eff.ingredientMultiplier ?? 1);
         const c = recipeService.cost(dep.base, prices, items as Parameters<typeof recipeService.cost>[2], canonical.inventory);
-        return { recipe, verified: !!r.verified, effective: eff, baseResources: dep.base, cost: c, totalMinutes: eff.minutes + dep.intermediateMinutes };
+        const ownsBuilding = r.building in canonical.buildings;
+        return {
+          recipe,
+          verified: !!r.verified,
+          ownsBuilding,
+          warning: ownsBuilding ? null : `⚠️ You do NOT own a ${r.building}! You cannot cook this recipe until you build one.`,
+          effective: eff,
+          baseResources: dep.base,
+          cost: c,
+          totalMinutes: eff.minutes + dep.intermediateMinutes,
+        };
       },
     },
     get_cooking_board: {
@@ -168,7 +178,7 @@ export class Orchestrator {
       description: 'Observed farmActivity deltas + inventory movement + XP gained between the last two snapshots.',
       parameters: { type: 'object', properties: {} },
       exec: async (_params, context) => {
-        const snaps = await snapshotService.latest(2, context.userId);
+        const snaps = await snapshotService.latest(context.userId, 2);
         if (snaps.length < 2) return { note: 'Need at least 2 snapshots — call take_snapshot now and again later.' };
         return activityService.diffActivity(snaps[1], snaps[0]);
       },
@@ -652,10 +662,13 @@ export class Orchestrator {
       }
       for (const tc of m.tool_calls) {
         const name = tc.function?.name;
-        const key = `${name}:${tc.function?.arguments ?? ''}`;
+        const parsedArgs = this.safeParseArgs(tc.function?.arguments);
+        const forceRefresh = !!parsedArgs?.force;
+        if (forceRefresh) delete parsedArgs.force;
+        const key = `${name}:${JSON.stringify(parsedArgs)}`;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let result: any;
-        if (seen.has(key)) {
+        if (!forceRefresh && seen.has(key)) {
           result = { note: 'Duplicate call — identical result as before. Do NOT call this again; use the data you already have.', ...seen.get(key) };
           steps.push({ tool: name, ok: true, cached: true });
         } else {
@@ -665,7 +678,7 @@ export class Orchestrator {
               result = { error: `unknown tool ${name}` };
               steps.push({ tool: name, ok: false });
             } else {
-              result = await tool.exec(this.safeParseArgs(tc.function.arguments), context);
+              result = await tool.exec(parsedArgs, context);
               steps.push({ tool: name, ok: !result?.error });
             }
           } catch (e: unknown) {
