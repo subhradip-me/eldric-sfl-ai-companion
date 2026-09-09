@@ -27,8 +27,11 @@ export const chatController = {
         });
       }
 
-      // Run AI agent with user context
-      const { answer, steps } = await runAgent(message, sessionId, req.userId, user.farm_id);
+      // Fetch prior conversation history for multi-turn context
+      const priorMessages = await ChatMessage.findBySession(sessionId, req.userId).catch(() => []);
+
+      // Run AI agent with user context and conversation history
+      const { answer, steps } = await runAgent(message, sessionId, req.userId, user.farm_id, priorMessages);
 
       // Save messages asynchronously (user-specific)
       ChatMessage.create({

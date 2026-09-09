@@ -1,0 +1,1364 @@
+{
+  "_meta": {
+    "source": "sfl.world/land/22/skills",
+    "game_version": "Sunflower Land World v0.9.8",
+    "purpose": "Complete skill catalogue for all skill groups. Each skill entry encodes its effects in a machine-readable format so the engine can compute farm-specific yields, cook times, XP, produce amounts etc. The 'selected' field reflects land/22 at time of capture — it is OVERRIDDEN at runtime by the live farm state returned from get_farm_state (farm.skills). This file is the source of truth for WHAT a skill does; the farm state tells you WHICH skills are active.",
+    "effect_types": {
+      "multiply": "Multiply a numeric value by `value`. E.g. growTimeMultiplier: 0.9 means 10% faster.",
+      "add": "Add `value` to a numeric output. E.g. yieldAdd: 0.1 means +0.1 per harvest.",
+      "set": "Force a specific behaviour. E.g. tapCount: 1 means 1-tap interaction.",
+      "chance": "A probabilistic bonus: `prob` chance of adding `bonus` to the output.",
+      "aoe": "Extends area of effect of a collectible from its default radius to `tiles`x`tiles`.",
+      "unlock": "Enables a feature or mechanic (no numeric value).",
+      "stock_add": "Increases shop stock by `value` units.",
+      "replace": "Replaces an input resource with another (see `from`, `to`)."
+    },
+    "scope_keys": {
+      "cooking_fire_pit": "Fire Pit building",
+      "cooking_kitchen": "Kitchen building",
+      "cooking_bakery": "Bakery building",
+      "cooking_deli": "Deli building",
+      "cooking_smoothie_shack": "Smoothie Shack building",
+      "cooking_all": "Any cooking building",
+      "crop_basic": "Sunflower, Potato, Pumpkin",
+      "crop_medium": "Carrot, Cabbage, Beetroot, Cauliflower, Parsnip",
+      "crop_advanced": "Eggplant, Corn, Radish, Wheat, Kale, Soybean",
+      "crop_all": "All plot crops",
+      "tree_all": "All trees",
+      "fish_basic": "Basic fish tier",
+      "fish_advanced": "Advanced fish tier",
+      "fish_expert": "Expert fish tier",
+      "fish_daily_reels": "Daily fishing reel count",
+      "mining_stone": "Stone rocks",
+      "mining_iron": "Iron rocks",
+      "mining_gold": "Gold rocks",
+      "mining_crimstone": "Crimstone rocks",
+      "fruit_patch_all": "All fruit patch fruits",
+      "fruit_apple_banana": "Apple and Banana fruit patches",
+      "fruit_blueberry_orange": "Blueberry and Orange fruit patches",
+      "fruit_tomato_lemon": "Tomato and Lemon fruit patches",
+      "greenhouse_all": "All greenhouse produce (Grape, Rice, Olive)",
+      "greenhouse_olive": "Olive greenhouse crop",
+      "greenhouse_rice": "Rice greenhouse crop",
+      "greenhouse_grape": "Grape greenhouse crop",
+      "greenhouse_oil": "Oil consumption in greenhouse",
+      "crop_machine_oil": "Oil consumption in Crop Machine",
+      "crop_machine_time": "Crop Machine growth time",
+      "compost_time": "Composter cycle time",
+      "beehive_honey": "Honey production per hive",
+      "beehive_speed": "Honey production speed",
+      "flower_all": "All flower bed plants",
+      "animal_all": "All barn/hen-house animals",
+      "animal_chicken": "Chickens only",
+      "animal_sheep": "Sheep only",
+      "animal_cow": "Cows only",
+      "animal_egg": "Egg yield",
+      "animal_wool": "Wool yield",
+      "animal_milk": "Milk yield",
+      "animal_feather": "Feather yield",
+      "animal_leather": "Leather yield",
+      "animal_merino_wool": "Merino Wool yield",
+      "animal_sleep_time": "Animal sleep/recovery time",
+      "salt_farm": "Salt farm nodes",
+      "fish_aging": "Aging Shed fish aging time",
+      "food_xp": "Bumpkin XP from eating any food",
+      "food_xp_drinks": "Bumpkin XP from drinks (Smoothie Shack)",
+      "food_xp_deli": "Bumpkin XP from Deli foods",
+      "food_xp_honey": "Bumpkin XP from honey-ingredient foods",
+      "food_xp_fish": "Bumpkin XP from fish-ingredient foods",
+      "delivery_betty": "Betty NPC delivery coin reward",
+      "delivery_food": "Food delivery coin revenue",
+      "delivery_blacksmith": "Blacksmith delivery revenue",
+      "delivery_corale": "Corale fishing delivery coins",
+      "delivery_victoria": "Victoria greenhouse delivery coins",
+      "delivery_tango": "Tango fruit delivery coins",
+      "delivery_animal_bounty": "Animal bounty coin reward",
+      "npc_relationship": "NPC relationship points from gifting",
+      "axe_stock": "Axe item stock",
+      "axe_cost": "Axe coin cost",
+      "pickaxe_stock": "Pickaxe stock",
+      "pickaxe_cost": "All pickaxes coin cost",
+      "flower_seed_cost": "Flower seed coin cost",
+      "greenhouse_seed_cost": "Greenhouse seed coin cost",
+      "greenhouse_seed_qty": "Greenhouse seeds required to plant",
+      "fruit_seed_cost": "Fruit patch seed coin cost",
+      "bale_effect": "Bale collectible effect multiplier",
+      "bale_scope": "Which resources Bale affects",
+      "macaw_effect": "Macaw collectible effect multiplier",
+      "pear_effect": "Immortal Pear collectible effect multiplier",
+      "scary_mike_aoe": "Scary Mike scarecrow AOE",
+      "basic_scarecrow_aoe": "Basic Scarecrow AOE",
+      "laurie_aoe": "Laurie the Chuckle Crow AOE",
+      "rod_cost": "Fishing rod coin cost",
+      "salt_rake_cost": "Salt rake coin cost",
+      "oil_refill_time": "Oil well refill time",
+      "crop_machine_queue": "Crop Machine queue pack slots",
+      "crop_machine_plots": "Crop Machine plot count",
+      "animal_xp_feed": "Animal XP from animal feed",
+      "animal_xp_affection": "Animal XP from affection tools",
+      "sickness_chance": "Animal sickness probability multiplier",
+      "bee_swarm_chance": "Bee Swarm event chance",
+      "crop_machine_seeds": "Specific seeds unlocked for Crop Machine"
+    }
+  },
+
+  "Crops": {
+    "Tier 1": {
+      "Green Thumb": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "crop_all", "stat": "growTime", "value": 0.95 }
+        ],
+        "drawbacks": []
+      },
+      "Young Farmer": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "crop_basic", "stat": "yield", "value": 0.1 }
+        ],
+        "drawbacks": []
+      },
+      "Experienced Farmer": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "crop_medium", "stat": "yield", "value": 0.1 }
+        ],
+        "drawbacks": []
+      },
+      "Old Farmer": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "crop_advanced", "stat": "yield", "value": 0.1 }
+        ],
+        "drawbacks": []
+      },
+      "Chonky Scarecrow": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "aoe", "scope": "basic_scarecrow_aoe", "tiles": 7 },
+          { "type": "multiply", "scope": "crop_basic", "stat": "growTime", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "Betty's Friend": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "delivery_betty", "stat": "coinReward", "value": 1.3 }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 2": {
+      "Strong Roots": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "crop_advanced", "stat": "growTime", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "Coin Swindler": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "crop_all", "stat": "sellCoinRevenue", "value": 1.1 }
+        ],
+        "drawbacks": []
+      },
+      "Golden Sunflower": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "chance", "scope": "crop_basic", "crop": "Sunflower", "prob": 0.001429, "bonus_item": "Gold", "bonus_qty": 0.35, "note": "1/700 chance, excludes Crop Machine" }
+        ],
+        "drawbacks": []
+      },
+      "Horror Mike": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "aoe", "scope": "scary_mike_aoe", "tiles": 7 },
+          { "type": "add", "scope": "crop_medium", "stat": "yield", "value": 0.1 }
+        ],
+        "drawbacks": []
+      },
+      "Laurie's Gains": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "aoe", "scope": "laurie_aoe", "tiles": 7 },
+          { "type": "add", "scope": "crop_advanced", "stat": "yield", "value": 0.1 }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 3": {
+      "Instant Growth": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "unlock", "scope": "crop_all", "feature": "instantHarvestAll" }
+        ],
+        "drawbacks": []
+      },
+      "Acre Farm": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "crop_advanced", "stat": "yield", "value": 1 }
+        ],
+        "drawbacks": [
+          { "type": "add", "scope": "crop_basic", "stat": "yield", "value": -0.5 },
+          { "type": "add", "scope": "crop_medium", "stat": "yield", "value": -0.5 }
+        ]
+      },
+      "Hectare Farm": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "crop_basic", "stat": "yield", "value": 1 },
+          { "type": "add", "scope": "crop_medium", "stat": "yield", "value": 1 }
+        ],
+        "drawbacks": [
+          { "type": "add", "scope": "crop_advanced", "stat": "yield", "value": -0.5 }
+        ]
+      }
+    }
+  },
+
+  "Trees": {
+    "Tier 1": {
+      "Lumberjack's Extra": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "tree_all", "stat": "yield", "value": 0.1 }
+        ],
+        "drawbacks": []
+      },
+      "Tree Charge": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "tree_all", "stat": "growTime", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "More Axes": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "stock_add", "scope": "axe_stock", "value": 50 }
+        ],
+        "drawbacks": []
+      },
+      "Insta-Chop": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "set", "scope": "tree_all", "stat": "tapsRequired", "value": 1 }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 2": {
+      "Tough Tree": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "chance", "scope": "tree_all", "prob": 0.1, "bonus_multiplier": 3, "stat": "yield", "note": "10% chance of triple wood yield" }
+        ],
+        "drawbacks": []
+      },
+      "Feller's Discount": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "axe_cost", "stat": "coinCost", "value": 0.8 }
+        ],
+        "drawbacks": []
+      },
+      "Money Tree": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "chance", "scope": "tree_all", "prob": 0.01, "bonus_item": "Coins", "bonus_qty": 200, "note": "1% chance of 200 coins when chopping" }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 3": {
+      "Tree Turnaround": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "chance", "scope": "tree_all", "prob": 0.15, "feature": "instantGrow", "note": "15% chance trees grow instantly" }
+        ],
+        "drawbacks": []
+      },
+      "Tree Blitz": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "unlock", "scope": "tree_all", "feature": "instantGrowAll" }
+        ],
+        "drawbacks": []
+      }
+    }
+  },
+
+  "Fishing": {
+    "Tier 1": {
+      "Fisherman's 5 Fold": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "fish_daily_reels", "stat": "count", "value": 5 }
+        ],
+        "drawbacks": []
+      },
+      "Fishy Chance": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "chance", "scope": "fish_basic", "prob": 0.1, "bonus_qty": 1, "stat": "yield" }
+        ],
+        "drawbacks": []
+      },
+      "Fishy Roll": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "chance", "scope": "fish_advanced", "prob": 0.1, "bonus_qty": 1, "stat": "yield" }
+        ],
+        "drawbacks": []
+      },
+      "Reel Deal": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "rod_cost", "stat": "coinCost", "value": 0.5 }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 2": {
+      "Fisherman's 10 Fold": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "fish_daily_reels", "stat": "count", "value": 10 }
+        ],
+        "drawbacks": []
+      },
+      "Fishy Fortune": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "delivery_corale", "stat": "coinReward", "value": 2.0 }
+        ],
+        "drawbacks": []
+      },
+      "Big Catch": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "unlock", "scope": "fish_all", "feature": "increasedCatchBar", "note": "Wider catch bar in mini-game" }
+        ],
+        "drawbacks": []
+      },
+      "Fishy Gamble": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "chance", "scope": "fish_expert", "prob": 0.2, "bonus_qty": 1, "stat": "yield" }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 3": {
+      "Frenzied Fish": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "fish_all", "stat": "yield", "value": 1, "condition": "fishFrenzyActive" },
+          { "type": "chance", "scope": "fish_all", "prob": 0.5, "bonus_qty": 1, "stat": "yield", "condition": "fishFrenzyActive" }
+        ],
+        "drawbacks": []
+      },
+      "More With Less": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "fish_daily_reels", "stat": "count", "value": 10 }
+        ],
+        "drawbacks": [
+          { "type": "set", "scope": "fish_all", "stat": "rodRequiredPerCast", "value": 1, "note": "skill.moreWithLess.debuff — uses a rod every cast" }
+        ]
+      },
+      "Fishy Feast": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "food_xp_fish", "stat": "xpMultiplier", "value": 1.2 }
+        ],
+        "drawbacks": []
+      }
+    }
+  },
+
+  "Mining": {
+    "Tier 1": {
+      "Rock'N'Roll": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "mining_stone", "stat": "yield", "value": 0.1 }
+        ],
+        "drawbacks": []
+      },
+      "Iron Bumpkin": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "mining_iron", "stat": "yield", "value": 0.1 }
+        ],
+        "drawbacks": []
+      },
+      "Speed Miner": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "mining_stone", "stat": "recoveryTime", "value": 0.8 }
+        ],
+        "drawbacks": []
+      },
+      "Tap Prospector": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "set", "scope": "mining_stone", "stat": "tapsRequired", "value": 1, "note": "1-tap for small mineral nodes" }
+        ],
+        "drawbacks": []
+      },
+      "Forge-Ward Profits": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "delivery_blacksmith", "stat": "coinReward", "value": 1.2 }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 2": {
+      "Iron Hustle": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "mining_iron", "stat": "recoveryTime", "value": 0.7 }
+        ],
+        "drawbacks": []
+      },
+      "Frugal Miner": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "pickaxe_cost", "stat": "coinCost", "value": 0.8 }
+        ],
+        "drawbacks": []
+      },
+      "Rocky Favor": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "mining_stone", "stat": "yield", "value": 1 }
+        ],
+        "drawbacks": [
+          { "type": "add", "scope": "mining_iron", "stat": "yield", "value": -0.5 }
+        ]
+      },
+      "Fire Kissed": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "mining_crimstone", "stat": "yield", "value": 1, "condition": "5th consecutive mine" }
+        ],
+        "drawbacks": []
+      },
+      "Midas Sprint": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "mining_gold", "stat": "recoveryTime", "value": 0.9 }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 3": {
+      "Ferrous Favor": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "mining_iron", "stat": "yield", "value": 1 }
+        ],
+        "drawbacks": [
+          { "type": "add", "scope": "mining_stone", "stat": "yield", "value": -0.5 }
+        ]
+      },
+      "Golden Touch": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "mining_gold", "stat": "yield", "value": 0.5 }
+        ],
+        "drawbacks": []
+      },
+      "More Picks": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "stock_add", "scope": "pickaxe_stock", "item": "Pickaxe", "value": 70 },
+          { "type": "stock_add", "scope": "pickaxe_stock", "item": "Stone Pickaxe", "value": 20 },
+          { "type": "stock_add", "scope": "pickaxe_stock", "item": "Iron Pickaxe", "value": 7 },
+          { "type": "stock_add", "scope": "pickaxe_stock", "item": "Gold Pickaxe", "value": 2 }
+        ],
+        "drawbacks": []
+      },
+      "Fireside Alchemist": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "mining_crimstone", "stat": "recoveryTime", "value": 0.85 }
+        ],
+        "drawbacks": []
+      },
+      "Midas Rush": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "mining_gold", "stat": "recoveryTime", "value": 0.8 }
+        ],
+        "drawbacks": []
+      }
+    }
+  },
+
+  "Cooking": {
+    "Tier 1": {
+      "Fast Feasts": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "cooking_fire_pit", "stat": "cookTime", "value": 0.9 },
+          { "type": "multiply", "scope": "cooking_kitchen", "stat": "cookTime", "value": 0.9 }
+        ],
+        "drawbacks": [],
+        "note": "modifiers.json: cookTimeMultiplier 0.9 for Fire Pit + Kitchen (was incorrectly set to 0.6 there)"
+      },
+      "Nom Nom": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "delivery_food", "stat": "coinRevenue", "value": 1.1 }
+        ],
+        "drawbacks": []
+      },
+      "Munching Mastery": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "food_xp", "stat": "xpMultiplier", "value": 1.05 }
+        ],
+        "drawbacks": []
+      },
+      "Swift Sizzle": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "cooking_fire_pit", "stat": "cookTime", "value": 0.6, "condition": "oilActive" }
+        ],
+        "drawbacks": [],
+        "note": "Only applies when oil is being used in the Fire Pit"
+      }
+    },
+    "Tier 2": {
+      "Frosted Cakes": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "cooking_bakery", "stat": "cookTime", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "Juicy Boost": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "food_xp_drinks", "stat": "xpMultiplier", "value": 1.1 }
+        ],
+        "drawbacks": []
+      },
+      "Turbo Fry": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "cooking_kitchen", "stat": "cookTime", "value": 0.5, "condition": "oilActive" }
+        ],
+        "drawbacks": [],
+        "note": "Only applies when oil is being used in the Kitchen"
+      },
+      "Drive-Through Deli": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "food_xp_deli", "stat": "xpMultiplier", "value": 1.15 }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 3": {
+      "Instant Gratification": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "unlock", "scope": "cooking_all", "feature": "instantReadyAll" }
+        ],
+        "drawbacks": []
+      },
+      "Double Nom": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "cooking_all", "stat": "foodOutput", "value": 2 }
+        ],
+        "drawbacks": [
+          { "type": "multiply", "scope": "cooking_all", "stat": "ingredientsRequired", "value": 2 }
+        ]
+      },
+      "Fiery Jackpot": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "chance", "scope": "cooking_fire_pit", "prob": 0.2, "bonus_qty": 1, "stat": "foodOutput" }
+        ],
+        "drawbacks": []
+      },
+      "Fry Frenzy": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "cooking_deli", "stat": "cookTime", "value": 0.4, "condition": "oilActive" }
+        ],
+        "drawbacks": []
+      }
+    }
+  },
+
+  "Compost": {
+    "Tier 1": {
+      "Efficient Bin": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "compost_sprout_mix", "stat": "output", "value": 5 }
+        ],
+        "drawbacks": []
+      },
+      "Turbo Charged": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "compost_fruitful_blend", "stat": "output", "value": 5 }
+        ],
+        "drawbacks": []
+      },
+      "Wormy Treat": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "compost_worm", "stat": "output", "value": 1 }
+        ],
+        "drawbacks": []
+      },
+      "Feathery Business": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "replace", "scope": "compost_boost", "from": "Egg", "to": "Feather" }
+        ],
+        "drawbacks": [
+          { "type": "multiply", "scope": "compost_boost", "stat": "featherCost", "value": 2, "note": "2x feathers needed to boost composters" }
+        ]
+      },
+      "Sprout Surge": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "unlock", "scope": "compost_sprout_mix", "feature": "applyToAllPlots" }
+        ],
+        "drawbacks": []
+      },
+      "Blend-tastic": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "unlock", "scope": "compost_fruitful_blend", "feature": "applyToAllPlots" }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 2": {
+      "Premium Worms": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "compost_rapid_root", "stat": "output", "value": 10 }
+        ],
+        "drawbacks": []
+      },
+      "Fruitful Bounty": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "compost_fruitful_blend", "stat": "effect", "value": 2 }
+        ],
+        "drawbacks": []
+      },
+      "Swift Decomposer": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "compost_time", "stat": "cycleTime", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "Composting Bonanza": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "compost_time", "stat": "boostSpeedup_hours", "value": 1 }
+        ],
+        "drawbacks": [
+          { "type": "multiply", "scope": "compost_boost", "stat": "resourceCost", "value": 2 }
+        ]
+      },
+      "Root Rocket": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "unlock", "scope": "compost_rapid_root", "feature": "applyToAllPlots" }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 3": {
+      "Composting Overhaul": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "compost_worm", "stat": "output", "value": 2 }
+        ],
+        "drawbacks": []
+      },
+      "Composting Revamp": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "compost_all_fertilisers", "stat": "output", "value": 5 }
+        ],
+        "drawbacks": [
+          { "type": "add", "scope": "compost_worm", "stat": "output", "value": -2 }
+        ]
+      }
+    }
+  },
+
+  "Aging": {
+    "Tier 1": {
+      "Cheap Rakes": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "salt_rake_cost", "stat": "coinCost", "value": 0.8 }
+        ],
+        "drawbacks": []
+      },
+      "Speedy Aging": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "fish_aging", "stat": "agingTime", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "Salty Seas": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "salt_farm", "stat": "chargeReplenishTime", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "Wide Rakes": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "salt_farm", "stat": "saltPerHarvest", "value": 2 }
+        ],
+        "drawbacks": []
+      },
+      "Bacalhau": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "compost_bait", "stat": "yieldFromFermentationRack", "value": 1 }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 2": {
+      "Fish Smoking": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "fish_aging", "stat": "primeAgedChance", "value": 2 }
+        ],
+        "drawbacks": []
+      },
+      "Refiner": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "chance", "scope": "salt_farm", "stat": "refinedSaltOutput", "prob": 0.15, "bonus_qty": 1 }
+        ],
+        "drawbacks": []
+      },
+      "Sea Blessed": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "chance", "scope": "salt_farm", "prob": 0.05, "feature": "restore1ChargeTo4Nodes", "note": "5% chance on harvest" }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 3": {
+      "Ager": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "fish_aging", "stat": "output", "value": 2 }
+        ],
+        "drawbacks": [
+          { "type": "multiply", "scope": "fish_aging", "stat": "ingredientCost", "value": 2 }
+        ]
+      },
+      "Salt Surge": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "unlock", "scope": "salt_farm", "feature": "rechargeAllNodesToMax" }
+        ],
+        "drawbacks": []
+      }
+    }
+  },
+
+  "Fruit Patch": {
+    "Tier 1": {
+      "Fruitful Fumble": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "fruit_patch_all", "stat": "yield", "value": 0.1 }
+        ],
+        "drawbacks": []
+      },
+      "Fruity Heaven": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "fruit_seed_cost", "stat": "coinCost", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "Fruity Profit": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "delivery_tango", "stat": "coinReward", "value": 1.5 }
+        ],
+        "drawbacks": []
+      },
+      "Loyal Macaw": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "macaw_effect", "stat": "effectMultiplier", "value": 2 }
+        ],
+        "drawbacks": []
+      },
+      "No Axe No Worries": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "unlock", "scope": "fruit_patch_all", "feature": "chopWithoutAxe" }
+        ],
+        "drawbacks": [
+          { "type": "add", "scope": "fruit_patch_all", "stat": "woodFromBranches", "value": -1 }
+        ]
+      }
+    },
+    "Tier 2": {
+      "Catchup": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "fruit_patch_all", "stat": "growTime", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "Fruity Woody": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "fruit_patch_all", "stat": "woodFromBranches", "value": 1 }
+        ],
+        "drawbacks": []
+      },
+      "Pear Turbocharge": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "pear_effect", "stat": "effectMultiplier", "value": 2 }
+        ],
+        "drawbacks": []
+      },
+      "Crime Fruit": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "stock_add", "scope": "fruit_tomato_lemon", "item": "Tomato Seed", "value": 10 },
+          { "type": "stock_add", "scope": "fruit_tomato_lemon", "item": "Lemon Seed", "value": 10 }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 3": {
+      "Generous Orchard": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "chance", "scope": "fruit_patch_all", "prob": 0.2, "bonus_qty": 1, "stat": "yield" }
+        ],
+        "drawbacks": []
+      },
+      "Long Pickings": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "fruit_apple_banana", "stat": "growTime", "value": 0.75 }
+        ],
+        "drawbacks": [
+          { "type": "multiply", "scope": "fruit_patch_all", "stat": "growTime", "value": 1.1, "excludes": ["Apple", "Banana"] }
+        ]
+      },
+      "Short Pickings": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "fruit_blueberry_orange", "stat": "growTime", "value": 0.75 }
+        ],
+        "drawbacks": [
+          { "type": "multiply", "scope": "fruit_patch_all", "stat": "growTime", "value": 1.1, "excludes": ["Blueberry", "Orange"] }
+        ]
+      },
+      "Zesty Vibes": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "fruit_tomato_lemon", "stat": "yield", "value": 1 }
+        ],
+        "drawbacks": [
+          { "type": "add", "scope": "fruit_patch_all", "stat": "yield", "value": -0.25, "excludes": ["Tomato", "Lemon"] }
+        ]
+      }
+    }
+  },
+
+  "Animals": {
+    "Tier 1": {
+      "Efficient Feeding": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "animal_all", "stat": "feedCost", "value": 0.95 }
+        ],
+        "drawbacks": []
+      },
+      "Restless Animals": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "animal_sleep_time", "stat": "sleepDuration", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "Fine Fibers": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "animal_feather", "stat": "yield", "value": 0.1 },
+          { "type": "add", "scope": "animal_leather", "stat": "yield", "value": 0.1 },
+          { "type": "add", "scope": "animal_merino_wool", "stat": "yield", "value": 0.1 }
+        ],
+        "drawbacks": []
+      },
+      "Bountiful Bounties": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "delivery_animal_bounty", "stat": "coinReward", "value": 1.5 }
+        ],
+        "drawbacks": []
+      },
+      "Double Bale": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "bale_effect", "stat": "effectMultiplier", "value": 2 }
+        ],
+        "drawbacks": []
+      },
+      "Bale Economy": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "unlock", "scope": "bale_scope", "feature": "affectsMilkAndWool", "note": "Bale now also boosts milk and wool production" }
+        ],
+        "drawbacks": []
+      },
+      "Featherweight": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "animal_feather", "stat": "yield", "value": 0.35 }
+        ],
+        "drawbacks": [
+          { "type": "add", "scope": "animal_leather", "stat": "yield", "value": -0.1 },
+          { "type": "add", "scope": "animal_merino_wool", "stat": "yield", "value": -0.1 }
+        ]
+      }
+    },
+    "Tier 2": {
+      "Abundant Harvest": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "animal_egg", "stat": "yield", "value": 0.2 },
+          { "type": "add", "scope": "animal_wool", "stat": "yield", "value": 0.2 },
+          { "type": "add", "scope": "animal_milk", "stat": "yield", "value": 0.2 }
+        ],
+        "drawbacks": []
+      },
+      "Heartwarming Instruments": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "animal_xp_affection", "stat": "xpMultiplier", "value": 1.5 }
+        ],
+        "drawbacks": []
+      },
+      "Kale Mix": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "replace", "scope": "mixed_grain_recipe", "note": "Mixed Grain requires 3 Kale instead of default ingredients" }
+        ],
+        "drawbacks": []
+      },
+      "Alternate Medicine": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "barn_delight_recipe", "stat": "lemonCost", "value": -1 },
+          { "type": "add", "scope": "barn_delight_recipe", "stat": "honeyCost", "value": -1 }
+        ],
+        "drawbacks": []
+      },
+      "Healthy Livestock": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "sickness_chance", "stat": "probability", "value": 0.5 }
+        ],
+        "drawbacks": []
+      },
+      "Merino Whisperer": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "animal_merino_wool", "stat": "yield", "value": 0.35 }
+        ],
+        "drawbacks": [
+          { "type": "add", "scope": "animal_leather", "stat": "yield", "value": -0.1 },
+          { "type": "add", "scope": "animal_feather", "stat": "yield", "value": -0.1 }
+        ]
+      }
+    },
+    "Tier 3": {
+      "Clucky Grazing": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "animal_chicken", "stat": "feedCost", "value": 0.75 }
+        ],
+        "drawbacks": [
+          { "type": "multiply", "scope": "animal_all", "stat": "feedCost", "value": 1.5, "excludes": ["Chicken"] }
+        ]
+      },
+      "Sheepwise Diet": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "animal_sheep", "stat": "feedCost", "value": 0.75 }
+        ],
+        "drawbacks": [
+          { "type": "multiply", "scope": "animal_all", "stat": "feedCost", "value": 1.5, "excludes": ["Sheep"] }
+        ]
+      },
+      "Cow-Smart Nutrition": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "animal_cow", "stat": "feedCost", "value": 0.75 }
+        ],
+        "drawbacks": [
+          { "type": "multiply", "scope": "animal_all", "stat": "feedCost", "value": 1.5 }
+        ]
+      },
+      "Chonky Feed": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "animal_xp_feed", "stat": "xpMultiplier", "value": 2 }
+        ],
+        "drawbacks": [
+          { "type": "multiply", "scope": "animal_all", "stat": "feedCost", "value": 1.5 }
+        ]
+      },
+      "Leathercraft Mastery": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "animal_leather", "stat": "yield", "value": 0.35 }
+        ],
+        "drawbacks": [
+          { "type": "add", "scope": "animal_feather", "stat": "yield", "value": -0.1 },
+          { "type": "add", "scope": "animal_merino_wool", "stat": "yield", "value": -0.1 }
+        ]
+      },
+      "Barnyard Rouse": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "unlock", "scope": "animal_all", "feature": "instantWakeAll" }
+        ],
+        "drawbacks": []
+      }
+    }
+  },
+
+  "Bees & Flowers": {
+    "Tier 1": {
+      "Sweet Bonus": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "beehive_honey", "stat": "honeyPerHive", "value": 0.1 }
+        ],
+        "drawbacks": []
+      },
+      "Hyper Bees": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "beehive_speed", "stat": "productionSpeedMultiplier", "value": 0.1 }
+        ],
+        "drawbacks": []
+      },
+      "Blooming Boost": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "flower_all", "stat": "growTime", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "Flower Sale": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "flower_seed_cost", "stat": "coinCost", "value": 0.8 }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 2": {
+      "Buzzworthy Treats": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "food_xp_honey", "stat": "xpMultiplier", "value": 1.1 }
+        ],
+        "drawbacks": []
+      },
+      "Blossom Bonding": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "npc_relationship", "stat": "pointsPerFlowerGift", "value": 2 }
+        ],
+        "drawbacks": []
+      },
+      "Pollen Power Up": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "crop_all", "stat": "yieldAfterPollination", "value": 0.1, "note": "Total +0.3 with base pollination bonus" }
+        ],
+        "drawbacks": []
+      },
+      "Petalled Perk": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "chance", "scope": "flower_all", "prob": 0.1, "bonus_qty": 1, "stat": "yield" }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 3": {
+      "Bee Collective": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "bee_swarm_chance", "stat": "probability", "value": 1.2 }
+        ],
+        "drawbacks": []
+      },
+      "Flower Power": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "flower_all", "stat": "growTime", "value": 0.8 }
+        ],
+        "drawbacks": []
+      },
+      "Flowery Abode": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "add", "scope": "beehive_speed", "stat": "productionSpeedMultiplier", "value": 0.5 }
+        ],
+        "drawbacks": [
+          { "type": "multiply", "scope": "flower_all", "stat": "growTime", "value": 1.5 }
+        ]
+      },
+      "Petal Blessed": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "unlock", "scope": "flower_all", "feature": "instantHarvestAll" }
+        ],
+        "drawbacks": []
+      }
+    }
+  },
+
+  "Greenhouse": {
+    "Tier 1": {
+      "Glass Room": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "greenhouse_all", "stat": "yield", "value": 0.1 }
+        ],
+        "drawbacks": []
+      },
+      "Seedy Business": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "greenhouse_seed_cost", "stat": "coinCost", "value": 0.85 }
+        ],
+        "drawbacks": []
+      },
+      "Rice and Shine": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "greenhouse_all", "stat": "growTime", "value": 0.95 }
+        ],
+        "drawbacks": []
+      },
+      "Victoria's Secretary": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "multiply", "scope": "delivery_victoria", "stat": "coinReward", "value": 1.5 }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 2": {
+      "Olive Express": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "greenhouse_olive", "stat": "growTime", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "Rice Rocket": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "greenhouse_rice", "stat": "growTime", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "Vine Velocity": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "greenhouse_grape", "stat": "growTime", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "Seeded Bounty": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "greenhouse_all", "stat": "yield", "value": 0.5 }
+        ],
+        "drawbacks": [
+          { "type": "add", "scope": "greenhouse_seed_qty", "stat": "seedsToPlant", "value": 1 }
+        ]
+      }
+    },
+    "Tier 3": {
+      "Greenhouse Guru": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "unlock", "scope": "greenhouse_all", "feature": "instantHarvestAll" }
+        ],
+        "drawbacks": []
+      },
+      "Greenhouse Gamble": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "chance", "scope": "greenhouse_all", "prob": 0.3, "bonus_qty": 1, "stat": "yield" }
+        ],
+        "drawbacks": []
+      },
+      "Slick Saver": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "greenhouse_oil", "stat": "oilPerPlant", "value": -1 }
+        ],
+        "drawbacks": []
+      },
+      "Greasy Plants": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "greenhouse_all", "stat": "yield", "value": 1 }
+        ],
+        "drawbacks": [
+          { "type": "multiply", "scope": "greenhouse_oil", "stat": "oilConsumption", "value": 2 }
+        ]
+      }
+    }
+  },
+
+  "Machinery": {
+    "Tier 1": {
+      "Crop Extension Module I": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "unlock", "scope": "crop_machine_seeds", "seeds": ["Rhubarb Seed", "Zucchini Seed"] }
+        ],
+        "drawbacks": []
+      },
+      "Crop Processor Unit": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "crop_machine_time", "stat": "growTime", "value": 0.95 }
+        ],
+        "drawbacks": [
+          { "type": "multiply", "scope": "crop_machine_oil", "stat": "oilConsumption", "value": 1.1 }
+        ]
+      },
+      "Oil Gadget": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "crop_machine_oil", "stat": "oilConsumption", "value": 0.9 }
+        ],
+        "drawbacks": []
+      },
+      "Oil Extraction": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "oil_reserve", "stat": "oilPerCollection", "value": 1 }
+        ],
+        "drawbacks": []
+      },
+      "Leak-Proof Tank": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "crop_machine_oil", "stat": "tankCapacity", "value": 3 }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 2": {
+      "Crop Extension Module II": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "unlock", "scope": "crop_machine_seeds", "seeds": ["Carrot Seed", "Cabbage Seed"] }
+        ],
+        "drawbacks": []
+      },
+      "Crop Extension Module III": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "unlock", "scope": "crop_machine_seeds", "seeds": ["Yam Seed", "Broccoli Seed"] }
+        ],
+        "drawbacks": []
+      },
+      "Rapid Rig": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "crop_machine_time", "stat": "growTime", "value": 0.8 }
+        ],
+        "drawbacks": [
+          { "type": "multiply", "scope": "crop_machine_oil", "stat": "oilConsumption", "value": 1.4 }
+        ]
+      },
+      "Oil Be Back": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "oil_refill_time", "stat": "refillTime", "value": 0.8 }
+        ],
+        "drawbacks": []
+      },
+      "Oil Rig": {
+        "selected_land22": false,
+        "effects": [
+          { "type": "replace", "scope": "oil_drill_recipe", "from": "Leather", "to": "Wool", "qty": 20 }
+        ],
+        "drawbacks": []
+      }
+    },
+    "Tier 3": {
+      "Field Expansion Module": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "crop_machine_queue", "stat": "queueSlots", "value": 5 }
+        ],
+        "drawbacks": []
+      },
+      "Field Extension Module": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "add", "scope": "crop_machine_plots", "stat": "plotCount", "value": 5 }
+        ],
+        "drawbacks": []
+      },
+      "Efficiency Extension Module": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "multiply", "scope": "crop_machine_oil", "stat": "oilConsumption", "value": 0.7 }
+        ],
+        "drawbacks": []
+      },
+      "Grease Lightning": {
+        "selected_land22": true,
+        "effects": [
+          { "type": "unlock", "scope": "oil_reserve", "feature": "instantRefillAll" }
+        ],
+        "drawbacks": []
+      }
+    }
+  }
+}

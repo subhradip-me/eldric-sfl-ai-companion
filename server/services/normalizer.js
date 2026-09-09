@@ -12,6 +12,15 @@ export function levelFromXp(xp) {
 
 const num = (v) => (v == null ? 0 : Number(v)); // inventory qtys are strings
 
+function normalizeReward(reward) {
+  if (!reward || typeof reward !== "object") return reward;
+  const res = { ...reward };
+  if (res.sfl != null && res.flower == null) {
+    res.flower = res.sfl;
+  }
+  return res;
+}
+
 export function toCanonical(raw) {
   const farm = raw.farm ?? raw; // API may wrap in {farm}
   const bumpkin = farm.bumpkin ?? {};
@@ -30,6 +39,7 @@ export function toCanonical(raw) {
     currencies: {
       flower: String(farm.balance ?? "0"), // keep 18-dp string; never float for money
       flowerApprox: Number(farm.balance ?? 0),
+      sfl: Number(farm.balance ?? 0),
       coins: num(farm.coins),
     },
     inventory,
@@ -38,8 +48,10 @@ export function toCanonical(raw) {
     buffs: { vip: (farm.vip?.expiresAt ?? 0) > Date.now(), active: Object.keys(farm.buffs ?? {}) },
     buildings,
     farmActivity: farm.farmActivity ?? {},
-    deliveries: farm.delivery?.orders ?? [],
-    chores: farm.choreBoard?.chores ?? {},
+    deliveries: (farm.delivery?.orders ?? []).map((d) => ({ ...d, reward: normalizeReward(d.reward) })),
+    chores: Object.fromEntries(
+      Object.entries(farm.choreBoard?.chores ?? {}).map(([npc, ch]) => [npc, { ...ch, reward: normalizeReward(ch.reward) }])
+    ),
     bounties: { requests: farm.bounties?.requests ?? [], completed: farm.bounties?.completed ?? [] },
     fetchedAt: Date.now(),
   };

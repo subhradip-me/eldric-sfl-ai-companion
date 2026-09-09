@@ -92,7 +92,9 @@ export function AuthProvider({ children }) {
     const data = await res.json();
 
     if (data.success && user) {
-      setUser({ ...user, farm_id: farmId });
+      // Use the server-returned farmId (it may have been normalised, e.g. trimmed)
+      const savedId = data.farmId ?? farmId;
+      setUser({ ...user, farmId: savedId, farm_id: savedId });
       return { success: true };
     }
 

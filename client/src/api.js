@@ -12,6 +12,8 @@ export const api = {
   market: () => get("market"),
   planner: () => get("planner"),
   activity: () => get("activity"),
+  recipes: () => get("recipes"),
+
   chat: (message, sessionId) =>
     fetch("/api/chat", {
       method: "POST",
@@ -21,6 +23,6 @@ export const api = {
       },
       body: JSON.stringify({ message, sessionId }),
     }).then((r) => r.json()),
-  sessions: () => get("sessions"),
-  session: (id) => get(`sessions/${id}`),
+  sessions: () => get("sessions").then((r) => (Array.isArray(r) ? r : (r?.sessions ?? []))),
+  session: (id) => get(`sessions/${id}`).then((r) => (Array.isArray(r) ? r : (r?.messages ?? []))),
 };

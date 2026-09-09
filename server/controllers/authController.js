@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User.js';
+import { getFarm } from '../services/sunflower.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 const JWT_EXPIRES_IN = '7d';
@@ -172,7 +173,7 @@ export const authController = {
   },
 
   /**
-   * Update user's farm ID
+   * Update user's farm ID — validates that the farm actually exists first
    */
   async updateFarmId(req, res) {
     try {
@@ -185,11 +186,31 @@ export const authController = {
         });
       }
 
-      await User.updateFarmId(req.userId, farmId);
+      // Must be a valid integer
+      const id = Number(farmId);
+      if (!Number.isInteger(id) || id <= 0) {
+        return res.status(400).json({
+          success: false,
+          error: 'Farm ID must be a positive integer',
+        });
+      }
+
+      // Verify the farm actually exists on the Sunflower Land API
+      try {
+        await getFarm(String(id));
+      } catch (err) {
+        return res.status(400).json({
+          success: false,
+          error: `Farm #${id} not found on Sunflower Land. Double-check your Farm ID.`,
+        });
+      }
+
+      await User.updateFarmId(req.userId, String(id));
 
       return res.json({
         success: true,
         message: 'Farm ID updated successfully',
+        farmId: String(id),
       });
     } catch (error) {
       console.error('Update farm ID error:', error);

@@ -1,11 +1,11 @@
-﻿{
+{
   "source": "sfl.world/info/expansion",
   "game": "Sunflower Land",
   "pricing_notes": {
-    "coins": "Coins price is based on rate 1:320",
+    "coins": "Coins price is based on rate 1:320 (320 coins = 1 FLOWER)",
     "oil": "Oil price is based on the cost of resources for crafting an Oil Drill (25 wood, 10 iron) on the P2P market + 100 coins, divided by average oil production",
     "gem": "Gem price is based on price for 650 GEMs",
-    "p2p_cost_unit": "USD-equivalent cost computed from the above market rates"
+    "p2p_cost_unit": "FLOWER cost computed from P2P market rates"
   },
   "islands": [
     {

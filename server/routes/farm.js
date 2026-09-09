@@ -10,5 +10,7 @@ router.get('/market', farmController.getMarket); // Market data doesn't need aut
 router.get('/planner', authenticateToken, farmController.getPlanner);
 router.get('/activity', authenticateToken, farmController.getActivity);
 router.get('/xp-progression', authenticateToken, farmController.getXpProgression);
+router.get('/recipes', authenticateToken, farmController.getRecipes);
+
 
 export default router;

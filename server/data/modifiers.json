@@ -1,8 +1,22 @@
 {
-  "Double Nom": { "type": "skill", "effect": "outputMultiplier", "value": 2, "appliesTo": "food" },
-  "Swift Sizzle": { "type": "skill", "effect": "cookTimeMultiplier", "value": 0.6, "appliesTo": ["Fire Pit"] },
-  "Fast Feasts": { "type": "skill", "effect": "cookTimeMultiplier", "value": 0.6, "appliesTo": ["Kitchen", "Bakery"] },
-  "Munching Mastery": { "type": "skill", "effect": "xpMultiplier", "value": 1.05, "appliesTo": "food" },
-  "Drive-Through Deli": { "type": "skill", "effect": "xpMultiplier", "value": 1.15, "appliesTo": ["Deli"] },
-  "_note": "Effect values are BEST-GUESS placeholders except Double Nom. Verify each in-game; EFFECTIVE vs OBSERVED mismatches (design §14) will reveal wrong ones."
+  "_meta": {
+    "source": "skills.json + sfl.world/land/22/skills",
+    "purpose": "Cooking-specific modifiers consumed by xpEngine.js and planner.js. Each key is the exact skill name as it appears in farm.skills from the live farm state. All values verified against skills.json. For the complete skill catalogue covering all skill groups (Crops, Trees, Mining, Fishing, Animals, etc.) see skills.json.",
+    "note": "Swift Sizzle and Turbo Fry only apply when oil is active in the building. The engine currently applies them unconditionally — add oilActive gate when oil tracking is implemented."
+  },
+
+  "Fast Feasts":        { "type": "skill", "effect": "cookTimeMultiplier", "value": 0.9,  "appliesTo": ["Fire Pit", "Kitchen"] },
+  "Swift Sizzle":       { "type": "skill", "effect": "cookTimeMultiplier", "value": 0.6,  "appliesTo": ["Fire Pit"],            "condition": "oilActive" },
+  "Frosted Cakes":      { "type": "skill", "effect": "cookTimeMultiplier", "value": 0.9,  "appliesTo": ["Bakery"] },
+  "Turbo Fry":          { "type": "skill", "effect": "cookTimeMultiplier", "value": 0.5,  "appliesTo": ["Kitchen"],             "condition": "oilActive" },
+  "Fry Frenzy":         { "type": "skill", "effect": "cookTimeMultiplier", "value": 0.4,  "appliesTo": ["Deli"],                "condition": "oilActive" },
+
+  "Munching Mastery":   { "type": "skill", "effect": "xpMultiplier",      "value": 1.05, "appliesTo": "food" },
+  "Drive-Through Deli": { "type": "skill", "effect": "xpMultiplier",      "value": 1.15, "appliesTo": ["Deli"] },
+  "Juicy Boost":        { "type": "skill", "effect": "xpMultiplier",      "value": 1.1,  "appliesTo": ["Smoothie Shack"] },
+  "Fishy Feast":        { "type": "skill", "effect": "xpMultiplier",      "value": 1.2,  "appliesTo": "food",                  "condition": "fishIngredient" },
+  "Buzzworthy Treats":  { "type": "skill", "effect": "xpMultiplier",      "value": 1.1,  "appliesTo": "food",                  "condition": "honeyIngredient" },
+
+  "Double Nom":         { "type": "skill", "effect": "outputMultiplier",  "value": 2,    "appliesTo": "food",                  "ingredientCostMultiplier": 2 },
+  "Fiery Jackpot":      { "type": "skill", "effect": "outputChance",      "prob": 0.2,   "bonus": 1, "appliesTo": ["Fire Pit"] }
 }
