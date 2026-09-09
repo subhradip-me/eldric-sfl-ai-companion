@@ -62,8 +62,8 @@ This playbook provides actionable diagnostic steps and remediation procedures fo
    ls -la server/data/.cache/
    ```
 3. **Adjust TTL Settings**:
-   If hitting limits frequently during active development, increase cache lifetime in `server/services/sunflower.js`:
-   ```javascript
+   If hitting limits frequently during active development, increase cache lifetime in `server/services/farm/SunflowerClient.ts`:
+   ```typescript
    const TTL = { farm: 10 * 60_000, prices: 15 * 60_000 };
    ```
 
@@ -95,35 +95,49 @@ This playbook provides actionable diagnostic steps and remediation procedures fo
 
 ---
 
-## 4. Local Vector Embedder (@xenova/transformers) Delays
+## 4. Groq Tool-Use Malformed JSON & Failure Recovery
 
 ### Symptoms
-- The first AI chat query to Dr. Bumpkin takes 10–15 seconds to respond.
-- Subsequent queries respond in under 1 second.
+- Server logs output:
+  `[groq] tool_use_failed — model emitted malformed tool-call JSON, will retry`
+- LLM agent falls back to answering without calling remaining tools.
 
 ### Root Causes
-- On the very first run, `@xenova/transformers` downloads the ONNX weights for `Xenova/all-MiniLM-L6-v2` (~25MB) and caches them locally.
+- Upstream open-source LLM occasionally outputs invalid JSON escape sequences in tool arguments.
 
 ### Diagnostic & Remediation Steps
-1. **Verify Internet Access**: Ensure your server environment can connect to Hugging Face CDN.
-2. **Verify Local Cache**: The model files are cached in Node's cache directory or user profile. Do not purge this cache.
-3. **Pre-warm the Embedder**: During server startup or smoke tests, invoke a dummy embedding calculation so user requests never experience download latency.
+1. **Automatic Agent Recovery**: `Orchestrator.ts` tracks consecutive tool errors. If one occurs, it feeds a recovery prompt back to the model:
+   ```typescript
+   if (j._toolError) {
+     messages.push({
+       role: 'user',
+       content: 'Your last tool call had invalid JSON arguments. Try again with valid JSON, or answer directly.',
+     });
+   }
+   ```
+2. **Test Model Connectivity**: Verify your Groq API key and rate limits:
+   ```bash
+   curl -X POST https://api.groq.com/openai/v1/chat/completions \
+     -H "Authorization: Bearer $GROQ_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": "ping"}]}'
+   ```
 
 ---
 
-## 5. Client HMR & Vite Dev Server Glitches
+## 5. TypeScript Compilation & Test Execution
 
-### Symptoms
-- Vite displays stale CSS rules or fails to reflect recent changes in `App.jsx`.
-- Console shows `[vite] connecting...` without completing WebSocket handshake.
+### Verify Type Correctness
+Run the TypeScript compiler without emitting JS files to check for any type mismatches:
+```bash
+npx tsc --noEmit
+```
 
-### Remediation
-1. Stop the Vite dev server (Ctrl+C in terminal).
-2. Clear the Vite pre-bundling cache:
-   ```bash
-   rm -rf client/node_modules/.vite
-   ```
-3. Restart the client:
-   ```bash
-   cd client && npm run dev
-   ```
+### Run Server Unit Tests
+Execute the unit test suite via `tsx`:
+```bash
+npm test
+# or directly:
+npx tsx --test server/tests/xpEngine.test.js
+```
+All 8 unit tests validating skill boosts, batch yield multipliers, and intermediate craft expansions should pass with 0 failures.

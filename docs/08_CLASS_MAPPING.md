@@ -76,10 +76,10 @@ Time-series log of farm state observations used for activity and progression ana
 | `user_id` | `INTEGER` | `REFERENCES users(id) ON DELETE CASCADE` | Associated workspace owner |
 | `created_at` | `BIGINT` | `NOT NULL` | Epoch milliseconds when recorded |
 | `xp` | `DOUBLE PRECISION` | `NULLABLE` | Bumpkin XP at time of snapshot |
-| `flower` | `TEXT` | `NULLABLE` | FLOWER currency treasury balance |
+| `flower` | `TEXT` | `NULLABLE` | FLOWER currency treasury balance (18-dp string) |
 | `coins` | `DOUBLE PRECISION` | `NULLABLE` | Liquid Gold Coins balance |
-| `state_hash` | `TEXT` | `NULLABLE` | MD5 hash of inventory and stats to detect changes |
-| `data_json` | `JSONB` | `NOT NULL` | Complete canonical farm state JSON document |
+| `state_hash` | `TEXT` | `NULLABLE` | SHA-1 hash of `[xp, farmActivity, inventory]` |
+| `data_json` | `JSONB` | `NOT NULL` | Complete `CanonicalFarmState` JSON document |
 
 **Indexes**: `idx_snapshots_user_created (user_id, created_at DESC)`, `idx_snapshots_created`.
 
@@ -90,7 +90,7 @@ Stores assistant conversation logs and vector embeddings for semantic search.
 |---|---|---|---|
 | `id` | `SERIAL` | `PRIMARY KEY` | Unique message identifier |
 | `session_id` | `TEXT` | `NOT NULL` | UUID grouping conversational threads |
-| `role` | `TEXT` | `NOT NULL` | Message author: `'user'`, `'assistant'`, or `'history'` |
+| `role` | `TEXT` | `NOT NULL` | Message author: `'user'`, `'assistant'`, or `'system'` |
 | `content` | `TEXT` | `NOT NULL` | Message body (supports GitHub Flavored Markdown) |
 | `embedding` | `vector(384)` | `NULLABLE` | Normalized text vector embedding (`all-MiniLM-L6-v2`) |
 | `user_id` | `INTEGER` | `REFERENCES users(id) ON DELETE CASCADE` | Associated workspace owner |
@@ -100,55 +100,163 @@ Stores assistant conversation logs and vector embeddings for semantic search.
 
 ---
 
-## 3. In-Memory Domain Contracts (JSDoc / TypeScript)
+## 3. TypeScript Domain Interfaces (`server/types/index.ts`)
 
-### 3.1 Canonical Farm State (`normalizer.js`)
+### 3.1 Canonical Farm State & Bumpkin State
 ```typescript
-interface CanonicalFarmState {
-  bumpkin: {
-    level: number;
-    xp: number;
-    equipped: Record<string, string>;
-  };
-  target: {
-    level: number;       // Typically 100
-    xp: number;          // Target XP anchor (5,000,000)
-    remaining: number;   // max(target.xp - bumpkin.xp, 0)
-  };
-  currencies: {
-    flowerApprox: number;
-    coins: number;
-  };
-  inventory: Record<string, number>; // item name -> owned quantity
-  buildings: Record<string, BuildingState[]>;
-  skills: Record<string, number>;    // skill name -> rank/level
-  chores: Record<string, Chore>;
-  deliveries: DeliveryItem[];
-  stale: boolean;
-  cached: boolean;
+export interface BumpkinState {
+  level: number;
+  xp: number;
+}
+
+export interface CurrencyState {
+  flower: string;      // 18-decimal string — never convert to float for money
+  flowerApprox: number;
+  sfl: number;
+  coins: number;
+}
+
+export interface BuildingState {
+  busyUntil: number | null;
+  oil: number;
+}
+
+export interface CanonicalFarmState {
+  bumpkin: BumpkinState;
+  currencies: CurrencyState;
+  inventory: Record<string, number>;
+  skills: Record<string, number | boolean>;
+  wearables: Record<string, string>;
+  buffs: { vip: boolean; active: string[] };
+  buildings: Record<string, BuildingState>;
+  farmActivity: Record<string, number>;
+  deliveries: DeliveryOrder[];
+  chores: Record<string, unknown>;
+  bounties: { requests: unknown[]; completed: unknown[] };
+  fetchedAt: number;
+  stale?: boolean;
+  cached?: boolean;
 }
 ```
 
-### 3.2 Optimization Plan (`planner.js`)
+### 3.2 Recipe & Economic Modeling
 ```typescript
-interface CookingPlan {
-  buildings: BuildingPlanCandidate[];
-  affordable: boolean;
-  totalCost: number;       // In FLOWER
-  totalBatchXp: number;
-  farm: string[];          // Untradable crops to farm
-  buy: Record<string, number>; // Tradable items to purchase
-  notes: string[];
+export interface RecipeDefinition {
+  building: string;
+  baseXp: number;
+  baseCookMinutes: number;
+  baseOutput?: number;
+  instantGems?: number;
+  ingredients: Record<string, number>;
+  verified?: boolean;
+  xpIncludesSkills?: boolean;
 }
 
-interface BuildingPlanCandidate {
-  building: string;        // "Kitchen", "Bakery", etc.
-  recipe: string;          // "Goblin's Treat"
+export interface EffectiveRecipe {
+  recipe: string;
+  output: number;
+  xpPerFood: number;
+  minutes: number;
+  batchXp: number;
+  ingredientMultiplier: number;
+  effectiveIngredients: Record<string, number>;
+  applied: string[];
+  boostBreakdown: Array<{ skill: string; rank: number; label: string }>;
+}
+
+export interface CostResult {
+  flower: number;       // Out-of-pocket FLOWER to buy missing items
+  totalFlower: number;  // Full FLOWER market valuation
+  buy: Record<string, number>;
+  mustProduce: Record<string, number>;
+  unpriced: string[];
+}
+```
+
+### 3.3 Cooking Plan & Milestone Forecasting
+```typescript
+export interface CookingPlanCandidate {
+  recipe: string;
   verified: boolean;
   batchXp: number;
   flowerCost: number;
-  xpPerFlower: number;     // Efficiency ratio
-  xpPerHour: number;       // Speed ratio
+  flowerToBuy: number;
+  buy: Record<string, number>;
+  mustProduce: Record<string, number>;
   totalMinutes: number;
+  xpPerFlower: number;
+  xpPerHour: number;
+  modifiers: string[];
+  batchesToLevel100: number;
+  totalMilestoneFlower: number;
+}
+
+export interface CookingPlanBuilding extends CookingPlanCandidate {
+  building: string;
+}
+
+export interface CookingPlan {
+  target: { level: number; xp: number; remaining: number };
+  affordable: boolean;
+  budget: { flower: string; coins: number };
+  buildings: CookingPlanBuilding[];
+  farm: string[];
+  buy: string[];
+  estimate?: {
+    batches: number;
+    flower: number;
+    recipe: string;
+    building: string;
+    totalMilestoneFlower: number;
+  };
+  notes: string[];
 }
 ```
+
+---
+
+## 4. Class Method Signatures
+
+### 4.1 Controllers
+- `AuthController`:
+  - `register(req: Request, res: Response): Promise<Response>`
+  - `login(req: Request, res: Response): Promise<Response>`
+  - `me(req: Request, res: Response): Promise<Response>`
+  - `updateFarmId(req: Request, res: Response): Promise<Response>`
+  - `changePassword(req: Request, res: Response): Promise<Response>`
+- `FarmController`:
+  - `getFarmData(req: Request, res: Response): Promise<Response>`
+  - `getMarket(req: Request, res: Response): Promise<Response>`
+  - `getPlanner(req: Request, res: Response): Promise<Response>`
+  - `getActivity(req: Request, res: Response): Promise<Response>`
+  - `getXpProgression(req: Request, res: Response): Promise<Response>`
+  - `getRecipes(req: Request, res: Response): Promise<Response>`
+- `ChatController`:
+  - `sendMessage(req: Request, res: Response): Promise<Response>`
+  - `getSessions(req: Request, res: Response): Promise<Response>`
+  - `getSession(req: Request, res: Response): Promise<Response>`
+  - `deleteSession(req: Request, res: Response): Promise<Response>`
+
+### 4.2 Services
+- `SunflowerClient`:
+  - `getFarm(farmId?: string | null): Promise<RawFarmResponse & { stale: boolean; cached: boolean }>`
+  - `getPrices(): Promise<MarketResponse & { stale: boolean; cached: boolean }>`
+- `FarmNormalizer`:
+  - `toCanonical(raw: unknown): CanonicalFarmState`
+  - `levelFromXp(xp: number): number`
+- `XpEngine`:
+  - `effective(recipeName: string, recipe: RecipeDefinition, farm?: Partial<CanonicalFarmState>, customModifiers?: Record<string, unknown>): EffectiveRecipe`
+- `RecipeService`:
+  - `expand(recipeName: string, recipes: Record<string, any>, depth?: number, multiplier?: number): ExpandResult`
+  - `cost(baseResources: Record<string, number>, prices?: MarketPrice, items?: Record<string, any>, inventory?: Record<string, number>): CostResult`
+  - `listRecipes(allRecipes: Record<string, any>, activeBuildings: string[], inventory?: Record<string, number>): Array<RecipeListItem>`
+- `PlannerService`:
+  - `plan(farm: CanonicalFarmState, prices: MarketPrice, recipes: Record<string, unknown>, items: Record<string, unknown>, modifiers: Record<string, unknown>): CookingPlan`
+- `SnapshotService`:
+  - `save(canonical: CanonicalFarmState, userId: number): Promise<{ saved: boolean; reason?: string }>`
+  - `latest(userId: number, n?: number): Promise<CanonicalFarmState[]>`
+- `ActivityService`:
+  - `diff(prev: CanonicalFarmState, curr: CanonicalFarmState): ActivityDiff`
+- `Orchestrator`:
+  - `runAgent(message: string, sessionId: string, userId: number, farmId: string, history?: any[] | null): Promise<{ answer: string; steps: Array<{ tool: string; ok: boolean; cached?: boolean }> }>`
+

@@ -2,9 +2,9 @@
 
 ## 1. Concurrency Architecture
 
-Sunflower AI is built on the **Node.js asynchronous non-blocking event-driven architecture**. 
+Sunflower AI is built on the **Node.js asynchronous, non-blocking, event-driven architecture**. 
 
-While the JavaScript execution thread is single-threaded, the application coordinates multiple concurrent background I/O operations, asynchronous connection pools, on-demand AI vector embeddings, and in-flight API deduplication mechanisms.
+While JavaScript execution is single-threaded, the application coordinates multiple concurrent background I/O operations, connection pooling, on-demand AI vector embeddings, multi-turn LLM tool execution, and in-flight API deduplication mechanisms.
 
 ```mermaid
 graph TB
@@ -40,54 +40,60 @@ graph TB
 
 ## 2. Asynchronous Patterns & Concurrency Control
 
-### 2.1 In-Flight Request Deduplication (`server/services/sunflower.js`)
-When multiple concurrent requests query the same Farm ID (e.g. rapid page navigation or simultaneous client requests), naive fetching would trigger redundant external network calls and lead to HTTP 429 (Too Many Requests).
+### 2.1 In-Flight Request Deduplication (`SunflowerClient.ts`)
+When multiple concurrent requests query the same Farm ID (e.g. initial page load or rapid user tab switching), naive fetching triggers redundant network calls leading to HTTP 429 (Too Many Requests).
 
 Sunflower AI implements an in-flight Promise map deduplication pattern:
 
-```javascript
-// server/services/sunflower.js
-const pending = new Map();
+```typescript
+// server/services/farm/SunflowerClient.ts - In-Flight Deduplication
+export class SunflowerClient {
+  private memCache: Record<string, CacheEntry> = {};
+  private pending = new Map<string, Promise<unknown>>();
 
-async function cached(key, ttl, fn) {
-  const hit = memCache[key];
-  if (hit && Date.now() - hit.at < ttl) {
-    return { ...hit.data, stale: false, cached: true };
+  private async cached<T>(key: string, ttl: number, fn: () => Promise<T>): Promise<T & { stale: boolean; cached: boolean }> {
+    const hit = this.memCache[key];
+    if (hit && Date.now() - hit.at < ttl) {
+      return { ...(hit.data as T), stale: false, cached: true };
+    }
+
+    // Deduplication: If a fetch is already in-flight for this key, return the active Promise
+    if (this.pending.has(key)) {
+      return this.pending.get(key) as Promise<T & { stale: boolean; cached: boolean }>;
+    }
+
+    const promise = fn()
+      .then((data) => {
+        this.memCache[key] = { at: Date.now(), data };
+        this.saveDiskCache();
+        return { ...data, stale: false, cached: false };
+      })
+      .catch((e) => {
+        if (hit) {
+          // Fallback to stale data on network or rate limit failure
+          console.warn(`⚠️ API error for "${key}", serving stale cache: ${(e as Error).message}`);
+          return { ...(hit.data as T), stale: true, error: String(e), cached: true };
+        }
+        throw e;
+      })
+      .finally(() => {
+        // Clean up pending map once settled
+        this.pending.delete(key);
+      });
+
+    this.pending.set(key, promise);
+    return promise as Promise<T & { stale: boolean; cached: boolean }>;
   }
-
-  // Deduplication: If a fetch is already in-flight for this key, reuse the existing Promise
-  if (pending.has(key)) {
-    return pending.get(key);
-  }
-
-  const promise = fn()
-    .then((data) => {
-      memCache[key] = { at: Date.now(), data };
-      saveDiskCache();
-      return { ...data, stale: false, cached: false };
-    })
-    .catch((e) => {
-      if (hit) {
-        // Fallback to stale data on network or rate limit failure
-        return { ...hit.data, stale: true, error: String(e) };
-      }
-      throw e;
-    })
-    .finally(() => {
-      // Remove from pending map once settled
-      pending.delete(key);
-    });
-
-  pending.set(key, promise);
-  return promise;
 }
 ```
 
+---
+
 ### 2.2 Client-Side Parallelism (`Promise.all`)
-Upon loading the workspace, the React frontend loads all core domains concurrently rather than sequentially:
+Upon workspace mount, the React frontend issues requests in parallel rather than sequentially, reducing loading latency to the speed of the slowest single response:
 
 ```javascript
-// client/src/App.jsx
+// client/src/App.jsx - Parallel Workspace Bootstrapping
 const load = async () => {
   setRefreshing(true);
   try {
@@ -100,30 +106,92 @@ const load = async () => {
     if (f) setFarm(f);
     if (p) setPlan(p);
     if (m) setMarket(m);
-    if (rec) setRecipesData(rec);
+    if (rec) setRecipes(rec);
   } finally {
     setRefreshing(false);
   }
 };
 ```
 
-This cuts initial dashboard loading time down to the latency of the single slowest endpoint.
+---
 
-### 2.3 Local AI Embedding Execution
-To power the pgvector semantic search without relying on expensive remote embedding APIs, Sunflower AI uses `@xenova/transformers`:
+### 2.3 Agentic Tool Execution Loop (`Orchestrator.ts`)
+The conversational AI engine coordinates an iterative multi-turn tool execution loop with Groq Cloud LLMs:
+
+```typescript
+// server/services/ai/Orchestrator.ts - Iterative Agent Loop
+export class Orchestrator {
+  async runAgent(message: string, sessionId: string, userId: number, farmId: string, history: any[] | null = null) {
+    const steps: Array<{ tool: string; ok: boolean; cached?: boolean }> = [];
+    const seen = new Map<string, any>(); // In-turn tool call dedup cache
+    const context: ToolContext = { sessionId, userId, farmId, userGoal: message };
+
+    const MAX_ROUNDS = 8;
+    for (let i = 0; i < MAX_ROUNDS; i++) {
+      const j = await this.groq(messages);
+      const m = j.choices?.[0]?.message ?? {};
+
+      // If the model finished without tool calls, we have our final answer
+      if (!m.tool_calls?.length) {
+        const answer = this.textOf(m);
+        if (answer) return { answer, steps };
+      }
+
+      // Execute requested tools
+      for (const tc of m.tool_calls) {
+        const name = tc.function?.name;
+        const parsedArgs = this.safeParseArgs(tc.function?.arguments);
+        const forceRefresh = !!parsedArgs?.force;
+        if (forceRefresh) delete parsedArgs.force;
+
+        const key = `${name}:${JSON.stringify(parsedArgs)}`;
+        let result: any;
+
+        // Dedup cache check: skip duplicate tool executions unless force: true is passed
+        if (!forceRefresh && seen.has(key)) {
+          result = { note: 'Duplicate call — using cached data.', ...seen.get(key) };
+          steps.push({ tool: name, ok: true, cached: true });
+        } else {
+          const tool = this.tools[name];
+          result = await tool.exec(parsedArgs, context);
+          steps.push({ tool: name, ok: !result?.error });
+          seen.set(key, result);
+        }
+
+        messages.push({ role: 'tool', tool_call_id: tc.id, content: JSON.stringify(result) });
+      }
+    }
+    // Fallback answer generation if round limit reached...
+  }
+}
+```
+
+---
+
+### 2.4 Local Vector Embedding Pipeline (`ChatStoreService.ts`)
+To power pgvector semantic retrieval without remote SaaS embedding fees or network latency, Sunflower AI embeds conversation turns locally via `@xenova/transformers`:
 - Model: `Xenova/all-MiniLM-L6-v2` (384 dimensions).
 - Uses ONNX runtime compiled for WebAssembly / Node.js.
-- Computations execute asynchronously via worker tasks, avoiding blocking the main HTTP event loop during prompt generation.
+- Executes asynchronously without blocking the Express event loop.
 
-```javascript
-// server/services/orchestrator.js
-let embedder = null;
-async function getEmbedder() {
-  if (!embedder) {
-    const { pipeline } = await import('@xenova/transformers');
-    embedder = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+```typescript
+// server/services/chat/ChatStoreService.ts - Local ONNX Embeddings
+export class ChatStoreService {
+  private embedder: any = null;
+
+  private async getEmbedder() {
+    if (!this.embedder) {
+      const { pipeline } = await import('@xenova/transformers');
+      this.embedder = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+    }
+    return this.embedder;
   }
-  return embedder;
+
+  async embed(text: string): Promise<number[]> {
+    const pipe = await this.getEmbedder();
+    const out = await pipe(text, { pooling: 'mean', normalize: true });
+    return Array.from(out.data);
+  }
 }
 ```
 
@@ -131,16 +199,16 @@ async function getEmbedder() {
 
 ## 3. Database Connection Resilience & Startup Retry
 
-In containerized deployments (Docker Compose), the PostgreSQL database container may take several seconds to initialize after the Express backend container starts.
+In containerized environments (Docker Compose), PostgreSQL may take several seconds to initialize after the Express backend starts.
 
-To prevent container crash loops, the server features an asynchronous retry loop with **exponential backoff**:
+The server implements an exponential backoff connection retry loop:
 
 ```mermaid
 flowchart TD
-    Start([Server Boot]) --> Attempt[Attempt 1: init()]
+    Start([Server Boot]) --> Attempt[Attempt 1: connectWithRetry()]
     Attempt -- Success --> Ready[✅ Database Ready: Listen on Port]
     Attempt -- Failure --> CheckMax{Attempt == Max?}
-    CheckMax -- Yes --> LimitedMode[⚠️ Start in Limited Mode: DB Features Disabled]
+    CheckMax -- Yes --> Fail[Exit process / Alert]
     CheckMax -- No --> Wait[Wait: min(baseDelay * 2^(attempt-1), 32s)]
     Wait --> NextAttempt[Attempt N+1]
     NextAttempt --> Ready
@@ -150,13 +218,13 @@ flowchart TD
 - Max attempts: `10`
 - Initial delay: `2,000ms`
 - Maximum capped delay: `32,000ms`
-- If PostgreSQL fails completely, the server boots in **Limited Mode** to still serve market data and health checks rather than crashing.
 
 ---
 
 ## 4. Atomic Disk Persistence
 
-To ensure cache files (`api-cache.json`) are never corrupted during concurrent reads or sudden process terminations:
-- Cache updates are serialized synchronously via `fs.writeFileSync`.
-- Cache writes are guarded by recursive directory verification (`mkdirSync(CACHE_DIR, { recursive: true })`).
-- Startup reads use graceful try/catch blocks defaulting to an empty in-memory state `{}` on any read or parse error.
+To ensure cache files (`api-cache.json`) are never corrupted during concurrent writes or sudden process terminations:
+- Cache writes are serialized synchronously via `fs.writeFileSync`.
+- Parent directories are verified recursively (`mkdirSync(CACHE_DIR, { recursive: true })`).
+- Startup reads default gracefully to an empty in-memory state `{}` on any read or parse error.
+

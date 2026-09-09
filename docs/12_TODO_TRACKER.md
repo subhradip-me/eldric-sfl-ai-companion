@@ -8,9 +8,9 @@ This tracker details prioritized backlog items, verification tasks, and architec
 
 | Item | Component | Current State | Action Required | Priority |
 |---|---|---|---|---|
-| **Level XP Anchors** | `server/data/levels.json` | Contains placeholder interpolation for levels 50–100 | Extract and replace with exact verified XP requirements from the Sunflower Land on-chain Bumpkin smart contract. | `P0 - High` |
-| **Unverified Recipes** | `server/data/recipes.json` | Several recipes flagged as `verified: false` | Confirm in-game ingredient quantities and cooking times for Lemon Cheesecake, Honey Cheddar, Shroom Syrup, and Cheese. | `P0 - High` |
-| **Modifier Precision** | `server/data/modifiers.json` | Experimental modifier ratios | Compare observed vs effective recipe outcomes to validate exact percentages for all active NFT collectible boosts. | `P1 - Medium` |
+| **Level XP Anchors** | `server/data/levels.json` | Exact Level 100 anchor verified at `24,083,905 XP` | Verify intermediate levels (60-99) against latest Bumpkin contract updates. | `P1 - Medium` |
+| **Unverified Recipes** | `server/data/recipes.json` | Several recipes flagged as `verified: false` | Confirm in-game ingredient quantities and cooking times for Lemon Cheesecake, Honey Cheddar, Shroom Syrup, and Cheese. | `P1 - Medium` |
+| **Modifier Precision** | `server/data/modifiers.json` | Experimental modifier ratios | Compare observed vs effective recipe outcomes to validate exact percentages for all active NFT collectible boosts. | `P2 - Low` |
 
 ---
 
@@ -32,14 +32,11 @@ This tracker details prioritized backlog items, verification tasks, and architec
 ## 3. Conversational AI & Copilot Upgrades
 
 ### 3.1 Streaming Chat Responses (SSE)
-- **Current State**: Dr. Bumpkin returns the full AI response in a single JSON payload upon completion.
-- **Target**: Implement **Server-Sent Events (SSE)** streaming (`res.writeHead(200, { 'Content-Type': 'text/event-stream' })`), rendering tokens in real-time within the `AntigravityChatModal`.
+- **Current State**: Dr. Bumpkin returns the full AI response in a single JSON payload upon completion of the agentic loop.
+- **Target**: Implement **Server-Sent Events (SSE)** streaming (`res.writeHead(200, { 'Content-Type': 'text/event-stream' })`), rendering tokens and tool status pills in real-time within the `AntigravityChatModal`.
 
-### 3.2 Tool-Calling & Autonomous Planning
-- **Target**: Equip Dr. Bumpkin with function-calling capabilities:
-  - `query_market_price(item_name)`
-  - `calculate_optimal_batch(food_name, count)`
-  - `filter_recipes_by_ingredient(ingredient)`
+### 3.2 Autonomous Auto-Snapshot Trigger
+- **Target**: When `Orchestrator.ts` detects state changes during gameplay advice, automatically trigger `SnapshotService.save()` to keep activity deltas fresh without manual intervention.
 
 ---
 
@@ -58,11 +55,17 @@ This tracker details prioritized backlog items, verification tasks, and architec
 
 ## 5. Completed Milestones (Archive)
 
-- [x] Multi-user authentication system with bcrypt & JWT.
+- [x] Multi-user authentication system with bcrypt & JWT (`AuthController.ts`, `AuthService.ts`).
+- [x] Full migration from JavaScript to TypeScript 5.9 with `tsx` ESM runtime execution.
+- [x] Class-based controller and modular service refactor (`ai/`, `auth/`, `chat/`, `cooking/`, `farm/`).
 - [x] PostgreSQL 16 schema with `pgvector` semantic vector store.
 - [x] Dual-pane Obsidian + Notion hybrid workspace desktop design.
 - [x] Discord-style permanent mobile dock (`w-12`) with disabled squish drawer and user popover.
-- [x] Bottom overlap buffer fix (`pb-28`) and compact mobile launcher button.
-- [x] In-flight request deduplication map and disk persistence caching.
+- [x] In-flight request deduplication map and atomic disk persistence caching in `SunflowerClient.ts`.
 - [x] Snapshot delta tracking engine (observed counters vs inferred movements).
-- [x] Groq LLM integration with local 384-dimensional ONNX vector embeddings.
+- [x] Autonomous Agentic Tool Loop in `Orchestrator.ts` with 12 deterministic tools and Groq Cloud LLM.
+- [x] Building ownership verification and warning banner in `compute_recipe_cost`.
+- [x] In-turn tool call deduplication cache with `force: true` bypass.
+- [x] Swapped argument order bug fix in `snapshotService.latest(context.userId, 2)`.
+- [x] Multi-island progression roadmap and Volcano Island journey calculations in `get_expansion_guide`.
+

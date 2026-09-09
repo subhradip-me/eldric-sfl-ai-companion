@@ -1,6 +1,50 @@
-# 📝 Changes in feature/public-auth Branch
+# 📝 Sunflower AI Engineering Changelog
 
-This branch transforms the Sunflower AI project from a personal tool to a public, multi-user application with authentication.
+## 🚀 Branch: `refactor/js-to-ts-migration` (2026-09-09 / 2026-09-10)
+
+### 🎯 Objective
+Migrate the entire backend codebase from untyped JavaScript CommonJS/ESM to strongly-typed **TypeScript 5.9**, convert all functional controllers and services into **class-based object-oriented architectures**, modularize services into feature domains (`ai/`, `auth/`, `chat/`, `cooking/`, `farm/`), and fix critical AI pipeline calculation gaps.
+
+---
+
+### 1. TypeScript & Class-Based Architecture Migration
+- **Runtime**: Switched server runtime to `tsx` for direct ESM TypeScript execution (`npm start`, `npm run dev`, and `npm test`).
+- **Class-Based Controllers**:
+  - `AuthController.ts`: Manages user credentials, registration, session rehydration, and farm linking.
+  - `FarmController.ts`: Orchestrates farm state, market orderbooks, cooking pipelines, and snapshots.
+  - `ChatController.ts`: Dispatches multi-turn conversational agent sessions.
+- **Class-Based Modular Services (`server/services/`)**:
+  - `farm/`: `SunflowerClient.ts` (tiered cache + in-flight deduplication), `FarmNormalizer.ts`, `SnapshotService.ts`, `ActivityService.ts`.
+  - `cooking/`: `PlannerService.ts`, `RecipeService.ts`, `XpEngine.ts`.
+  - `ai/`: `Orchestrator.ts` (12-tool autonomous agent loop), `GroqClient.ts`.
+  - `auth/`: `AuthService.ts` (bcrypt hashing + JWT generation/verification).
+  - `chat/`: `ChatStoreService.ts` (local ONNX vector embeddings + pgvector).
+- **Type Safety**:
+  - Created `server/types/index.ts` defining `CanonicalFarmState`, `CookingPlan`, `CookingPlanCandidate`, `RecipeDefinition`, `EffectiveRecipe`, `CostResult`, `SnapshotRecord`, `ChatMessageRecord`, `MarketPrice`, etc.
+  - Resolved all TypeScript compiler errors (`npx tsc --noEmit` passes with 0 errors).
+- **Backward Compatibility**:
+  - Implemented legacy shims forwarding old file paths (`server/controllers/farmController.js`, `server/services/planner.js`, `server/services/xpEngine.js`, etc.) to the new modular TypeScript services.
+
+---
+
+### 2. AI Pipeline Bug Fixes & Validation
+- **Swapped Snapshot Arguments (P0 Fix)**:
+  - Fixed `snapshotService.latest(2, context.userId)` -> `snapshotService.latest(context.userId, 2)` in `Orchestrator.ts`. Previously, snapshots were queried for literal user #2 rather than the requesting user.
+- **Building Ownership Verification Gate (P1 Fix)**:
+  - Updated `compute_recipe_cost` in `Orchestrator.ts` to check `r.building in canonical.buildings`, returning `ownsBuilding: false` and a warning banner when the player lacks the required building.
+- **In-Turn Tool Call Dedup Bypass (P1 Fix)**:
+  - Added `force: true` support to tool arguments in `Orchestrator.ts`, allowing the agent to bypass the in-turn `seen` cache when new player constraints are introduced.
+
+---
+
+### 3. Documentation Overhaul
+- Thoroughly updated `docs/` (`00_OVERVIEW.md` through `12_TODO_TRACKER.md`) with in-depth architecture diagrams, TypeScript domain contracts, and realistic code snippets illustrating end-to-end system mechanics.
+
+---
+
+## 📝 Historic Changes: `feature/public-auth` Branch
+
+This branch transformed the Sunflower AI project from a personal tool to a public, multi-user application with authentication.
 
 ## 🎯 Main Goal
 Enable multiple users to use Sunflower AI with their own accounts and farm data.

@@ -71,3 +71,52 @@ This document details key architectural decisions, design trade-offs, and techni
   - Pure JavaScript execution via ONNX runtime without native C++ compilation headaches.
   - 384-dimensional vector output perfectly optimized for pgvector.
   - One-time initial model download (~25MB), zero operational API costs thereafter.
+
+---
+
+## ADR 7: Migration to TypeScript, Class-Based Architecture & Modular Feature Services
+
+- **Status**: Accepted & Implemented
+- **Context**: The backend originally consisted of loose `.js` function files (`xpEngine.js`, `planner.js`, `sunflower.js`, `normalizer.js`) in a flat `server/services/` folder. As features expanded, lack of strict typing led to runtime shape mismatches with raw SFL API payloads and complex recipe trees.
+- **Decision**:
+  1. Migrate all controllers, models, and services to **TypeScript 5.9** running on Node.js ESM with **`tsx`**.
+  2. Adopt **class-based services** with public method APIs and encapsulated private helpers (e.g. `SunflowerClient`, `FarmNormalizer`, `XpEngine`, `RecipeService`, `PlannerService`).
+  3. Reorganize `server/services/` into domain subdirectories (`ai/`, `auth/`, `chat/`, `cooking/`, `farm/`) with clean barrel exports (`index.ts`).
+  4. Preserve backward-compatible JavaScript shims for legacy importers.
+- **Consequences**:
+  - 0 compilation errors across frontend and backend.
+  - Clear service boundaries and explicit dependency graphs.
+  - Simplified mock injection in unit test suites (`tsx --test`).
+
+---
+
+## ADR 8: Autonomous Agentic Tool-Use Loop with Dedup Bypass (`force: true`)
+
+- **Status**: Accepted & Implemented
+- **Context**: Dr. Bumpkin previously operated as a one-shot prompt-engineering assistant with static context injection. When players asked complex, multi-step questions ("What is my bottleneck and how much FLOWER will Sauerkraut take?"), the model often hallucinated out-of-date numbers or generic advice.
+- **Decision**:
+  1. Implement a **PLAN → ACT → CHECK → FIX** agentic loop in `Orchestrator.ts` powered by Groq Cloud (`llama-3.3-70b-versatile`).
+  2. Equip the agent with 12 deterministic tools (`get_farm_state`, `get_planner`, `compute_recipe_cost`, `get_expansion_guide`, etc.).
+  3. Enforce **building ownership validation** inside `compute_recipe_cost` so the agent warns the player when evaluating recipes for unowned buildings.
+  4. Implement an in-turn tool execution deduplication cache to prevent redundant tool invocations, but allow `force: true` to bypass the cache when refreshed data is requested.
+- **Consequences**:
+  - 100% grounded answers verified against live farm data.
+  - Zero hallucinated recipe ingredients or prices.
+  - Rapid recovery from malformed model tool arguments without session crashes.
+
+---
+
+## ADR 9: Disambiguation of Milestone Progression vs Daily Out-of-Pocket Costs
+
+- **Status**: Accepted & Implemented
+- **Context**: Players frequently confused the out-of-pocket cost for cooking *today's 1-batch plan* (e.g. 1.81 FLOWER to buy missing ingredients) with the *cumulative milestone cost* to reach Level 100 (e.g. 1,806.49 FLOWER across 419 batches). LLMs also struggled with mental multiplication across large batch counts.
+- **Decision**:
+  1. In `PlannerService.ts`, precompute exact milestone fields:
+     ```typescript
+     const batchesToLevel100 = Math.ceil(remaining / eff.batchXp);
+     const totalMilestoneFlower = +(batchesToLevel100 * flowerCost).toFixed(2);
+     ```
+  2. Clearly separate `flowerToBuy` (today's missing buy requirement) from `flowerCost` (total recipe market value) and `totalMilestoneFlower` (cumulative journey cost).
+  3. Instruct the LLM system prompt to quote these pre-computed numbers directly rather than performing arithmetic.
+- **Consequences**: Completely eliminated arithmetic errors and player confusion regarding milestone token budgeting.
+

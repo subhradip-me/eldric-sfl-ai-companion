@@ -2,93 +2,223 @@
 
 ## 1. End-to-End Data Pipeline Overview
 
-Sunflower AI transforms raw, unstructured Web3 blockchain events and Community API data into clean, actionable intelligence and vector-searchable operational memories.
+Sunflower AI transforms raw, polymorphic Web3 blockchain events and Community API payloads into strongly-typed domain entities, actionable economic intelligence, and vector-searchable operational memories.
 
 ```mermaid
 graph TD
-    Raw[Polygon RPC / SFL Community API] -->|Raw JSON Payload| Cache[sunflower.js: Memory + Disk Cache]
-    Cache -->|Unnormalized State| Norm[normalizer.js: toCanonical]
+    Raw[Polygon RPC / SFL Community API] -->|Raw JSON Payload| Client[SunflowerClient.ts: Memory + Disk Cache]
+    Client -->|Unnormalized State| Norm[FarmNormalizer.ts: toCanonical]
     
-    Norm -->|Canonical Farm State| Snap[snapshots.js: PostgreSQL Snapshot]
-    Norm -->|Canonical Farm State| XPEng[xpEngine.js: Mathematical Modeling]
+    Norm -->|CanonicalFarmState| Snap[SnapshotService.ts: SHA-1 & PostgreSQL]
+    Norm -->|CanonicalFarmState| XPEng[XpEngine.ts: Multiplicative Skill Boosts]
     
-    XPEng -->|Effective Multipliers| Plan[planner.js: Optimal Cooking Pipeline]
+    XPEng -->|EffectiveRecipe| Rec[RecipeService.ts: Dependency Tree Expansion]
+    Rec -->|CostResult & BaseResources| Plan[PlannerService.ts: Optimal Building Matrix]
     
-    Snap -->|Historical Deltas| Activity[Activity Delta Engine]
-    Plan -->|Blueprint & Matrix| API[Express Controller Layer]
-    Activity -->|Observed & Inferred| API
+    Snap -->|Historical States| Activity[ActivityService.ts: Observed & Inferred Diffs]
+    Plan -->|CookingPlan| API[Express Controller Layer]
+    Activity -->|ActivityDiff| API
     
-    API -->|REST JSON| Client[React Client: Obsidian + Notion UI]
+    API -->|REST JSON| UI[React Client: Obsidian + Notion UI]
     
-    subgraph RAG["Conversational AI Vector Pipeline"]
-        UserQ[User Chat Prompt] --> Embed[Local Embedder: 384-dim Vector]
-        Embed --> VectorDB[(pgvector: Cosine Search)]
-        VectorDB --> Context[Retrieved Past Conversation Turns]
-        Norm -.->|Live Farm KPIs| SystemPrompt[Dynamic System Prompt]
-        Context --> SystemPrompt
-        UserQ --> SystemPrompt
-        SystemPrompt --> Groq[Groq Cloud LLM Inference]
-        Groq --> LLMAns[Actionable Strategy Answer]
-        LLMAns --> VectorDB
+    subgraph AgentLoop["Autonomous AI Pipeline (Orchestrator.ts)"]
+        UserQ[User Chat Prompt] --> Agent[PLAN-ACT-CHECK-FIX Agent Loop]
+        Agent --> Tools[12 Deterministic Tools]
+        Tools --> Norm
+        Tools --> Plan
+        Tools --> Rec
+        Tools --> ChatStore[ChatStoreService.ts: pgvector Cosine Search]
+        Agent --> Groq[Groq Cloud LLM Inference]
+        Groq --> FinalAns[Grounded Strategy Answer]
     end
 ```
 
 ---
 
-## 2. Pipeline Stages
+## 2. Pipeline Stages in Detail
 
-### 2.1 Ingestion & Normalization (`normalizer.js`)
-Sunflower Land API payloads contain polymorphic data structures (e.g. inventory items mapped as string quantities, complex bumpkin equip clothing, nested building arrays).
+### 2.1 Ingestion & Resilience Tier (`SunflowerClient.ts`)
+The client enforces a tiered caching strategy with in-flight Promise deduplication:
+1. Check memory cache (`5 min` TTL for farm state, `10 min` for prices).
+2. If absent, check in-flight `pending` Map to attach to an ongoing fetch.
+3. Fetch from Community API with optional `x-api-key`.
+4. Persist to memory and disk (`server/data/.cache/api-cache.json`).
+5. On upstream failure or HTTP 429, fall back to stale cache with `stale: true`.
 
-`toCanonical(raw)` extracts and standardizes these into a predictable interface:
-- **Bumpkin**: Level, current XP, milestone target XP (Level 100 = 5,000,000 XP), remaining XP needed.
-- **Currencies**: Liquid Gold Coins and approximated FLOWER value.
-- **Inventory**: Consolidated map of item names to numeric floating-point quantities.
-- **Buildings**: Active cooking buildings (Fire Pit, Kitchen, Bakery, Deli, Smoothie Shack) and their current crafting states.
-- **Skills**: Active skill masteries (e.g. *Munching Mastery*, *Drive-Through Deli*, *Double Nom*).
-- **Quests & Deliveries**: NPC chore board entries and island deliveries with required items and coin/FLOWER rewards.
+---
 
-### 2.2 Mathematical XP Engine (`xpEngine.js`)
-Calculates real effective values by applying active skill tree boosts and equipment bonuses:
+### 2.2 Normalization Tier (`FarmNormalizer.ts`)
+Polymorphic raw JSON from SFL is transformed into a strict `CanonicalFarmState`:
+
+```typescript
+// server/services/farm/FarmNormalizer.ts - Canonical Normalization
+export class FarmNormalizer {
+  toCanonical(raw: unknown): CanonicalFarmState {
+    const f = ((raw as any).farm ?? raw) as Record<string, any>;
+    const bumpkin = f.bumpkin ?? {};
+    const xp = Number(bumpkin.experience ?? 0);
+    const buildings: Record<string, { busyUntil: number | null; oil: number }> = {};
+
+    for (const [name, arr] of Object.entries(f.buildings ?? {})) {
+      const b = Array.isArray(arr) ? arr[0] : arr;
+      const crafting = (b?.crafting ?? []) as Array<{ readyAt?: number }>;
+      const busyUntil = crafting.length ? Math.max(...crafting.map((c) => c.readyAt ?? 0)) : null;
+      buildings[name] = { busyUntil, oil: Number(b?.oil ?? 0) };
+    }
+
+    return {
+      bumpkin: { level: this.levelFromXp(xp), xp },
+      currencies: {
+        flower: String(f.balance ?? '0'),
+        flowerApprox: Number(f.balance ?? 0),
+        sfl: Number(f.balance ?? 0),
+        coins: Number(f.coins ?? 0),
+      },
+      inventory: this.normalizeInventory(f.inventory),
+      skills: bumpkin.skills ?? {},
+      wearables: bumpkin.equipped ?? {},
+      buffs: {
+        vip: (f.vip?.expiresAt ?? 0) > Date.now(),
+        active: Object.keys(f.buffs ?? {}),
+      },
+      buildings,
+      farmActivity: f.farmActivity ?? {},
+      deliveries: (f.delivery?.orders ?? []).map(this.normalizeDelivery),
+      chores: this.normalizeChores(f.choreBoard?.chores),
+      bounties: {
+        requests: f.bounties?.requests ?? [],
+        completed: f.bounties?.completed ?? [],
+      },
+      fetchedAt: Date.now(),
+    };
+  }
+}
+```
+
+---
+
+### 2.3 Mathematical XP Engine (`XpEngine.ts`)
+Calculates effective XP yields, batch multipliers, and cook times:
 
 $$\text{Effective XP} = \text{Base XP} \times \prod_{i=1}^n (1 + \text{Boost}_i)$$
 
-```javascript
-// Example: Cheese with Munching Mastery (+5%) and Drive-Through Deli (+15%)
-// Base XP = 1.0
-// Effective XP = 1.0 * 1.05 * 1.15 = 1.2075 XP per cheese
+```typescript
+// server/services/cooking/XpEngine.ts - Boost Computation
+export class XpEngine {
+  effective(recipeName: string, recipe: RecipeDefinition, farm: Partial<CanonicalFarmState> = {}, customModifiers = {}) {
+    let output = recipe.baseOutput ?? 1;
+    let xpPerFood = recipe.baseXp ?? 0;
+    let minutes = recipe.baseCookMinutes ?? 0;
+    let ingredientMultiplier = 1;
+    const applied: string[] = [];
+
+    // VIP Multiplicative Boost (+10%)
+    if (farm.buffs?.vip && !recipe.xpIncludesSkills) {
+      xpPerFood *= 1.1;
+      applied.push('VIP Access');
+    }
+
+    // Munching Mastery (+5% base rank, +2.5% per rank)
+    if (farm.skills?.['Munching Mastery'] && !recipe.xpIncludesSkills) {
+      const rank = Number(farm.skills['Munching Mastery']) || 1;
+      xpPerFood *= 1 + 0.05 + (rank - 1) * 0.025;
+      applied.push('Munching Mastery');
+    }
+
+    // Double Nom (2x output and 2x ingredients)
+    if (farm.skills?.['Double Nom']) {
+      output *= 2;
+      ingredientMultiplier *= 2;
+      applied.push('Double Nom');
+    }
+
+    return {
+      recipe: recipeName,
+      output,
+      xpPerFood,
+      minutes,
+      batchXp: output * xpPerFood,
+      ingredientMultiplier,
+      applied,
+    };
+  }
+}
 ```
 
-- **Batch Multiplier**: Evaluates whether *Double Nom* is active, doubling the recipe food output while scaling ingredient requirements accordingly.
-- **Deficit & Market Cost**:
-  $$\text{Quantity to Buy} = \max(\text{Required Ingredients} - \text{Owned Inventory}, 0)$$
-  $$\text{FLOWER Cost} = \sum (\text{Quantity to Buy} \times \text{Market Unit Price})$$
+---
 
-### 2.3 Optimization & Blueprint Engine (`planner.js`)
-For each production building, the planner sorts all candidate recipes by two primary dimensions:
-1. **XP per FLOWER Cost**: Identifies the most budget-conscious path for capital-constrained players.
-2. **XP per Cooking Hour**: Identifies the fastest path to Level 100 for time-constrained players.
+### 2.4 Dependency Tree Expansion & Costing (`RecipeService.ts`)
+Recursively expands nested recipes (e.g. Honey Cheddar requiring Cheese, which requires Milk) down to raw commodities and calculates market buy requirements:
 
-It generates an actionable **Daily Blueprint** separating tradable ingredients to purchase from untradable ingredients that must be produced on the farm.
+```typescript
+// server/services/cooking/RecipeService.ts - Dependency Expansion
+export class RecipeService {
+  expand(recipeName: string, recipes: Record<string, any>, depth = 0, multiplier = 1) {
+    const recipe = recipes[recipeName];
+    if (!recipe) return { base: {}, intermediateMinutes: 0 };
+    const base: Record<string, number> = {};
+    let intermediateMinutes = 0;
 
-### 2.4 Snapshot Delta Engine (`snapshots.js`)
-Snapshots are persisted in PostgreSQL under the `snapshots` table with a state hash:
-- **Observed Deltas**: Exact differential counters of on-chain activity (e.g. `Sunflower Harvested: +120`, `Tree Chopped: +15`).
-- **Inferred Deltas**: Mathematical difference in liquid XP, coin balances, and inventory quantities between the observation window $[t_1, t_2]$.
+    for (const [ing, baseQty] of Object.entries(recipe.ingredients)) {
+      const qty = (baseQty as number) * multiplier;
+      if (recipes[ing]) {
+        const sub = this.expand(ing, recipes, depth + 1, 1);
+        const crafts = qty / (recipes[ing].baseOutput ?? 1);
+        for (const [k, v] of Object.entries(sub.base)) base[k] = (base[k] ?? 0) + v * crafts;
+        intermediateMinutes += crafts * (recipes[ing].baseCookMinutes ?? 0) + sub.intermediateMinutes * crafts;
+      } else {
+        base[ing] = (base[ing] ?? 0) + qty;
+      }
+    }
+    return { base, intermediateMinutes };
+  }
 
-### 2.5 RAG Semantic Vector Memory (`orchestrator.js`)
-1. **Query Vectorization**: When the player sends a message to Dr. Bumpkin, `@xenova/transformers` converts the prompt into a 384-dimensional vector.
-2. **Cosine Distance Search**:
-   ```sql
-   SELECT content, role, 1 - (embedding <=> $1) AS similarity 
-   FROM chat_messages 
-   WHERE user_id = $2 AND session_id != $3 
-   ORDER BY similarity DESC 
-   LIMIT 4;
-   ```
-3. **Context Assembly**: The system prompt is assembled with:
-   - Live Bumpkin level and XP deficit.
-   - Recommended cooking candidates for each building.
-   - Immediate bottleneck alerts (untradable resources missing).
-   - Semantically relevant past conversation excerpts retrieved from `pgvector`.
-4. **LLM Generation**: The prompt is submitted to Groq Cloud LLM, returning rapid, grounded tactical recommendations.
+  cost(baseResources: Record<string, number>, prices: MarketPrice, items: Record<string, any>, inventory: Record<string, number>) {
+    let flower = 0;
+    let totalFlower = 0;
+    const buy: Record<string, number> = {};
+    const mustProduce: Record<string, number> = {};
+
+    for (const [item, qty] of Object.entries(baseResources)) {
+      const price = this.getItemPrice(item, prices);
+      if (price != null) totalFlower += qty * price;
+
+      const toBuy = Math.max(qty - (inventory[item] ?? 0), 0);
+      if (toBuy === 0) continue;
+
+      if (items[item]?.tradable === false || price == null) {
+        mustProduce[item] = toBuy;
+      } else {
+        buy[item] = toBuy;
+        flower += toBuy * price;
+      }
+    }
+    return { flower, totalFlower, buy, mustProduce };
+  }
+}
+```
+
+---
+
+### 2.5 Per-Building Optimization & Milestone Forecasting (`PlannerService.ts`)
+Iterates over owned buildings and produces the optimal recipe plan and Level 100 milestone estimates:
+
+$$\text{Batches to L100} = \left\lceil \frac{\max(24,083,905 - \text{Current XP}, 0)}{\text{Batch XP}} \right\rceil$$
+$$\text{Total Milestone FLOWER} = \text{Batches to L100} \times \text{Flower Cost per Batch}$$
+
+---
+
+### 2.6 Historical Snapshot & Activity Differential Engine
+- **Snapshot Hashing**: SHA-1 hash of `[xp, farmActivity, inventory]` prevents redundant rows.
+- **Activity Delta**: Computes exact observed changes in counters and inferred resource deltas between the two latest snapshots.
+
+---
+
+### 2.7 AI Agentic Orchestration (`Orchestrator.ts`)
+Operates a dynamic multi-round tool-calling loop:
+1. Sanitizes conversational history ensuring alternating user/assistant turns.
+2. Injects system instructions with strict game rules (FLOWER denomination, building checks, island progression).
+3. Invokes deterministic tools to fetch fresh state.
+4. If tool call JSON is malformed, prompts model to recover without crashing.
+5. Returns grounded, bold markdown summaries.
+ns.
