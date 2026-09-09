@@ -1,8 +1,10 @@
 import { test } from "node:test";
 import assert from "node:assert";
-import { effective } from "../services/xpEngine.js";
-import { expand, cost } from "../services/recipes.js";
-import { plan } from "../services/planner.js";
+import { xpEngine, recipeService, plannerService } from "../services/cooking/index.js";
+const effective = xpEngine.effective.bind(xpEngine);
+const expand = recipeService.expand.bind(recipeService);
+const cost = recipeService.cost.bind(recipeService);
+const plan = plannerService.plan.bind(plannerService);
 import recipes from "../data/recipes.json" with { type: "json" };
 import items from "../data/items.json" with { type: "json" };
 import modifiers from "../data/modifiers.json" with { type: "json" };

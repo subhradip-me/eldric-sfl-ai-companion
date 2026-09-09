@@ -1,16 +1,16 @@
 import express from 'express';
-import { authController } from '../controllers/authController.js';
+import { authController } from '../controllers/AuthController.js';
 import { authenticateToken } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // Public routes
-router.post('/register', authController.register);
-router.post('/login', authController.login);
+router.post('/register', (req, res) => authController.register(req, res));
+router.post('/login', (req, res) => authController.login(req, res));
 
 // Protected routes
-router.get('/me', authenticateToken, authController.me);
-router.put('/farm', authenticateToken, authController.updateFarmId);
-router.put('/password', authenticateToken, authController.changePassword);
+router.get('/me', authenticateToken, (req, res) => authController.me(req, res));
+router.put('/farm', authenticateToken, (req, res) => authController.updateFarmId(req, res));
+router.put('/password', authenticateToken, (req, res) => authController.changePassword(req, res));
 
 export default router;
