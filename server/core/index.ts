@@ -10,3 +10,4 @@ export * from './dependencyResolver/index.js';
 export * from './productionEngine/index.js';
 export * from './economyEngine/index.js';
 export * from './temporalEngine/index.js';
+export * from './historyEngine/index.js';
