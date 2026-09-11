@@ -10,10 +10,36 @@ export interface ResourceCommitment {
   inProduction: number;
   reservedForTomorrow: number;
   phaseReserve: number;
+  availableNow: number;
+  projectedAvailable: number;
   discretionary: number;
 }
 
 export type ResourceReservationMap = Record<string, ResourceCommitment>;
+export type ResourceLedger = Record<string, ResourceCommitment>;
+
+export interface StrategyCandidate {
+  candidateId: string;
+  title: string;
+  estimatedCostFlower: number;
+  estimatedDurationMinutes: number;
+  estimatedCompletionAt?: TimestampMs;
+  items: string[];
+  requiresMarketPurchase: boolean;
+  targetActions?: PlanAction[];
+}
+
+export interface FeasibilityAssessment {
+  isFeasible: boolean;
+  status: 'VALID' | 'INVALID';
+  violations: string[];
+}
+
+export interface ActionPermissionResult {
+  actionPermitted: boolean;
+  message?: string;
+  shortfall?: number;
+}
 
 export interface PlanAction {
   actionId: string;
@@ -29,19 +55,21 @@ export interface PlanAction {
 
 /**
  * Multi-dimensional action score.
- * Notice the utility direction for each dimension:
- * - Higher is better (↑): goalAlignment, xpImpact, flowerImpact, futureImpact
- * - Lower is better (↓): timeMinutes, risk, opportunityCost
+ * Invariant: Every dimension normalized to [0, 1] before weighting.
+ * Final utility is strictly bounded: finalUtility in [0, 1].
  */
 export interface ActionScore {
-  goalAlignment: number;   // [0..1] ↑ Higher is better
-  xpImpact: number;        // Total XP gained ↑ Higher is better
-  flowerImpact: number;    // Net FLOWER change ↑ Higher is better (positive is earnings)
-  futureImpact: number;    // [0..1] Protection of future reserves ↑ Higher is better
-  timeMinutes: number;     // Execution time in minutes ↓ Lower is better
-  risk: number;            // [0..1] Risk of price swing or missing deadline ↓ Lower is better
-  opportunityCost: number; // [0..1] Value of alternative uses foregone ↓ Lower is better
-  finalUtility: number;    // Derived weighted utility score
+  goalAlignment: number;        // [0..1] ↑ Higher is better
+  xpImpact: number;             // [0..1] ↑ Normalized XP gained
+  flowerImpact: number;         // [0..1] ↑ Normalized FLOWER score (1 = max profit, 0 = max cost)
+  futureImpact: number;         // [0..1] ↑ Protection of future reserves
+  timeScore: number;            // [0..1] ↑ Normalized time efficiency (1 = fastest, 0 = slowest)
+  riskScore: number;            // [0..1] ↑ Normalized risk safety (1 = safest, 0 = riskiest)
+  opportunityCostScore: number; // [0..1] ↑ Normalized value preserved (1 = zero sacrifice)
+  finalUtility: number;         // [0..1] Derived weighted utility score
+  timeMinutes?: number;
+  risk?: number;
+  opportunityCost?: number;
 }
 
 export interface PlanWarning {

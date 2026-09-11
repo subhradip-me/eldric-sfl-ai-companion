@@ -6,6 +6,7 @@ export * from './FarmNormalizer.js';
 export * from './contextExtractors.js';
 export * from './temporalContextExtractors.js';
 export * from './historyContextExtractors.js';
+export * from './plannerContextExtractors.js';
 export { SunflowerClient, sunflowerClient } from './SunflowerClient.js';
 export { SnapshotService, snapshotService } from './SnapshotService.js';
 export { ActivityService, activityService } from './ActivityService.js';

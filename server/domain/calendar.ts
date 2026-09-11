@@ -70,6 +70,8 @@ export interface SeasonBoundaryAssessment {
   warnings: SeasonalDeadlineWarning[];
 }
 
+export type SeasonBoundary = SeasonBoundaryAssessment;
+
 export interface DayEvent {
   dayNumber: number;
   name: string;
