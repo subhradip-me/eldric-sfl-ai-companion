@@ -67,7 +67,12 @@ ARCHITECTURAL RULES (Strictly Enforced):
    - When asked "What should I prioritize?", call get_roadmap and explain the Phase objectives, daily targets, and seasonal urgency warnings.
    - When asked "Can I perform this action?" (e.g. "Can I cook Pancakes?"), call check_action_permission to check immediate and future reserves.
    - When asked about feasibility, call evaluate_strategy_feasibility.
-5. FORMATTING:
+5. ECONOMIC RULES & SEMANTICS:
+   - Cooking foods awards XP, NOT FLOWER.
+   - The flower cost of a recipe is the ACQUISITION EXPENSE / market valuation of its ingredients. It is a COST/INVESTMENT.
+   - Players SPEND or INVEST FLOWER/ingredients to cook dishes; they NEVER receive FLOWER from cooking.
+   - NEVER tell the user they will "receive X FLOWER" from cooking. Always state that it "costs X FLOWER" or "requires X FLOWER in ingredients".
+6. FORMATTING:
    - Be concise, direct, and actionable.
    - Use bold for key numbers (**120 FLOWER**, **5,000 XP**).
    - Use small markdown tables (max 4 columns) for comparisons.
@@ -295,6 +300,72 @@ export class Orchestrator {
           const { state } = await this.getStoredFarmState(context.farmId, context.userId);
           const ledger = buildResourceLedger({ state, tomorrowRequirements, phaseRequirements });
 
+          // 1. Check if resource is a cooking recipe (e.g. Pancakes, Pizza Margherita)
+          const fallbackRecipes: Record<string, { building: string; ingredients: Record<string, number> }> = {
+            Pancakes: { building: 'Bakery', ingredients: { Wheat: 50, Honey: 2 } },
+          };
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const recipeEntry = Object.entries(recipesData as Record<string, any>).find(
+            ([name]) => name.toLowerCase() === resource.toLowerCase() && !name.startsWith('_')
+          ) ?? (fallbackRecipes[resource] ? [resource, fallbackRecipes[resource]] : undefined);
+
+          if (recipeEntry) {
+            const [recipeName, recipeDef] = recipeEntry;
+            const ingredients: Record<string, number> = recipeDef.ingredients ?? {};
+            const building: string | undefined = recipeDef.building;
+            const shortfalls: string[] = [];
+            let permitted = true;
+
+            // Building requirement check
+            if (building) {
+              const farmBuildings = state.structures?.buildings ?? {};
+              const hasBuilding = Boolean(
+                farmBuildings[building] &&
+                (Array.isArray(farmBuildings[building]) ? farmBuildings[building].length > 0 : true)
+              );
+              if (!hasBuilding) {
+                permitted = false;
+                shortfalls.push(`missing required building '${building}'`);
+              }
+            }
+
+            // Ingredient discretionary reserve checks
+            for (const [ingName, baseQty] of Object.entries(ingredients)) {
+              const requiredQty = baseQty * quantity;
+              const commitment = ledger[ingName];
+              const available = timing === 'FUTURE'
+                ? (commitment?.projectedAvailable ?? 0)
+                : (commitment?.availableNow ?? 0);
+
+              if (available < requiredQty) {
+                permitted = false;
+                const missing = requiredQty - available;
+                shortfalls.push(`missing ${missing}x ${ingName} (need ${requiredQty}, available ${available})`);
+              }
+            }
+
+            const message = permitted
+              ? `Action permitted: You own ${building ? `the ${building} and ` : ''}all required ingredients in discretionary inventory for ${quantity}x ${recipeName}.`
+              : `Cannot cook ${quantity}x ${recipeName}: ${shortfalls.join('; ')}.`;
+
+            return {
+              tool: 'check_action_permission',
+              success: true,
+              data: {
+                resource: recipeName,
+                quantity,
+                timing,
+                actionPermitted: permitted,
+                shortfall: shortfalls.length > 0 ? shortfalls.join(', ') : null,
+                message,
+                commitment: ledger['FLOWER'] ?? null,
+              },
+              epistemicTier: 'DERIVED',
+              warnings: permitted ? [] : [message],
+            };
+          }
+
+          // 2. Standard resource / currency check
           const perm = timing === 'FUTURE'
             ? checkFutureActionPermitted(resource, quantity, ledger)
             : checkImmediateActionPermitted(resource, quantity, ledger);
@@ -535,6 +606,7 @@ export class Orchestrator {
               effective: foodXpResult.value,
               cost: costResult.value,
               totalMinutes: foodXpResult.value.minutes,
+              explanation: `Cooking yields ${foodXpResult.value.xpPerFood} XP. It COSTS ${costResult.value.flower} FLOWER in ingredient acquisition expenses (cooking awards XP, NOT FLOWER).`,
             },
             provenance: foodXpResult.provenance,
             epistemicTier: 'DERIVED',

@@ -68,6 +68,26 @@ const DEFAULT_RECIPES: Record<string, RecipeDefinition> = {
   },
 };
 
+import recipesData from '../../data/recipes.json' with { type: 'json' };
+
+const ALL_GAME_RECIPES: Record<string, RecipeDefinition> = {
+  ...DEFAULT_RECIPES,
+};
+
+for (const [key, val] of Object.entries(recipesData)) {
+  if (key.startsWith('_')) continue;
+  const r = val as any;
+  if (r.ingredients && r.building) {
+    ALL_GAME_RECIPES[key] = {
+      building: r.building,
+      baseOutput: r.baseOutput ?? 1,
+      baseXp: r.baseXp ?? 0,
+      baseCookMinutes: r.baseCookMinutes ?? 10,
+      ingredients: r.ingredients,
+    };
+  }
+}
+
 /**
  * Discover and generate potential strategy candidates for a goal and farm state.
  * Pure deterministic function.
@@ -79,7 +99,7 @@ export function generateCandidates(input: GenerateCandidatesInput): StrategyCand
     return [...candidateOverrides];
   }
 
-  const recipes = input.recipes ?? DEFAULT_RECIPES;
+  const recipes = input.recipes ?? ALL_GAME_RECIPES;
   const candidates: StrategyCandidate[] = [];
   const currentTs = (gameTime as any)?.currentTimestampMs ?? 1700000000000;
 

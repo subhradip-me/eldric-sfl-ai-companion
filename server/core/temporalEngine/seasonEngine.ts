@@ -212,14 +212,22 @@ export function resolveSeasonBoundary(
     dataset = DEFAULT_SEASON_RULES_V1,
   } = params;
 
-  // Search dataset schedules for active window matching currentSeason
-  const matchingSchedule = dataset.schedules?.find(
+  // Search dataset schedules for active window matching currentSeason where now is within bounds
+  let matchingSchedule = dataset.schedules?.find(
     (s) => s.season === currentSeason && now >= s.startAt && now <= s.endAt
-  ) ?? dataset.schedules?.find((s) => s.season === currentSeason);
+  );
 
+  // If not currently within bounds, check for an upcoming schedule for currentSeason
+  if (!matchingSchedule) {
+    matchingSchedule = dataset.schedules?.find(
+      (s) => s.season === currentSeason && s.endAt >= now
+    );
+  }
+
+  // If still no schedule matches (e.g. historical or future date outside defined schedules),
+  // fallback: if an explicit schedule exists, use its endAt only if s.endAt >= now, otherwise dynamic 90 days from now.
   const seasonEndAt: TimestampMs =
     matchingSchedule?.endAt ??
-    // Fallback: 90 days from now if schedule not explicitly present
     (now + 90 * MS_PER_DAY);
 
   const nextSeason: SeasonName =

@@ -139,6 +139,42 @@ export const DEFAULT_SEASON_RULES_V1: SeasonalRuleDataset = {
       endAt: 1756684800000,   // 2025-09-01 00:00:00 UTC
       nextSeason: 'AUTUMN',
     },
+    {
+      season: 'AUTUMN',
+      startAt: 1756684800000, // 2025-09-01 00:00:00 UTC
+      endAt: 1764547200000,   // 2025-12-01 00:00:00 UTC
+      nextSeason: 'WINTER',
+    },
+    {
+      season: 'WINTER',
+      startAt: 1764547200000, // 2025-12-01 00:00:00 UTC
+      endAt: 1772323200000,   // 2026-03-01 00:00:00 UTC
+      nextSeason: 'SPRING',
+    },
+    {
+      season: 'SPRING',
+      startAt: 1772323200000, // 2026-03-01 00:00:00 UTC
+      endAt: 1780272000000,   // 2026-06-01 00:00:00 UTC
+      nextSeason: 'SUMMER',
+    },
+    {
+      season: 'SUMMER',
+      startAt: 1780272000000, // 2026-06-01 00:00:00 UTC
+      endAt: 1788220800000,   // 2026-09-01 00:00:00 UTC
+      nextSeason: 'AUTUMN',
+    },
+    {
+      season: 'AUTUMN',
+      startAt: 1788220800000, // 2026-09-01 00:00:00 UTC
+      endAt: 1796083200000,   // 2026-12-01 00:00:00 UTC
+      nextSeason: 'WINTER',
+    },
+    {
+      season: 'WINTER',
+      startAt: 1796083200000, // 2026-12-01 00:00:00 UTC
+      endAt: 1803772800000,   // 2027-03-01 00:00:00 UTC
+      nextSeason: 'SPRING',
+    },
   ],
 };
 

@@ -65,7 +65,20 @@ export function extractTemporalContext(
     activeEventsOverride,
   } = options;
 
-  const rawSeason = (state.temporal?.season as SeasonName) || 'SPRING';
+  // Determine season: prefer explicit state.temporal.season, then active dataset schedule, then calendar month
+  let rawSeason = state.temporal?.season as SeasonName | undefined;
+  if (!rawSeason) {
+    const activeSchedule = dataset.schedules?.find((s) => now >= s.startAt && now <= s.endAt);
+    if (activeSchedule) {
+      rawSeason = activeSchedule.season as SeasonName;
+    } else {
+      const month = new Date(now).getUTCMonth(); // 0-11
+      if (month >= 2 && month <= 4) rawSeason = 'SPRING';
+      else if (month >= 5 && month <= 7) rawSeason = 'SUMMER';
+      else if (month >= 8 && month <= 10) rawSeason = 'AUTUMN';
+      else rawSeason = 'WINTER';
+    }
+  }
   const currentDay = calculateInGameDay(now);
 
   const dayEvents = activeEventsOverride ?? resolveDayEvents(currentDay, rawSeason, schedule);
