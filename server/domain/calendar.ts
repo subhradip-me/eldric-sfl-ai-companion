@@ -6,11 +6,9 @@
 
 import type { TimestampMs } from './types.js';
 
-export type SeasonName =
-  | 'SPRING'
-  | 'SUMMER'
-  | 'AUTUMN'
-  | 'WINTER'
+export type BaseSeason = 'SPRING' | 'SUMMER' | 'AUTUMN' | 'WINTER';
+
+export type EventSeason =
   | 'SOLAR_FLARE'
   | 'DAWN_BREAKER'
   | 'WITCHES_EVE'
@@ -27,12 +25,49 @@ export type SeasonName =
   | 'ASCENSION_AGE'
   | string;
 
+export type SeasonName = BaseSeason | EventSeason;
+
 export interface SeasonalRule {
   season: SeasonName;
   availableCrops: string[];
   unavailableCrops?: string[];
   growthModifiers?: Record<string, number>;
   yieldModifiers?: Record<string, number>;
+}
+
+export interface SeasonSchedule {
+  season: SeasonName;
+  startAt: TimestampMs;
+  endAt: TimestampMs;
+  nextSeason?: SeasonName;
+}
+
+export interface SeasonalRuleDataset {
+  ruleVersion: string;
+  seasons: Record<string, SeasonalRule>;
+  schedules?: SeasonSchedule[];
+}
+
+export type UrgencyLevel = 'NORMAL' | 'WARNING' | 'CRITICAL' | 'EXPIRED';
+
+export interface SeasonalDeadlineWarning {
+  code: 'SEASONAL_DEADLINE' | 'SEASON_EXPIRED';
+  severity: 'INFO' | 'WARNING' | 'CRITICAL';
+  message: string;
+  crop?: string;
+  daysRemaining: number;
+  currentSeason: SeasonName;
+  nextSeason?: SeasonName;
+}
+
+export interface SeasonBoundaryAssessment {
+  currentSeason: SeasonName;
+  nextSeason?: SeasonName;
+  seasonEndAt: TimestampMs;
+  remainingMs: number;
+  daysRemaining: number;
+  urgency: UrgencyLevel;
+  warnings: SeasonalDeadlineWarning[];
 }
 
 export interface DayEvent {
@@ -45,6 +80,8 @@ export interface DayEvent {
 export interface GameTime {
   currentDay: number;
   season: SeasonName;
+  baseSeason?: BaseSeason;
+  eventSeason?: EventSeason;
   gameTimeSeconds: number;
   nextResetAt: TimestampMs;
   activeEvents: DayEvent[];
