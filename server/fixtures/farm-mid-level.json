@@ -1,0 +1,53 @@
+{
+  "farm": {
+    "coins": 18500,
+    "balance": "42.100000000000000000",
+    "inventory": {
+      "Carrot Seed": 80,
+      "Cabbage Seed": 40,
+      "Beetroot Seed": 25,
+      "Carrot": 320,
+      "Cabbage": 190,
+      "Wood": 450,
+      "Stone": 180,
+      "Iron": 25,
+      "Crop Plot": 24,
+      "Pumpkin Soup": 15,
+      "Mashed Potato": 20
+    },
+    "bumpkin": {
+      "id": 90002,
+      "experience": 85000,
+      "skills": {
+        "Green Thumb": 1,
+        "Young Farmer": 1
+      },
+      "equipped": {
+        "body": "Beige Farmer Potion",
+        "pants": "Farmer Overalls",
+        "shirt": "Red Farmer Shirt",
+        "tool": "Farmer Pitchfork"
+      }
+    },
+    "buildings": {
+      "Fire Pit": [
+        {
+          "readyAt": 1700000000000,
+          "crafting": []
+        }
+      ],
+      "Kitchen": [
+        {
+          "readyAt": 1700000000000,
+          "crafting": []
+        }
+      ]
+    },
+    "island": {
+      "type": "spring",
+      "previousExpansions": 12,
+      "ascensionLevel": 0,
+      "sunstones": 0
+    }
+  }
+}

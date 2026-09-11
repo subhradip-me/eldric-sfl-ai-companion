@@ -9,7 +9,7 @@ export default defineConfig({
       "/api": "http://localhost:3000",
     },
     allowedHosts: [
-      "photographic-changelog-possession-channels.trycloudflare.com",
+      "ingredients-shaft-highlighted-balance.trycloudflare.com",
     ],
   },
 });

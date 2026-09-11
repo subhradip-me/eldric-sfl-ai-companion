@@ -1,0 +1,70 @@
+{
+  "scenario": "MULTI_OBJECTIVE_CONFLICT",
+  "description": "Tests that hard constraints reject candidate strategies before scoring, and multiple valid strategies expose trade-offs.",
+  "farm": {
+    "coins": 85000,
+    "balance": "60000.000000000000000000",
+    "inventory": {
+      "Wheat": 800,
+      "Cabbage": 600,
+      "Beetroot": 400,
+      "Crop Plot": 40
+    },
+    "bumpkin": {
+      "id": 90005,
+      "experience": 950000,
+      "skills": {
+        "Green Thumb": 2,
+        "Young Farmer": 1
+      },
+      "equipped": {
+        "body": "Beige Farmer Potion"
+      }
+    },
+    "buildings": {
+      "Kitchen": [
+        {
+          "readyAt": 1700000000000,
+          "crafting": []
+        }
+      ]
+    },
+    "island": {
+      "type": "spring",
+      "previousExpansions": 20,
+      "ascensionLevel": 0,
+      "sunstones": 0
+    }
+  },
+  "goal": {
+    "objective": "REACH_LEVEL",
+    "target": { "level": 80 },
+    "constraints": {
+      "maxFlowerCost": 50000
+    },
+    "preferences": {
+      "primaryFocus": "XP"
+    }
+  },
+  "candidateStrategies": [
+    {
+      "name": "Strategy A: Fast Push",
+      "daysToLevel": 20,
+      "estimatedFlowerCost": 55000,
+      "expectedFeasibility": "INVALID",
+      "invalidationReason": "Hard constraint violated: cost 55,000 exceeds maxFlowerCost 50,000"
+    },
+    {
+      "name": "Strategy B: Balanced Push",
+      "daysToLevel": 28,
+      "estimatedFlowerCost": 35000,
+      "expectedFeasibility": "VALID"
+    },
+    {
+      "name": "Strategy C: Economical Push",
+      "daysToLevel": 40,
+      "estimatedFlowerCost": 15000,
+      "expectedFeasibility": "VALID"
+    }
+  ]
+}

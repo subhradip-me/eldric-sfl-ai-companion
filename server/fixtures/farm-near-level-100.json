@@ -1,0 +1,64 @@
+{
+  "farm": {
+    "coins": 950000,
+    "balance": "850.500000000000000000",
+    "inventory": {
+      "Wheat Seed": 500,
+      "Radish Seed": 300,
+      "Parsnip Seed": 250,
+      "Wheat": 4500,
+      "Radish": 2100,
+      "Parsnip": 1800,
+      "Wood": 15000,
+      "Stone": 8000,
+      "Iron": 1200,
+      "Gold": 450,
+      "Crop Plot": 60,
+      "Roast Veggies": 45,
+      "Club Sandwich": 30,
+      "Pancakes": 60
+    },
+    "bumpkin": {
+      "id": 90003,
+      "experience": 4850000,
+      "skills": {
+        "Green Thumb": 3,
+        "Young Farmer": 1,
+        "Experienced Farmer": 1,
+        "Old Farmer": 1,
+        "Fast Feasts": 1,
+        "Fireside Alchemist": 2
+      },
+      "equipped": {
+        "body": "Beige Farmer Potion",
+        "pants": "Angler Waders",
+        "shirt": "Olive Royalty Shirt",
+        "tool": "Infernal Pitchfork",
+        "coat": "Chef Apron",
+        "hat": "Chef Hat"
+      }
+    },
+    "buildings": {
+      "Bakery": [
+        {
+          "readyAt": 1700000000000,
+          "oil": 50,
+          "crafting": []
+        }
+      ],
+      "Deli": [
+        {
+          "readyAt": 1700000000000,
+          "oil": 30,
+          "crafting": []
+        }
+      ]
+    },
+    "island": {
+      "type": "desert",
+      "previousExpansions": 28,
+      "ascensionLevel": 1,
+      "sunstones": 6
+    }
+  }
+}

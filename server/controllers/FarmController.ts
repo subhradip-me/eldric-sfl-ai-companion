@@ -3,7 +3,8 @@
  * Composes SunflowerClient, PlannerService, RecipeService, XpEngine, SnapshotService, ActivityService.
  */
 import type { Request, Response } from 'express';
-import { sunflowerClient, snapshotService, activityService } from '../services/farm/index.js';
+import { sunflowerClient, snapshotService, activityService, farmNormalizer } from '../services/farm/index.js';
+import { summarizeActiveProduction } from '../core/index.js';
 import { plannerService, recipeService, xpEngine } from '../services/cooking/index.js';
 import { UserModel } from '../models/UserModel.js';
 import recipes from '../data/recipes.json' with { type: 'json' };
@@ -28,7 +29,20 @@ export class FarmController {
         return;
       }
 
-      const { canonical, stale } = await sunflowerClient.getFarm(user.farm_id);
+      const { canonical, raw, stale } = await sunflowerClient.getFarm(user.farm_id);
+
+      // Phase 2: Loss-aware normalization & diagnostics
+      const normResult = farmNormalizer.normalize(raw || canonical, {
+        farmId: user.farm_id,
+        source: 'community-api',
+      });
+
+      // Phase 1: Deterministic active production yield summary
+      const prodSummary = summarizeActiveProduction({
+        items: normResult.normalizedState.production.active,
+        now: Date.now(),
+        farmId: user.farm_id,
+      });
 
       // Save snapshot asynchronously (fire-and-forget)
       snapshotService.save(canonical, userId).catch((err) =>
@@ -38,6 +52,11 @@ export class FarmController {
       res.json({
         ...canonical,
         stale,
+        normalized: normResult.normalizedState,
+        rawHash: normResult.rawHash,
+        diagnostics: normResult.diagnostics,
+        activeProduction: prodSummary.value,
+        provenance: prodSummary.provenance,
         target: {
           level: 100,
           xp: L100,

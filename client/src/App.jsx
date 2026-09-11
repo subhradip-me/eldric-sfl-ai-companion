@@ -184,6 +184,37 @@ function Dashboard({ farm, plan }) {
         </div>
       </BlockCard>
 
+      {/* Active Production & Yield Pipeline (Phase 1 & 2 Deterministic Tracking) */}
+      {farm?.activeProduction && Object.keys(farm.activeProduction.byItem ?? {}).length > 0 && (
+        <BlockCard
+          icon="🌱"
+          title="Active Production & Yield Projections"
+          right={
+            <Tag color={farm.activeProduction.activeCount > 0 ? "green" : "gray"}>
+              {farm.activeProduction.activeCount} In Flight · {farm.activeProduction.completedCount} Ready
+            </Tag>
+          }
+        >
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+            {Object.entries(farm.activeProduction.byItem).map(([item, summary]) => (
+              <div
+                key={item}
+                className="p-2.5 rounded-lg border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] flex items-center justify-between font-mono text-xs"
+              >
+                <div>
+                  <div className="font-semibold text-[#1a1a1a] dark:text-white font-sans">{item}</div>
+                  <div className="text-[10px] text-[#888]">Qty: {summary.totalQuantity} items</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-emerald-600 dark:text-emerald-400 font-bold">+{summary.expectedOutput} yield</div>
+                  <div className="text-[10px] text-[#888]">{summary.latestReadyAt <= Date.now() ? '✓ Ready' : 'In Ground'}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </BlockCard>
+      )}
+
       {/* Plan Alert if Unaffordable */}
       {plan && !plan.affordable && (
         <Callout icon="⚠️" type="warning" title="Resource Deficit Warning">
@@ -1893,6 +1924,9 @@ export default function App() {
               <PropertyItem icon="🌸" label="Liquid FLOWER" value={farm ? `${Number(farm.currencies.flowerApprox).toFixed(2)} FLOWER` : "—"} />
               <PropertyItem icon="🎯" label="Target Milestone" value="Level 100 Bumpkin Mastery" />
               <PropertyItem icon="⚡" label="Data Synchronization" value={farm?.stale ? "Stale Cache" : "Live Polygon RPC & SFL Gateway"} />
+              {farm?.rawHash && (
+                <PropertyItem icon="🛡️" label="State Fingerprint" value={`SHA-256: ${farm.rawHash.slice(0, 10)}... (Loss-Aware)`} />
+              )}
             </div>
 
             {/* Active Document Page Body */}
@@ -1952,7 +1986,7 @@ export default function App() {
         <div className="hidden sm:flex items-center gap-3 shrink-0">
           <span>FLOWER: {Number(farm?.currencies.flowerApprox ?? 0).toFixed(2)}</span>
           <span className="opacity-40">|</span>
-          <span className="text-amber-500 font-medium">Obsidian + Notion Hybrid v2.4</span>
+          <span className="text-amber-500 font-medium">Deterministic Core v1.0.0</span>
         </div>
       </footer>
     </div>

@@ -1,0 +1,32 @@
+{
+  "scenario": "DEADLINE_PRESSURE",
+  "description": "Tests planner feasibility validation when required XP or production exceeds theoretical maximum throughput before deadline.",
+  "farm": {
+    "coins": 60000,
+    "balance": "150.000000000000000000",
+    "inventory": {
+      "Wheat": 300,
+      "Crop Plot": 20
+    },
+    "bumpkin": {
+      "id": 90008,
+      "experience": 600000,
+      "skills": {},
+      "equipped": { "body": "Beige Farmer Potion" }
+    },
+    "buildings": {
+      "Bakery": [{ "readyAt": 1700000000000, "crafting": [] }]
+    },
+    "island": { "type": "basic", "previousExpansions": 10, "ascensionLevel": 0, "sunstones": 0 }
+  },
+  "goal": {
+    "objective": "REACH_LEVEL",
+    "target": { "level": 80, "deadlineDays": 3 },
+    "constraints": { "deadlineTimestamp": 1700259200000 }
+  },
+  "expectedEvaluation": {
+    "feasible": false,
+    "warningCode": "DEADLINE_UNATTAINABLE",
+    "message": "Target Level 80 requires 1,200,000 XP (400,000 XP/day); max farm throughput is 95,000 XP/day. Recommend adjusting deadline or investing in speed boosts."
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "scenario": "SEASON_BOUNDARY_PRESSURE",
+  "description": "Tests that planner recognizes upcoming seasonal transitions and creates urgency deadlines for season-exclusive resources.",
+  "farm": {
+    "coins": 45000,
+    "balance": "80.000000000000000000",
+    "inventory": {
+      "Artichoke": 20,
+      "Artichoke Seed": 10,
+      "Crop Plot": 20
+    },
+    "bumpkin": {
+      "id": 90007,
+      "experience": 520000,
+      "skills": {},
+      "equipped": { "body": "Beige Farmer Potion" }
+    },
+    "island": {
+      "type": "spring",
+      "previousExpansions": 15,
+      "ascensionLevel": 0,
+      "sunstones": 0
+    }
+  },
+  "temporalContext": {
+    "currentSeason": "AUTUMN",
+    "daysRemainingInSeason": 2,
+    "nextSeason": "WINTER",
+    "seasonalConstraints": {
+      "Artichoke": {
+        "availableInAutumn": true,
+        "availableInWinter": false
+      }
+    }
+  },
+  "planningContext": {
+    "phaseRequires": {
+      "Artichoke": 100
+    },
+    "expectedWarning": {
+      "code": "SEASONAL_DEADLINE",
+      "severity": "WARNING",
+      "message": "Artichoke is unavailable in Winter (starts in 2 days). Prioritize completing Artichoke cycles before the season reset."
+    }
+  }
+}

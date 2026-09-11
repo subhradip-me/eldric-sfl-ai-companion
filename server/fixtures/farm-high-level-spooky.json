@@ -1,0 +1,5345 @@
+{
+  "farm": {
+    "coins": 133933.7050000014,
+    "balance": "45.331892241468325",
+    "previousBalance": "1265.023906132794826291",
+    "inventory": {
+      "Carrot Seed": "15",
+      "Cabbage Seed": "2913",
+      "Beetroot Seed": "254",
+      "Cauliflower Seed": "327",
+      "Parsnip Seed": "371",
+      "Radish Seed": "240",
+      "Wheat Seed": "240",
+      "Kale Seed": "180",
+      "Apple Seed": "41",
+      "Blueberry Seed": "48",
+      "Orange Seed": "48",
+      "Magic Bean": "1",
+      "Eggplant Seed": "299",
+      "Corn Seed": "190",
+      "Banana Plant": "36",
+      "Sunpetal Seed": "50",
+      "Bloom Seed": "25",
+      "Lily Seed": "13",
+      "Soybean Seed": "422",
+      "Olive Seed": "18",
+      "Tomato Seed": "25",
+      "Lemon Seed": "7",
+      "Barley Seed": "172",
+      "Yam Seed": "49",
+      "Broccoli Seed": "25",
+      "Onion Seed": "288",
+      "Turnip Seed": "245",
+      "Artichoke Seed": "154",
+      "Edelweiss Seed": "13",
+      "Gladiolus Seed": "13",
+      "Lavender Seed": "13",
+      "Clover Seed": "13",
+      "Sunflower": "147555.71429995098023",
+      "Potato": "92084.456100011964324",
+      "Pumpkin": "70434.091499999835974",
+      "Carrot": "33298.712000001761008",
+      "Cabbage": "82906.110700002273904",
+      "Beetroot": "23322.728999999962549",
+      "Cauliflower": "23555.937699999992841",
+      "Parsnip": "1987.175599999987904",
+      "Radish": "10420.849500000016126",
+      "Wheat": "263.674900000030601",
+      "Kale": "5165.070099999999387",
+      "Apple": "816.5300000000004811",
+      "Blueberry": "1523.3400000000038602",
+      "Orange": "1102.8400000000000763",
+      "Eggplant": "14463.654400000013717",
+      "Corn": "540.064599999992782",
+      "Banana": "918.8900000000005691",
+      "Red Pansy": "26",
+      "Yellow Pansy": "40",
+      "Purple Pansy": "20",
+      "White Pansy": "49",
+      "Blue Pansy": "74",
+      "Red Cosmos": "18",
+      "Yellow Cosmos": "26",
+      "Purple Cosmos": "50",
+      "White Cosmos": "30",
+      "Blue Cosmos": "41",
+      "Red Balloon Flower": "63",
+      "Yellow Balloon Flower": "13",
+      "Purple Balloon Flower": "16",
+      "White Balloon Flower": "9",
+      "Blue Balloon Flower": "38",
+      "Red Carnation": "13",
+      "Yellow Carnation": "22",
+      "Purple Carnation": "21",
+      "White Carnation": "36",
+      "Blue Carnation": "14",
+      "Prism Petal": "13",
+      "Celestial Frostbloom": "251",
+      "Primula Enigma": "159",
+      "Red Daffodil": "16",
+      "Yellow Daffodil": "4",
+      "Purple Daffodil": "52",
+      "White Daffodil": "15",
+      "Blue Daffodil": "15",
+      "Red Lotus": "55",
+      "Yellow Lotus": "11",
+      "Purple Lotus": "13",
+      "White Lotus": "30",
+      "Blue Lotus": "14",
+      "Soybean": "35443.385000000031318",
+      "Grape": "99.0199999999995933",
+      "Rice": "24.495799999999888",
+      "Olive": "54.933999999999973",
+      "Tomato": "33233.280000000006112",
+      "Lemon": "21211.970000000003555",
+      "Barley": "339.356300000023761",
+      "Rhubarb": "78340.62700001090515",
+      "Zucchini": "39272.26640000877498",
+      "Yam": "30212.948500003169132",
+      "Broccoli": "17243.210600002243108",
+      "Pepper": "10623.019500000038556",
+      "Onion": "881.949900000010489",
+      "Turnip": "3875.4416000000031205",
+      "Artichoke": "715.562600000004362",
+      "Duskberry": "8.2000000000000137",
+      "Lunara": "18.2000000000000134",
+      "Celestine": "211.6600000000000615",
+      "Red Edelweiss": "11",
+      "Yellow Edelweiss": "3",
+      "Purple Edelweiss": "41",
+      "White Edelweiss": "2",
+      "Blue Edelweiss": "6",
+      "Red Gladiolus": "8",
+      "Yellow Gladiolus": "31",
+      "Purple Gladiolus": "22",
+      "White Gladiolus": "26",
+      "Blue Gladiolus": "42",
+      "Red Lavender": "38",
+      "Yellow Lavender": "11",
+      "Purple Lavender": "15",
+      "White Lavender": "36",
+      "Blue Lavender": "6",
+      "Red Clover": "14",
+      "Yellow Clover": "57",
+      "Purple Clover": "28",
+      "White Clover": "8",
+      "Blue Clover": "34",
+      "Axe": "3885",
+      "Pickaxe": "280",
+      "Stone Pickaxe": "302",
+      "Iron Pickaxe": "15",
+      "Rod": "2516",
+      "Shovel": "1",
+      "Sand Shovel": "167",
+      "Sand Drill": "32",
+      "Gold Pickaxe": "163",
+      "Oil Drill": "191",
+      "Petting Hand": "1",
+      "Brush": "1",
+      "Music Box": "1",
+      "Sunflower Statue": "2",
+      "Potato Statue": "2",
+      "Christmas Tree": "1",
+      "Farm Cat": "1",
+      "Farm Dog": "1",
+      "Gnome": "1",
+      "Chicken Coop": "1",
+      "Gold Egg": "1",
+      "Golden Cauliflower": "1",
+      "Sunflower Tombstone": "2",
+      "Goblin Crown": "1",
+      "Fountain": "2",
+      "Foreman Beaver": "1",
+      "Mysterious Parsnip": "1",
+      "Carrot Sword": "1",
+      "Kuebiko": "1",
+      "Nyon Statue": "1",
+      "Farmer Bath": "1",
+      "Homeless Tent": "1",
+      "Mysterious Head": "1",
+      "Golden Bonsai": "2",
+      "Rock Golem": "1",
+      "Tunnel Mole": "1",
+      "Rocky the Mole": "1",
+      "Nugget": "1",
+      "Wicker Man": "1",
+      "Victoria Sisters": "1",
+      "Peeled Potato": "1",
+      "Cabbage Boy": "1",
+      "Cabbage Girl": "1",
+      "Wood Nymph Wendy": "1",
+      "Stellar Sunflower": "1",
+      "Potent Potato": "1",
+      "Radical Radish": "1",
+      "Immortal Pear": "1",
+      "Lady Bug": "1",
+      "Squirrel Monkey": "1",
+      "Black Bearry": "1",
+      "Ayam Cemani": "1",
+      "Maneki Neko": "1",
+      "Tiki Totem": "1",
+      "Lunar Calendar": "1",
+      "Treasure Map": "1",
+      "Heart of Davy Jones": "1",
+      "Heart Balloons": "1",
+      "Flamingo": "1",
+      "Blossom Tree": "1",
+      "Iron Idol": "1",
+      "Karkinos": "1",
+      "Mushroom House": "1",
+      "Purple Trail": "1",
+      "Obie": "1",
+      "Maximus": "1",
+      "Hoot": "1",
+      "Basic Scarecrow": "1",
+      "Emerald Turtle": "1",
+      "Tin Turtle": "1",
+      "Bale": "1",
+      "Sir Goldensnout": "1",
+      "Scary Mike": "1",
+      "Laurie the Chuckle Crow": "1",
+      "Freya Fox": "1",
+      "El Pollo Veloz": "1",
+      "Poppy": "1",
+      "Grain Grinder": "1",
+      "Kernaldo": "1",
+      "Queen Cornelia": "1",
+      "Lab Grown Carrot": "1",
+      "Lab Grown Pumpkin": "1",
+      "Lab Grown Radish": "1",
+      "Walrus": "1",
+      "Alba": "1",
+      "Knowledge Crab": "1",
+      "Anchor": "1",
+      "Goblet": "1",
+      "Kraken Head": "1",
+      "Skill Shrimpy": "1",
+      "Soil Krabby": "1",
+      "Nana": "1",
+      "Banana Chicken": "1",
+      "Grinx's Hammer": "1",
+      "Humming Bird": "1",
+      "Queen Bee": "1",
+      "Flower Fox": "1",
+      "Hungry Caterpillar": "1",
+      "Crim Peckster": "1",
+      "Turbo Sprout": "1",
+      "Soybliss": "1",
+      "Grape Granny": "1",
+      "Royal Throne": "1",
+      "Lily Egg": "1",
+      "Knight Chicken": "1",
+      "Pumpkin Soup": "567",
+      "Sauerkraut": "132",
+      "Sunflower Cake": "1006",
+      "Potato Cake": "68",
+      "Pumpkin Cake": "57",
+      "Carrot Cake": "68",
+      "Cabbage Cake": "479",
+      "Beetroot Cake": "58",
+      "Cauliflower Cake": "56",
+      "Parsnip Cake": "55",
+      "Radish Cake": "54",
+      "Wheat Cake": "502",
+      "Boiled Eggs": "33",
+      "Bumpkin Broth": "329",
+      "Bumpkin Salad": "475",
+      "Goblin's Treat": "222",
+      "Mashed Potato": "587",
+      "Cauliflower Burger": "274",
+      "Club Sandwich": "331",
+      "Roast Veggies": "99",
+      "Pancakes": "91",
+      "Apple Pie": "1040",
+      "Blueberry Jam": "91",
+      "Fermented Carrots": "348",
+      "Honey Cake": "743",
+      "Kale & Mushroom Pie": "918",
+      "Kale Stew": "261",
+      "Mushroom Jacket Potatoes": "12",
+      "Mushroom Soup": "5",
+      "Orange Cake": "50",
+      "Sunflower Crunch": "215",
+      "Reindeer Carrot": "427",
+      "Apple Juice": "279",
+      "Orange Juice": "76",
+      "Purple Smoothie": "160",
+      "Power Smoothie": "480",
+      "Bumpkin Detox": "228",
+      "Pirate Cake": "540",
+      "Bumpkin Roast": "69",
+      "Goblin Brunch": "38",
+      "Fruit Salad": "85",
+      "Kale Omelette": "14",
+      "Cabbers n Mash": "493",
+      "Fancy Fries": "107",
+      "Bumpkin ganoush": "320",
+      "Cornbread": "54",
+      "Eggplant Cake": "52",
+      "Popcorn": "107",
+      "Chowder": "5",
+      "Gumbo": "3",
+      "Banana Blast": "40",
+      "Beetroot Blaze": "1",
+      "Shroom Syrup": "11",
+      "Carrot Juice": "919",
+      "Fish Omelette": "5",
+      "Fried Tofu": "448",
+      "Grape Juice": "115",
+      "Quick Juice": "179",
+      "Rice Bun": "390",
+      "Slow Juice": "86",
+      "Steamed Red Rice": "246",
+      "Sushi Roll": "2",
+      "The Lot": "512",
+      "Tofu Scramble": "58",
+      "Antipasto": "395",
+      "Cheese": "48",
+      "Pizza Margherita": "387",
+      "Blue Cheese": "272",
+      "Honey Cheddar": "643",
+      "Caprese Salad": "55",
+      "Sour Shake": "594",
+      "Spaghetti al Limone": "302",
+      "Lemon Cheesecake": "153",
+      "Wood": "4911.43",
+      "Stone": "3771.51",
+      "Iron": "21.57",
+      "Gold": "134.24",
+      "Egg": "6082.09",
+      "Speed Chicken": "5",
+      "Fat Chicken": "3",
+      "Rich Chicken": "5",
+      "Rooster": "1",
+      "Honey": "761.39229856117191297",
+      "Wild Mushroom": "863.8",
+      "Magic Mushroom": "158.2",
+      "Tree": "2",
+      "Stone Rock": "2",
+      "Iron Rock": "3",
+      "Gold Rock": "3",
+      "Crop Plot": "80",
+      "Fruit Patch": "18",
+      "Basic Land": "34",
+      "Earthworm": "3907",
+      "Grub": "76",
+      "Red Wiggler": "320",
+      "Sprout Mix": "629",
+      "Fruitful Blend": "8962",
+      "Rapid Root": "687",
+      "Fishing Lure": "163",
+      "Beehive": "6",
+      "Flower Bed": "6",
+      "Crimstone Rock": "8",
+      "Crimstone": "531.65",
+      "Oil": "56262.552258592605507",
+      "Oil Reserve": "5",
+      "Leather": "15.97",
+      "Wool": "1667.86",
+      "Merino Wool": "8125.98",
+      "Feather": "1286.12",
+      "Milk": "85.43",
+      "Hay": "238.35",
+      "Kernel Blend": "546.85",
+      "NutriBarley": "146.7",
+      "Mixed Grain": "86.65",
+      "Barn Delight": "72",
+      "Cushion": "9",
+      "Timber": "5",
+      "Crimsteel": "4",
+      "Merino Cushion": "34",
+      "Kelp Fibre": "16",
+      "Synthetic Fabric": "73",
+      "Ocean's Treasure": "1",
+      "Omnifeed": "140",
+      "Obsidian": "149",
+      "Lava Pit": "8",
+      "Green Thumb": "1",
+      "Seed Specialist": "1",
+      "Prospector": "1",
+      "Gold Rush": "1",
+      "Liquidity Provider": "1",
+      "Trading Ticket": "1",
+      "Red Envelope": "16",
+      "Love Letter": "5",
+      "Solar Flare Banner": "1",
+      "Witches' Eve Banner": "1",
+      "Crow Feather": "72",
+      "Gold Pass": "1",
+      "Potion Ticket": "1645",
+      "Bud Ticket": "1",
+      "Catch the Kraken Banner": "1",
+      "Mermaid Scale": "61",
+      "Farmhand Coupon": "19",
+      "Farmhand": "4",
+      "Spring Blossom Banner": "1",
+      "Tulip Bulb": "228",
+      "Clash of Factions Banner": "1",
+      "Scroll": "3507",
+      "Lifetime Farmer Banner": "1",
+      "Goblin Emblem": "43768",
+      "Mark": "1044412.95",
+      "Pharaoh's Treasure Banner": "1",
+      "Amber Fossil": "97",
+      "Gem": "219853",
+      "Bull Run Banner": "1",
+      "Horseshoe": "8",
+      "Winds of Change Banner": "1",
+      "Timeshard": "209",
+      "Easter Token 2025": "50",
+      "Great Bloom Banner": "1",
+      "Geniseed": "96",
+      "Better Together Banner": "1",
+      "Paw Prints Banner": "1",
+      "Halloween Token 2025": "100",
+      "Crabs and Traps Banner": "1",
+      "Sunflower Flag": "1",
+      "Ukrainian Flag": "1",
+      "American Flag": "1",
+      "Goblin Flag": "1",
+      "Red Egg": "9",
+      "Blue Egg": "10",
+      "Yellow Egg": "10",
+      "Pink Egg": "10",
+      "Purple Egg": "10",
+      "Orange Egg": "10",
+      "Green Egg": "10",
+      "Easter Bunny": "1",
+      "Observatory": "1",
+      "Ancient Goblin Sword": "1",
+      "Rapid Growth": "50",
+      "War Bond": "159",
+      "Goblin War Point": "484",
+      "Goblin War Banner": "1",
+      "Wooden Compass": "295",
+      "Pablo The Bunny": "1",
+      "Iron Compass": "462",
+      "Old Bottle": "2966",
+      "Emerald Compass": "24",
+      "Earn Alliance Banner": "1",
+      "Treasure Key": "80",
+      "Luxury Key": "5",
+      "Rare Key": "104",
+      "Baby Panda": "1",
+      "Baozi": "1",
+      "Community Egg": "1",
+      "Hungry Hare": "1",
+      "Goblin Faction Banner": "1",
+      "Ronin Banner": "1",
+      "Base Banner": "1",
+      "Polygon Banner": "1",
+      "Market": "1",
+      "Fire Pit": "1",
+      "Workbench": "1",
+      "Tent": "1",
+      "Water Well": "4",
+      "Hen House": "2",
+      "Bakery": "1",
+      "Kitchen": "1",
+      "Deli": "1",
+      "Smoothie Shack": "1",
+      "Toolshed": "1",
+      "Warehouse": "1",
+      "Compost Bin": "1",
+      "Turbo Composter": "1",
+      "Premium Composter": "1",
+      "Greenhouse": "1",
+      "Crop Machine": "1",
+      "Barn": "1",
+      "Crafting Box": "1",
+      "Mansion": "1",
+      "Chef Apron": "1",
+      "Chef Hat": "1",
+      "War Skull": "6",
+      "War Tombstone": "3",
+      "Undead Rooster": "1",
+      "White Tulips": "1",
+      "Potted Sunflower": "23",
+      "Cactus": "1",
+      "Basic Bear": "52",
+      "Chef Bear": "2",
+      "Construction Bear": "3",
+      "Angel Bear": "1",
+      "Badass Bear": "2",
+      "Bear Trap": "2",
+      "Brilliant Bear": "2",
+      "Classy Bear": "1",
+      "Farmer Bear": "2",
+      "Sunflower Bear": "1",
+      "Rich Bear": "1",
+      "Potted Potato": "24",
+      "Potted Pumpkin": "9",
+      "Christmas Bear": "1",
+      "Christmas Snow Globe": "1",
+      "Devil Bear": "1",
+      "Collectible Bear": "1",
+      "Cyborg Bear": "1",
+      "Turtle Bear": "3",
+      "T-Rex Skull": "5",
+      "Sunflower Coin": "5",
+      "Foliant": "1",
+      "Lifeguard Bear": "3",
+      "Snorkel Bear": "2",
+      "Pirate Bear": "5",
+      "Easter Bear": "1",
+      "Dinosaur Bone": "3",
+      "Whale Bear": "2",
+      "Valentine Bear": "1",
+      "Palm Tree": "1",
+      "Beach Ball": "1",
+      "Easter Bush": "1",
+      "Giant Carrot": "1",
+      "Dirt Path": "612",
+      "Fence": "22",
+      "Luminous Lantern": "29",
+      "Radiance Lantern": "1",
+      "Aurora Lantern": "2",
+      "Bonnie's Tombstone": "1",
+      "Chestnut Fungi Stool": "1",
+      "Dawn Umbrella Seat": "2",
+      "Eggplant Grill": "1",
+      "Giant Dawn Mushroom": "1",
+      "Grubnash's Tombstone": "38",
+      "Mahogany Cap": "1",
+      "Toadstool Seat": "3",
+      "Clementine": "2",
+      "Cobalt": "2",
+      "Shroom Glow": "1",
+      "Genie Bear": "1",
+      "Ocean Lantern": "1",
+      "Beta Bear": "2",
+      "Golden Maple": "2",
+      "Stone Fence": "15",
+      "Solar Lantern": "1",
+      "Betty Lantern": "1",
+      "Bumpkin Lantern": "2",
+      "Eggplant Bear": "1",
+      "Goblin Lantern": "1",
+      "Dawn Flower": "1",
+      "Candles": "2",
+      "Haunted Stump": "1",
+      "Spooky Tree": "1",
+      "Giant Cabbage": "1",
+      "Giant Potato": "1",
+      "Giant Pumpkin": "1",
+      "Town Sign": "2",
+      "Observer": "1",
+      "Crow Rock": "1",
+      "Mini Corn Maze": "2",
+      "White Crow": "1",
+      "Lifeguard Ring": "1",
+      "Surfboard": "1",
+      "Hideaway Herman": "1",
+      "Shifty Sheldon": "1",
+      "Tiki Torch": "4",
+      "Beach Umbrella": "1",
+      "Sapo Docuras": "1",
+      "Sapo Travessuras": "1",
+      "Time Warp Totem": "1",
+      "Bumpkin Nutcracker": "1",
+      "Festive Tree": "3",
+      "Coral": "312",
+      "Pipi": "247",
+      "Starfish": "4643",
+      "Seaweed": "2240",
+      "Sea Cucumber": "4299",
+      "Crab": "3565",
+      "Purple Cauliflower": "5",
+      "Warty Goblin Pumpkin": "12",
+      "White Carrot": "42",
+      "Anchovy": "961",
+      "Butterflyfish": "869",
+      "Blowfish": "763",
+      "Clownfish": "680",
+      "Sea Bass": "248",
+      "Sea Horse": "168",
+      "Horse Mackerel": "202",
+      "Squid": "216",
+      "Red Snapper": "3707",
+      "Moray Eel": "3299",
+      "Olive Flounder": "1133",
+      "Napoleanfish": "1668",
+      "Surgeonfish": "1659",
+      "Zebra Turkeyfish": "1293",
+      "Ray": "221",
+      "Hammerhead shark": "148",
+      "Tuna": "624",
+      "Mahi Mahi": "956",
+      "Blue Marlin": "1018",
+      "Oarfish": "678",
+      "Football fish": "435",
+      "Sunfish": "536",
+      "Coelacanth": "110",
+      "Whale Shark": "357",
+      "Barred Knifejaw": "597",
+      "Saw Shark": "20",
+      "White Shark": "120",
+      "Twilight Anglerfish": "2",
+      "Starlight Tuna": "5",
+      "Phantom Barracuda": "1",
+      "Gilded Swordfish": "1",
+      "Kraken Tentacle": "1",
+      "Angelfish": "432",
+      "Halibut": "385",
+      "Parrotfish": "109",
+      "Crimson Carp": "1",
+      "Battle Fish": "1",
+      "Lemon Shark": "1",
+      "Longhorn Cowfish": "1",
+      "Porgy": "566",
+      "Muskellunge": "189",
+      "Trout": "887",
+      "Walleye": "365",
+      "Weakfish": "503",
+      "Rock Blackfish": "951",
+      "Cobia": "284",
+      "Tilapia": "956",
+      "Super Star": "1",
+      "Giant Isopod": "1",
+      "Nautilus": "1",
+      "White Festive Fox": "1",
+      "Rug": "6",
+      "Wardrobe": "1",
+      "Sunrise Bloom Rug": "1",
+      "Blossom Royale": "1",
+      "Rainbow": "1",
+      "Enchanted Rose": "1",
+      "Flower Cart": "1",
+      "Capybara": "1",
+      "Blossombeard": "1",
+      "Flower Rug": "1",
+      "Tea Rug": "1",
+      "Green Field Rug": "1",
+      "Fancy Rug": "1",
+      "Clock": "1",
+      "Vinny": "1",
+      "Desert Gnome": "1",
+      "Gaucho Rug": "1",
+      "Bullseye Board": "1",
+      "Chess Rug": "1",
+      "Cluckapult": "1",
+      "Golden Garrison": "1",
+      "Novice Knight": "1",
+      "Regular Pawn": "1",
+      "Rookie Rook": "3",
+      "Silver Sentinel": "1",
+      "Silver Squire": "8",
+      "Trainee Target": "1",
+      "Twister Rug": "1",
+      "Rice Panda": "1",
+      "Benevolence Flag": "1",
+      "Devotion Flag": "1",
+      "Generosity Flag": "9",
+      "Splendor Flag": "1",
+      "Jelly Lamp": "1",
+      "Paint Can": "1",
+      "Goblin Candles": "1",
+      "Goblin Left Wall Sconce": "1",
+      "Goblin Right Wall Sconce": "1",
+      "Ore Hourglass": "3",
+      "Blossom Hourglass": "2",
+      "Fisher's Hourglass": "9",
+      "Goblin Faction Rug": "1",
+      "Goblin Gold Champion": "6",
+      "Goblin Silver Champion": "7",
+      "Goblin Bronze Champion": "6",
+      "Desert Rose": "1",
+      "Hapy Jar": "1",
+      "Duamutef Jar": "3",
+      "Qebehsenuef Jar": "1",
+      "Imsety Jar": "2",
+      "Cannonball": "1",
+      "Sarcophagus": "2",
+      "Clay Tablet": "1",
+      "Snake in Jar": "1",
+      "Reveling Lemon": "1",
+      "Anubis Jackal": "1",
+      "Sundial": "1",
+      "Sand Golem": "2",
+      "Cactus King": "1",
+      "Lemon Frog": "1",
+      "Scarab Beetle": "1",
+      "Pharaoh Chicken": "1",
+      "Adrift Ark": "1",
+      "Castellan": "1",
+      "Sunlit Citadel": "1",
+      "Lemon Tea Bath": "1",
+      "Tomato Clown": "1",
+      "Pyramid": "1",
+      "Oasis": "1",
+      "Paper Reed": "1",
+      "Baobab Tree": "1",
+      "Camel": "1",
+      "Tomato Bombard": "1",
+      "Stone Beetle": "1",
+      "Iron Beetle": "1",
+      "Gold Beetle": "1",
+      "Fairy Circle": "1",
+      "Squirrel": "1",
+      "Macaw": "1",
+      "Butterfly": "1",
+      "Marty": "1",
+      "Mog": "1",
+      "Morty": "1",
+      "Basic Bed": "5",
+      "Sturdy Bed": "1",
+      "Floral Bed": "1",
+      "Fisher Bed": "1",
+      "Pirate Bed": "1",
+      "Cow Bed": "1",
+      "Desert Bed": "1",
+      "Royal Bed": "1",
+      "Cow Scratcher": "1",
+      "Spinning Wheel": "3",
+      "Sleepy Rug": "2",
+      "Meteorite": "2",
+      "Sheaf of Plenty": "1",
+      "Mechanical Bull": "1",
+      "King of Bears": "1",
+      "Moo-ver": "1",
+      "Swiss Whiskers": "1",
+      "UFO": "2",
+      "Chicory": "1",
+      "Wagon": "1",
+      "Black Sheep": "1",
+      "Alien Chicken": "1",
+      "Mootant": "1",
+      "Toxic Tuft": "1",
+      "Crop Circle": "1",
+      "Halloween Scarecrow": "1",
+      "Vampire Bear": "1",
+      "Super Totem": "11",
+      "Christmas Stocking": "1",
+      "Golden Christmas Stocking": "1",
+      "Cozy Fireplace": "1",
+      "Christmas Rug": "1",
+      "Christmas Candle": "1",
+      "Santa Penguin": "1",
+      "Penguin Pool": "1",
+      "Snowman": "1",
+      "Festive Toy Train": "1",
+      "Golden Cow": "1",
+      "Tornado Pinwheel": "1",
+      "Mangrove": "1",
+      "Thermal Stone": "1",
+      "Protective Pesticide": "1",
+      "Volcano Gnome": "1",
+      "Kite": "4",
+      "Acorn House": "1",
+      "Spring Duckling": "1",
+      "Igloo": "2",
+      "Ugly Duckling": "1",
+      "Lake Rug": "1",
+      "Hammock": "1",
+      "Mammoth": "1",
+      "Cup of Chocolate": "2",
+      "Golden Sheep": "1",
+      "Barn Blueprint": "1",
+      "Mama Duck": "1",
+      "Summer Duckling": "1",
+      "Autumn Duckling": "1",
+      "Winter Duckling": "1",
+      "Frozen Cow": "1",
+      "Frozen Sheep": "1",
+      "Summer Chicken": "2",
+      "Chamomile": "6",
+      "Jellyfish": "1",
+      "Rhubarb Tart": "5693",
+      "Jin": "1",
+      "Floral Arch": "1",
+      "Flower Coin": "1",
+      "Flower Statue": "1",
+      "Heartstruck Tree": "3",
+      "Mermaid Fountain": "1",
+      "Streamer's Statue": "1",
+      "Cetus": "1",
+      "Easter Ticket 2025": "3",
+      "Carrot House": "1",
+      "Orange Bunny Lantern": "1",
+      "White Bunny Lantern": "1",
+      "Orange Tunnel Bunny": "1",
+      "White Tunnel Bunny": "1",
+      "Easter Basket": "1",
+      "Pink Dolphin": "1",
+      "Love Chicken": "3",
+      "Dr Cow": "1",
+      "Nurse Sheep": "1",
+      "Lunalist": "7",
+      "Obsidian Turtle": "1",
+      "Winter Guardian": "1",
+      "Summer Guardian": "1",
+      "Spring Guardian": "1",
+      "Autumn Guardian": "1",
+      "Sky Pillar": "1",
+      "Flower-Scribed Statue": "1",
+      "Balloon Rug": "2",
+      "Giant Yam": "1",
+      "Heart Air Balloon": "1",
+      "Giant Zucchini": "1",
+      "Mini Floating Island": "1",
+      "Paint Buckets": "1",
+      "Rainbow Well": "1",
+      "Floating Toy": "1",
+      "Pony Toy": "1",
+      "Red Slime Balloon": "1",
+      "Blue Slime Balloon": "1",
+      "Halloween Ticket 2025": "1",
+      "Cerberus": "1",
+      "Raveyard": "1",
+      "Haunted House": "1",
+      "Mimic Egg": "1",
+      "Haunted Tomb": "1",
+      "Guillotine": "1",
+      "Vampire Coffin": "1",
+      "Paw Prints Rug": "1",
+      "Pet Bed": "1",
+      "Giant Acorn": "1",
+      "Pet Bowls": "1",
+      "Squeaky Chicken": "1",
+      "Holiday Decorative Totem": "1",
+      "Red Holiday Ornament": "1",
+      "Green Holiday Ornament": "1",
+      "Gift Turtle": "1",
+      "Penguin Surprise": "1",
+      "Frozen Meat": "1",
+      "Ho Ho oh oh…": "1",
+      "Big Apple": "1",
+      "Big Banana": "1",
+      "Farmer's Monument": "1",
+      "Miner's Monument": "1",
+      "Woodcutter's Monument": "1",
+      "Teamwork Monument": "1",
+      "Floor Mirror": "4",
+      "Long Rug": "2",
+      "Garbage Bin": "3",
+      "Wheelbarrow": "1",
+      "Snail King": "2",
+      "Reelmaster's Chair": "1",
+      "Rat King": "1",
+      "Fruit Tune Box": "1",
+      "Double Bed": "1",
+      "Rocket Statue": "1",
+      "Ant Queen": "1",
+      "Giant Onion": "1",
+      "Giant Turnip": "1",
+      "Groovy Gramophone": "1",
+      "Wheat Whiskers": "1",
+      "Pest Net": "147",
+      "Poseidon": "1",
+      "Giant Orange": "1098",
+      "Giant Apple": "615",
+      "Giant Banana": "105",
+      "Doll": "33",
+      "Buzz Doll": "10",
+      "Juicy Doll": "9",
+      "Crude Doll": "133",
+      "Cluck Doll": "7",
+      "Wooly Doll": "10",
+      "Moo Doll": "8",
+      "Ember Doll": "7",
+      "Gilded Doll": "5",
+      "Harvest Doll": "9",
+      "Sizzle Doll": "10",
+      "Angler Doll": "8",
+      "Baby Cow": "1",
+      "Baby Sheep": "1",
+      "Venus Bumpkin Trap": "7",
+      "Janitor Chicken": "1",
+      "Black Hole Flower": "13",
+      "Sleepy Chicken": "1",
+      "Astronaut Cow": "1",
+      "Astronaut Sheep": "1",
+      "Mermaid Cow": "3",
+      "Squid Chicken": "1",
+      "Anemone Flower": "7",
+      "Burro": "1",
+      "Mudhorn": "1",
+      "Butters": "1",
+      "Acorn": "97.95",
+      "Ruffroot": "9.7",
+      "Chewed Bone": "0.3",
+      "Heart leaf": "7.3",
+      "Moonfur": "21.3",
+      "Ribbon": "0.55",
+      "Dewberry": "3.5",
+      "Wild Grass": "2.75",
+      "Frost Pebble": "6.15",
+      "Petnip Plant": "4",
+      "Pet Kennel": "1",
+      "Pet Toys": "4",
+      "Pet Playground": "2",
+      "Fish Bowl": "4",
+      "Giant Gold Bone": "1",
+      "Lunar Temple": "1",
+      "Magma Stone": "1",
+      "Cornucopia": "1",
+      "Messy Bed": "1",
+      "Diving Helmet": "1",
+      "Speckled Kissing Fish": "1",
+      "Dark Eyed Kissing Fish": "1",
+      "Fisherman's Boat": "1",
+      "Crabs and Fish Rug": "1",
+      "Fish Flags": "1",
+      "Fish Drying Rack": "1",
+      "Yellow Submarine Trophy": "1",
+      "Oaken": "1",
+      "Meerkat": "1",
+      "Pearl Bed": "1",
+      "Crimstone Clam": "1",
+      "Poseidon's Throne": "1",
+      "Fish Kite": "1",
+      "Pufferfish": "1",
+      "Fat Crab": "1",
+      "Navigation Table": "1",
+      "Royal Crab Pot": "1",
+      "Crab House": "1",
+      "Speed Trap": "1",
+      "Salt Crystal Flower": "11",
+      "Crystal Shrimp": "1",
+      "Salt Awakening Banner": "1",
+      "Salt Lamp": "1",
+      "World Map Rug": "2",
+      "Ripped Salt Bag": "1",
+      "Vibraphone": "1",
+      "Sand": "6506",
+      "Camel Bone": "3684",
+      "Vase": "1152",
+      "Cockle Shell": "323",
+      "Scarab": "62",
+      "Clam Shell": "880",
+      "Pearl": "159",
+      "Pirate Bounty": "64",
+      "Cow Skull": "14",
+      "Trade Point": "18900.811376612919889",
+      "Ancient Clock": "47",
+      "Love Charm": "58782",
+      "Broken Pillar": "100",
+      "Trash": "1",
+      "Coprolite": "94",
+      "Anthill": "1",
+      "Snail": "1",
+      "Rat": "1",
+      "Bracelet": "166",
+      "Ancient Tree": "3",
+      "Sacred Tree": "1",
+      "Fused Stone Rock": "2",
+      "Reinforced Stone Rock": "1",
+      "Pure Gold Rock": "2",
+      "Refined Iron Rock": "3",
+      "Dung": "141284",
+      "Hieroglyph": "54",
+      "Obsidian Shrine": "1",
+      "Sparrow Shrine": "1",
+      "Mole Shrine": "1",
+      "Moth Shrine": "1",
+      "Tortoise Shrine": "1",
+      "Moon Crystal": "72",
+      "Bantam Shrine": "1",
+      "Collie Shrine": "1",
+      "Stag Shrine": "1",
+      "Toucan Shrine": "1",
+      "Badger Shrine": "1",
+      "Pet Cookie": "235",
+      "Weed": "19902",
+      "Fish Market": "1",
+      "Mariner Pot": "81",
+      "Ammonite Shell": "114",
+      "Hermit Crab": "46",
+      "Trading Shrine": "1",
+      "Oyster": "42",
+      "Crab Pot": "116",
+      "Sea Urchin": "42",
+      "Barnacle": "986",
+      "Isopod": "1840",
+      "Big Orange": "1",
+      "Basic Cooking Pot": "1",
+      "Horseshoe Crab": "46",
+      "Timber Hourglass": "2",
+      "Bloom Doll": "10",
+      "Orchard Hourglass": "2",
+      "Sea Snail": "43",
+      "Pet House": "1",
+      "Lumber Doll": "8",
+      "Boar Shrine": "1",
+      "Skipper": "1",
+      "Royal Ornament": "9",
+      "CluckCoin": "25",
+      "Nefari Doll": "1",
+      "Mussel": "44",
+      "April Fools Token 2026": "50",
+      "Furikake Sprinkle": "2",
+      "Surimi Rice Bowl": "512",
+      "Fish Oil": "121",
+      "Octopus": "42",
+      "Anemone": "42",
+      "Gourmet Hourglass": "10",
+      "Floater": "276",
+      "Aging Shed": "1",
+      "Salt Dino Egg": "114",
+      "Aged Anchovy": "531",
+      "Prime Aged Anchovy": "91",
+      "Salt Sculpture": "1",
+      "Aged Red Snapper": "161",
+      "Prime Aged Red Snapper": "35",
+      "Pickled Pepper": "84",
+      "Aged Sea Bass": "945",
+      "Prime Aged Sea Bass": "140",
+      "Pickled Radish": "117",
+      "Aged Blowfish": "54",
+      "Pickled Zucchini": "1753",
+      "Capsule Bait": "10",
+      "Aged Blue Marlin": "116",
+      "Greenhouse Glow": "721",
+      "Aged Mahi Mahi": "137",
+      "Prime Aged Blue Marlin": "22",
+      "Prime Aged Football fish": "1",
+      "Pickled Onion": "383",
+      "Pickled Tomato": "79",
+      "Aged Tuna": "2655",
+      "Prime Aged Tuna": "440",
+      "Pickled Broccoli": "470",
+      "Aged Butterflyfish": "186",
+      "Crimson Baitfish": "58",
+      "Aged Sunfish": "101",
+      "Aged Olive Flounder": "458",
+      "Prime Aged Olive Flounder": "81",
+      "Aged Moray Eel": "12",
+      "Prime Aged Blowfish": "18",
+      "Turbofruit Mix": "1",
+      "Aged Tilapia": "15",
+      "Fish Stick": "67",
+      "Prime Aged Butterflyfish": "26",
+      "Refined Salt": "1974",
+      "Prime Aged Tilapia": "3",
+      "Aged Clownfish": "31",
+      "Prime Aged Mahi Mahi": "31",
+      "Salt Lick": "2102",
+      "Greenhouse Goodie": "928",
+      "Prime Aged Sunfish": "13",
+      "Aged Hammerhead shark": "71",
+      "Aged Napoleanfish": "1556",
+      "Aged Saw Shark": "15",
+      "Prime Aged Saw Shark": "3",
+      "Aged Zebra Turkeyfish": "29",
+      "Aged Rock Blackfish": "10",
+      "Prime Aged Rock Blackfish": "2",
+      "Prime Aged Hammerhead shark": "7",
+      "Aged Weakfish": "5",
+      "Prime Aged Weakfish": "1",
+      "Aged Barred Knifejaw": "10",
+      "Prime Aged Barred Knifejaw": "2",
+      "Aged Coelacanth": "5",
+      "Prime Aged Coelacanth": "1",
+      "Aged Squid": "5",
+      "Prime Aged Squid": "1",
+      "Flamingo Chicken": "1",
+      "Prime Aged Clownfish": "5",
+      "Pippin": "1",
+      "Salt Crystal Bed": "1",
+      "Shrimp": "41",
+      "Lobster": "41",
+      "Prime Aged Zebra Turkeyfish": "1",
+      "Aged Muskellunge": "5",
+      "Prime Aged Muskellunge": "1",
+      "Aged Halibut": "4",
+      "Prime Aged Halibut": "2",
+      "Aged Horse Mackerel": "6",
+      "Aged Trout": "18",
+      "Prime Aged Trout": "6",
+      "Aged Walleye": "8",
+      "Prime Aged Walleye": "4",
+      "Aged Football fish": "12",
+      "Blue Crab": "39",
+      "Jacuzzi Bear": "1",
+      "Salt Doll": "1",
+      "Cheer": "287",
+      "Sea Grapes": "47",
+      "Lunar Doll": "6",
+      "Dino Egg Trophy": "1",
+      "Garden Eel": "40",
+      "Sea Slug": "38",
+      "Crab Stick": "72",
+      "Blue Paint Bucket": "1",
+      "Green Paint Bucket": "1",
+      "Purple Paint Bucket": "1",
+      "Mimic Winged Slime Ball": "1",
+      "Saltwort": "0.989599999999963",
+      "Colors Token 2026": "100",
+      "Yellow Paint Bucket": "1",
+      "Crystal Altar": "1",
+      "Chiogga": "1",
+      "Letter I Tile": "7",
+      "Letter J Tile": "2",
+      "Letter P Tile": "3",
+      "Letter R Tile": "7",
+      "Letter E Tile": "5",
+      "Letter M Tile": "3",
+      "Letter N Tile": "6",
+      "Letter T Tile": "6",
+      "Letter A Tile": "5",
+      "Letter C Tile": "2",
+      "Letter L Tile": "6",
+      "Letter O Tile": "4",
+      "Letter Y Tile": "2",
+      "Letter K Tile": "1",
+      "Letter G Tile": "5",
+      "Letter W Tile": "2",
+      "Letter H Tile": "4",
+      "Letter S Tile": "4",
+      "Letter X Tile": "2",
+      "Ascension Age Banner": "1",
+      "Otter Pebble": "156",
+      "Letter B Tile": "3",
+      "Letter D Tile": "6",
+      "Letter U Tile": "4",
+      "Letter V Tile": "3",
+      "Letter Z Tile": "1",
+      "Aged Oarfish": "10",
+      "Rice Seed": "24",
+      "Letter F Tile": "3",
+      "Ascended Wheel": "1",
+      "Lampshade": "1",
+      "Prime Aged Napoleanfish": "262",
+      "Marble Head": "1",
+      "Crocodile": "1",
+      "Ascended Cow": "3",
+      "Sunstone Rock": "1",
+      "Salt": "1089",
+      "Sunstone": "7",
+      "Aged Whale Shark": "5",
+      "Prime Aged Whale Shark": "1",
+      "Prime Aged Oarfish": "2",
+      "Sproutroot Surprise": "22",
+      "Radiant Ray": "1",
+      "Celestine Seed": "3",
+      "Duskberry Seed": "2",
+      "Lunara Seed": "1",
+      "Salt Rake": "18",
+      "Fish Flake": "85",
+      "Nibbles": "1",
+      "Cloud Bed": "1",
+      "Loyal Rarecrow": "1",
+      "Grape Seed": "48",
+      "Hound Shrine": "1",
+      "Swamp Biome": "1",
+      "Umbrella Bait": "156",
+      "Ascension Shard": "6",
+      "Harvest Hourglass": "2",
+      "Pumpkin Seed": "10"
+    },
+    "previousInventory": {
+      "Carrot Seed": "240",
+      "Cabbage Seed": "155",
+      "Beetroot Seed": "122",
+      "Cauliflower Seed": "422",
+      "Parsnip Seed": "157",
+      "Radish Seed": "126",
+      "Wheat Seed": "179",
+      "Kale Seed": "10",
+      "Apple Seed": "36",
+      "Blueberry Seed": "45",
+      "Orange Seed": "48",
+      "Magic Bean": "1",
+      "Eggplant Seed": "123",
+      "Corn Seed": "146",
+      "Banana Plant": "46",
+      "Sunpetal Seed": "50",
+      "Bloom Seed": "25",
+      "Lily Seed": "11",
+      "Soybean Seed": "288",
+      "Olive Seed": "52",
+      "Tomato Seed": "10",
+      "Lemon Seed": "60",
+      "Barley Seed": "85",
+      "Rhubarb Seed": "194",
+      "Zucchini Seed": "202",
+      "Yam Seed": "243",
+      "Broccoli Seed": "188",
+      "Pepper Seed": "158",
+      "Onion Seed": "300",
+      "Turnip Seed": "240",
+      "Artichoke Seed": "126",
+      "Edelweiss Seed": "13",
+      "Gladiolus Seed": "12",
+      "Lavender Seed": "12",
+      "Clover Seed": "12",
+      "Sunflower": "141598.01019997687321",
+      "Potato": "86166.88990001156359",
+      "Pumpkin": "96877.69019999978101",
+      "Carrot": "43882.678600001020166",
+      "Cabbage": "60969.258200000622608",
+      "Beetroot": "42135.074299999997072",
+      "Cauliflower": "36764.441999999998413",
+      "Parsnip": "457.794199999997725",
+      "Radish": "13831.40170000000462",
+      "Wheat": "16625.059000000006428",
+      "Kale": "1600.640800000000827",
+      "Apple": "152.5300000000002941",
+      "Blueberry": "134.0400000000016229",
+      "Orange": "334.9900000000008563",
+      "Eggplant": "540.226999999998521",
+      "Corn": "1527.623299999997701",
+      "Banana": "293.3400000000004847",
+      "Red Pansy": "3",
+      "Yellow Pansy": "18",
+      "Purple Pansy": "10",
+      "White Pansy": "32",
+      "Blue Pansy": "12",
+      "Red Cosmos": "20",
+      "Yellow Cosmos": "10",
+      "Purple Cosmos": "60",
+      "White Cosmos": "18",
+      "Blue Cosmos": "10",
+      "Red Balloon Flower": "10",
+      "Yellow Balloon Flower": "4",
+      "Purple Balloon Flower": "1",
+      "White Balloon Flower": "6",
+      "Blue Balloon Flower": "23",
+      "Red Carnation": "5",
+      "Yellow Carnation": "12",
+      "Purple Carnation": "11",
+      "White Carnation": "34",
+      "Blue Carnation": "5",
+      "Prism Petal": "6",
+      "Celestial Frostbloom": "89",
+      "Primula Enigma": "35",
+      "Red Daffodil": "11",
+      "Yellow Daffodil": "8",
+      "Purple Daffodil": "3",
+      "White Daffodil": "5",
+      "Blue Daffodil": "8",
+      "Red Lotus": "5",
+      "Yellow Lotus": "4",
+      "Purple Lotus": "1",
+      "White Lotus": "12",
+      "Blue Lotus": "2",
+      "Soybean": "80770.511400000014501",
+      "Grape": "16.2200000000001388",
+      "Rice": "983.6959",
+      "Olive": "980.134",
+      "Tomato": "4731.6800000000017342",
+      "Lemon": "294.4700000000005367",
+      "Barley": "12639.708899999999966",
+      "Rhubarb": "119505.7285000062387",
+      "Zucchini": "184462.11640000469604",
+      "Yam": "52453.660000001203468",
+      "Broccoli": "52376.178700000762546",
+      "Pepper": "16951.111600000006822",
+      "Onion": "5237.500500000000293",
+      "Turnip": "4324.3687000000005415",
+      "Artichoke": "34768.02719999999871",
+      "Duskberry": "17.2000000000000077",
+      "Lunara": "8.2000000000000094",
+      "Celestine": "574.6600000000000571",
+      "Red Edelweiss": "8",
+      "Yellow Edelweiss": "7",
+      "Purple Edelweiss": "17",
+      "White Edelweiss": "3",
+      "Blue Edelweiss": "5",
+      "Red Gladiolus": "6",
+      "Yellow Gladiolus": "21",
+      "Purple Gladiolus": "9",
+      "White Gladiolus": "6",
+      "Blue Gladiolus": "22",
+      "Red Lavender": "10",
+      "Yellow Lavender": "6",
+      "Purple Lavender": "8",
+      "White Lavender": "23",
+      "Blue Lavender": "6",
+      "Red Clover": "9",
+      "Yellow Clover": "18",
+      "Purple Clover": "10",
+      "White Clover": "7",
+      "Blue Clover": "18",
+      "Axe": "2621",
+      "Pickaxe": "2455",
+      "Stone Pickaxe": "238",
+      "Iron Pickaxe": "14",
+      "Rod": "335",
+      "Shovel": "1",
+      "Sand Shovel": "167",
+      "Sand Drill": "18",
+      "Gold Pickaxe": "244",
+      "Oil Drill": "152",
+      "Petting Hand": "1",
+      "Brush": "1",
+      "Music Box": "1",
+      "Sunflower Statue": "2",
+      "Potato Statue": "2",
+      "Christmas Tree": "1",
+      "Farm Cat": "1",
+      "Farm Dog": "1",
+      "Gnome": "1",
+      "Chicken Coop": "1",
+      "Gold Egg": "1",
+      "Golden Cauliflower": "1",
+      "Sunflower Tombstone": "2",
+      "Goblin Crown": "1",
+      "Fountain": "2",
+      "Foreman Beaver": "1",
+      "Mysterious Parsnip": "1",
+      "Carrot Sword": "1",
+      "Kuebiko": "1",
+      "Nyon Statue": "1",
+      "Farmer Bath": "1",
+      "Homeless Tent": "1",
+      "Mysterious Head": "1",
+      "Golden Bonsai": "2",
+      "Rock Golem": "1",
+      "Tunnel Mole": "1",
+      "Rocky the Mole": "1",
+      "Nugget": "1",
+      "Wicker Man": "1",
+      "Victoria Sisters": "1",
+      "Peeled Potato": "1",
+      "Cabbage Boy": "1",
+      "Cabbage Girl": "1",
+      "Wood Nymph Wendy": "1",
+      "Stellar Sunflower": "1",
+      "Potent Potato": "1",
+      "Radical Radish": "1",
+      "Immortal Pear": "1",
+      "Lady Bug": "1",
+      "Squirrel Monkey": "1",
+      "Black Bearry": "1",
+      "Ayam Cemani": "1",
+      "Maneki Neko": "1",
+      "Tiki Totem": "1",
+      "Lunar Calendar": "1",
+      "Treasure Map": "1",
+      "Heart of Davy Jones": "1",
+      "Heart Balloons": "1",
+      "Flamingo": "1",
+      "Blossom Tree": "1",
+      "Iron Idol": "1",
+      "Karkinos": "1",
+      "Mushroom House": "1",
+      "Purple Trail": "1",
+      "Obie": "1",
+      "Maximus": "1",
+      "Hoot": "1",
+      "Basic Scarecrow": "1",
+      "Emerald Turtle": "1",
+      "Tin Turtle": "1",
+      "Bale": "1",
+      "Sir Goldensnout": "1",
+      "Scary Mike": "1",
+      "Laurie the Chuckle Crow": "1",
+      "Freya Fox": "1",
+      "El Pollo Veloz": "1",
+      "Poppy": "1",
+      "Grain Grinder": "1",
+      "Kernaldo": "1",
+      "Queen Cornelia": "1",
+      "Lab Grown Carrot": "1",
+      "Lab Grown Pumpkin": "1",
+      "Lab Grown Radish": "1",
+      "Walrus": "1",
+      "Alba": "1",
+      "Knowledge Crab": "1",
+      "Anchor": "1",
+      "Goblet": "1",
+      "Kraken Head": "1",
+      "Skill Shrimpy": "1",
+      "Soil Krabby": "1",
+      "Nana": "1",
+      "Banana Chicken": "1",
+      "Grinx's Hammer": "1",
+      "Humming Bird": "1",
+      "Queen Bee": "1",
+      "Flower Fox": "1",
+      "Hungry Caterpillar": "1",
+      "Crim Peckster": "1",
+      "Turbo Sprout": "1",
+      "Soybliss": "1",
+      "Grape Granny": "1",
+      "Royal Throne": "1",
+      "Lily Egg": "1",
+      "Knight Chicken": "1",
+      "Pumpkin Soup": "12138",
+      "Sauerkraut": "604",
+      "Sunflower Cake": "538",
+      "Potato Cake": "103",
+      "Pumpkin Cake": "180",
+      "Carrot Cake": "105",
+      "Cabbage Cake": "211",
+      "Beetroot Cake": "87",
+      "Cauliflower Cake": "83",
+      "Parsnip Cake": "94",
+      "Radish Cake": "94",
+      "Wheat Cake": "315",
+      "Boiled Eggs": "72",
+      "Bumpkin Broth": "1765",
+      "Bumpkin Salad": "13",
+      "Goblin's Treat": "326",
+      "Mashed Potato": "1406",
+      "Cauliflower Burger": "422",
+      "Club Sandwich": "331",
+      "Roast Veggies": "494",
+      "Pancakes": "130",
+      "Apple Pie": "470",
+      "Blueberry Jam": "159",
+      "Fermented Carrots": "454",
+      "Honey Cake": "10",
+      "Kale & Mushroom Pie": "406",
+      "Kale Stew": "342",
+      "Mushroom Jacket Potatoes": "10",
+      "Mushroom Soup": "7",
+      "Orange Cake": "84",
+      "Sunflower Crunch": "1474",
+      "Reindeer Carrot": "1129",
+      "Apple Juice": "187",
+      "Orange Juice": "130",
+      "Purple Smoothie": "250",
+      "Power Smoothie": "251",
+      "Bumpkin Detox": "73",
+      "Pirate Cake": "14",
+      "Bumpkin Roast": "142",
+      "Goblin Brunch": "9",
+      "Fruit Salad": "650",
+      "Kale Omelette": "40",
+      "Cabbers n Mash": "518",
+      "Fancy Fries": "352",
+      "Bumpkin ganoush": "307",
+      "Cornbread": "131",
+      "Eggplant Cake": "84",
+      "Popcorn": "94",
+      "Chowder": "14",
+      "Gumbo": "69",
+      "Fermented Fish": "39",
+      "Banana Blast": "348",
+      "Beetroot Blaze": "12",
+      "Rapid Roast": "27",
+      "Shroom Syrup": "35",
+      "Carrot Juice": "176",
+      "Seafood Basket": "27",
+      "Fish Burger": "15",
+      "Fish n Chips": "29",
+      "Fish Omelette": "22",
+      "Fried Calamari": "34",
+      "Fried Tofu": "8",
+      "Grape Juice": "12",
+      "Ocean's Olive": "33",
+      "Quick Juice": "169",
+      "Rice Bun": "10",
+      "Slow Juice": "56",
+      "Steamed Red Rice": "13",
+      "Sushi Roll": "27",
+      "The Lot": "31",
+      "Tofu Scramble": "21",
+      "Antipasto": "11",
+      "Paella": "1",
+      "Cheese": "35",
+      "Pizza Margherita": "16",
+      "Blue Cheese": "60",
+      "Honey Cheddar": "10",
+      "Caprese Salad": "10",
+      "Sour Shake": "48",
+      "Spaghetti al Limone": "10",
+      "Lemon Cheesecake": "14",
+      "Wood": "70675.83",
+      "Stone": "6054.85",
+      "Iron": "4452.67",
+      "Gold": "1684.34",
+      "Egg": "684.89",
+      "Speed Chicken": "5",
+      "Fat Chicken": "3",
+      "Rich Chicken": "5",
+      "Rooster": "1",
+      "Honey": "62.58899170845114323",
+      "Wild Mushroom": "575.4",
+      "Magic Mushroom": "617.6",
+      "Tree": "23",
+      "Stone Rock": "20",
+      "Iron Rock": "13",
+      "Gold Rock": "9",
+      "Crop Plot": "65",
+      "Fruit Patch": "15",
+      "Basic Land": "30",
+      "Earthworm": "2295",
+      "Grub": "454",
+      "Red Wiggler": "524",
+      "Sprout Mix": "1458",
+      "Fruitful Blend": "7962",
+      "Rapid Root": "877",
+      "Fishing Lure": "148",
+      "Beehive": "5",
+      "Flower Bed": "5",
+      "Crimstone Rock": "5",
+      "Crimstone": "87.55",
+      "Oil": "17582.993552055560667",
+      "Oil Reserve": "4",
+      "Leather": "2834.7",
+      "Wool": "48.56",
+      "Merino Wool": "2413.93",
+      "Feather": "5911.17",
+      "Milk": "182.55",
+      "Hay": "238.35",
+      "Kernel Blend": "546.85",
+      "NutriBarley": "146.7",
+      "Mixed Grain": "86.65",
+      "Barn Delight": "62",
+      "Cushion": "9",
+      "Timber": "1",
+      "Crimsteel": "2",
+      "Merino Cushion": "34",
+      "Kelp Fibre": "4",
+      "Synthetic Fabric": "100",
+      "Ocean's Treasure": "1",
+      "Omnifeed": "140",
+      "Obsidian": "0.2",
+      "Lava Pit": "4",
+      "Green Thumb": "1",
+      "Seed Specialist": "1",
+      "Prospector": "1",
+      "Gold Rush": "1",
+      "Liquidity Provider": "1",
+      "Trading Ticket": "1",
+      "Red Envelope": "16",
+      "Love Letter": "5",
+      "Solar Flare Banner": "1",
+      "Witches' Eve Banner": "1",
+      "Crow Feather": "72",
+      "Gold Pass": "1",
+      "Potion Ticket": "2995",
+      "Bud Ticket": "1",
+      "Catch the Kraken Banner": "1",
+      "Mermaid Scale": "61",
+      "Farmhand Coupon": "19",
+      "Farmhand": "4",
+      "Spring Blossom Banner": "1",
+      "Tulip Bulb": "228",
+      "Clash of Factions Banner": "1",
+      "Scroll": "3507",
+      "Lifetime Farmer Banner": "1",
+      "Goblin Emblem": "43418",
+      "Mark": "285",
+      "Pharaoh's Treasure Banner": "1",
+      "Amber Fossil": "97",
+      "Gem": "40780",
+      "Bull Run Banner": "1",
+      "Horseshoe": "8",
+      "Winds of Change Banner": "1",
+      "Timeshard": "209",
+      "Easter Token 2025": "50",
+      "Great Bloom Banner": "1",
+      "Geniseed": "6792",
+      "Better Together Banner": "1",
+      "Paw Prints Banner": "1",
+      "Halloween Token 2025": "100",
+      "Crabs and Traps Banner": "1",
+      "Sunflower Flag": "1",
+      "Ukrainian Flag": "1",
+      "American Flag": "1",
+      "Goblin Flag": "1",
+      "Red Egg": "9",
+      "Blue Egg": "10",
+      "Yellow Egg": "10",
+      "Pink Egg": "10",
+      "Purple Egg": "10",
+      "Orange Egg": "10",
+      "Green Egg": "10",
+      "Easter Bunny": "1",
+      "Observatory": "1",
+      "Ancient Goblin Sword": "1",
+      "Rapid Growth": "50",
+      "War Bond": "159",
+      "Goblin War Point": "484",
+      "Goblin War Banner": "1",
+      "Wooden Compass": "35",
+      "Pablo The Bunny": "1",
+      "Iron Compass": "56",
+      "Old Bottle": "175",
+      "Emerald Compass": "24",
+      "Earn Alliance Banner": "1",
+      "Treasure Key": "18",
+      "Luxury Key": "1",
+      "Rare Key": "37",
+      "Prize Ticket": "1",
+      "Baby Panda": "1",
+      "Baozi": "1",
+      "Community Egg": "1",
+      "Hungry Hare": "1",
+      "Goblin Faction Banner": "1",
+      "Ronin Banner": "1",
+      "Base Banner": "1",
+      "Polygon Banner": "1",
+      "Market": "1",
+      "Fire Pit": "1",
+      "Workbench": "1",
+      "Tent": "1",
+      "Water Well": "4",
+      "Hen House": "2",
+      "Bakery": "1",
+      "Kitchen": "1",
+      "Deli": "1",
+      "Smoothie Shack": "1",
+      "Toolshed": "1",
+      "Warehouse": "1",
+      "Compost Bin": "1",
+      "Turbo Composter": "1",
+      "Premium Composter": "1",
+      "Greenhouse": "1",
+      "Crop Machine": "1",
+      "Barn": "1",
+      "Crafting Box": "1",
+      "Mansion": "1",
+      "Chef Apron": "1",
+      "Chef Hat": "1",
+      "War Skull": "6",
+      "War Tombstone": "3",
+      "Undead Rooster": "1",
+      "White Tulips": "1",
+      "Potted Sunflower": "23",
+      "Cactus": "1",
+      "Basic Bear": "53",
+      "Chef Bear": "2",
+      "Construction Bear": "3",
+      "Angel Bear": "1",
+      "Badass Bear": "2",
+      "Bear Trap": "1",
+      "Brilliant Bear": "2",
+      "Classy Bear": "1",
+      "Farmer Bear": "2",
+      "Sunflower Bear": "1",
+      "Rich Bear": "1",
+      "Potted Potato": "24",
+      "Potted Pumpkin": "9",
+      "Christmas Bear": "1",
+      "Christmas Snow Globe": "1",
+      "Devil Bear": "1",
+      "Collectible Bear": "1",
+      "Cyborg Bear": "1",
+      "Turtle Bear": "3",
+      "T-Rex Skull": "5",
+      "Sunflower Coin": "5",
+      "Foliant": "1",
+      "Lifeguard Bear": "3",
+      "Snorkel Bear": "2",
+      "Pirate Bear": "5",
+      "Easter Bear": "1",
+      "Dinosaur Bone": "3",
+      "Whale Bear": "2",
+      "Valentine Bear": "1",
+      "Palm Tree": "1",
+      "Beach Ball": "1",
+      "Easter Bush": "1",
+      "Giant Carrot": "1",
+      "Dirt Path": "612",
+      "Fence": "22",
+      "Luminous Lantern": "29",
+      "Radiance Lantern": "1",
+      "Aurora Lantern": "2",
+      "Bonnie's Tombstone": "1",
+      "Chestnut Fungi Stool": "1",
+      "Dawn Umbrella Seat": "2",
+      "Eggplant Grill": "1",
+      "Giant Dawn Mushroom": "1",
+      "Grubnash's Tombstone": "38",
+      "Mahogany Cap": "1",
+      "Toadstool Seat": "3",
+      "Clementine": "2",
+      "Cobalt": "2",
+      "Shroom Glow": "1",
+      "Genie Bear": "1",
+      "Ocean Lantern": "1",
+      "Beta Bear": "2",
+      "Golden Maple": "2",
+      "Stone Fence": "15",
+      "Solar Lantern": "1",
+      "Betty Lantern": "1",
+      "Bumpkin Lantern": "2",
+      "Eggplant Bear": "1",
+      "Goblin Lantern": "1",
+      "Dawn Flower": "1",
+      "Candles": "2",
+      "Haunted Stump": "1",
+      "Spooky Tree": "1",
+      "Giant Cabbage": "1",
+      "Giant Potato": "1",
+      "Giant Pumpkin": "1",
+      "Town Sign": "2",
+      "Observer": "1",
+      "Crow Rock": "1",
+      "Mini Corn Maze": "2",
+      "White Crow": "1",
+      "Lifeguard Ring": "1",
+      "Surfboard": "1",
+      "Hideaway Herman": "1",
+      "Shifty Sheldon": "1",
+      "Tiki Torch": "4",
+      "Beach Umbrella": "1",
+      "Sapo Docuras": "1",
+      "Sapo Travessuras": "1",
+      "Time Warp Totem": "11",
+      "Bumpkin Nutcracker": "1",
+      "Festive Tree": "3",
+      "Coral": "2",
+      "Pipi": "40",
+      "Starfish": "356",
+      "Seaweed": "86",
+      "Sea Cucumber": "244",
+      "Crab": "62",
+      "Purple Cauliflower": "2",
+      "Adirondack Potato": "1",
+      "Warty Goblin Pumpkin": "19",
+      "White Carrot": "48",
+      "Anchovy": "3143",
+      "Butterflyfish": "685",
+      "Blowfish": "590",
+      "Clownfish": "571",
+      "Sea Bass": "733",
+      "Sea Horse": "457",
+      "Horse Mackerel": "46",
+      "Squid": "91",
+      "Red Snapper": "265",
+      "Moray Eel": "1460",
+      "Olive Flounder": "1036",
+      "Napoleanfish": "455",
+      "Surgeonfish": "701",
+      "Zebra Turkeyfish": "595",
+      "Ray": "63",
+      "Hammerhead shark": "70",
+      "Tuna": "685",
+      "Mahi Mahi": "797",
+      "Blue Marlin": "1080",
+      "Oarfish": "382",
+      "Football fish": "159",
+      "Sunfish": "338",
+      "Coelacanth": "27",
+      "Whale Shark": "9",
+      "Barred Knifejaw": "75",
+      "Saw Shark": "20",
+      "White Shark": "8",
+      "Twilight Anglerfish": "2",
+      "Starlight Tuna": "5",
+      "Phantom Barracuda": "1",
+      "Gilded Swordfish": "1",
+      "Kraken Tentacle": "1",
+      "Angelfish": "260",
+      "Halibut": "698",
+      "Parrotfish": "68",
+      "Crimson Carp": "1",
+      "Battle Fish": "1",
+      "Lemon Shark": "1",
+      "Longhorn Cowfish": "1",
+      "Porgy": "455",
+      "Muskellunge": "299",
+      "Trout": "141",
+      "Walleye": "375",
+      "Weakfish": "266",
+      "Rock Blackfish": "251",
+      "Cobia": "247",
+      "Tilapia": "300",
+      "Super Star": "1",
+      "Giant Isopod": "1",
+      "Nautilus": "1",
+      "White Festive Fox": "1",
+      "Rug": "6",
+      "Wardrobe": "1",
+      "Sunrise Bloom Rug": "1",
+      "Blossom Royale": "1",
+      "Rainbow": "1",
+      "Enchanted Rose": "1",
+      "Flower Cart": "1",
+      "Capybara": "1",
+      "Blossombeard": "1",
+      "Flower Rug": "1",
+      "Tea Rug": "1",
+      "Green Field Rug": "1",
+      "Fancy Rug": "1",
+      "Clock": "1",
+      "Vinny": "1",
+      "Desert Gnome": "1",
+      "Gaucho Rug": "1",
+      "Bullseye Board": "1",
+      "Chess Rug": "1",
+      "Cluckapult": "1",
+      "Golden Garrison": "1",
+      "Novice Knight": "1",
+      "Regular Pawn": "1",
+      "Rookie Rook": "3",
+      "Silver Sentinel": "1",
+      "Silver Squire": "8",
+      "Trainee Target": "1",
+      "Twister Rug": "1",
+      "Rice Panda": "1",
+      "Benevolence Flag": "1",
+      "Devotion Flag": "1",
+      "Generosity Flag": "9",
+      "Splendor Flag": "1",
+      "Jelly Lamp": "1",
+      "Paint Can": "1",
+      "Goblin Candles": "1",
+      "Goblin Left Wall Sconce": "1",
+      "Goblin Right Wall Sconce": "1",
+      "Ore Hourglass": "1",
+      "Blossom Hourglass": "1",
+      "Fisher's Hourglass": "1",
+      "Goblin Faction Rug": "1",
+      "Goblin Gold Champion": "6",
+      "Goblin Silver Champion": "7",
+      "Goblin Bronze Champion": "6",
+      "Desert Rose": "1",
+      "Hapy Jar": "1",
+      "Duamutef Jar": "3",
+      "Qebehsenuef Jar": "1",
+      "Imsety Jar": "2",
+      "Cannonball": "1",
+      "Sarcophagus": "2",
+      "Clay Tablet": "1",
+      "Snake in Jar": "1",
+      "Reveling Lemon": "1",
+      "Anubis Jackal": "1",
+      "Sundial": "1",
+      "Sand Golem": "2",
+      "Cactus King": "1",
+      "Lemon Frog": "1",
+      "Scarab Beetle": "1",
+      "Pharaoh Chicken": "1",
+      "Adrift Ark": "1",
+      "Castellan": "1",
+      "Sunlit Citadel": "1",
+      "Lemon Tea Bath": "1",
+      "Tomato Clown": "1",
+      "Pyramid": "1",
+      "Oasis": "1",
+      "Paper Reed": "1",
+      "Baobab Tree": "1",
+      "Camel": "1",
+      "Tomato Bombard": "1",
+      "Stone Beetle": "1",
+      "Iron Beetle": "1",
+      "Gold Beetle": "1",
+      "Fairy Circle": "1",
+      "Squirrel": "1",
+      "Macaw": "1",
+      "Butterfly": "1",
+      "Marty": "1",
+      "Mog": "1",
+      "Morty": "1",
+      "Basic Bed": "5",
+      "Sturdy Bed": "1",
+      "Floral Bed": "1",
+      "Fisher Bed": "1",
+      "Pirate Bed": "1",
+      "Cow Bed": "1",
+      "Desert Bed": "1",
+      "Royal Bed": "1",
+      "Cow Scratcher": "1",
+      "Spinning Wheel": "3",
+      "Sleepy Rug": "2",
+      "Meteorite": "2",
+      "Sheaf of Plenty": "1",
+      "Mechanical Bull": "1",
+      "King of Bears": "1",
+      "Moo-ver": "1",
+      "Swiss Whiskers": "1",
+      "UFO": "2",
+      "Chicory": "1",
+      "Wagon": "1",
+      "Black Sheep": "1",
+      "Alien Chicken": "1",
+      "Mootant": "1",
+      "Toxic Tuft": "1",
+      "Crop Circle": "1",
+      "Halloween Scarecrow": "1",
+      "Vampire Bear": "1",
+      "Super Totem": "1",
+      "Christmas Stocking": "1",
+      "Golden Christmas Stocking": "1",
+      "Cozy Fireplace": "1",
+      "Christmas Rug": "1",
+      "Christmas Candle": "1",
+      "Santa Penguin": "1",
+      "Penguin Pool": "1",
+      "Snowman": "1",
+      "Festive Toy Train": "1",
+      "Golden Cow": "1",
+      "Tornado Pinwheel": "1",
+      "Mangrove": "1",
+      "Thermal Stone": "1",
+      "Protective Pesticide": "1",
+      "Volcano Gnome": "1",
+      "Kite": "4",
+      "Acorn House": "1",
+      "Spring Duckling": "1",
+      "Igloo": "2",
+      "Ugly Duckling": "1",
+      "Lake Rug": "1",
+      "Hammock": "1",
+      "Mammoth": "1",
+      "Cup of Chocolate": "2",
+      "Golden Sheep": "1",
+      "Barn Blueprint": "1",
+      "Mama Duck": "1",
+      "Summer Duckling": "1",
+      "Autumn Duckling": "1",
+      "Winter Duckling": "1",
+      "Frozen Cow": "1",
+      "Frozen Sheep": "1",
+      "Summer Chicken": "2",
+      "Chamomile": "6",
+      "Jellyfish": "1",
+      "Rhubarb Tart": "5696",
+      "Jin": "1",
+      "Floral Arch": "1",
+      "Flower Coin": "1",
+      "Flower Statue": "1",
+      "Heartstruck Tree": "3",
+      "Mermaid Fountain": "1",
+      "Streamer's Statue": "1",
+      "Cetus": "1",
+      "Easter Ticket 2025": "3",
+      "Carrot House": "1",
+      "Orange Bunny Lantern": "1",
+      "White Bunny Lantern": "1",
+      "Orange Tunnel Bunny": "1",
+      "White Tunnel Bunny": "1",
+      "Easter Basket": "1",
+      "Pink Dolphin": "1",
+      "Love Chicken": "3",
+      "Dr Cow": "1",
+      "Nurse Sheep": "1",
+      "Lunalist": "7",
+      "Obsidian Turtle": "1",
+      "Winter Guardian": "1",
+      "Summer Guardian": "1",
+      "Spring Guardian": "1",
+      "Autumn Guardian": "1",
+      "Sky Pillar": "1",
+      "Flower-Scribed Statue": "1",
+      "Balloon Rug": "2",
+      "Giant Yam": "1",
+      "Heart Air Balloon": "1",
+      "Giant Zucchini": "1",
+      "Mini Floating Island": "1",
+      "Paint Buckets": "1",
+      "Rainbow Well": "1",
+      "Floating Toy": "1",
+      "Pony Toy": "1",
+      "Red Slime Balloon": "1",
+      "Blue Slime Balloon": "1",
+      "Halloween Ticket 2025": "1",
+      "Cerberus": "1",
+      "Raveyard": "1",
+      "Haunted House": "1",
+      "Mimic Egg": "1",
+      "Haunted Tomb": "1",
+      "Guillotine": "1",
+      "Vampire Coffin": "1",
+      "Paw Prints Rug": "1",
+      "Pet Bed": "1",
+      "Giant Acorn": "1",
+      "Pet Bowls": "1",
+      "Squeaky Chicken": "1",
+      "Holiday Decorative Totem": "1",
+      "Red Holiday Ornament": "1",
+      "Green Holiday Ornament": "1",
+      "Gift Turtle": "1",
+      "Penguin Surprise": "1",
+      "Frozen Meat": "1",
+      "Ho Ho oh oh…": "1",
+      "Big Apple": "1",
+      "Big Banana": "1",
+      "Farmer's Monument": "1",
+      "Miner's Monument": "1",
+      "Woodcutter's Monument": "1",
+      "Teamwork Monument": "1",
+      "Floor Mirror": "4",
+      "Long Rug": "2",
+      "Garbage Bin": "3",
+      "Wheelbarrow": "1",
+      "Snail King": "2",
+      "Reelmaster's Chair": "1",
+      "Rat King": "1",
+      "Fruit Tune Box": "1",
+      "Double Bed": "1",
+      "Rocket Statue": "1",
+      "Ant Queen": "1",
+      "Giant Onion": "1",
+      "Giant Turnip": "1",
+      "Groovy Gramophone": "1",
+      "Wheat Whiskers": "1",
+      "Pest Net": "147",
+      "Poseidon": "1",
+      "Giant Orange": "270",
+      "Giant Apple": "188",
+      "Giant Banana": "69",
+      "Doll": "12",
+      "Buzz Doll": "7",
+      "Juicy Doll": "13",
+      "Crude Doll": "144",
+      "Cluck Doll": "10",
+      "Wooly Doll": "12",
+      "Moo Doll": "12",
+      "Ember Doll": "8",
+      "Gilded Doll": "7",
+      "Harvest Doll": "15",
+      "Sizzle Doll": "5",
+      "Angler Doll": "1",
+      "Baby Cow": "1",
+      "Baby Sheep": "1",
+      "Venus Bumpkin Trap": "7",
+      "Janitor Chicken": "1",
+      "Black Hole Flower": "13",
+      "Sleepy Chicken": "1",
+      "Astronaut Cow": "1",
+      "Astronaut Sheep": "1",
+      "Mermaid Cow": "3",
+      "Squid Chicken": "1",
+      "Anemone Flower": "7",
+      "Burro": "1",
+      "Mudhorn": "1",
+      "Butters": "1",
+      "Acorn": "154",
+      "Ruffroot": "20",
+      "Chewed Bone": "20",
+      "Heart leaf": "30",
+      "Moonfur": "5",
+      "Ribbon": "20",
+      "Dewberry": "32",
+      "Wild Grass": "24",
+      "Frost Pebble": "30",
+      "Petnip Plant": "4",
+      "Pet Kennel": "1",
+      "Pet Toys": "4",
+      "Pet Playground": "2",
+      "Fish Bowl": "4",
+      "Giant Gold Bone": "1",
+      "Lunar Temple": "1",
+      "Magma Stone": "1",
+      "Cornucopia": "1",
+      "Messy Bed": "1",
+      "Diving Helmet": "1",
+      "Speckled Kissing Fish": "1",
+      "Dark Eyed Kissing Fish": "1",
+      "Fisherman's Boat": "1",
+      "Crabs and Fish Rug": "1",
+      "Fish Flags": "1",
+      "Fish Drying Rack": "1",
+      "Yellow Submarine Trophy": "1",
+      "Oaken": "1",
+      "Meerkat": "1",
+      "Pearl Bed": "1",
+      "Crimstone Clam": "1",
+      "Poseidon's Throne": "1",
+      "Fish Kite": "1",
+      "Pufferfish": "1",
+      "Fat Crab": "1",
+      "Navigation Table": "1",
+      "Royal Crab Pot": "1",
+      "Crab House": "1",
+      "Speed Trap": "1",
+      "Salt Crystal Flower": "4",
+      "Crystal Shrimp": "1",
+      "Salt Awakening Banner": "1",
+      "Salt Lamp": "1",
+      "World Map Rug": "2",
+      "Ripped Salt Bag": "1",
+      "Vibraphone": "1"
+    },
+    "shipments": {
+      "restockedAt": 1789021806324
+    },
+    "gems": {
+      "history": {
+        "2026-08-18": {
+          "spent": 2,
+          "coinsSpent": 100
+        }
+      }
+    },
+    "flower": {
+      "history": {
+        "2025-05-02": {
+          "loveCharmsSpent": 10000
+        },
+        "2025-05-04": {
+          "loveCharmsSpent": 10000
+        },
+        "2025-05-07": {
+          "loveCharmsSpent": 10000
+        }
+      }
+    },
+    "choreBoard": {
+      "chores": {
+        "pumpkin' pete": {
+          "name": "Harvest Pumpkins 200 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 1
+            }
+          },
+          "initialProgress": 323197,
+          "startedAt": 1788739437301,
+          "completedAt": 1788752889178
+        },
+        "miranda": {
+          "name": "Grow Purple Cosmos 5 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 1
+            }
+          },
+          "initialProgress": 375,
+          "startedAt": 1788739437301,
+          "completedAt": 1788910032134
+        },
+        "peggy": {
+          "name": "Harvest Broccoli 150 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 1
+            }
+          },
+          "initialProgress": 107458,
+          "startedAt": 1788739437301,
+          "completedAt": 1788756730950
+        },
+        "grimtooth": {
+          "name": "Prepare Apple Juice 20 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 1
+            }
+          },
+          "initialProgress": 1238,
+          "startedAt": 1788739437301,
+          "completedAt": 1788760176193
+        },
+        "betty": {
+          "name": "Harvest Potatoes 175 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 1
+            }
+          },
+          "initialProgress": 485976,
+          "startedAt": 1788739437301,
+          "completedAt": 1788765174162
+        },
+        "corale": {
+          "name": "Fish 80 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 1
+            }
+          },
+          "initialProgress": 43552,
+          "startedAt": 1788739437301,
+          "completedAt": 1788760071922
+        },
+        "grimbly": {
+          "name": "Cook Apple Juice 15 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 1
+            }
+          },
+          "initialProgress": 1238,
+          "startedAt": 1788739437301,
+          "completedAt": 1788756776075
+        },
+        "timmy": {
+          "name": "Pick Bananas 125 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 2
+            }
+          },
+          "initialProgress": 3893,
+          "startedAt": 1788739437301,
+          "completedAt": 1788935010697
+        },
+        "raven": {
+          "name": "Cook Pizza Margherita 12 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 2
+            }
+          },
+          "initialProgress": 1022,
+          "startedAt": 1788739437301,
+          "completedAt": 1788875997662
+        },
+        "birdie": {
+          "name": "Collect Eggs 100 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 2
+            }
+          },
+          "initialProgress": 46773,
+          "startedAt": 1788739437301,
+          "completedAt": 1788850287124
+        },
+        "old salty": {
+          "name": "Eat 20 Orange Cake",
+          "reward": {
+            "items": {
+              "Shiny Feather": 2
+            }
+          },
+          "initialProgress": 412,
+          "startedAt": 1788739437301,
+          "completedAt": 1788850341908
+        },
+        "gordo": {
+          "name": "Cook Potato Cakes 10 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 2
+            }
+          },
+          "initialProgress": 230,
+          "startedAt": 1788739437301,
+          "completedAt": 1788805228340
+        },
+        "finn": {
+          "name": "Craft 100 Fishing Rods",
+          "reward": {
+            "items": {
+              "Shiny Feather": 2
+            }
+          },
+          "initialProgress": 8272,
+          "startedAt": 1788739437301,
+          "completedAt": 1788762754009
+        },
+        "bert": {
+          "name": "Mine Stones 100 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 2
+            }
+          },
+          "initialProgress": 110252,
+          "startedAt": 1788739437301,
+          "completedAt": 1788794325808
+        },
+        "tywin": {
+          "name": "Spend 80,808 Coins",
+          "reward": {
+            "items": {
+              "Shiny Feather": 3
+            }
+          },
+          "initialProgress": 14423460,
+          "startedAt": 1788739437301,
+          "completedAt": 1788839746759
+        },
+        "eldric": {
+          "name": "Cook Blue Cheese 45 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 3
+            }
+          },
+          "initialProgress": 719,
+          "startedAt": 1788739437301,
+          "completedAt": 1788848243821
+        },
+        "blacksmith": {
+          "name": "Mine Stones 200 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 3
+            }
+          },
+          "initialProgress": 110252,
+          "startedAt": 1788739437301,
+          "completedAt": 1788839072760
+        },
+        "petro": {
+          "name": "Harvest Rice 24 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 3
+            }
+          },
+          "initialProgress": 4849,
+          "startedAt": 1788739437301,
+          "completedAt": 1788839074408
+        },
+        "guria": {
+          "name": "Grow White Lotus 4 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 3
+            }
+          },
+          "initialProgress": 120,
+          "startedAt": 1788739437301,
+          "completedAt": 1789053297644
+        },
+        "pharaoh": {
+          "name": "Dig 200 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 3
+            }
+          },
+          "initialProgress": 28667,
+          "startedAt": 1788739437301
+        },
+        "chase": {
+          "name": "Collect Milk 75 times",
+          "reward": {
+            "items": {
+              "Shiny Feather": 3
+            }
+          },
+          "initialProgress": 25652,
+          "startedAt": 1788739437301,
+          "completedAt": 1788850285437
+        }
+      }
+    },
+    "bank": {
+      "taxFreeSFL": 143386.3205243029,
+      "withdrawnAmount": 108048.5918,
+      "unlockedFlower": 0
+    },
+    "bumpkin": {
+      "achievements": {
+        "Bumpkin Chainsaw Amateur": 1,
+        "Driller": 1,
+        "Bumpkin Billionaire": 1,
+        "Egg-cellent Collection": 1,
+        "Beetroot Beast": 1,
+        "Seasoned Farmer": 1,
+        "Iron Eyes": 1,
+        "El Dorado": 1,
+        "Land Expansion Enthusiast": 1,
+        "Craftmanship": 1,
+        "Contractor": 1,
+        "Bakers Dozen": 1,
+        "Jack O'Latern": 1,
+        "Well of Prosperity": 1,
+        "Orange Squeeze": 1,
+        "Gold Fever": 1,
+        "Scarecrow Maestro": 1,
+        "Bread Winner": 1,
+        "Cabbage King": 1,
+        "Rapid Radish": 1,
+        "Big Spender": 1,
+        "Land Expansion Extraordinaire": 1,
+        "Crowd Favourite": 1,
+        "Canary": 1,
+        "Time to chop": 1,
+        "My life is potato": 1,
+        "Land Baron": 1,
+        "Cool Flower": 1,
+        "Farm Hand": 1,
+        "Kiss the Cook": 1,
+        "Chef de Cuisine": 1,
+        "Something Shiny": 1,
+        "Apple of my Eye": 1,
+        "20/20 Vision": 1,
+        "Delivery Dynamo": 1,
+        "Busy Bumpkin": 1,
+        "Timbeerrr": 1,
+        "Treasure Hunter": 1,
+        "Brilliant Bumpkin": 1,
+        "Sun Seeker": 1,
+        "Museum": 1,
+        "Patient Parsnips": 1,
+        "Staple Crop": 1,
+        "Fruit Aficionado": 1,
+        "Explorer": 1,
+        "Blue Chip": 1,
+        "Sunflower Superstar": 1,
+        "Crop Champion": 1,
+        "Fruit Platter": 1,
+        "High Roller": 1
+      },
+      "equipped": {
+        "body": "Beige Farmer Potion",
+        "shoes": "Black Farmer Boots",
+        "tool": "Luna's Crescent",
+        "hair": "Fire Hair",
+        "background": "Deep Sea Salt Cave Background",
+        "secondaryTool": "Autumn's Embrace",
+        "aura": "Bubble Aura",
+        "hat": "Swamp Lily Hat",
+        "necklace": "Amber Amulet",
+        "wings": "Love Quiver",
+        "onesie": "Raccoon Onesie",
+        "pants": "Swamp Pants",
+        "shirt": "Swamp Armor"
+      },
+      "tokenUri": "https://api.sunflower-land.com/bumpkins/metadata/10340_v1_122_90_75_0_0_89_56_0_30_31_86_124_69_72_98",
+      "sessionId": "0x36dad4e0fe30a17eabdb66a5aafc399edace9a8dfd3c94a99c24f099a784cc78",
+      "experience": 583230647.4997749,
+      "skills": {
+        "Green Thumb": 3,
+        "Young Farmer": 1,
+        "Chonky Scarecrow": 1,
+        "Experienced Farmer": 1,
+        "Old Farmer": 1,
+        "Acre Farm": 1,
+        "Hectare Farm": 1,
+        "Horror Mike": 1,
+        "Instant Growth": 1,
+        "Laurie's Gains": 1,
+        "Lumberjack's Extra": 1,
+        "Strong Roots": 1,
+        "Tough Tree": 1,
+        "Tree Charge": 1,
+        "Fisherman's 10 Fold": 1,
+        "Fisherman's 5 Fold": 2,
+        "Fishy Chance": 1,
+        "Fishy Gamble": 1,
+        "Fishy Roll": 1,
+        "Fire Kissed": 2,
+        "Iron Bumpkin": 1,
+        "Iron Hustle": 1,
+        "More With Less": 3,
+        "Rock'N'Roll": 1,
+        "Speed Miner": 1,
+        "Efficient Bin": 1,
+        "Fast Feasts": 1,
+        "Fireside Alchemist": 3,
+        "Frosted Cakes": 1,
+        "Golden Touch": 1,
+        "Midas Rush": 3,
+        "Midas Sprint": 3,
+        "More Picks": 2,
+        "Swift Sizzle": 1,
+        "Turbo Charged": 1,
+        "Turbo Fry": 1,
+        "Wormy Treat": 1,
+        "Catchup": 1,
+        "Feathery Business": 1,
+        "Fruitful Bounty": 1,
+        "Fruitful Fumble": 1,
+        "Generous Orchard": 1,
+        "Loyal Macaw": 1,
+        "Pear Turbocharge": 1,
+        "Premium Worms": 1,
+        "Restless Animals": 1,
+        "Swift Decomposer": 1,
+        "Abundant Harvest": 1,
+        "Bale Economy": 1,
+        "Barnyard Rouse": 1,
+        "Bee Collective": 1,
+        "Blooming Boost": 1,
+        "Blossom Bonding": 1,
+        "Chonky Feed": 1,
+        "Double Bale": 1,
+        "Fine Fibers": 1,
+        "Flower Power": 1,
+        "Heartwarming Instruments": 1,
+        "Hyper Bees": 1,
+        "Petal Blessed": 1,
+        "Petalled Perk": 1,
+        "Pollen Power Up": 1,
+        "Crop Extension Module I": 1,
+        "Crop Processor Unit": 1,
+        "Glass Room": 1,
+        "Greasy Plants": 1,
+        "Greenhouse Gamble": 1,
+        "Greenhouse Guru": 1,
+        "Olive Express": 1,
+        "Rice Rocket": 1,
+        "Rice and Shine": 1,
+        "Seeded Bounty": 1,
+        "Slick Saver": 1,
+        "Vine Velocity": 1,
+        "Crop Extension Module II": 1,
+        "Crop Extension Module III": 1,
+        "Efficiency Extension Module": 1,
+        "Field Expansion Module": 1,
+        "Field Extension Module": 1,
+        "Grease Lightning": 1,
+        "Leak-Proof Tank": 1,
+        "Oil Be Back": 1,
+        "Oil Extraction": 1,
+        "Oil Gadget": 1,
+        "Rapid Rig": 1
+      },
+      "id": 10340,
+      "updatedAt": 1688108338607,
+      "previousPowerUseAt": {
+        "Instant Growth": 1789065634214,
+        "Petal Blessed": 1788936304710,
+        "Barnyard Rouse": 1789065557475,
+        "Greenhouse Guru": 1788975739076,
+        "Tree Blitz": 1786298511203,
+        "Grease Lightning": 1789051102302,
+        "Instant Gratification": 1786068901912
+      },
+      "paidSkillResets": 0,
+      "previousFreeSkillResetAt": 1786319175087
+    },
+    "wardrobe": {
+      "Beige Farmer Potion": 6,
+      "Dark Brown Farmer Potion": 2,
+      "Light Brown Farmer Potion": 5,
+      "Goblin Potion": 3,
+      "Basic Hair": 640,
+      "Rancher Hair": 4,
+      "Explorer Hair": 1,
+      "Red Farmer Shirt": 4,
+      "Yellow Farmer Shirt": 8,
+      "Blue Farmer Shirt": 3,
+      "Chef Apron": 1,
+      "Warrior Shirt": 1,
+      "Farmer Overalls": 13,
+      "Lumberjack Overalls": 3,
+      "Farmer Pants": 2,
+      "Warrior Pants": 1,
+      "Black Farmer Boots": 12,
+      "Farmer Pitchfork": 12,
+      "Chef Hat": 1,
+      "Warrior Helmet": 1,
+      "Sunflower Amulet": 1,
+      "Carrot Amulet": 1,
+      "Beetroot Amulet": 1,
+      "Green Amulet": 1,
+      "Sunflower Shield": 1,
+      "Farm Background": 12,
+      "Brown Boots": 3,
+      "Brown Suspenders": 1,
+      "Maiden Top": 1,
+      "Peasant Skirt": 1,
+      "Yellow Boots": 1,
+      "Buzz Cut": 1,
+      "Parlour Hair": 1,
+      "Axe": 2,
+      "Sword": 2,
+      "Blue Suspenders": 2,
+      "Forest Background": 1,
+      "Seashore Background": 3,
+      "Blondie": 2,
+      "Brown Long Hair": 2,
+      "Sun Spots": 1,
+      "White Long Hair": 3,
+      "Cemetery Background": 1,
+      "Teal Mohawk": 1,
+      "Parsnip": 1,
+      "Jail Background": 1,
+      "Golden Spatula": 1,
+      "Project Dignity Hoodie": 1,
+      "Blacksmith Hair": 1,
+      "Fire Shirt": 1,
+      "Red Long Hair": 1,
+      "Snowman Onesie": 1,
+      "Reindeer Suit": 1,
+      "Shark Onesie": 1,
+      "Christmas Background": 1,
+      "Devil Wings": 1,
+      "Fire Hair": 2,
+      "Luscious Hair": 1,
+      "Ancient War Hammer": 1,
+      "Ancient Goblin Sword": 1,
+      "Reindeer Antlers": 1,
+      "Santa Hat": 1,
+      "Pineapple Shirt": 1,
+      "China Town Background": 2,
+      "Lion Dance Mask": 2,
+      "Fruit Picker Shirt": 3,
+      "Fruit Picker Apron": 2,
+      "Fruit Bowl": 2,
+      "Striped Blue Shirt": 5,
+      "Peg Leg": 3,
+      "Pirate Potion": 3,
+      "Pirate Hat": 2,
+      "Pirate General Coat": 1,
+      "Pirate Pants": 1,
+      "Pirate Scimitar": 1,
+      "Cupid Hair": 1,
+      "Cupid Dress": 1,
+      "Cupid Sandals": 1,
+      "Love Quiver": 1,
+      "SFL Office Background": 1,
+      "Goblin Puppet": 1,
+      "Frog Onesie": 1,
+      "Tiger Onesie": 1,
+      "Sleeping Otter": 2,
+      "St Patricks Hat": 1,
+      "Bunny Onesie": 1,
+      "Polkastarter Shirt": 1,
+      "Club Polo": 1,
+      "Dawn Breaker Background": 1,
+      "Dawn Lamp": 1,
+      "Eggplant Onesie": 1,
+      "Fox Hat": 1,
+      "Infected Potion": 1,
+      "Mushroom Hat": 1,
+      "Mushroom Shield": 1,
+      "Mushroom Shoes": 1,
+      "Mushroom Sweater": 1,
+      "Squid Hat": 1,
+      "Striped Red Shirt": 2,
+      "Summer Top": 1,
+      "Sunburst Potion": 1,
+      "Harry's Hat": 1,
+      "Straw Hat": 1,
+      "Witching Wardrobe": 1,
+      "Witch's Broom": 1,
+      "Imp Costume": 1,
+      "Ox Costume": 1,
+      "Luna's Hat": 1,
+      "Infernal Pitchfork": 1,
+      "Infernal Horns": 1,
+      "Cattlegrim": 1,
+      "Crumple Crown": 2,
+      "Birthday Hat": 1,
+      "Double Harvest Cap": 1,
+      "Corn Onesie": 1,
+      "Wise Beard": 1,
+      "Pumpkin Hat": 1,
+      "Wise Robes": 1,
+      "Greyed Glory": 1,
+      "Tattered Jacket": 1,
+      "Bat Wings": 1,
+      "Pale Potion": 1,
+      "Skull Shirt": 1,
+      "Victorian Hat": 1,
+      "Pink Ponytail": 1,
+      "Brown Rancher Hair": 1,
+      "Parsnip Horns": 1,
+      "Whale Hat": 1,
+      "Pumpkin Shirt": 1,
+      "Kama": 1,
+      "Unicorn Horn": 1,
+      "Unicorn Hat": 1,
+      "Feather Hat": 1,
+      "Valoria Wreath": 1,
+      "Earn Alliance Sombrero": 1,
+      "Fresh Catch Vest": 1,
+      "Fish Pro Vest": 1,
+      "Reel Fishing Vest": 1,
+      "Abyssal Angler Hat": 1,
+      "Ancient Rod": 1,
+      "Fishing Hat": 1,
+      "Trident": 1,
+      "Bucket O' Worms": 1,
+      "Crab Trap": 1,
+      "Seaside Tank Top": 1,
+      "Angler Waders": 1,
+      "Fishing Spear": 1,
+      "Wellies": 1,
+      "Saw Fish": 1,
+      "Sunflower Rod": 1,
+      "Koi Fish Hat": 1,
+      "Normal Fish Hat": 1,
+      "Stockeye Salmon Onesie": 1,
+      "Tiki Mask": 1,
+      "Tiki Pants": 1,
+      "Banana Amulet": 1,
+      "Banana Onesie": 1,
+      "Companion Cap": 1,
+      "Radiant Dumbo": 1,
+      "Deep Sea Helm": 1,
+      "Pickaxe Shark": 1,
+      "Seedling Hat": 8,
+      "Ugly Christmas Sweater": 1,
+      "Candy Cane": 1,
+      "Elf Hat": 1,
+      "Elf Potion": 1,
+      "Elf Suit": 1,
+      "Santa Beard": 1,
+      "Santa Suit": 1,
+      "Butterfly Wings": 1,
+      "New Years Tiara": 2,
+      "Beehive Staff": 1,
+      "Bee Suit": 1,
+      "Beekeeper Hat": 1,
+      "Beekeeper Suit": 1,
+      "Crimstone Boots": 1,
+      "Crimstone Pants": 1,
+      "Crimstone Armor": 1,
+      "Gardening Overalls": 1,
+      "Crimstone Hammer": 1,
+      "Crimstone Amulet": 1,
+      "Full Bloom Shirt": 1,
+      "Daisy Tee": 1,
+      "Propeller Hat": 1,
+      "Honeycomb Shield": 1,
+      "Hornet Mask": 1,
+      "Flower Crown": 1,
+      "Blue Monarch Dress": 1,
+      "Orange Monarch Dress": 1,
+      "Blue Monarch Shirt": 1,
+      "Orange Monarch Shirt": 1,
+      "Queen Bee Crown": 1,
+      "Chicken Hat": 1,
+      "Lucky Red Hat": 1,
+      "Lucky Red Suit": 1,
+      "Valentine's Field Background": 1,
+      "Love's Topper": 1,
+      "Oil Can": 1,
+      "Non La Hat": 1,
+      "Olive Shield": 1,
+      "Paw Shield": 1,
+      "Royal Robe": 1,
+      "Crown": 1,
+      "Pan": 1,
+      "Soybean Onesie": 1,
+      "Olive Royalty Shirt": 1,
+      "Tofu Mask": 1,
+      "Goblin Armor": 1,
+      "Goblin Pants": 1,
+      "Goblin Sabatons": 1,
+      "Goblin Axe": 1,
+      "Cap n Bells": 1,
+      "Pixel Perfect Hoodie": 1,
+      "Queen's Crown": 1,
+      "Royal Dress": 1,
+      "Motley": 1,
+      "Painter's Cap": 1,
+      "Festival of Colors Background": 1,
+      "Pharaoh Headdress": 1,
+      "Camel Onesie": 1,
+      "Amber Amulet": 1,
+      "Desert Background": 1,
+      "Explorer Shirt": 1,
+      "Dev Wrench": 1,
+      "Rock Hammer": 1,
+      "Explorer Hat": 1,
+      "Explorer Shorts": 2,
+      "Oil Overalls": 1,
+      "Desert Camel Background": 1,
+      "Water Gourd": 1,
+      "Rocket Onesie": 1,
+      "Ankh Shirt": 1,
+      "Infernal Drill": 1,
+      "Lemon Shield": 1,
+      "Scarab Wings": 1,
+      "Grape Pants": 1,
+      "Bionic Drill": 1,
+      "Fossil Head": 1,
+      "Goblin Crown": 1,
+      "Goblin Shield": 1,
+      "Goblin Quiver": 1,
+      "Goblin Medallion": 1,
+      "Gam3s Cap": 1,
+      "Cowboy Hat": 1,
+      "Cowboy Shirt": 1,
+      "Cowboy Trouser": 1,
+      "White Sheep Onesie": 1,
+      "Black Sheep Onesie": 1,
+      "Chicken Suit": 1,
+      "Cowgirl Skirt": 4,
+      "Merino Jumper": 1,
+      "Dream Scarf": 1,
+      "Cowbell Necklace": 1,
+      "Milk Apron": 1,
+      "Shepherd Staff": 1,
+      "Sol & Luna": 1,
+      "Sickle": 1,
+      "Adventurer's Suit": 1,
+      "Adventurer's Torch": 2,
+      "Pumpkin Head": 1,
+      "Gingerbread Onesie": 1,
+      "New Years Crown": 1,
+      "Ladybug Suit": 1,
+      "Acorn Hat": 1,
+      "Crab Hat": 1,
+      "Squirrel Onesie": 1,
+      "Locust Onesie": 1,
+      "Locust King Onesie": 1,
+      "Glacial Plume": 1,
+      "Solflare Aegis": 1,
+      "Blossom Ward": 1,
+      "Autumn's Embrace": 1,
+      "Frozen Heart": 1,
+      "Love Heart Onesie": 1,
+      "Flower Bouquet": 1,
+      "Dino Onesie": 2,
+      "Golden Wings": 1,
+      "Flower Mask": 1,
+      "Luvvy Head": 1,
+      "Grumpy Cat": 1,
+      "Love Puff Aura": 1,
+      "Carrot Pitchfork": 1,
+      "Handheld Bunny": 1,
+      "Bunny Pants": 1,
+      "Bunny Mask": 1,
+      "Easter Apron": 1,
+      "Bloomwarden Suit": 2,
+      "Embersteel Suit": 2,
+      "Amberfall Suit": 2,
+      "Glacierguard Suit": 1,
+      "Broccoli Hat": 1,
+      "Frost Sword": 1,
+      "Obsidian Necklace": 1,
+      "Red Pepper Onesie": 1,
+      "Love Charm Shirt": 1,
+      "Sky Island Background": 1,
+      "Oracle Syringe": 1,
+      "Coin Head": 1,
+      "Paint Splattered Hair": 1,
+      "Paint Splattered Shirt": 1,
+      "Paint Splattered Overalls": 1,
+      "Paint Spray Can": 1,
+      "Slime Hat": 1,
+      "Recycle Shirt": 1,
+      "Garbage Bin Hat": 1,
+      "Turd Topper": 1,
+      "Architect Ruler": 1,
+      "Oil Gallon": 1,
+      "Lava Swimwear": 1,
+      "Raccoon Onesie": 1,
+      "Golden Seedling": 1,
+      "Moonseeker Potion": 1,
+      "Frizzy Bob Cut": 1,
+      "Two-toned Layered": 1,
+      "Halloween Deathscythe": 1,
+      "Moonseeker Hand Puppet": 1,
+      "Sweet Devil Horns": 1,
+      "Trick and Treat": 1,
+      "Jack O'Sweets": 1,
+      "Frank Onesie": 1,
+      "Sweet Devil Dress": 1,
+      "Underworld Stimpack": 1,
+      "Luna's Crescent": 1,
+      "Master Chef's Cleaver": 1,
+      "Training Whistle": 1,
+      "Pet Specialist Shirt": 1,
+      "Pet Specialist Pants": 1,
+      "Pet Specialist Hat": 1,
+      "Xmas Top Hat": 1,
+      "Reindeer Mask": 1,
+      "Cool Glasses": 1,
+      "Comfy Xmas Pants": 1,
+      "Comfy Xmas Sweater": 1,
+      "Candy Halbred": 1,
+      "Cookie Shield": 1,
+      "Cozy Reindeer Onesie": 1,
+      "2026 Tiara": 1,
+      "Walrus Onesie": 1,
+      "Crimstone Spikes Hair": 1,
+      "Paw Aura": 1,
+      "Victoria's Apron": 1,
+      "Beast Shoes": 1,
+      "Fish Hook Hat": 1,
+      "Fish Hook Vest": 1,
+      "Fish Hook Waders": 1,
+      "Corn Silk Hair": 1,
+      "Pistol Shrimp": 1,
+      "Spa Hat": 1,
+      "Spa Robe": 1,
+      "Spa Slippers": 1,
+      "Clam Shell Hat": 1,
+      "Shrimp Onesie": 2,
+      "Deep Sea Salt Cave Background": 1,
+      "Blue Jelly Shoes": 1,
+      "Blue Slime Shirt": 1,
+      "Green Slime Hair": 1,
+      "Red Jelly Pants": 1,
+      "Slime Splattered Shirt": 1,
+      "Swamp Armor": 1,
+      "Swamp Lily Hat": 1,
+      "Swamp Pants": 1,
+      "Bubble Aura": 1,
+      "Salt Bottle Onesie": 1,
+      "Blue Rose Dress": 1,
+      "Fairy Sandals": 1,
+      "Luminous Anglerfish Topper": 1
+    },
+    "previousWardrobe": {
+      "Beige Farmer Potion": 6,
+      "Dark Brown Farmer Potion": 2,
+      "Light Brown Farmer Potion": 3,
+      "Goblin Potion": 3,
+      "Basic Hair": 640,
+      "Rancher Hair": 4,
+      "Explorer Hair": 1,
+      "Red Farmer Shirt": 4,
+      "Yellow Farmer Shirt": 7,
+      "Blue Farmer Shirt": 2,
+      "Chef Apron": 1,
+      "Warrior Shirt": 1,
+      "Farmer Overalls": 13,
+      "Lumberjack Overalls": 2,
+      "Farmer Pants": 2,
+      "Warrior Pants": 1,
+      "Black Farmer Boots": 11,
+      "Farmer Pitchfork": 12,
+      "Chef Hat": 1,
+      "Warrior Helmet": 1,
+      "Sunflower Amulet": 1,
+      "Carrot Amulet": 1,
+      "Beetroot Amulet": 1,
+      "Green Amulet": 1,
+      "Sunflower Shield": 1,
+      "Farm Background": 12,
+      "Brown Boots": 2,
+      "Brown Suspenders": 1,
+      "Maiden Top": 1,
+      "Peasant Skirt": 1,
+      "Yellow Boots": 1,
+      "Buzz Cut": 1,
+      "Parlour Hair": 1,
+      "Axe": 1,
+      "Sword": 1,
+      "Blue Suspenders": 1,
+      "Forest Background": 1,
+      "Seashore Background": 1,
+      "Blondie": 2,
+      "Brown Long Hair": 1,
+      "Sun Spots": 1,
+      "White Long Hair": 2,
+      "Cemetery Background": 1,
+      "Teal Mohawk": 1,
+      "Parsnip": 1,
+      "Jail Background": 1,
+      "Golden Spatula": 1,
+      "Project Dignity Hoodie": 1,
+      "Blacksmith Hair": 1,
+      "Fire Shirt": 1,
+      "Red Long Hair": 1,
+      "Snowman Onesie": 1,
+      "Reindeer Suit": 1,
+      "Shark Onesie": 1,
+      "Christmas Background": 1,
+      "Devil Wings": 1,
+      "Fire Hair": 2,
+      "Luscious Hair": 1,
+      "Ancient War Hammer": 1,
+      "Ancient Goblin Sword": 1,
+      "Reindeer Antlers": 1,
+      "Santa Hat": 1,
+      "Pineapple Shirt": 1,
+      "China Town Background": 2,
+      "Lion Dance Mask": 2,
+      "Fruit Picker Shirt": 3,
+      "Fruit Picker Apron": 2,
+      "Fruit Bowl": 2,
+      "Striped Blue Shirt": 5,
+      "Peg Leg": 3,
+      "Pirate Potion": 3,
+      "Pirate Hat": 2,
+      "Pirate General Coat": 1,
+      "Pirate Pants": 1,
+      "Pirate Scimitar": 1,
+      "Cupid Hair": 1,
+      "Cupid Dress": 1,
+      "Cupid Sandals": 1,
+      "Love Quiver": 1,
+      "SFL Office Background": 1,
+      "Goblin Puppet": 1,
+      "Frog Onesie": 1,
+      "Tiger Onesie": 1,
+      "Sleeping Otter": 2,
+      "St Patricks Hat": 1,
+      "Bunny Onesie": 1,
+      "Polkastarter Shirt": 1,
+      "Club Polo": 1,
+      "Dawn Breaker Background": 1,
+      "Dawn Lamp": 1,
+      "Eggplant Onesie": 1,
+      "Fox Hat": 1,
+      "Infected Potion": 1,
+      "Mushroom Hat": 1,
+      "Mushroom Shield": 1,
+      "Mushroom Shoes": 1,
+      "Mushroom Sweater": 1,
+      "Squid Hat": 1,
+      "Striped Red Shirt": 2,
+      "Summer Top": 1,
+      "Sunburst Potion": 1,
+      "Harry's Hat": 1,
+      "Straw Hat": 1,
+      "Witching Wardrobe": 1,
+      "Witch's Broom": 1,
+      "Imp Costume": 1,
+      "Ox Costume": 1,
+      "Luna's Hat": 1,
+      "Infernal Pitchfork": 1,
+      "Infernal Horns": 1,
+      "Cattlegrim": 1,
+      "Crumple Crown": 2,
+      "Birthday Hat": 1,
+      "Double Harvest Cap": 1,
+      "Corn Onesie": 1,
+      "Wise Beard": 1,
+      "Pumpkin Hat": 1,
+      "Wise Robes": 1,
+      "Greyed Glory": 1,
+      "Tattered Jacket": 1,
+      "Bat Wings": 1,
+      "Pale Potion": 1,
+      "Skull Shirt": 1,
+      "Victorian Hat": 1,
+      "Pink Ponytail": 1,
+      "Brown Rancher Hair": 1,
+      "Parsnip Horns": 1,
+      "Whale Hat": 1,
+      "Pumpkin Shirt": 1,
+      "Kama": 1,
+      "Unicorn Horn": 1,
+      "Unicorn Hat": 1,
+      "Feather Hat": 1,
+      "Valoria Wreath": 1,
+      "Earn Alliance Sombrero": 1,
+      "Fresh Catch Vest": 1,
+      "Fish Pro Vest": 1,
+      "Reel Fishing Vest": 1,
+      "Abyssal Angler Hat": 1,
+      "Ancient Rod": 1,
+      "Fishing Hat": 1,
+      "Trident": 1,
+      "Bucket O' Worms": 1,
+      "Crab Trap": 1,
+      "Seaside Tank Top": 1,
+      "Angler Waders": 1,
+      "Fishing Spear": 1,
+      "Wellies": 1,
+      "Saw Fish": 1,
+      "Sunflower Rod": 1,
+      "Koi Fish Hat": 1,
+      "Normal Fish Hat": 1,
+      "Stockeye Salmon Onesie": 1,
+      "Tiki Mask": 1,
+      "Tiki Pants": 1,
+      "Banana Amulet": 1,
+      "Banana Onesie": 1,
+      "Companion Cap": 1,
+      "Radiant Dumbo": 1,
+      "Deep Sea Helm": 1,
+      "Pickaxe Shark": 1,
+      "Seedling Hat": 7,
+      "Ugly Christmas Sweater": 1,
+      "Candy Cane": 1,
+      "Elf Hat": 1,
+      "Elf Potion": 1,
+      "Elf Suit": 1,
+      "Santa Beard": 1,
+      "Santa Suit": 1,
+      "Butterfly Wings": 1,
+      "New Years Tiara": 2,
+      "Beehive Staff": 1,
+      "Bee Suit": 1,
+      "Beekeeper Hat": 1,
+      "Beekeeper Suit": 1,
+      "Crimstone Boots": 1,
+      "Crimstone Pants": 1,
+      "Crimstone Armor": 1,
+      "Gardening Overalls": 1,
+      "Crimstone Hammer": 1,
+      "Crimstone Amulet": 1,
+      "Full Bloom Shirt": 1,
+      "Daisy Tee": 1,
+      "Propeller Hat": 1,
+      "Honeycomb Shield": 1,
+      "Hornet Mask": 1,
+      "Flower Crown": 1,
+      "Blue Monarch Dress": 1,
+      "Orange Monarch Dress": 1,
+      "Blue Monarch Shirt": 1,
+      "Orange Monarch Shirt": 1,
+      "Queen Bee Crown": 1,
+      "Chicken Hat": 1,
+      "Lucky Red Hat": 1,
+      "Lucky Red Suit": 1,
+      "Valentine's Field Background": 1,
+      "Love's Topper": 1,
+      "Oil Can": 1,
+      "Non La Hat": 1,
+      "Olive Shield": 1,
+      "Paw Shield": 1,
+      "Royal Robe": 1,
+      "Crown": 1,
+      "Pan": 1,
+      "Soybean Onesie": 1,
+      "Olive Royalty Shirt": 1,
+      "Tofu Mask": 1,
+      "Goblin Armor": 1,
+      "Goblin Pants": 1,
+      "Goblin Sabatons": 1,
+      "Goblin Axe": 1,
+      "Cap n Bells": 1,
+      "Pixel Perfect Hoodie": 1,
+      "Queen's Crown": 1,
+      "Royal Dress": 1,
+      "Motley": 1,
+      "Painter's Cap": 1,
+      "Festival of Colors Background": 1,
+      "Pharaoh Headdress": 1,
+      "Camel Onesie": 1,
+      "Amber Amulet": 1,
+      "Desert Background": 1,
+      "Explorer Shirt": 1,
+      "Dev Wrench": 1,
+      "Rock Hammer": 1,
+      "Explorer Hat": 1,
+      "Explorer Shorts": 2,
+      "Oil Overalls": 1,
+      "Desert Camel Background": 1,
+      "Water Gourd": 1,
+      "Rocket Onesie": 1,
+      "Ankh Shirt": 1,
+      "Infernal Drill": 1,
+      "Lemon Shield": 1,
+      "Scarab Wings": 1,
+      "Grape Pants": 1,
+      "Bionic Drill": 1,
+      "Fossil Head": 1,
+      "Goblin Crown": 1,
+      "Goblin Shield": 1,
+      "Goblin Quiver": 1,
+      "Goblin Medallion": 1,
+      "Gam3s Cap": 1,
+      "Cowboy Hat": 1,
+      "Cowboy Shirt": 1,
+      "Cowboy Trouser": 1,
+      "White Sheep Onesie": 1,
+      "Black Sheep Onesie": 1,
+      "Chicken Suit": 1,
+      "Cowgirl Skirt": 4,
+      "Merino Jumper": 1,
+      "Dream Scarf": 1,
+      "Cowbell Necklace": 1,
+      "Milk Apron": 1,
+      "Shepherd Staff": 1,
+      "Sol & Luna": 1,
+      "Sickle": 1,
+      "Adventurer's Suit": 1,
+      "Adventurer's Torch": 2,
+      "Pumpkin Head": 1,
+      "Gingerbread Onesie": 1,
+      "New Years Crown": 1,
+      "Ladybug Suit": 1,
+      "Acorn Hat": 1,
+      "Crab Hat": 1,
+      "Squirrel Onesie": 1,
+      "Locust Onesie": 1,
+      "Locust King Onesie": 1,
+      "Glacial Plume": 1,
+      "Solflare Aegis": 1,
+      "Blossom Ward": 1,
+      "Autumn's Embrace": 1,
+      "Frozen Heart": 1,
+      "Love Heart Onesie": 1,
+      "Flower Bouquet": 1,
+      "Dino Onesie": 2,
+      "Golden Wings": 1,
+      "Flower Mask": 1,
+      "Luvvy Head": 1,
+      "Grumpy Cat": 1,
+      "Love Puff Aura": 1,
+      "Carrot Pitchfork": 1,
+      "Handheld Bunny": 1,
+      "Bunny Pants": 1,
+      "Bunny Mask": 1,
+      "Easter Apron": 1,
+      "Bloomwarden Suit": 2,
+      "Embersteel Suit": 2,
+      "Amberfall Suit": 2,
+      "Glacierguard Suit": 1,
+      "Broccoli Hat": 1,
+      "Frost Sword": 1,
+      "Obsidian Necklace": 1,
+      "Red Pepper Onesie": 1,
+      "Love Charm Shirt": 1,
+      "Sky Island Background": 1,
+      "Oracle Syringe": 1,
+      "Coin Head": 1,
+      "Paint Splattered Hair": 1,
+      "Paint Splattered Shirt": 1,
+      "Paint Splattered Overalls": 1,
+      "Paint Spray Can": 1,
+      "Slime Hat": 1,
+      "Recycle Shirt": 1,
+      "Garbage Bin Hat": 1,
+      "Turd Topper": 1,
+      "Architect Ruler": 1,
+      "Oil Gallon": 1,
+      "Lava Swimwear": 1,
+      "Raccoon Onesie": 1,
+      "Golden Seedling": 1,
+      "Moonseeker Potion": 1,
+      "Frizzy Bob Cut": 1,
+      "Two-toned Layered": 1,
+      "Halloween Deathscythe": 1,
+      "Moonseeker Hand Puppet": 1,
+      "Sweet Devil Horns": 1,
+      "Trick and Treat": 1,
+      "Jack O'Sweets": 1,
+      "Frank Onesie": 1,
+      "Sweet Devil Dress": 1,
+      "Underworld Stimpack": 1,
+      "Luna's Crescent": 1,
+      "Master Chef's Cleaver": 1,
+      "Training Whistle": 1,
+      "Pet Specialist Shirt": 1,
+      "Pet Specialist Pants": 1,
+      "Pet Specialist Hat": 1,
+      "Xmas Top Hat": 1,
+      "Reindeer Mask": 1,
+      "Cool Glasses": 1,
+      "Comfy Xmas Pants": 1,
+      "Comfy Xmas Sweater": 1,
+      "Candy Halbred": 1,
+      "Cookie Shield": 1,
+      "Cozy Reindeer Onesie": 1,
+      "2026 Tiara": 1,
+      "Walrus Onesie": 1,
+      "Crimstone Spikes Hair": 1,
+      "Paw Aura": 1,
+      "Victoria's Apron": 1,
+      "Beast Shoes": 1,
+      "Fish Hook Hat": 1,
+      "Fish Hook Vest": 1,
+      "Fish Hook Waders": 1,
+      "Corn Silk Hair": 1,
+      "Pistol Shrimp": 1,
+      "Spa Hat": 1,
+      "Spa Robe": 1,
+      "Spa Slippers": 1,
+      "Clam Shell Hat": 1,
+      "Shrimp Onesie": 2
+    },
+    "home": {
+      "collectibles": {
+        "Clash of Factions Banner": [
+          {
+            "readyAt": 1715777951465,
+            "createdAt": 1715777951465,
+            "id": "bd8b9927",
+            "removedAt": 1757111757651
+          }
+        ],
+        "Goblin War Banner": [
+          {
+            "readyAt": 1715777939145,
+            "createdAt": 1715777939145,
+            "id": "5e4a5f51",
+            "removedAt": 1757111760223
+          }
+        ],
+        "Lifetime Farmer Banner": [
+          {
+            "readyAt": 1715777923234,
+            "createdAt": 1715777923234,
+            "id": "c28e968b",
+            "removedAt": 1770964423722
+          }
+        ],
+        "Goblin Faction Banner": [
+          {
+            "readyAt": 1715778105497,
+            "createdAt": 1715778105497,
+            "id": "dd3710e4",
+            "removedAt": 1757111754825
+          }
+        ],
+        "Winds of Change Banner": [
+          {
+            "id": "ee88555e",
+            "createdAt": 1739073101083,
+            "readyAt": 1739073101083,
+            "removedAt": 1770964129340
+          }
+        ]
+      }
+    },
+    "interior": {
+      "ground": {
+        "collectibles": {
+          "Alba": [
+            {
+              "readyAt": 1706760426569,
+              "createdAt": 1706760426569,
+              "id": "187545ce",
+              "coordinates": {
+                "x": 6,
+                "y": 4
+              }
+            }
+          ],
+          "Alien Chicken": [
+            {
+              "id": "4cf713e0",
+              "createdAt": 1733588861717,
+              "readyAt": 1733588861717,
+              "coordinates": {
+                "x": 6,
+                "y": -1
+              }
+            }
+          ],
+          "Anemone Flower": [
+            {
+              "id": "fd8a2373",
+              "coordinates": {
+                "x": 3,
+                "y": -9
+              }
+            }
+          ],
+          "Astronaut Sheep": [
+            {
+              "id": "60435829",
+              "coordinates": {
+                "x": -4,
+                "y": -9
+              }
+            }
+          ],
+          "Autumn Guardian": [
+            {
+              "id": "da7aac3c",
+              "createdAt": 1754287643108,
+              "readyAt": 1754287643108,
+              "coordinates": {
+                "x": -9,
+                "y": -6
+              }
+            }
+          ],
+          "Ayam Cemani": [
+            {
+              "readyAt": 1706760438614,
+              "createdAt": 1706760438614,
+              "id": "89ba8544",
+              "coordinates": {
+                "x": -7,
+                "y": 6
+              }
+            }
+          ],
+          "Baby Cow": [
+            {
+              "id": "12c57146",
+              "coordinates": {
+                "x": 8,
+                "y": -7
+              }
+            }
+          ],
+          "Baby Panda": [
+            {
+              "readyAt": 1710439909665,
+              "createdAt": 1710439909665,
+              "id": "3d20431c",
+              "coordinates": {
+                "x": -8,
+                "y": 7
+              }
+            }
+          ],
+          "Bale": [
+            {
+              "id": "85dca68c",
+              "createdAt": 1738780447251,
+              "readyAt": 1738780447251,
+              "coordinates": {
+                "x": 0,
+                "y": -2
+              }
+            }
+          ],
+          "Banana Chicken": [
+            {
+              "readyAt": 1709070545908,
+              "createdAt": 1709070545908,
+              "id": "09042f2f",
+              "coordinates": {
+                "x": 6,
+                "y": 3
+              }
+            }
+          ],
+          "Barn Blueprint": [
+            {
+              "id": "b42f790a",
+              "createdAt": 1739545365230,
+              "readyAt": 1739545365230,
+              "coordinates": {
+                "x": 9,
+                "y": -3
+              }
+            }
+          ],
+          "Basic Bed": [
+            {
+              "id": "90bf8f71",
+              "createdAt": 1730700651047,
+              "readyAt": 1730700651047,
+              "coordinates": {
+                "x": -3,
+                "y": -1
+              }
+            }
+          ],
+          "Battle Fish": [
+            {
+              "id": "88db0b70",
+              "createdAt": 1738780476493,
+              "readyAt": 1738780476493,
+              "coordinates": {
+                "x": 2,
+                "y": -3
+              }
+            }
+          ],
+          "Black Bearry": [
+            {
+              "readyAt": 1706760453148,
+              "createdAt": 1706760453148,
+              "id": "245c3056",
+              "coordinates": {
+                "x": 1,
+                "y": 6
+              }
+            }
+          ],
+          "Blossombeard": [
+            {
+              "readyAt": 1706760477597,
+              "createdAt": 1706760477597,
+              "id": "1c417bed",
+              "coordinates": {
+                "x": 0,
+                "y": 2
+              }
+            }
+          ],
+          "Butterfly": [
+            {
+              "id": "16f48b76",
+              "createdAt": 1725934170484,
+              "readyAt": 1725934170484,
+              "coordinates": {
+                "x": 4,
+                "y": 1
+              }
+            }
+          ],
+          "Cabbage Boy": [
+            {
+              "readyAt": 1706760491014,
+              "createdAt": 1706760491014,
+              "id": "f2476aed",
+              "coordinates": {
+                "x": 1,
+                "y": 5
+              }
+            }
+          ],
+          "Cabbage Girl": [
+            {
+              "readyAt": 1706760503178,
+              "createdAt": 1706760503178,
+              "id": "e45b748a",
+              "coordinates": {
+                "x": -4,
+                "y": 2
+              }
+            }
+          ],
+          "Camel": [
+            {
+              "id": "49f6f5cf",
+              "createdAt": 1730481710864,
+              "readyAt": 1730481710864,
+              "coordinates": {
+                "x": 5,
+                "y": 0
+              }
+            }
+          ],
+          "Cannonball": [
+            {
+              "id": "282a2e94",
+              "createdAt": 1729744798638,
+              "readyAt": 1729744798638,
+              "coordinates": {
+                "x": 1,
+                "y": 0
+              }
+            }
+          ],
+          "Carrot Sword": [
+            {
+              "readyAt": 1706760549005,
+              "createdAt": 1706760549005,
+              "id": "d90008d1",
+              "coordinates": {
+                "x": 3,
+                "y": 7
+              }
+            }
+          ],
+          "Chicken Coop": [
+            {
+              "readyAt": 1715815351812,
+              "createdAt": 1715815351812,
+              "id": "f6512486",
+              "coordinates": {
+                "x": 5,
+                "y": 8
+              }
+            }
+          ],
+          "Chicory": [
+            {
+              "id": "783fc9ba",
+              "createdAt": 1732313314225,
+              "readyAt": 1732313314225,
+              "coordinates": {
+                "x": 3,
+                "y": -1
+              }
+            }
+          ],
+          "Christmas Tree": [
+            {
+              "readyAt": 1706760522832,
+              "createdAt": 1706760522832,
+              "id": "8a2ee7e2",
+              "coordinates": {
+                "x": 0,
+                "y": 4
+              }
+            }
+          ],
+          "Cornucopia": [
+            {
+              "id": "36d1dc2b",
+              "coordinates": {
+                "x": -2,
+                "y": -9
+              }
+            }
+          ],
+          "Cow Bed": [
+            {
+              "id": "b702968f",
+              "createdAt": 1731593648342,
+              "readyAt": 1731593648342,
+              "coordinates": {
+                "x": 1,
+                "y": -1
+              }
+            }
+          ],
+          "Crim Peckster": [
+            {
+              "readyAt": 1714062781363,
+              "createdAt": 1714062781363,
+              "id": "459d0965",
+              "coordinates": {
+                "x": -5,
+                "y": 2
+              }
+            }
+          ],
+          "Crimson Carp": [
+            {
+              "readyAt": 1715777991825,
+              "createdAt": 1715777991825,
+              "id": "009962cf",
+              "coordinates": {
+                "x": -9,
+                "y": 2
+              }
+            }
+          ],
+          "Desert Bed": [
+            {
+              "id": "b8f7491f",
+              "createdAt": 1739159376120,
+              "readyAt": 1739159376120,
+              "coordinates": {
+                "x": 5,
+                "y": -3
+              }
+            }
+          ],
+          "Desert Gnome": [
+            {
+              "readyAt": 1715777981441,
+              "createdAt": 1715777981441,
+              "id": "66cc69d6",
+              "coordinates": {
+                "x": 4,
+                "y": 7
+              }
+            }
+          ],
+          "Desert Rose": [
+            {
+              "id": "9959714f",
+              "createdAt": 1726306424127,
+              "readyAt": 1726306424127,
+              "coordinates": {
+                "x": -7,
+                "y": 0
+              }
+            }
+          ],
+          "Double Bed": [
+            {
+              "id": "cd49a97c",
+              "coordinates": {
+                "x": 5,
+                "y": -7
+              }
+            }
+          ],
+          "Dr Cow": [
+            {
+              "id": "f78ae1a1",
+              "createdAt": 1748644701146,
+              "readyAt": 1748644701146,
+              "coordinates": {
+                "x": 2,
+                "y": -5
+              }
+            }
+          ],
+          "Easter Bunny": [
+            {
+              "readyAt": 1706760683110,
+              "createdAt": 1706760683110,
+              "id": "5cffd36a",
+              "coordinates": {
+                "x": -2,
+                "y": 7
+              }
+            }
+          ],
+          "El Pollo Veloz": [
+            {
+              "readyAt": 1706760788361,
+              "createdAt": 1706760788361,
+              "id": "fbc1579d",
+              "coordinates": {
+                "x": 7,
+                "y": 4
+              }
+            }
+          ],
+          "Fairy Circle": [
+            {
+              "id": "7ba8c915",
+              "createdAt": 1725934241783,
+              "readyAt": 1725934241783,
+              "coordinates": {
+                "x": 9,
+                "y": 1
+              }
+            }
+          ],
+          "Farm Cat": [
+            {
+              "readyAt": 1707082324081,
+              "createdAt": 1707082324081,
+              "id": "b8824679",
+              "coordinates": {
+                "x": -4,
+                "y": 7
+              }
+            }
+          ],
+          "Farm Dog": [
+            {
+              "readyAt": 1707082294490,
+              "createdAt": 1707082294490,
+              "id": "420afe01",
+              "coordinates": {
+                "x": -7,
+                "y": 5
+              }
+            }
+          ],
+          "Fat Chicken": [
+            {
+              "readyAt": 1706760634552,
+              "createdAt": 1706760634552,
+              "id": "e2199fd2",
+              "coordinates": {
+                "x": -7,
+                "y": 2
+              }
+            }
+          ],
+          "Fisher Bed": [
+            {
+              "id": "f5261086",
+              "createdAt": 1730699286515,
+              "readyAt": 1730699286515,
+              "coordinates": {
+                "x": -8,
+                "y": -1
+              }
+            }
+          ],
+          "Floral Bed": [
+            {
+              "id": "22b0c19e",
+              "createdAt": 1730699257200,
+              "readyAt": 1730699257200,
+              "coordinates": {
+                "x": -9,
+                "y": -1
+              }
+            }
+          ],
+          "Flower Fox": [
+            {
+              "readyAt": 1709282170056,
+              "createdAt": 1709282170056,
+              "id": "b286a265",
+              "coordinates": {
+                "x": 3,
+                "y": 5
+              }
+            }
+          ],
+          "Foliant": [
+            {
+              "readyAt": 1706760623182,
+              "createdAt": 1706760623182,
+              "id": "5713a681",
+              "coordinates": {
+                "x": -10,
+                "y": 7
+              }
+            }
+          ],
+          "Foreman Beaver": [
+            {
+              "readyAt": 1706760578997,
+              "createdAt": 1706760578997,
+              "id": "7383e175",
+              "coordinates": {
+                "x": -7,
+                "y": 7
+              }
+            }
+          ],
+          "Freya Fox": [
+            {
+              "readyAt": 1706760611112,
+              "createdAt": 1706760611112,
+              "id": "fe1ddca8",
+              "coordinates": {
+                "x": 4,
+                "y": 2
+              }
+            }
+          ],
+          "Frozen Cow": [
+            {
+              "id": "656d17f4",
+              "createdAt": 1741623862221,
+              "readyAt": 1741623862221,
+              "coordinates": {
+                "x": -5,
+                "y": -5
+              }
+            }
+          ],
+          "Frozen Sheep": [
+            {
+              "id": "2b948f11",
+              "createdAt": 1741623869822,
+              "readyAt": 1741623869822,
+              "coordinates": {
+                "x": -2,
+                "y": -5
+              }
+            }
+          ],
+          "Fruit Tune Box": [
+            {
+              "id": "cfd7b0c0",
+              "coordinates": {
+                "x": 7,
+                "y": -7
+              }
+            }
+          ],
+          "Giant Gold Bone": [
+            {
+              "id": "8f32ef88",
+              "coordinates": {
+                "x": -2,
+                "y": -8
+              }
+            }
+          ],
+          "Giant Onion": [
+            {
+              "id": "26ced1bb",
+              "coordinates": {
+                "x": 2,
+                "y": -8
+              }
+            }
+          ],
+          "Giant Turnip": [
+            {
+              "id": "a8440ba7",
+              "coordinates": {
+                "x": 0,
+                "y": -7
+              }
+            }
+          ],
+          "Giant Yam": [
+            {
+              "id": "8cfb284d",
+              "createdAt": 1754157197633,
+              "readyAt": 1754157197633,
+              "coordinates": {
+                "x": 8,
+                "y": -4
+              }
+            }
+          ],
+          "Giant Zucchini": [
+            {
+              "id": "51a72766",
+              "createdAt": 1754333167394,
+              "readyAt": 1754333167394,
+              "coordinates": {
+                "x": -1,
+                "y": -6
+              }
+            }
+          ],
+          "Gilded Swordfish": [
+            {
+              "id": "dd3f6578",
+              "coordinates": {
+                "x": -6,
+                "y": -9
+              }
+            }
+          ],
+          "Goblin Crown": [
+            {
+              "readyAt": 1707779904475,
+              "createdAt": 1707779904475,
+              "id": "86c5a2d9",
+              "coordinates": {
+                "x": -4,
+                "y": 6
+              }
+            }
+          ],
+          "Gold Beetle": [
+            {
+              "id": "15e38f44",
+              "createdAt": 1726068327849,
+              "readyAt": 1726068327849,
+              "coordinates": {
+                "x": -10,
+                "y": 0
+              }
+            }
+          ],
+          "Gold Egg": [
+            {
+              "readyAt": 1706760916913,
+              "createdAt": 1706760916913,
+              "id": "465b47a2",
+              "coordinates": {
+                "x": 7,
+                "y": 2
+              }
+            }
+          ],
+          "Golden Cauliflower": [
+            {
+              "readyAt": 1714415196282,
+              "createdAt": 1714415196282,
+              "id": "5a705f76",
+              "coordinates": {
+                "x": 7,
+                "y": 6
+              }
+            }
+          ],
+          "Golden Cow": [
+            {
+              "id": "5a46e74e",
+              "createdAt": 1734928378212,
+              "readyAt": 1734928378212,
+              "coordinates": {
+                "x": -2,
+                "y": -2
+              }
+            }
+          ],
+          "Golden Sheep": [
+            {
+              "id": "5aac2604",
+              "createdAt": 1739301196462,
+              "readyAt": 1739301196462,
+              "coordinates": {
+                "x": -9,
+                "y": -4
+              }
+            }
+          ],
+          "Grain Grinder": [
+            {
+              "readyAt": 1706771419296,
+              "createdAt": 1706771419296,
+              "id": "0307931b",
+              "coordinates": {
+                "x": -6,
+                "y": 1
+              }
+            }
+          ],
+          "Grape Granny": [
+            {
+              "readyAt": 1716801104539,
+              "createdAt": 1716801104539,
+              "id": "fa07560a",
+              "coordinates": {
+                "x": 9,
+                "y": 5
+              }
+            }
+          ],
+          "Grinx's Hammer": [
+            {
+              "readyAt": 1706760667382,
+              "createdAt": 1706760667382,
+              "id": "816739ad",
+              "coordinates": {
+                "x": 1,
+                "y": 1
+              }
+            }
+          ],
+          "Groovy Gramophone": [
+            {
+              "id": "3a0bba27",
+              "createdAt": 1756253861721,
+              "readyAt": 1756253861721,
+              "coordinates": {
+                "x": 3,
+                "y": -6
+              }
+            }
+          ],
+          "Heart of Davy Jones": [
+            {
+              "readyAt": 1706760934864,
+              "createdAt": 1706760934864,
+              "id": "83e8ee59",
+              "coordinates": {
+                "x": 0,
+                "y": 8
+              }
+            }
+          ],
+          "Hoot": [
+            {
+              "readyAt": 1706760706493,
+              "createdAt": 1706760706493,
+              "id": "39c99c27",
+              "coordinates": {
+                "x": -10,
+                "y": 1
+              }
+            }
+          ],
+          "Humming Bird": [
+            {
+              "readyAt": 1707606771786,
+              "createdAt": 1707606771786,
+              "id": "b0911412",
+              "coordinates": {
+                "x": -2,
+                "y": 5
+              }
+            }
+          ],
+          "Hungry Caterpillar": [
+            {
+              "readyAt": 1708686914096,
+              "createdAt": 1708686914096,
+              "id": "6cdfa804",
+              "coordinates": {
+                "x": -4,
+                "y": 5
+              }
+            }
+          ],
+          "Hungry Hare": [
+            {
+              "readyAt": 1715778019713,
+              "createdAt": 1715778019713,
+              "id": "60a1c287",
+              "coordinates": {
+                "x": -10,
+                "y": 6
+              }
+            }
+          ],
+          "Igloo": [
+            {
+              "id": "8ee6a4e0",
+              "createdAt": 1739808589724,
+              "readyAt": 1739808589724,
+              "coordinates": {
+                "x": -7,
+                "y": -4
+              }
+            }
+          ],
+          "Immortal Pear": [
+            {
+              "readyAt": 1706761105609,
+              "createdAt": 1706761105609,
+              "id": "2fb0068e",
+              "coordinates": {
+                "x": -6,
+                "y": 6
+              }
+            }
+          ],
+          "Iron Beetle": [
+            {
+              "id": "cbb2867e",
+              "createdAt": 1726023781267,
+              "readyAt": 1726023781267,
+              "coordinates": {
+                "x": -11,
+                "y": 0
+              }
+            }
+          ],
+          "Iron Idol": [
+            {
+              "readyAt": 1706760948677,
+              "createdAt": 1706760948677,
+              "id": "0e85e1f4",
+              "coordinates": {
+                "x": 3,
+                "y": 6
+              }
+            }
+          ],
+          "Janitor Chicken": [
+            {
+              "id": "46efc8b4",
+              "createdAt": 1756163664971,
+              "readyAt": 1756163664971,
+              "coordinates": {
+                "x": 2,
+                "y": -6
+              }
+            }
+          ],
+          "Jellyfish": [
+            {
+              "id": "59503b44",
+              "createdAt": 1741333445104,
+              "readyAt": 1741333445104,
+              "coordinates": {
+                "x": -1,
+                "y": -4
+              }
+            }
+          ],
+          "Karkinos": [
+            {
+              "readyAt": 1706761132196,
+              "createdAt": 1706761132196,
+              "id": "f6eba610",
+              "coordinates": {
+                "x": 5,
+                "y": 6
+              }
+            }
+          ],
+          "Kernaldo": [
+            {
+              "readyAt": 1706760957523,
+              "createdAt": 1706760957523,
+              "id": "b145042e",
+              "coordinates": {
+                "x": -1,
+                "y": 5
+              }
+            }
+          ],
+          "King of Bears": [
+            {
+              "id": "057c706d",
+              "createdAt": 1731301019502,
+              "readyAt": 1731301019502,
+              "coordinates": {
+                "x": -11,
+                "y": -2
+              }
+            }
+          ],
+          "Knight Chicken": [
+            {
+              "readyAt": 1715777966064,
+              "createdAt": 1715777966064,
+              "id": "3f32b872",
+              "coordinates": {
+                "x": -7,
+                "y": 1
+              }
+            }
+          ],
+          "Knowledge Crab": [
+            {
+              "readyAt": 1711578580098,
+              "createdAt": 1711578580098,
+              "id": "8cc11308",
+              "coordinates": {
+                "x": -2,
+                "y": 6
+              }
+            }
+          ],
+          "Kuebiko": [
+            {
+              "readyAt": 1706760561605,
+              "createdAt": 1706760561605,
+              "id": "cfa19917",
+              "coordinates": {
+                "x": 3,
+                "y": 4
+              }
+            }
+          ],
+          "Lab Grown Carrot": [
+            {
+              "readyAt": 1710647732481,
+              "createdAt": 1710647732481,
+              "id": "94282d23",
+              "coordinates": {
+                "x": 0,
+                "y": 1
+              }
+            }
+          ],
+          "Lab Grown Pumpkin": [
+            {
+              "readyAt": 1708398005128,
+              "createdAt": 1708398005128,
+              "id": "df58dea0",
+              "coordinates": {
+                "x": 8,
+                "y": 4
+              }
+            }
+          ],
+          "Lab Grown Radish": [
+            {
+              "readyAt": 1710621730869,
+              "createdAt": 1710621730869,
+              "id": "4d7d7cc0",
+              "coordinates": {
+                "x": -8,
+                "y": 6
+              }
+            }
+          ],
+          "Lady Bug": [
+            {
+              "readyAt": 1706760875309,
+              "createdAt": 1706760875309,
+              "id": "e2a45a35",
+              "coordinates": {
+                "x": -11,
+                "y": 1
+              }
+            }
+          ],
+          "Lemon Frog": [
+            {
+              "id": "c247b61b",
+              "createdAt": 1730172513090,
+              "readyAt": 1730172513090,
+              "coordinates": {
+                "x": 2,
+                "y": 0
+              }
+            }
+          ],
+          "Lemon Shark": [
+            {
+              "id": "c0499fd1",
+              "createdAt": 1726625188335,
+              "readyAt": 1726625188335,
+              "coordinates": {
+                "x": -3,
+                "y": 0
+              }
+            }
+          ],
+          "Lemon Tea Bath": [
+            {
+              "id": "ad23dcba",
+              "createdAt": 1726546299392,
+              "readyAt": 1726546299392,
+              "coordinates": {
+                "x": -6,
+                "y": 0
+              }
+            }
+          ],
+          "Longhorn Cowfish": [
+            {
+              "id": "4881a365",
+              "createdAt": 1734386503728,
+              "readyAt": 1734386503728,
+              "coordinates": {
+                "x": -4,
+                "y": -3
+              }
+            }
+          ],
+          "Lunalist": [
+            {
+              "id": "9287daef",
+              "createdAt": 1747311841780,
+              "readyAt": 1747311841780,
+              "coordinates": {
+                "x": 3,
+                "y": -4
+              }
+            }
+          ],
+          "Lunar Calendar": [
+            {
+              "readyAt": 1706761118673,
+              "createdAt": 1706761118673,
+              "id": "a8e2911d",
+              "coordinates": {
+                "x": -6,
+                "y": 2
+              }
+            }
+          ],
+          "Lunar Temple": [
+            {
+              "id": "85fe9ad7",
+              "coordinates": {
+                "x": 6,
+                "y": -8
+              }
+            }
+          ],
+          "Macaw": [
+            {
+              "id": "b0a7d433",
+              "createdAt": 1725934180986,
+              "readyAt": 1725934180986,
+              "coordinates": {
+                "x": 5,
+                "y": 1
+              }
+            }
+          ],
+          "Magma Stone": [
+            {
+              "id": "0bf7a3f2",
+              "coordinates": {
+                "x": 4,
+                "y": -8
+              }
+            }
+          ],
+          "Mammoth": [
+            {
+              "id": "d4771bbd",
+              "createdAt": 1745628490903,
+              "readyAt": 1745628490903,
+              "coordinates": {
+                "x": 5,
+                "y": -4
+              }
+            }
+          ],
+          "Maximus": [
+            {
+              "readyAt": 1706760695652,
+              "createdAt": 1706760695652,
+              "id": "936a58dd",
+              "coordinates": {
+                "x": 8,
+                "y": 8
+              }
+            }
+          ],
+          "Meerkat": [
+            {
+              "id": "d8df4919",
+              "coordinates": {
+                "x": 4,
+                "y": -10
+              }
+            }
+          ],
+          "Messy Bed": [
+            {
+              "id": "7532d521",
+              "coordinates": {
+                "x": 3,
+                "y": -8
+              }
+            }
+          ],
+          "Moo-ver": [
+            {
+              "id": "a6e91e1f",
+              "createdAt": 1734062193432,
+              "readyAt": 1734062193432,
+              "coordinates": {
+                "x": -8,
+                "y": -2
+              }
+            }
+          ],
+          "Mootant": [
+            {
+              "id": "7e2004f5",
+              "createdAt": 1741623777786,
+              "readyAt": 1741623777786,
+              "coordinates": {
+                "x": 1,
+                "y": -4
+              }
+            }
+          ],
+          "Mushroom House": [
+            {
+              "readyAt": 1706761011278,
+              "createdAt": 1706761011278,
+              "id": "b26db8d4",
+              "coordinates": {
+                "x": -2,
+                "y": 4
+              }
+            }
+          ],
+          "Mysterious Parsnip": [
+            {
+              "readyAt": 1706760895807,
+              "createdAt": 1706760895807,
+              "id": "f33a43a4",
+              "coordinates": {
+                "x": 8,
+                "y": 2
+              }
+            }
+          ],
+          "Nana": [
+            {
+              "readyAt": 1706761252414,
+              "createdAt": 1706761252414,
+              "id": "49e49cac",
+              "coordinates": {
+                "x": 5,
+                "y": 2
+              }
+            }
+          ],
+          "Nautilus": [
+            {
+              "id": "1ef08787",
+              "coordinates": {
+                "x": 2,
+                "y": -10
+              }
+            }
+          ],
+          "Nugget": [
+            {
+              "readyAt": 1706761000805,
+              "createdAt": 1706761000805,
+              "id": "d9cb88f3",
+              "coordinates": {
+                "x": -8,
+                "y": 4
+              }
+            }
+          ],
+          "Nurse Sheep": [
+            {
+              "id": "550224ea",
+              "createdAt": 1754860176102,
+              "readyAt": 1754860176102,
+              "coordinates": {
+                "x": 0,
+                "y": -6
+              }
+            }
+          ],
+          "Oaken": [
+            {
+              "id": "99054e82",
+              "coordinates": {
+                "x": -4,
+                "y": -10
+              }
+            }
+          ],
+          "Obie": [
+            {
+              "readyAt": 1706761243446,
+              "createdAt": 1706761243446,
+              "id": "ccff8aca",
+              "coordinates": {
+                "x": 9,
+                "y": 2
+              }
+            }
+          ],
+          "Observatory": [
+            {
+              "readyAt": 1707082382478,
+              "createdAt": 1707082382478,
+              "id": "f96aa493",
+              "coordinates": {
+                "x": -11,
+                "y": 3
+              }
+            }
+          ],
+          "Obsidian Turtle": [
+            {
+              "id": "3a6e8992",
+              "createdAt": 1757349363020,
+              "readyAt": 1757349363020,
+              "coordinates": {
+                "x": 7,
+                "y": -6
+              }
+            }
+          ],
+          "Pablo The Bunny": [
+            {
+              "readyAt": 1706761035685,
+              "createdAt": 1706761035685,
+              "id": "0617b0e6",
+              "coordinates": {
+                "x": 9,
+                "y": 6
+              }
+            }
+          ],
+          "Pearl Bed": [
+            {
+              "id": "1cd94be7",
+              "coordinates": {
+                "x": -6,
+                "y": -10
+              }
+            }
+          ],
+          "Peeled Potato": [
+            {
+              "readyAt": 1707082309009,
+              "createdAt": 1707082309009,
+              "id": "39088186",
+              "coordinates": {
+                "x": 0,
+                "y": 5
+              }
+            }
+          ],
+          "Pet Bowls": [
+            {
+              "id": "7d7288a9",
+              "coordinates": {
+                "x": -6,
+                "y": -8
+              }
+            }
+          ],
+          "Phantom Barracuda": [
+            {
+              "id": "887f5cd3",
+              "coordinates": {
+                "x": 2,
+                "y": -7
+              }
+            }
+          ],
+          "Pharaoh Chicken": [
+            {
+              "id": "a37e16aa",
+              "createdAt": 1730481722046,
+              "readyAt": 1730481722046,
+              "coordinates": {
+                "x": 7,
+                "y": 0
+              }
+            }
+          ],
+          "Pink Dolphin": [
+            {
+              "id": "ad5e4bf5",
+              "createdAt": 1747082325823,
+              "readyAt": 1747082325823,
+              "coordinates": {
+                "x": 0,
+                "y": -5
+              }
+            }
+          ],
+          "Pirate Bed": [
+            {
+              "id": "ba4fb211",
+              "createdAt": 1731311739668,
+              "readyAt": 1731311739668,
+              "coordinates": {
+                "x": -2,
+                "y": -1
+              }
+            }
+          ],
+          "Poppy": [
+            {
+              "readyAt": 1706761161444,
+              "createdAt": 1706761161444,
+              "id": "9ed03d88",
+              "coordinates": {
+                "x": 1,
+                "y": 2
+              }
+            }
+          ],
+          "Poseidon": [
+            {
+              "id": "1a63b3e4",
+              "createdAt": 1757203362761,
+              "readyAt": 1757203362761,
+              "coordinates": {
+                "x": 5,
+                "y": -6
+              }
+            }
+          ],
+          "Potent Potato": [
+            {
+              "id": "176d036f",
+              "createdAt": 1731600565543,
+              "readyAt": 1731600565543,
+              "coordinates": {
+                "x": 2,
+                "y": -1
+              }
+            }
+          ],
+          "Purple Trail": [
+            {
+              "id": "b6c38649",
+              "createdAt": 1738780549754,
+              "readyAt": 1738780549754,
+              "coordinates": {
+                "x": -4,
+                "y": 4
+              }
+            }
+          ],
+          "Queen Bee": [
+            {
+              "readyAt": 1715778051642,
+              "createdAt": 1715778051642,
+              "id": "d75f5605",
+              "coordinates": {
+                "x": 7,
+                "y": 7
+              }
+            }
+          ],
+          "Radical Radish": [
+            {
+              "readyAt": 1714700550641,
+              "createdAt": 1714700550641,
+              "id": "e7497ad4",
+              "coordinates": {
+                "x": 2,
+                "y": 1
+              }
+            }
+          ],
+          "Reelmaster's Chair": [
+            {
+              "id": "fea1d65d",
+              "createdAt": 1757477491562,
+              "readyAt": 1757477491562,
+              "coordinates": {
+                "x": 8,
+                "y": -6
+              }
+            }
+          ],
+          "Reveling Lemon": [
+            {
+              "id": "b1946adf",
+              "createdAt": 1727850168883,
+              "readyAt": 1727850168883,
+              "coordinates": {
+                "x": -1,
+                "y": 0
+              }
+            }
+          ],
+          "Rice Panda": [
+            {
+              "id": "304da18b",
+              "createdAt": 1720802504787,
+              "readyAt": 1720802504787,
+              "coordinates": {
+                "x": 3,
+                "y": 1
+              }
+            }
+          ],
+          "Rich Chicken": [
+            {
+              "readyAt": 1706761141398,
+              "createdAt": 1706761141398,
+              "id": "04197763",
+              "coordinates": {
+                "x": -9,
+                "y": 4
+              }
+            }
+          ],
+          "Rock Golem": [
+            {
+              "readyAt": 1706760986941,
+              "createdAt": 1706760986941,
+              "id": "692ef180",
+              "coordinates": {
+                "x": -6,
+                "y": 8
+              }
+            }
+          ],
+          "Rocky the Mole": [
+            {
+              "readyAt": 1706761084086,
+              "createdAt": 1706761084086,
+              "id": "c3d69d4b",
+              "coordinates": {
+                "x": -8,
+                "y": 5
+              }
+            }
+          ],
+          "Rooster": [
+            {
+              "readyAt": 1706760905705,
+              "createdAt": 1706760905705,
+              "id": "56213abd",
+              "coordinates": {
+                "x": -1,
+                "y": 1
+              }
+            }
+          ],
+          "Royal Bed": [
+            {
+              "id": "a9f043c1",
+              "createdAt": 1732493527205,
+              "readyAt": 1732493527205,
+              "coordinates": {
+                "x": 4,
+                "y": -1
+              }
+            }
+          ],
+          "Rug": [
+            {
+              "readyAt": 1704851527268,
+              "createdAt": 1704851527268,
+              "id": "2",
+              "coordinates": {
+                "x": -10,
+                "y": 8
+              }
+            }
+          ],
+          "Salt Crystal Flower": [
+            {
+              "id": "0c752b29",
+              "coordinates": {
+                "x": 5,
+                "y": -10
+              }
+            }
+          ],
+          "Sheaf of Plenty": [
+            {
+              "id": "f586fb01",
+              "createdAt": 1736998298683,
+              "readyAt": 1736998298683,
+              "coordinates": {
+                "x": -6,
+                "y": -2
+              }
+            }
+          ],
+          "Skill Shrimpy": [
+            {
+              "readyAt": 1706761173748,
+              "createdAt": 1706761173748,
+              "id": "cb17d151",
+              "coordinates": {
+                "x": -10,
+                "y": 4
+              }
+            }
+          ],
+          "Sleepy Chicken": [
+            {
+              "id": "ed2d0743",
+              "coordinates": {
+                "x": 5,
+                "y": -8
+              }
+            }
+          ],
+          "Soil Krabby": [
+            {
+              "readyAt": 1706761287528,
+              "createdAt": 1706761287528,
+              "id": "ebbf9921",
+              "coordinates": {
+                "x": 0,
+                "y": 6
+              }
+            }
+          ],
+          "Soybliss": [
+            {
+              "readyAt": 1715778010042,
+              "createdAt": 1715778010042,
+              "id": "99998ccf",
+              "coordinates": {
+                "x": -7,
+                "y": 4
+              }
+            }
+          ],
+          "Speed Chicken": [
+            {
+              "readyAt": 1706761264396,
+              "createdAt": 1706761264396,
+              "id": "b94beb24",
+              "coordinates": {
+                "x": 6,
+                "y": 2
+              }
+            }
+          ],
+          "Spring Guardian": [
+            {
+              "id": "658d66a2",
+              "createdAt": 1754287724601,
+              "readyAt": 1754287724601,
+              "coordinates": {
+                "x": -5,
+                "y": -6
+              }
+            }
+          ],
+          "Squid Chicken": [
+            {
+              "id": "f9604d4a",
+              "coordinates": {
+                "x": 1,
+                "y": -9
+              }
+            }
+          ],
+          "Squirrel": [
+            {
+              "id": "876d51bb",
+              "createdAt": 1725934193104,
+              "readyAt": 1725934193104,
+              "coordinates": {
+                "x": 6,
+                "y": 1
+              }
+            }
+          ],
+          "Squirrel Monkey": [
+            {
+              "readyAt": 1706761071836,
+              "createdAt": 1706761071836,
+              "id": "77553690",
+              "coordinates": {
+                "x": -6,
+                "y": 5
+              }
+            }
+          ],
+          "Stellar Sunflower": [
+            {
+              "readyAt": 1714887330958,
+              "createdAt": 1714887330958,
+              "id": "40729428",
+              "coordinates": {
+                "x": -4,
+                "y": 1
+              }
+            }
+          ],
+          "Stone Beetle": [
+            {
+              "id": "abdc12af",
+              "createdAt": 1725934203170,
+              "readyAt": 1725934203170,
+              "coordinates": {
+                "x": 8,
+                "y": 1
+              }
+            }
+          ],
+          "Sturdy Bed": [
+            {
+              "id": "6f1ccd52",
+              "createdAt": 1730699342004,
+              "readyAt": 1730699342004,
+              "coordinates": {
+                "x": -7,
+                "y": -1
+              }
+            }
+          ],
+          "Summer Chicken": [
+            {
+              "id": "3d6c15bd",
+              "createdAt": 1740843619331,
+              "readyAt": 1740843619331,
+              "coordinates": {
+                "x": -2,
+                "y": -4
+              }
+            }
+          ],
+          "Summer Guardian": [
+            {
+              "id": "771b8e3a",
+              "createdAt": 1754287736969,
+              "readyAt": 1754287736969,
+              "coordinates": {
+                "x": -3,
+                "y": -6
+              }
+            }
+          ],
+          "Super Star": [
+            {
+              "id": "5a5af190",
+              "coordinates": {
+                "x": -4,
+                "y": -8
+              }
+            }
+          ],
+          "Swiss Whiskers": [
+            {
+              "id": "8558cf70",
+              "createdAt": 1732749368483,
+              "readyAt": 1732749368483,
+              "coordinates": {
+                "x": 5,
+                "y": -1
+              }
+            }
+          ],
+          "Teamwork Monument": [
+            {
+              "id": "d34323c4",
+              "coordinates": {
+                "x": -9,
+                "y": -8
+              }
+            }
+          ],
+          "Tiki Totem": [
+            {
+              "readyAt": 1706761200003,
+              "createdAt": 1706761200003,
+              "id": "b7cccb54",
+              "coordinates": {
+                "x": 5,
+                "y": 4
+              }
+            }
+          ],
+          "Tomato Bombard": [
+            {
+              "id": "a8b6aac5",
+              "createdAt": 1730782178554,
+              "readyAt": 1730782178554,
+              "coordinates": {
+                "x": 7,
+                "y": -1
+              }
+            }
+          ],
+          "Tomato Clown": [
+            {
+              "id": "cad7f76b",
+              "createdAt": 1730261879538,
+              "readyAt": 1730261879538,
+              "coordinates": {
+                "x": 4,
+                "y": 0
+              }
+            }
+          ],
+          "Toxic Tuft": [
+            {
+              "id": "63d36117",
+              "createdAt": 1739094173124,
+              "readyAt": 1739094173124,
+              "coordinates": {
+                "x": 7,
+                "y": -3
+              }
+            }
+          ],
+          "Treasure Map": [
+            {
+              "readyAt": 1706761234994,
+              "createdAt": 1706761234994,
+              "id": "5fddd167",
+              "coordinates": {
+                "x": -3,
+                "y": 1
+              }
+            }
+          ],
+          "Tunnel Mole": [
+            {
+              "readyAt": 1706761092204,
+              "createdAt": 1706761092204,
+              "id": "5d7237cb",
+              "coordinates": {
+                "x": -1,
+                "y": 6
+              }
+            }
+          ],
+          "Turbo Sprout": [
+            {
+              "id": "fca1f1fc",
+              "createdAt": 1732120185469,
+              "readyAt": 1732120185469,
+              "coordinates": {
+                "x": 9,
+                "y": -1
+              }
+            }
+          ],
+          "Undead Rooster": [
+            {
+              "readyAt": 1706761276342,
+              "createdAt": 1706761276342,
+              "id": "8f65ed8b",
+              "coordinates": {
+                "x": 4,
+                "y": 5
+              }
+            }
+          ],
+          "Victoria Sisters": [
+            {
+              "readyAt": 1706760647442,
+              "createdAt": 1706760647442,
+              "id": "ac147652",
+              "coordinates": {
+                "x": 2,
+                "y": 3
+              }
+            }
+          ],
+          "Vinny": [
+            {
+              "readyAt": 1716915936285,
+              "createdAt": 1716915936285,
+              "id": "d4585e1c",
+              "coordinates": {
+                "x": 10,
+                "y": 2
+              }
+            }
+          ],
+          "Volcano Gnome": [
+            {
+              "id": "5f0dda61",
+              "createdAt": 1738780516716,
+              "readyAt": 1738780516716,
+              "coordinates": {
+                "x": 4,
+                "y": -3
+              }
+            }
+          ],
+          "Walrus": [
+            {
+              "readyAt": 1710439897949,
+              "createdAt": 1710439897949,
+              "id": "30f9624a",
+              "coordinates": {
+                "x": -9,
+                "y": 1
+              }
+            }
+          ],
+          "Wardrobe": [
+            {
+              "readyAt": 1704851527268,
+              "createdAt": 1704851527268,
+              "id": "1",
+              "coordinates": {
+                "x": -3,
+                "y": 2
+              }
+            }
+          ],
+          "Winter Guardian": [
+            {
+              "id": "b4129ec3",
+              "createdAt": 1754287694177,
+              "readyAt": 1754287694177,
+              "coordinates": {
+                "x": -7,
+                "y": -6
+              }
+            }
+          ],
+          "Wood Nymph Wendy": [
+            {
+              "readyAt": 1706760887131,
+              "createdAt": 1706760887131,
+              "id": "9a18f5ff",
+              "coordinates": {
+                "x": 9,
+                "y": 4
+              }
+            }
+          ]
+        }
+      },
+      "expansion": "level-one-3",
+      "level_one": {
+        "collectibles": {
+          "Crimstone Clam": [
+            {
+              "id": "fe124281",
+              "coordinates": {
+                "x": -5,
+                "y": 5
+              }
+            }
+          ],
+          "Farmer's Monument": [
+            {
+              "id": "17baaf4a",
+              "coordinates": {
+                "x": -2,
+                "y": 8
+              }
+            }
+          ],
+          "Miner's Monument": [
+            {
+              "id": "d77d8570",
+              "coordinates": {
+                "x": -5,
+                "y": 8
+              }
+            }
+          ],
+          "Poseidon's Throne": [
+            {
+              "id": "71c453c0",
+              "coordinates": {
+                "x": -2,
+                "y": 4
+              }
+            }
+          ],
+          "Salt Crystal Bed": [
+            {
+              "id": "4851bb77",
+              "coordinates": {
+                "x": 4,
+                "y": 7
+              }
+            }
+          ],
+          "Woodcutter's Monument": [
+            {
+              "id": "b5677582",
+              "coordinates": {
+                "x": 1,
+                "y": 8
+              }
+            }
+          ],
+          "Dino Egg Trophy": [
+            {
+              "id": "be7b767d",
+              "coordinates": {
+                "x": 1,
+                "y": -3
+              }
+            }
+          ],
+          "Navigation Table": [
+            {
+              "id": "03b50f99",
+              "coordinates": {
+                "x": 3,
+                "y": -3
+              }
+            }
+          ],
+          "Crab House": [
+            {
+              "id": "bfc34f6c",
+              "coordinates": {
+                "x": -11,
+                "y": -2
+              }
+            }
+          ],
+          "Royal Crab Pot": [
+            {
+              "id": "c462a91f",
+              "coordinates": {
+                "x": -8,
+                "y": -2
+              }
+            }
+          ],
+          "Speed Trap": [
+            {
+              "id": "c458866c",
+              "coordinates": {
+                "x": -11,
+                "y": -1
+              }
+            }
+          ],
+          "Flamingo Chicken": [
+            {
+              "id": "e3ecc103",
+              "coordinates": {
+                "x": -5,
+                "y": -1
+              }
+            }
+          ],
+          "Crystal Altar": [
+            {
+              "id": "4ce6d6ce",
+              "coordinates": {
+                "x": -1,
+                "y": 0
+              }
+            }
+          ],
+          "Salt Sculpture": [
+            {
+              "id": "d82c3a25",
+              "coordinates": {
+                "x": 2,
+                "y": 1
+              }
+            }
+          ],
+          "Radiant Ray": [
+            {
+              "id": "33585703",
+              "coordinates": {
+                "x": -11,
+                "y": 2
+              }
+            }
+          ],
+          "Cloud Bed": [
+            {
+              "id": "7692957c",
+              "coordinates": {
+                "x": -5,
+                "y": -3
+              }
+            }
+          ],
+          "Ascended Cow": [
+            {
+              "id": "0f6712fd",
+              "coordinates": {
+                "x": -4,
+                "y": -3
+              }
+            },
+            {
+              "id": "004e0f22",
+              "coordinates": {
+                "x": -4,
+                "y": -1
+              }
+            }
+          ],
+          "Anemone Flower": [
+            {
+              "id": "fb79dfbc",
+              "coordinates": {
+                "x": -7,
+                "y": 6
+              }
+            }
+          ],
+          "Speed Chicken": [
+            {
+              "id": "5562c346",
+              "coordinates": {
+                "x": -7,
+                "y": 5
+              }
+            }
+          ],
+          "Rich Chicken": [
+            {
+              "id": "ad603e1d",
+              "coordinates": {
+                "x": -7,
+                "y": 4
+              }
+            }
+          ],
+          "Summer Chicken": [
+            {
+              "id": "168d6595",
+              "coordinates": {
+                "x": -7,
+                "y": 3
+              }
+            }
+          ],
+          "Salt Crystal Flower": [
+            {
+              "id": "1a996e04",
+              "coordinates": {
+                "x": -7,
+                "y": 2
+              }
+            }
+          ],
+          "Festive Tree": [
+            {
+              "id": "69f18927",
+              "createdAt": 1738810040257,
+              "readyAt": 1738810040257,
+              "shakenAt": 1766220246826,
+              "coordinates": {
+                "x": -9,
+                "y": 6
+              }
+            },
+            {
+              "id": "85073a97",
+              "createdAt": 1739524148417,
+              "readyAt": 1739524148417,
+              "shakenAt": 1766220261183,
+              "coordinates": {
+                "x": -9,
+                "y": 4
+              }
+            },
+            {
+              "id": "8349364b",
+              "shakenAt": 1766611814656,
+              "coordinates": {
+                "x": -9,
+                "y": 2
+              }
+            }
+          ],
+          "Vibraphone": [
+            {
+              "id": "390ae445",
+              "coordinates": {
+                "x": -1,
+                "y": -2
+              }
+            }
+          ]
+        }
+      }
+    },
+    "island": {
+      "sunstones": 14,
+      "type": "spooky",
+      "upgradedAt": 1788739553382,
+      "previousExpansions": 42,
+      "ascensionLevel": 2,
+      "biome": "Swamp Biome"
+    },
+    "farmHands": {
+      "bumpkins": {
+        "1": {
+          "equipped": {
+            "secondaryTool": "Bucket O' Worms",
+            "necklace": "Crimstone Amulet",
+            "body": "Beige Farmer Potion",
+            "shoes": "Cupid Sandals",
+            "tool": "Infernal Pitchfork",
+            "hair": "White Long Hair",
+            "background": "Farm Background",
+            "shirt": "Olive Royalty Shirt",
+            "pants": "Angler Waders",
+            "onesie": "Banana Onesie",
+            "suit": "Bee Suit",
+            "coat": "Fruit Picker Apron",
+            "wings": "Bionic Drill",
+            "aura": "Paw Aura",
+            "hat": "Flower Crown"
+          }
+        },
+        "2": {
+          "equipped": {
+            "coat": "Chef Apron",
+            "hair": "Basic Hair",
+            "secondaryTool": "Olive Shield",
+            "shirt": "Goblin Armor",
+            "pants": "Oil Overalls",
+            "background": "Dawn Breaker Background",
+            "body": "Beige Farmer Potion",
+            "shoes": "Peg Leg",
+            "tool": "Master Chef's Cleaver",
+            "necklace": "Sunflower Amulet",
+            "onesie": "Camel Onesie",
+            "suit": "Chicken Suit",
+            "hat": "Turd Topper",
+            "wings": "Sol & Luna"
+          }
+        },
+        "3": {
+          "equipped": {
+            "secondaryTool": "Lemon Shield",
+            "hair": "Basic Hair",
+            "shirt": "Ankh Shirt",
+            "pants": "Grape Pants"
+          }
+        }
+      }
+    }
+  }
+}

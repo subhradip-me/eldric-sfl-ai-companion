@@ -1,0 +1,56 @@
+{
+  "scenario": "RESERVATION_CONFLICT",
+  "description": "Tests that planner rejects or warns against an attractive immediate action that violates tomorrow's resource reservation.",
+  "farm": {
+    "coins": 50000,
+    "balance": "100.000000000000000000",
+    "inventory": {
+      "Wheat": 200,
+      "Radish": 150,
+      "Parsnip": 100,
+      "Crop Plot": 30
+    },
+    "bumpkin": {
+      "id": 90004,
+      "experience": 320000,
+      "skills": {
+        "Green Thumb": 1
+      },
+      "equipped": {
+        "body": "Beige Farmer Potion"
+      }
+    },
+    "buildings": {
+      "Bakery": [
+        {
+          "readyAt": 1700000000000,
+          "crafting": []
+        }
+      ]
+    },
+    "island": {
+      "type": "spring",
+      "previousExpansions": 15,
+      "ascensionLevel": 0,
+      "sunstones": 0
+    }
+  },
+  "planningContext": {
+    "todayOpportunity": {
+      "action": "COOK_BATCH",
+      "recipe": "Pancakes",
+      "flowerCost": 80,
+      "xpGain": 4000
+    },
+    "tomorrowRequirement": {
+      "reservedFlower": 70,
+      "purpose": "Essential Wheat seed batch and Bakery oil restocking"
+    },
+    "expectedDecision": {
+      "discretionaryFlower": 30,
+      "actionPermitted": false,
+      "warningSeverity": "CRITICAL",
+      "reason": "Spending 80 FLOWER exceeds discretionary balance (30 FLOWER) and consumes 50 FLOWER from tomorrow's required reserve (70 FLOWER)."
+    }
+  }
+}

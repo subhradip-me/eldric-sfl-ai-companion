@@ -1,0 +1,40 @@
+{
+  "scenario": "FULL_BUFFS_AWARENESS",
+  "description": "Tests that calculation engine applies stackable multipliers (wearables, VIP, placed items, skills) correctly.",
+  "farm": {
+    "coins": 500000,
+    "balance": "300.000000000000000000",
+    "vip": {
+      "expiresAt": 1900000000000
+    },
+    "inventory": {
+      "Golden Spatula": 1,
+      "Chef Apron": 1,
+      "Chef Hat": 1,
+      "Time Warp Totem": 1,
+      "Basic Scarecrow": 1,
+      "Sunflower": 1000,
+      "Crop Plot": 40
+    },
+    "bumpkin": {
+      "id": 90009,
+      "experience": 2500000,
+      "skills": {
+        "Green Thumb": 3,
+        "Fast Feasts": 1,
+        "Fireside Alchemist": 3
+      },
+      "equipped": {
+        "tool": "Master Chef's Cleaver",
+        "coat": "Chef Apron",
+        "hat": "Chef Hat"
+      }
+    },
+    "island": { "type": "spring", "previousExpansions": 25, "ascensionLevel": 1, "sunstones": 4 }
+  },
+  "expectedBuffMultipliers": {
+    "cookingTimeReductionPct": 25,
+    "cookingXpBonusPct": 30,
+    "vipActive": true
+  }
+}

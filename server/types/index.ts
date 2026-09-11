@@ -5,6 +5,7 @@
  */
 
 import type { Request } from 'express';
+import type { InventoryMap, SkillMap, WearablesMap } from '../domain/index.js';
 
 // ─── Auth ────────────────────────────────────────────────────────────────────
 
@@ -46,11 +47,9 @@ export interface AuthResult {
   error?: string;
 }
 
-// ─── Farm State ───────────────────────────────────────────────────────────────
+// ─── Domain Contracts (Phase 0) ──────────────────────────────────────────────
+export * from '../domain/index.js';
 
-export type InventoryMap = Record<string, number>;
-export type SkillMap = Record<string, number | boolean>;
-export type WearablesMap = Record<string, string>;
 
 export interface BumpkinState {
   level: number;
@@ -99,54 +98,7 @@ export interface RawFarmResponse {
   cached: boolean;
 }
 
-// ─── Market ───────────────────────────────────────────────────────────────────
-
-export type MarketPrice = Record<string, number>;
-
-export interface MarketResponse {
-  prices: MarketPrice;
-  updatedAt: string | null;
-  stale: boolean;
-}
-
-// ─── Recipes & Cooking ────────────────────────────────────────────────────────
-
-export interface RecipeDefinition {
-  building: string;
-  baseXp: number;
-  baseCookMinutes: number;
-  baseOutput?: number;
-  instantGems?: number;
-  ingredients: Record<string, number>;
-  verified?: boolean;
-  xpIncludesSkills?: boolean;
-}
-
-export interface BoostBreakdownEntry {
-  skill: string;
-  rank: number;
-  label: string;
-}
-
-export interface EffectiveRecipe {
-  recipe: string;
-  output: number;
-  xpPerFood: number;
-  minutes: number;
-  batchXp: number;
-  ingredientMultiplier: number;
-  effectiveIngredients: Record<string, number>;
-  applied: string[];
-  boostBreakdown: BoostBreakdownEntry[];
-}
-
-export interface CostResult {
-  flower: number;       // out-of-pocket FLOWER to buy missing items
-  totalFlower: number;  // full FLOWER market valuation
-  buy: Record<string, number>;
-  mustProduce: Record<string, number>;
-  unpriced: string[];
-}
+// ─── Market & Recipes are exported from domain ────────────────────────────────
 
 export interface CookingPlanCandidate {
   recipe: string;

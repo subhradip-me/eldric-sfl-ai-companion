@@ -1,0 +1,31 @@
+{
+  "scenario": "MARKET_DEPENDENT_OPPORTUNITY",
+  "description": "Tests ROI comparison between farming a resource in-house vs buying from market when market prices are unusually cheap or expensive.",
+  "farm": {
+    "coins": 120000,
+    "balance": "500.000000000000000000",
+    "inventory": {
+      "Wheat": 200,
+      "Stone": 50,
+      "Crop Plot": 30
+    },
+    "bumpkin": { "id": 90010, "experience": 1100000, "skills": {}, "equipped": {} },
+    "island": { "type": "basic", "previousExpansions": 14, "ascensionLevel": 0, "sunstones": 0 }
+  },
+  "marketContext": {
+    "Stone": {
+      "unitPriceFlower": 0.002,
+      "historicalAvgFlower": 0.015,
+      "signal": "EXTREME_UNDERPRICED"
+    },
+    "Wheat": {
+      "unitPriceFlower": 0.05,
+      "historicalAvgFlower": 0.01,
+      "signal": "EXTREME_OVERPRICED"
+    }
+  },
+  "expectedRecommendations": {
+    "Stone": "BUY_OPPORTUNITY",
+    "Wheat": "SELL_OR_FARM_OPPORTUNITY"
+  }
+}

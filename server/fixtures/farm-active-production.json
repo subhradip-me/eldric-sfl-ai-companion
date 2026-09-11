@@ -1,0 +1,50 @@
+{
+  "scenario": "ACTIVE_PRODUCTION_AWARENESS",
+  "description": "Tests that planner accounts for active production pipelines before advising resource purchases or redundant planting.",
+  "farm": {
+    "coins": 30000,
+    "balance": "250.000000000000000000",
+    "inventory": {
+      "Wheat": 50,
+      "Crop Plot": 50
+    },
+    "bumpkin": {
+      "id": 90006,
+      "experience": 450000,
+      "skills": {
+        "Green Thumb": 1
+      },
+      "equipped": {
+        "body": "Beige Farmer Potion"
+      }
+    },
+    "crops": {
+      "activePlots": {
+        "crop": "Wheat",
+        "count": 50,
+        "startedAt": 1700000000000,
+        "readyAt": 1700002700000,
+        "expectedYield": 500
+      }
+    },
+    "island": {
+      "type": "spring",
+      "previousExpansions": 18,
+      "ascensionLevel": 0,
+      "sunstones": 0
+    }
+  },
+  "planningContext": {
+    "requiredResource": {
+      "item": "Wheat",
+      "quantity": 400
+    },
+    "expectedDeduction": {
+      "inventoryOwned": 50,
+      "activeInProduction": 500,
+      "projectedAvailable": 550,
+      "purchaseRecommended": false,
+      "redundantPlantingRecommended": false
+    }
+  }
+}

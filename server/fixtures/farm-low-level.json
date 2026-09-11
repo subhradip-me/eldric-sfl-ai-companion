@@ -1,0 +1,39 @@
+{
+  "farm": {
+    "coins": 250,
+    "balance": "1.500000000000000000",
+    "inventory": {
+      "Sunflower Seed": 50,
+      "Potato Seed": 20,
+      "Sunflower": 120,
+      "Potato": 45,
+      "Axe": 5,
+      "Wood": 12,
+      "Crop Plot": 6
+    },
+    "bumpkin": {
+      "id": 90001,
+      "experience": 450,
+      "skills": {},
+      "equipped": {
+        "body": "Beige Farmer Potion",
+        "pants": "Farmer Pants",
+        "shirt": "Yellow Farmer Shirt"
+      }
+    },
+    "buildings": {
+      "Workbench": [
+        {
+          "readyAt": 1700000000000,
+          "coordinates": { "x": 0, "y": 0 }
+        }
+      ]
+    },
+    "island": {
+      "type": "basic",
+      "previousExpansions": 3,
+      "ascensionLevel": 0,
+      "sunstones": 0
+    }
+  }
+}
