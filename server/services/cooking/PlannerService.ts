@@ -2,27 +2,37 @@
  * PlannerService — per-building cooking optimiser (design §17).
  * Picks the best XP/FLOWER recipe per building and checks daily affordability.
  */
-import type { CanonicalFarmState, CookingPlan, MarketPrice } from '../../types/index.js';
-import { xpEngine } from './XpEngine.js';
+import type {
+  CanonicalFarmState,
+  CookingPlan,
+  MarketPrice,
+} from '../../types/index.js';
+import type { EffectContext } from '../../domain/index.js';
 import { recipeService } from './RecipeService.js';
+import { xpEngine } from './XpEngine.js';
+import { calculateFoodXp } from '../../core/index.js';
 
 const L100 = 24_083_905;
 
 export class PlannerService {
   /**
-   * Build the optimised cooking plan for a canonical farm state.
+   * Produce the best cooking candidates per active building.
+   * Pure method, no I/O.
+   *
    * @param farm      - canonical farm state from SunflowerClient
    * @param prices    - live P2P market prices
    * @param recipes   - full recipes.json object
    * @param items     - items.json (tradability metadata)
    * @param modifiers - modifiers.json (custom skill overrides)
+   * @param effectContext - optional resolved authoritative effect context
    */
   plan(
     farm: CanonicalFarmState,
     prices: MarketPrice,
     recipes: Record<string, unknown>,
     items: Record<string, unknown>,
-    modifiers: Record<string, unknown>
+    modifiers: Record<string, unknown>,
+    effectContext?: EffectContext
   ): CookingPlan {
     const remaining = Math.max(L100 - farm.bumpkin.xp, 0);
     const intermediates = new Set<string>(
@@ -35,7 +45,16 @@ export class PlannerService {
       const r = recipe as import('../../types/index.js').RecipeDefinition;
       if (!(r.building in farm.buildings)) continue;
 
-      const eff = xpEngine.effective(name, r, farm, modifiers);
+      const eff = effectContext
+        ? calculateFoodXp({
+            recipeName: name,
+            recipe: r,
+            skills: farm.skills,
+            isVip: farm.buffs?.vip,
+            buildingOil: farm.buildings?.[r.building]?.oil ?? 0,
+            effectContext,
+          }).value
+        : xpEngine.effective(name, r, farm, modifiers);
       const dep = recipeService.expand(name, recipes as Parameters<typeof recipeService.expand>[1], 0, eff.ingredientMultiplier ?? 1);
       const c = recipeService.cost(dep.base, prices, items as Parameters<typeof recipeService.cost>[2], farm.inventory);
       const totalMinutes = eff.minutes + dep.intermediateMinutes;

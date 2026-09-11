@@ -25,10 +25,13 @@ import type {
   BuildingInstance,
   ActiveProductionItem,
   TimestampMs,
+  PlacedCollectibleInstance,
+  TimedBuffInstance,
 } from '../../domain/index.js';
 import { levelFromXp } from '../../core/index.js';
 import type { CanonicalFarmState } from '../../types/index.js';
 import recipesData from '../../data/recipes.json' with { type: 'json' };
+import { itemMetadataService } from '../metadata/index.js';
 
 export interface NormalizationDiagnostics {
   unmappedFields: string[];
@@ -119,9 +122,12 @@ export class FarmNormalizer {
       ...(bumpkin['id'] != null ? { bumpkinId: bumpkin['id'] as string | number } : {}),
       level: levelFromXp(exp),
       experience: exp,
-      skills: (bumpkin['skills'] as Record<string, number | boolean>) ?? {},
-      equipped: (bumpkin['equipped'] as Record<string, string>) ?? {},
+      skills: (bumpkin['skills'] as Record<string, number | boolean>) ?? (f['skills'] as Record<string, number | boolean>) ?? {},
+      equipped: (bumpkin['equipped'] as Record<string, string>) ?? (f['wearables'] as Record<string, string>) ?? {},
       achievements: (bumpkin['achievements'] as Record<string, number>) ?? {},
+      ...(bumpkin['previousPowerUseAt'] != null
+        ? { previousPowerUseAt: bumpkin['previousPowerUseAt'] as Record<string, number> }
+        : {}),
     };
 
     // 5. Extract Economy State
@@ -144,9 +150,8 @@ export class FarmNormalizer {
     const rawInventory = (f['inventory'] as Record<string, unknown>) ?? {};
     const inventory = this.categorizeInventory(rawInventory);
 
-    // 7. Extract Structures & Buildings
-    const rawBuildings = (f['buildings'] as Record<string, unknown>) ?? {};
-    const structures = this.extractStructures(rawBuildings);
+    // 7. Extract Structures & Buildings & Placed Collectibles
+    const structures = this.extractStructures(f);
 
     // 8. Extract Active Production Pipelines
     const production = this.extractProduction(f, structures);
@@ -156,11 +161,40 @@ export class FarmNormalizer {
     const pets = this.extractPets(f);
 
     // 10. Extract Progression & Island
-    const island = (f['island'] as Record<string, unknown>) ?? {};
-    const islandType = (island['type'] as ProgressionState['islandType']) ?? 'basic';
+    const island = (f['island'] as Record<string, unknown>)
+      ?? ((rawObj['farm'] as Record<string, unknown>)?.['island'] as Record<string, unknown>)
+      ?? (rawObj['island'] as Record<string, unknown>)
+      ?? ((rawObj['canonical'] as Record<string, unknown>)?.['island'] as Record<string, unknown>)
+      ?? {};
+
+    let rawType = island['type'] ? String(island['type']).toLowerCase() : '';
+    const basicLandCount = this.toNum(rawInventory['Basic Land']);
+    const previousExpansions = this.toNum(island['previousExpansions']) || 0;
+
+    // Authoritative fallback: infer island from unequivocal inventory structures if type is missing or basic
+    if (!rawType || rawType === 'basic') {
+      if (rawInventory['Obsidian'] != null || rawInventory['Lava Pit'] != null) {
+        rawType = 'volcano';
+      } else if (
+        rawInventory['Oil Reserve'] != null ||
+        rawInventory['Crimstone Rock'] != null ||
+        rawInventory['Sunstone Rock'] != null ||
+        (basicLandCount && basicLandCount > 9) ||
+        this.toNum(rawInventory['Crop Plot']) > 44
+      ) {
+        rawType = 'desert';
+      } else if (this.toNum(rawInventory['Crop Plot']) > 31 || previousExpansions > 9) {
+        rawType = 'spring';
+      } else {
+        rawType = 'basic';
+      }
+    }
+
+    const islandType = (rawType as ProgressionState['islandType']) || 'desert';
     const progression: ProgressionState = {
       islandType,
-      expansions: this.toNum(island['expansions']) || this.toNum(island['expansionIndex']) || 0,
+      expansions: basicLandCount || this.toNum(island['expansions']) || this.toNum(island['expansionIndex']) || previousExpansions || 0,
+      previousExpansions,
       ascensionLevel: this.toNum(island['ascensionLevel']) || 0,
       sunstones: this.toNum(island['sunstones']) || 0,
       ...(island['biome'] != null ? { biome: String(island['biome']) } : {}),
@@ -169,15 +203,29 @@ export class FarmNormalizer {
     // 11. Extract Deliveries, Chores, Bounties
     const deliveries = this.extractDeliveries(f);
 
-    // 12. Extract Buffs & VIP
-    const vipObj = f['vip'] as Record<string, number> | boolean | undefined;
+    // 12. Extract Buffs & VIP & Timed Buffs
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const vipObj = (f['vip'] as Record<string, number> | boolean | undefined) ?? (f['buffs'] as any)?.vip;
     const vipExpiresAt = typeof vipObj === 'object' && vipObj !== null ? (vipObj['expiresAt'] ?? null) : null;
     const isVip = vipExpiresAt ? vipExpiresAt > now : Boolean(vipObj);
     const rawBuffs = (f['buffs'] as Record<string, unknown>) ?? {};
+    const timedBuffs: TimedBuffInstance[] = [];
+    for (const [name, val] of Object.entries(rawBuffs)) {
+      if (val && typeof val === 'object') {
+        const b = val as Record<string, unknown>;
+        const startedAt = this.toNum(b['startedAt']);
+        const durationMs = this.toNum(b['durationMS']) || this.toNum(b['durationMs']);
+        if (startedAt && durationMs) {
+          timedBuffs.push({ name, startedAt, durationMs });
+        }
+      }
+    }
+
     const buffs: BuffState = {
       vip: isVip,
       ...(vipExpiresAt != null ? { vipExpiresAt } : {}),
       activeBuffNames: Object.keys(rawBuffs),
+      timedBuffs,
     };
 
     // 13. Temporal State
@@ -271,14 +319,14 @@ export class FarmNormalizer {
         resources[key] = qty;
       } else if (KNOWN_TOOLS.has(key)) {
         tools[key] = qty;
-      } else if (key.includes('Bait') || key.includes('Fish') || key.includes('Anchovy') || key.includes('Tuna')) {
-        fishing[key] = qty;
-      } else if (key.includes('Statue') || key.includes('Banner') || key.includes('Trophy') || key.includes('Monument')) {
-        collectibles[key] = qty;
       } else if (
         ['Sunflower', 'Potato', 'Pumpkin', 'Carrot', 'Cabbage', 'Beetroot', 'Cauliflower', 'Parsnip', 'Eggplant', 'Corn', 'Radish', 'Wheat', 'Kale', 'Soybean'].includes(key)
       ) {
         crops[key] = qty;
+      } else if (key.includes('Bait') || key.includes('Fish') || key.includes('Anchovy') || key.includes('Tuna')) {
+        fishing[key] = qty;
+      } else if (itemMetadataService.getCollectible(key) || key.includes('Statue') || key.includes('Banner') || key.includes('Trophy') || key.includes('Monument')) {
+        collectibles[key] = qty;
       } else {
         special[key] = qty;
       }
@@ -287,7 +335,8 @@ export class FarmNormalizer {
     return { all, seeds, crops, food, resources, tools, collectibles, fishing, special };
   }
 
-  private extractStructures(rawBuildings: Record<string, unknown>): FarmStructureState {
+  private extractStructures(farm: Record<string, unknown>): FarmStructureState {
+    const rawBuildings = (farm['buildings'] as Record<string, unknown>) ?? {};
     const buildings: Record<string, BuildingInstance[]> = {};
 
     for (const [name, val] of Object.entries(rawBuildings)) {
@@ -311,7 +360,67 @@ export class FarmNormalizer {
       });
     }
 
-    return { buildings };
+    const placedCollectibles = this.extractPlacedCollectibles(farm);
+
+    return { buildings, placedCollectibles };
+  }
+
+  private extractPlacedCollectibles(farm: Record<string, unknown>): PlacedCollectibleInstance[] {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (Array.isArray((farm['structures'] as any)?.placedCollectibles)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return (farm['structures'] as any).placedCollectibles;
+    }
+    if (Array.isArray(farm['placedCollectibles'])) {
+      return farm['placedCollectibles'] as PlacedCollectibleInstance[];
+    }
+
+    const placed: PlacedCollectibleInstance[] = [];
+
+    const scanDict = (dict: unknown, location: PlacedCollectibleInstance['location']) => {
+      if (!dict || typeof dict !== 'object') return;
+      for (const [name, instances] of Object.entries(dict as Record<string, unknown>)) {
+        if (!Array.isArray(instances)) continue;
+        for (const inst of instances) {
+          if (!inst || typeof inst !== 'object') continue;
+          const i = inst as Record<string, unknown>;
+          if (i['removedAt']) continue; // Removed collectibles are inactive
+          if (!i['coordinates'] || typeof i['coordinates'] !== 'object') continue;
+          const coords = i['coordinates'] as { x: number; y: number };
+          if (coords.x === undefined || coords.y === undefined) continue;
+
+          const readyAt = this.toNum(i['readyAt']);
+          const createdAt = this.toNum(i['createdAt']);
+
+          placed.push({
+            id: String(i['id'] ?? `${name}_${coords.x}_${coords.y}`),
+            name,
+            location,
+            coordinates: { x: Number(coords.x), y: Number(coords.y) },
+            ...(readyAt ? { readyAt } : {}),
+            ...(createdAt ? { createdAt } : {}),
+          });
+        }
+      }
+    };
+
+    // 1. Island placed collectibles
+    scanDict(farm['collectibles'], 'island');
+
+    // 2. Interior ground placed collectibles
+    const interior = farm['interior'] as Record<string, unknown> | undefined;
+    const ground = interior?.['ground'] as Record<string, unknown> | undefined;
+    scanDict(ground?.['collectibles'], 'interior_ground');
+
+    // 3. Interior level one placed collectibles
+    const levelOne = interior?.['level_one'] as Record<string, unknown> | undefined;
+    scanDict(levelOne?.['collectibles'], 'interior_level_one');
+
+    // 4. Home collectibles
+    const home = farm['home'] as Record<string, unknown> | undefined;
+    scanDict(home?.['collectibles'], 'home');
+
+    return placed;
   }
 
   private extractProduction(farm: Record<string, unknown>, structures: FarmStructureState): ProductionState {
@@ -521,6 +630,11 @@ export class FarmNormalizer {
       chores: (norm.deliveries.chores as any) ?? {},
       bounties: (norm.deliveries.bounties as any) ?? { requests: [], completed: [] },
       fetchedAt: norm.metadata.capturedAt,
+      island: {
+        type: norm.progression.islandType,
+        previousExpansions: norm.progression.expansions,
+        sunstones: norm.progression.sunstones,
+      },
     };
   }
 }

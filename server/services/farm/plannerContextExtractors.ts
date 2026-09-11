@@ -17,6 +17,7 @@ import type {
   StrategyCandidate,
   PlanId,
   TimestampMs,
+  EffectContext,
 } from '../../domain/index.js';
 import { generateRoadmap } from '../../core/planner/roadmapGenerator.js';
 import { withProvenance } from '../../core/provenance/index.js';
@@ -35,6 +36,7 @@ export interface PlannerContextOptions {
   snapshotVersion?: number;
   farmId?: string;
   computedAt?: TimestampMs;
+  effectContext?: EffectContext;
 }
 
 /**
@@ -63,6 +65,7 @@ export function extractPlannerContext(
     candidateOverrides: options.candidateOverrides,
     tomorrowRequirements: options.tomorrowRequirements,
     phaseRequirements: options.phaseRequirements,
+    effectContext: options.effectContext,
   });
 
   return withProvenance(roadmap, {

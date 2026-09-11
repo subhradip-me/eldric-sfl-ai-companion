@@ -6,16 +6,20 @@ import type { CanonicalFarmState, SnapshotRecord } from '../../types/index.js';
 import { pool } from '../../db/database.js';
 
 export class SnapshotService {
-  private hash(c: CanonicalFarmState): string {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private hash(c: any): string {
+    const xp = c?.bumpkin?.xp ?? c?.bumpkin?.experience ?? c?.farm?.bumpkin?.experience ?? 0;
+    const farmAct = c?.farmActivity ?? c?.farm?.farmActivity ?? {};
+    const inv = c?.inventory ?? c?.farm?.inventory ?? {};
     return crypto
       .createHash('sha1')
-      .update(JSON.stringify([c.bumpkin.xp, c.farmActivity, c.inventory]))
+      .update(JSON.stringify([xp, farmAct, inv]))
       .digest('hex');
   }
 
-  /** Persist a canonical farm state for a user, skipping duplicates. */
+  /** Persist a farm state snapshot for a user, skipping duplicates. */
   async save(
-    canonical: CanonicalFarmState,
+    payload: unknown,
     userId: number
   ): Promise<{ saved: boolean; reason?: string }> {
     if (!userId) {
@@ -23,7 +27,9 @@ export class SnapshotService {
       return { saved: false, reason: 'no_user' };
     }
 
-    const h = this.hash(canonical);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const c = payload as any;
+    const h = this.hash(c);
     const last = await pool.query(
       'SELECT state_hash FROM snapshots WHERE user_id = $1 ORDER BY created_at DESC LIMIT 1',
       [userId]
@@ -33,16 +39,20 @@ export class SnapshotService {
       return { saved: false, reason: 'unchanged' };
     }
 
+    const xp = c?.bumpkin?.xp ?? c?.bumpkin?.experience ?? c?.farm?.bumpkin?.experience ?? 0;
+    const flower = c?.currencies?.flower ?? c?.farm?.balance ?? c?.balance ?? '0';
+    const coins = c?.currencies?.coins ?? c?.farm?.coins ?? c?.coins ?? 0;
+
     await pool.query(
       'INSERT INTO snapshots (user_id, created_at, xp, flower, coins, state_hash, data_json) VALUES ($1,$2,$3,$4,$5,$6,$7)',
       [
         userId,
         Date.now(),
-        canonical.bumpkin.xp,
-        canonical.currencies.flower,
-        canonical.currencies.coins,
+        xp,
+        flower,
+        coins,
         h,
-        canonical,
+        payload,
       ]
     );
 
@@ -50,7 +60,8 @@ export class SnapshotService {
   }
 
   /** Get the N most recent snapshots for a user. */
-  async latest(userId: number, n = 2): Promise<CanonicalFarmState[]> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async latest(userId: number, n = 2): Promise<any[]> {
     if (!userId) {
       console.warn('No userId provided for latest snapshots');
       return [];
@@ -59,7 +70,7 @@ export class SnapshotService {
       'SELECT created_at, data_json FROM snapshots WHERE user_id = $1 ORDER BY created_at DESC LIMIT $2',
       [userId, n]
     );
-    return r.rows.map((row) => row.data_json as CanonicalFarmState);
+    return r.rows.map((row) => row.data_json);
   }
 
   /** Get all snapshots for a user, sorted newest first. */

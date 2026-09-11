@@ -81,6 +81,7 @@ function createMockFarmState(options: MockFarmOptions = {}): NormalizedFarmState
     },
     structures: {
       buildings: options.buildings ?? {},
+      placedCollectibles: [],
     },
     production: {
       active: options.activeProduction ?? [],

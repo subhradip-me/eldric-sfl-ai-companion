@@ -11,6 +11,15 @@ export type InventoryMap = Record<string, number>;
 export type SkillMap = Record<string, number | boolean>;
 export type WearablesMap = Record<string, string>;
 
+export interface PlacedCollectibleInstance {
+  id: string;
+  name: string;
+  location: 'island' | 'interior_ground' | 'interior_level_one' | 'home';
+  coordinates: { x: number; y: number };
+  createdAt?: TimestampMs;
+  readyAt?: TimestampMs;
+}
+
 export interface PlayerState {
   bumpkinId?: string | number;
   level: number;
@@ -18,6 +27,7 @@ export interface PlayerState {
   skills: SkillMap;
   equipped: WearablesMap;
   achievements?: Record<string, number>;
+  previousPowerUseAt?: Record<string, TimestampMs>;
 }
 
 export interface EconomyState {
@@ -56,6 +66,7 @@ export interface FarmStructureState {
   buildings: Record<string, BuildingInstance[]>;
   waterWells?: number;
   oilReserves?: number;
+  placedCollectibles: PlacedCollectibleInstance[];
 }
 
 export interface ProductionState {
@@ -96,6 +107,7 @@ export interface PetState {
 export interface ProgressionState {
   islandType: 'basic' | 'spring' | 'desert' | 'volcano' | 'spooky';
   expansions: number;
+  previousExpansions?: number;
   ascensionLevel: number;
   sunstones: number;
   biome?: string;
@@ -118,12 +130,19 @@ export interface DeliveryState {
   };
 }
 
+export interface TimedBuffInstance {
+  name: string;
+  startedAt: TimestampMs;
+  durationMs: number;
+}
+
 export interface BuffState {
   vip: boolean;
   vipExpiresAt?: TimestampMs | null;
   activeBuffNames: string[];
   wearableBoosts?: Record<string, number>;
   placedItemBoosts?: Record<string, number>;
+  timedBuffs?: TimedBuffInstance[];
 }
 
 export interface TemporalState {

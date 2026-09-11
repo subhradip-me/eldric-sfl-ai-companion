@@ -29,7 +29,7 @@ export const AIToolResultSchema = z.object({
   success: z.boolean(),
   data: z.unknown().optional(),
   provenance: CalculationProvenanceSchema.optional(),
-  epistemicTier: z.enum(['OBSERVED', 'DERIVED', 'INFERRED']).optional(),
+  epistemicTier: z.enum(['AUTHORITATIVE', 'OBSERVED', 'DERIVED', 'INFERRED']).optional(),
   staleness: SnapshotFreshnessSchema.optional(),
   warnings: z.array(z.string()).optional(),
   error: AIToolErrorSchema.optional(),
@@ -39,7 +39,7 @@ export const AIChatStepSchema = z.object({
   tool: z.string().min(1),
   ok: z.boolean(),
   cached: z.boolean().optional(),
-  epistemicTier: z.enum(['OBSERVED', 'DERIVED', 'INFERRED']).optional(),
+  epistemicTier: z.enum(['AUTHORITATIVE', 'OBSERVED', 'DERIVED', 'INFERRED']).optional(),
 });
 
 export const AIChatResponseSchema = z.object({

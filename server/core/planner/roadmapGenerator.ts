@@ -27,11 +27,13 @@ import type {
   PlanId,
   PlanVersion,
   TimestampMs,
+  EffectContext,
 } from '../../domain/index.js';
 import { generateCandidates } from './candidateGenerator.js';
 import { evaluateFeasibility } from './feasibilitySolver.js';
 import { buildResourceLedger, checkImmediateActionPermitted } from './reservationEngine.js';
 import { scoreCandidate } from './actionScorer.js';
+import { resolveEffectContext } from '../effectEngine/index.js';
 
 export interface GenerateRoadmapParams {
   state: NormalizedFarmState;
@@ -47,6 +49,7 @@ export interface GenerateRoadmapParams {
   candidateOverrides?: StrategyCandidate[];
   tomorrowRequirements?: Record<string, number>;
   phaseRequirements?: Record<string, number>;
+  effectContext?: EffectContext;
 }
 
 export function generateRoadmap(params: GenerateRoadmapParams): Roadmap {
@@ -65,19 +68,30 @@ export function generateRoadmap(params: GenerateRoadmapParams): Roadmap {
     phaseRequirements = {},
   } = params;
 
-  // 1. Build Item-Specific Resource Ledger
+  // 1. Resolve or adopt EffectContext
+  const effectContext =
+    params.effectContext ??
+    resolveEffectContext(state, {
+      now: createdAt,
+      season: seasonBoundary?.currentSeason ?? state.temporal?.season,
+      farmId: String(goal.farmId ?? 'unknown_farm'),
+      computedAt: createdAt,
+    }).value;
+
+  // 2. Build Item-Specific Resource Ledger
   const ledger = buildResourceLedger({
     state,
     tomorrowRequirements,
     phaseRequirements,
   });
 
-  // 2. Candidate Generation Stage
+  // 3. Candidate Generation Stage (Boost-Aware)
   const rawCandidates = generateCandidates({
     goal,
     state,
     gameTime,
     candidateOverrides,
+    effectContext,
   });
 
   // 3. Hard Feasibility Gate (Discard INVALID before scoring)

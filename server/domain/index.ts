@@ -16,3 +16,5 @@ export * from './provenance.js';
 export * from './recipes.js';
 export * from './market.js';
 export * from './ai.js';
+export * from './effects.js';
+export * from './metadata.js';

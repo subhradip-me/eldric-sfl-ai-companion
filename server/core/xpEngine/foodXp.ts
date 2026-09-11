@@ -4,7 +4,7 @@
  * Invariant: Every calculation is reproducible from explicit inputs and preserves provenance.
  */
 
-import type { EffectiveRecipe, RecipeDefinition, SkillMap, CalculationResult } from '../../domain/index.js';
+import type { EffectiveRecipe, RecipeDefinition, SkillMap, CalculationResult, EffectContext } from '../../domain/index.js';
 import { withProvenance } from '../provenance/index.js';
 
 export const FISH_ITEMS = new Set([
@@ -21,6 +21,7 @@ export interface CalculateFoodXpInput {
   isVip?: boolean;
   buildingOil?: number;
   customModifiers?: Record<string, unknown>;
+  effectContext?: EffectContext;
   farmId?: string;
   snapshotVersion?: number;
   computedAt?: number;
@@ -31,7 +32,7 @@ export interface CalculateFoodXpInput {
  * Pure function: takes explicit inputs and produces CalculationResult with full provenance.
  */
 export function calculateFoodXp(input: CalculateFoodXpInput): CalculationResult<EffectiveRecipe> {
-  const { recipeName, recipe } = input;
+  const { recipeName, recipe, effectContext } = input;
   const skills = input.skills ?? {};
   const isVip = input.isVip ?? false;
   const buildingOil = input.buildingOil ?? 0;
@@ -45,97 +46,162 @@ export function calculateFoodXp(input: CalculateFoodXpInput): CalculationResult<
 
   const applied: string[] = [];
   const boostBreakdown: EffectiveRecipe['boostBreakdown'] = [];
-
-  const hasSkill = (name: string) => !!skills[name];
   const getRank = (name: string) => (typeof skills[name] === 'number' ? (skills[name] as number) : 1);
 
   const hasFish = Object.keys(recipe.ingredients ?? {}).some((ing) => FISH_ITEMS.has(ing));
   const hasHoney = !!(recipe.ingredients?.['Honey']);
 
-  // ── 1. XP Multipliers ──────────────────────────────────────────────────
-  if (isVip && !recipe.xpIncludesSkills) {
-    xpPerFood *= 1.1;
-    applied.push('VIP Access');
-    boostBreakdown.push({ skill: 'VIP Access', rank: 1, label: '+10% VIP Access' });
-  }
+  if (effectContext) {
+    // ── Canonical EffectContext Consumption ──────────────────────────────
+    // 1. Output and cost multipliers
+    if (effectContext.cooking.outputMultipliers.food && effectContext.cooking.outputMultipliers.food !== 1) {
+      output *= effectContext.cooking.outputMultipliers.food;
+    }
+    if (effectContext.cooking.costMultipliers.ingredients && effectContext.cooking.costMultipliers.ingredients !== 1) {
+      ingredientMultiplier *= effectContext.cooking.costMultipliers.ingredients;
+    }
 
-  if (hasSkill('Munching Mastery') && !recipe.xpIncludesSkills) {
-    const rank = getRank('Munching Mastery');
-    const mult = 1 + 0.05 + (rank - 1) * 0.025;
-    xpPerFood *= mult;
-    applied.push('Munching Mastery');
-    boostBreakdown.push({ skill: 'Munching Mastery', rank, label: `+${((mult - 1) * 100).toFixed(1).replace(/\.0$/, '')}% XP` });
-  }
+    // 2. XP Multipliers
+    if (!recipe.xpIncludesSkills) {
+      const globalXpMult = effectContext.xp.multipliers.global ?? 1.0;
+      const foodXpMult = effectContext.xp.multipliers.food ?? 1.0;
+      const bldgXpMult = effectContext.xp.multipliers.buildings[recipe.building] ?? 1.0;
+      let totalXpMult = globalXpMult * foodXpMult * bldgXpMult;
 
-  if (recipe.building === 'Deli' && hasSkill('Drive-Through Deli') && !recipe.xpIncludesSkills) {
-    const rank = getRank('Drive-Through Deli');
-    const mult = 1 + 0.15 + (rank - 1) * 0.05;
-    xpPerFood *= mult;
-    applied.push('Drive-Through Deli');
-    boostBreakdown.push({ skill: 'Drive-Through Deli', rank, label: `+${((mult - 1) * 100).toFixed(0)}% Deli XP` });
-  }
+      if (hasFish && effectContext.xp.multipliers.fishFood) {
+        totalXpMult *= effectContext.xp.multipliers.fishFood;
+      }
+      if (hasHoney && effectContext.xp.multipliers.honeyFood) {
+        totalXpMult *= effectContext.xp.multipliers.honeyFood;
+      }
 
-  if (recipe.building === 'Smoothie Shack' && hasSkill('Juicy Boost') && !recipe.xpIncludesSkills) {
-    const rank = getRank('Juicy Boost');
-    const mult = 1 + 0.10 + (rank - 1) * 0.05;
-    xpPerFood *= mult;
-    applied.push('Juicy Boost');
-    boostBreakdown.push({ skill: 'Juicy Boost', rank, label: `+${((mult - 1) * 100).toFixed(0)}% Smoothie XP` });
-  }
+      xpPerFood *= totalXpMult;
+      if (effectContext.xp.additions.flatFoodXp) {
+        xpPerFood += effectContext.xp.additions.flatFoodXp;
+      }
+    }
 
-  if (hasFish && hasSkill('Fishy Feast') && !recipe.xpIncludesSkills) {
-    xpPerFood *= 1.2;
-    applied.push('Fishy Feast');
-    boostBreakdown.push({ skill: 'Fishy Feast', rank: 1, label: '+20% Fish Food XP' });
-  }
+    // 3. Cook Time Multipliers
+    const globalTimeMult = effectContext.cooking.timeMultipliers.global ?? 1.0;
+    const bldgTimeMult = effectContext.cooking.timeMultipliers.buildings[recipe.building] ?? 1.0;
+    let totalTimeMult = globalTimeMult * bldgTimeMult;
 
-  if (hasHoney && hasSkill('Buzzworthy Treats') && !recipe.xpIncludesSkills) {
-    xpPerFood *= 1.1;
-    applied.push('Buzzworthy Treats');
-    boostBreakdown.push({ skill: 'Buzzworthy Treats', rank: 1, label: '+10% Honey Food XP' });
-  }
+    if (oilActive) {
+      const oilMult = effectContext.cooking.timeMultipliers.oilActive[recipe.building] ?? 0.60;
+      totalTimeMult *= oilMult;
+      if (!applied.includes('Oil Boost')) {
+        applied.push('Oil Boost');
+        const pct = Math.round((1 - oilMult) * 100);
+        boostBreakdown.push({ skill: 'Oil Boost', rank: 1, label: `-${pct}% Oil Cook Time` });
+      }
+    }
+    minutes *= totalTimeMult;
 
-  // ── 2. Cook Time Multipliers ───────────────────────────────────────────
-  if (['Fire Pit', 'Kitchen'].includes(recipe.building) && hasSkill('Fast Feasts')) {
-    const rank = getRank('Fast Feasts');
-    const mult = 1 - (0.10 + (rank - 1) * 0.05);
-    minutes *= mult;
-    applied.push('Fast Feasts');
-    boostBreakdown.push({ skill: 'Fast Feasts', rank, label: `-${((1 - mult) * 100).toFixed(0)}% Cook Time` });
-  }
+    // 4. Populate Breakdown from EffectContext.activeEffects
+    for (const eff of effectContext.activeEffects) {
+      if (!eff.active) continue;
+      const isRelevant =
+        (eff.domain === 'xp' && (eff.target === 'global' || eff.target === 'food' || eff.target === recipe.building || (eff.target === 'fishFood' && hasFish) || (eff.target === 'honeyFood' && hasHoney))) ||
+        (eff.domain === 'cooking' && (eff.target === 'global' || eff.target === recipe.building || eff.target === 'output' || eff.target === 'cost'));
 
-  if (recipe.building === 'Bakery' && hasSkill('Frosted Cakes')) {
-    const rank = getRank('Frosted Cakes');
-    const mult = 1 - (0.10 + (rank - 1) * 0.05);
-    minutes *= mult;
-    applied.push('Frosted Cakes');
-    boostBreakdown.push({ skill: 'Frosted Cakes', rank, label: `-${((1 - mult) * 100).toFixed(0)}% Cook Time` });
-  }
+      if (isRelevant && !applied.includes(eff.sourceId)) {
+        applied.push(eff.sourceId);
+        boostBreakdown.push({
+          skill: eff.sourceId,
+          rank: 1,
+          label: eff.description,
+        });
+      }
+    }
+  } else {
+    // ── Fallback Legacy / Direct Skill Evaluation ─────────────────────────
+    const hasSkill = (name: string) => !!skills[name];
 
-  if (recipe.building === 'Fire Pit' && hasSkill('Swift Sizzle') && oilActive) {
-    minutes *= 0.6;
-    applied.push('Swift Sizzle');
-    boostBreakdown.push({ skill: 'Swift Sizzle', rank: 1, label: '-40% Oil Cook Time' });
-  }
+    // XP Multipliers
+    if (isVip && !recipe.xpIncludesSkills) {
+      xpPerFood *= 1.1;
+      applied.push('VIP Access');
+      boostBreakdown.push({ skill: 'VIP Access', rank: 1, label: '+10% VIP Access' });
+    }
 
-  if (recipe.building === 'Kitchen' && hasSkill('Turbo Fry') && oilActive) {
-    minutes *= 0.5;
-    applied.push('Turbo Fry');
-    boostBreakdown.push({ skill: 'Turbo Fry', rank: 1, label: '-50% Oil Cook Time' });
-  }
+    if (hasSkill('Munching Mastery') && !recipe.xpIncludesSkills) {
+      const rank = getRank('Munching Mastery');
+      const mult = 1 + 0.05 + (rank - 1) * 0.025;
+      xpPerFood *= mult;
+      applied.push('Munching Mastery');
+      boostBreakdown.push({ skill: 'Munching Mastery', rank, label: `+${((mult - 1) * 100).toFixed(1).replace(/\.0$/, '')}% XP` });
+    }
 
-  if (recipe.building === 'Deli' && hasSkill('Fry Frenzy') && oilActive) {
-    minutes *= 0.4;
-    applied.push('Fry Frenzy');
-    boostBreakdown.push({ skill: 'Fry Frenzy', rank: 1, label: '-60% Oil Cook Time' });
-  }
+    if (recipe.building === 'Deli' && hasSkill('Drive-Through Deli') && !recipe.xpIncludesSkills) {
+      const rank = getRank('Drive-Through Deli');
+      const mult = 1 + 0.15 + (rank - 1) * 0.05;
+      xpPerFood *= mult;
+      applied.push('Drive-Through Deli');
+      boostBreakdown.push({ skill: 'Drive-Through Deli', rank, label: `+${((mult - 1) * 100).toFixed(0)}% Deli XP` });
+    }
 
-  // ── 3. Output & Ingredient Multipliers ────────────────────────────────
-  if (hasSkill('Double Nom')) {
-    output *= 2;
-    ingredientMultiplier *= 2;
-    applied.push('Double Nom');
-    boostBreakdown.push({ skill: 'Double Nom', rank: 1, label: '2x Output & Ingredients' });
+    if (recipe.building === 'Smoothie Shack' && hasSkill('Juicy Boost') && !recipe.xpIncludesSkills) {
+      const rank = getRank('Juicy Boost');
+      const mult = 1 + 0.10 + (rank - 1) * 0.05;
+      xpPerFood *= mult;
+      applied.push('Juicy Boost');
+      boostBreakdown.push({ skill: 'Juicy Boost', rank, label: `+${((mult - 1) * 100).toFixed(0)}% Smoothie XP` });
+    }
+
+    if (hasFish && hasSkill('Fishy Feast') && !recipe.xpIncludesSkills) {
+      xpPerFood *= 1.2;
+      applied.push('Fishy Feast');
+      boostBreakdown.push({ skill: 'Fishy Feast', rank: 1, label: '+20% Fish Food XP' });
+    }
+
+    if (hasHoney && hasSkill('Buzzworthy Treats') && !recipe.xpIncludesSkills) {
+      xpPerFood *= 1.1;
+      applied.push('Buzzworthy Treats');
+      boostBreakdown.push({ skill: 'Buzzworthy Treats', rank: 1, label: '+10% Honey Food XP' });
+    }
+
+    // Cook Time Multipliers
+    if (['Fire Pit', 'Kitchen'].includes(recipe.building) && hasSkill('Fast Feasts')) {
+      const rank = getRank('Fast Feasts');
+      const mult = 1 - (0.10 + (rank - 1) * 0.05);
+      minutes *= mult;
+      applied.push('Fast Feasts');
+      boostBreakdown.push({ skill: 'Fast Feasts', rank, label: `-${((1 - mult) * 100).toFixed(0)}% Cook Time` });
+    }
+
+    if (recipe.building === 'Bakery' && hasSkill('Frosted Cakes')) {
+      const rank = getRank('Frosted Cakes');
+      const mult = 1 - (0.10 + (rank - 1) * 0.05);
+      minutes *= mult;
+      applied.push('Frosted Cakes');
+      boostBreakdown.push({ skill: 'Frosted Cakes', rank, label: `-${((1 - mult) * 100).toFixed(0)}% Cook Time` });
+    }
+
+    if (recipe.building === 'Fire Pit' && hasSkill('Swift Sizzle') && oilActive) {
+      minutes *= 0.6;
+      applied.push('Swift Sizzle');
+      boostBreakdown.push({ skill: 'Swift Sizzle', rank: 1, label: '-40% Oil Cook Time' });
+    }
+
+    if (recipe.building === 'Kitchen' && hasSkill('Turbo Fry') && oilActive) {
+      minutes *= 0.5;
+      applied.push('Turbo Fry');
+      boostBreakdown.push({ skill: 'Turbo Fry', rank: 1, label: '-50% Oil Cook Time' });
+    }
+
+    if (recipe.building === 'Deli' && hasSkill('Fry Frenzy') && oilActive) {
+      minutes *= 0.4;
+      applied.push('Fry Frenzy');
+      boostBreakdown.push({ skill: 'Fry Frenzy', rank: 1, label: '-60% Oil Cook Time' });
+    }
+
+    // Output & Ingredient Multipliers
+    if (hasSkill('Double Nom')) {
+      output *= 2;
+      ingredientMultiplier *= 2;
+      applied.push('Double Nom');
+      boostBreakdown.push({ skill: 'Double Nom', rank: 1, label: '2x Output & Ingredients' });
+    }
   }
 
   // ── 4. Custom Modifiers fallback ──────────────────────────────────────

@@ -15,6 +15,7 @@ import type {
   MarketPrice,
   GameTime,
   PlanAction,
+  EffectContext,
 } from '../../domain/index.js';
 import { getItemPrice } from '../economyEngine/cost.js';
 
@@ -27,6 +28,7 @@ export interface ResolveCandidateIntentParams {
   prices?: MarketPrice;
   gameTime?: GameTime;
   strategyPresets?: Record<string, StrategyCandidate>;
+  effectContext?: EffectContext;
 }
 
 const DEFAULT_KNOWN_RECIPES: Record<string, RecipeDefinition> = {
@@ -151,7 +153,20 @@ export function resolveCandidateIntent(params: ResolveCandidateIntentParams): St
       }
     }
 
-    const durationMinutes = (recipe.baseCookMinutes ?? 10) * quantity;
+    let durationMinutes = (recipe.baseCookMinutes ?? 10) * quantity;
+    let xpGain = (recipe.baseXp ?? 0) * quantity;
+
+    if (params.effectContext) {
+      const globalTimeMult = params.effectContext.cooking.timeMultipliers.global ?? 1.0;
+      const bldgTimeMult = params.effectContext.cooking.timeMultipliers.buildings[recipe.building] ?? 1.0;
+      durationMinutes = Math.max(0, Math.round(durationMinutes * globalTimeMult * bldgTimeMult * 100) / 100);
+
+      const globalXpMult = params.effectContext.xp.multipliers.global ?? 1.0;
+      const foodXpMult = params.effectContext.xp.multipliers.food ?? 1.0;
+      const bldgXpMult = params.effectContext.xp.multipliers.buildings[recipe.building] ?? 1.0;
+      xpGain = Math.round(xpGain * globalXpMult * foodXpMult * bldgXpMult);
+    }
+
     const completionAt = currentTs + durationMinutes * 60 * 1000;
 
     const targetActions: PlanAction[] = [];
@@ -172,7 +187,7 @@ export function resolveCandidateIntent(params: ResolveCandidateIntentParams): St
       quantity: (recipe.baseOutput ?? 1) * quantity,
       building: recipe.building,
       estimatedCostFlower: totalCostFlower,
-      estimatedXpGain: (recipe.baseXp ?? 0) * quantity,
+      estimatedXpGain: xpGain,
       estimatedReadyAt: completionAt,
       reasoning: `Cook ${quantity}x ${recipeName}`,
     });

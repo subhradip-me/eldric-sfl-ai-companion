@@ -15,6 +15,7 @@ import type {
   PlanAction,
   RecipeDefinition,
   MarketPrice,
+  EffectContext,
 } from '../../domain/index.js';
 import { getItemPrice } from '../economyEngine/cost.js';
 
@@ -25,6 +26,7 @@ export interface GenerateCandidatesInput {
   prices?: MarketPrice;
   gameTime?: GameTime;
   candidateOverrides?: StrategyCandidate[];
+  effectContext?: EffectContext;
 }
 
 /**
@@ -93,7 +95,7 @@ for (const [key, val] of Object.entries(recipesData)) {
  * Pure deterministic function.
  */
 export function generateCandidates(input: GenerateCandidatesInput): StrategyCandidate[] {
-  const { goal, state, prices = {}, gameTime, candidateOverrides } = input;
+  const { goal, state, prices = {}, gameTime, candidateOverrides, effectContext } = input;
 
   if (candidateOverrides && candidateOverrides.length > 0) {
     return [...candidateOverrides];
@@ -157,7 +159,20 @@ export function generateCandidates(input: GenerateCandidatesInput): StrategyCand
         }
       }
 
-      const durationMinutes = recipe.baseCookMinutes ?? 10;
+      let durationMinutes = recipe.baseCookMinutes ?? 10;
+      let xpGain = recipe.baseXp ?? 0;
+
+      if (effectContext) {
+        const globalTimeMult = effectContext.cooking.timeMultipliers.global ?? 1.0;
+        const bldgTimeMult = effectContext.cooking.timeMultipliers.buildings[recipe.building] ?? 1.0;
+        durationMinutes = Math.max(0, Math.round(durationMinutes * globalTimeMult * bldgTimeMult * 100) / 100);
+
+        const globalXpMult = effectContext.xp.multipliers.global ?? 1.0;
+        const foodXpMult = effectContext.xp.multipliers.food ?? 1.0;
+        const bldgXpMult = effectContext.xp.multipliers.buildings[recipe.building] ?? 1.0;
+        xpGain = Math.round(xpGain * globalXpMult * foodXpMult * bldgXpMult);
+      }
+
       const completionAt = currentTs + durationMinutes * 60 * 1000;
 
       const actions: PlanAction[] = [];
@@ -178,9 +193,9 @@ export function generateCandidates(input: GenerateCandidatesInput): StrategyCand
         quantity: recipe.baseOutput ?? 1,
         building: recipe.building,
         estimatedCostFlower: totalCostFlower,
-        estimatedXpGain: recipe.baseXp ?? 0,
+        estimatedXpGain: xpGain,
         estimatedReadyAt: completionAt,
-        reasoning: `Cook ${recipeName} to generate ${recipe.baseXp ?? 0} XP`,
+        reasoning: `Cook ${recipeName} to generate ${xpGain} XP`,
       });
 
       candidates.push({

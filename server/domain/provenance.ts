@@ -10,7 +10,7 @@
 
 import type { FarmId, SnapshotVersion, TimestampMs } from './types.js';
 
-export type EpistemicTier = 'OBSERVED' | 'DERIVED' | 'INFERRED';
+export type EpistemicTier = 'AUTHORITATIVE' | 'OBSERVED' | 'DERIVED' | 'INFERRED';
 
 export interface CalculationProvenance {
   farmId: FarmId;

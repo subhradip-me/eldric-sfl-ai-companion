@@ -4,7 +4,7 @@
  * Invariant: Every calculation is reproducible from explicit inputs and preserves provenance.
  */
 
-import type { ActiveProductionItem, CalculationResult, TimestampMs } from '../../domain/index.js';
+import type { ActiveProductionItem, CalculationResult, TimestampMs, EffectContext } from '../../domain/index.js';
 import { calculateProgress } from '../../domain/production.js';
 import { withProvenance } from '../provenance/index.js';
 
@@ -27,6 +27,7 @@ export interface ActiveProductionSummary {
 export interface NormalizeActiveProductionInput {
   items: ActiveProductionItem[];
   now: TimestampMs;
+  effectContext?: EffectContext;
   farmId?: string;
   snapshotVersion?: number;
   computedAt?: number;
@@ -39,7 +40,7 @@ export interface NormalizeActiveProductionInput {
 export function summarizeActiveProduction(
   input: NormalizeActiveProductionInput
 ): CalculationResult<ActiveProductionSummary> {
-  const { items, now } = input;
+  const { items, now, effectContext } = input;
 
   const byItem: Record<string, ProductionYieldSummary> = {};
   const projectedAvailableAt: Record<string, { readyAt: TimestampMs; amount: number }[]> = {};
@@ -56,6 +57,20 @@ export function summarizeActiveProduction(
       activeCount++;
     }
 
+    let output = item.expectedOutput;
+    if (effectContext) {
+      if (item.category === 'CROP') {
+        const cropMult = (effectContext.crops.yieldMultipliers.global ?? 1.0) * (effectContext.crops.yieldMultipliers.byCrop[item.item] ?? 1.0);
+        const cropAdd = effectContext.crops.yieldAdditions.byCrop[item.item] ?? 0;
+        output = Math.max(0, Math.round((output * cropMult + cropAdd) * 1000) / 1000);
+      } else if (item.category === 'MINING') {
+        const resKey = item.item.toLowerCase() as 'stone' | 'iron' | 'gold' | 'wood';
+        const resMult = effectContext.resources.yieldMultipliers[resKey] ?? 1.0;
+        const resAdd = effectContext.resources.yieldAdditions[resKey] ?? 0;
+        output = Math.max(0, Math.round((output * resMult + resAdd) * 1000) / 1000);
+      }
+    }
+
     if (!byItem[item.item]) {
       byItem[item.item] = {
         item: item.item,
@@ -69,7 +84,7 @@ export function summarizeActiveProduction(
 
     const entry = byItem[item.item];
     entry.totalQuantity += item.quantity;
-    entry.expectedOutput += item.expectedOutput;
+    entry.expectedOutput += output;
     entry.earliestReadyAt = Math.min(entry.earliestReadyAt, item.readyAt);
     entry.latestReadyAt = Math.max(entry.latestReadyAt, item.readyAt);
     entry.items.push(item);
@@ -79,7 +94,7 @@ export function summarizeActiveProduction(
     }
     projectedAvailableAt[item.item].push({
       readyAt: item.readyAt,
-      amount: item.expectedOutput,
+      amount: output,
     });
   }
 

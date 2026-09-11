@@ -87,6 +87,7 @@ export interface CanonicalFarmState {
   chores: Record<string, unknown>;
   bounties: { requests: unknown[]; completed: unknown[] };
   fetchedAt: number;
+  island?: { type: string; previousExpansions?: number; sunstones?: number };
   stale?: boolean;
   cached?: boolean;
 }

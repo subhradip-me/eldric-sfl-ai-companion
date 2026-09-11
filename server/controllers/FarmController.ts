@@ -4,7 +4,7 @@
  */
 import type { Request, Response } from 'express';
 import { sunflowerClient, snapshotService, activityService, farmNormalizer } from '../services/farm/index.js';
-import { summarizeActiveProduction } from '../core/index.js';
+import { summarizeActiveProduction, calculateFoodXp, resolveEffectContext } from '../core/index.js';
 import { plannerService, recipeService, xpEngine } from '../services/cooking/index.js';
 import { UserModel } from '../models/UserModel.js';
 import recipes from '../data/recipes.json' with { type: 'json' };
@@ -44,8 +44,8 @@ export class FarmController {
         farmId: user.farm_id,
       });
 
-      // Save snapshot asynchronously (fire-and-forget)
-      snapshotService.save(canonical, userId).catch((err) =>
+      // Save snapshot asynchronously (fire-and-forget) - preserve full raw data (collectibles, interior, etc.)
+      snapshotService.save(raw || canonical, userId).catch((err) =>
         console.warn('Failed to save snapshot:', (err as Error).message)
       );
 
@@ -91,12 +91,22 @@ export class FarmController {
         return;
       }
 
-      const [{ canonical }, { prices }] = await Promise.all([
+      const [{ canonical, raw }, { prices }] = await Promise.all([
         sunflowerClient.getFarm(user.farm_id),
         sunflowerClient.getPrices(),
       ]);
 
-      const planResult = plannerService.plan(canonical, prices, recipes, items, modifiers);
+      const normResult = farmNormalizer.normalize(raw || canonical, {
+        farmId: user.farm_id,
+        source: 'community-api',
+      });
+      const effectRes = resolveEffectContext(normResult.normalizedState, {
+        now: Date.now(),
+        season: normResult.normalizedState.temporal?.season,
+        farmId: user.farm_id,
+      });
+
+      const planResult = plannerService.plan(canonical, prices, recipes, items, modifiers, effectRes.value);
       res.json(planResult);
     } catch (error) {
       console.error('Get planner error:', error);
@@ -148,7 +158,7 @@ export class FarmController {
         return;
       }
 
-      const [{ canonical }, { prices }] = await Promise.all([
+      const [{ canonical, raw }, { prices }] = await Promise.all([
         sunflowerClient.getFarm(user.farm_id),
         sunflowerClient.getPrices().catch(() => ({ prices: {} as Record<string, number>, updatedAt: null, stale: false })),
       ]);
@@ -158,12 +168,37 @@ export class FarmController {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const listed = recipeService.listRecipes(recipes as any, activeBuildings, inventory);
 
+      // Phase 2: Loss-aware normalization
+      const normResult = farmNormalizer.normalize(raw || canonical, {
+        farmId: user.farm_id,
+        source: 'community-api',
+      });
+      const normState = normResult.normalizedState;
+
+      // Phase 7: Authoritative Effect Context resolution (placed collectibles, equipped wearables, skills, timed buffs, VIP)
+      const effectRes = resolveEffectContext(normState, {
+        now: Date.now(),
+        season: normState.temporal?.season,
+        farmId: user.farm_id,
+      });
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const enriched: any[] = listed.map((r) => {
         const base = (recipes as Record<string, unknown>)[r.name] as import('../types/index.js').RecipeDefinition | undefined;
         if (!base) return r;
 
-        const eff = xpEngine.effective(r.name, base, canonical, modifiers);
+        const bldOil = normState.structures.buildings[r.building]?.[0]?.oil ?? (canonical.buildings?.[r.building]?.oil ?? 0);
+
+        const foodXpResult = calculateFoodXp({
+          recipeName: r.name,
+          recipe: base,
+          skills: normState.player.skills,
+          isVip: normState.buffs.vip,
+          buildingOil: bldOil,
+          effectContext: effectRes.value,
+          farmId: user.farm_id ?? undefined,
+        });
+        const eff = foodXpResult.value;
         const dep = recipeService.expand(r.name, recipes as unknown as Parameters<typeof recipeService.expand>[1], 0, eff.ingredientMultiplier ?? 1);
         const c = recipeService.cost(dep.base, prices, items as Parameters<typeof recipeService.cost>[2], inventory);
         const totalFlowerVal = c.totalFlower > 0 ? c.totalFlower : c.flower;

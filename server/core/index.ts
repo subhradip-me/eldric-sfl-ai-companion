@@ -12,3 +12,4 @@ export * from './economyEngine/index.js';
 export * from './temporalEngine/index.js';
 export * from './historyEngine/index.js';
 export * from './planner/index.js';
+export * from './effectEngine/index.js';
