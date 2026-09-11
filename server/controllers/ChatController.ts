@@ -30,15 +30,21 @@ export class ChatController {
       }
 
       const priorMessages = await chatStoreService.getSession(sessionId, userId).catch(() => []);
-      const { answer, steps } = await orchestrator.runAgent(message, sessionId, userId, user.farm_id, priorMessages);
+      const response = await orchestrator.runAgent(message, sessionId, userId, user.farm_id, priorMessages);
 
       // Save messages fire-and-forget
       chatStoreService.saveMessage({ sessionId, role: 'user', content: message, userId })
         .catch((err) => console.warn('Failed to save user message:', (err as Error).message));
-      chatStoreService.saveMessage({ sessionId, role: 'assistant', content: answer, userId })
+      chatStoreService.saveMessage({ sessionId, role: 'assistant', content: response.answer, userId })
         .catch((err) => console.warn('Failed to save assistant message:', (err as Error).message));
 
-      res.json({ success: true, answer, steps });
+      res.json({
+        success: true,
+        answer: response.answer,
+        steps: response.steps,
+        warnings: response.warnings,
+        provenance: response.provenance,
+      });
     } catch (error) {
       console.error('Chat error:', error);
       res.status(500).json({ success: false, error: 'Failed to process message' });

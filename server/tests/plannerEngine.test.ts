@@ -494,7 +494,6 @@ describe('Phase 5: Goal Engine & Hierarchical Strategic Planner', () => {
       const fixture = loadFixture<any>('farm-season-boundary');
       const normalizedState = normalizer.normalize(fixture.farm, {
         farmId: 'farm-season-boundary',
-        snapshotVersion: 1,
         source: 'FIXTURE',
       }).normalizedState;
 
@@ -564,7 +563,6 @@ describe('Phase 5: Goal Engine & Hierarchical Strategic Planner', () => {
       };
       const normalizedState = normalizer.normalize(rawFarm, {
         farmId: 'farm-epistemic',
-        snapshotVersion: 1,
         source: 'FIXTURE',
       }).normalizedState;
 

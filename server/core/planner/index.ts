@@ -8,3 +8,4 @@ export * from './feasibilitySolver.js';
 export * from './reservationEngine.js';
 export * from './actionScorer.js';
 export * from './roadmapGenerator.js';
+export * from './candidateResolver.js';

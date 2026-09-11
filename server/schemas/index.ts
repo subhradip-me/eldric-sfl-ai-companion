@@ -9,3 +9,4 @@ export * from './goalSchema.js';
 export * from './calendarSchema.js';
 export * from './historySchema.js';
 export * from './roadmapSchema.js';
+export * from './aiSchema.js';

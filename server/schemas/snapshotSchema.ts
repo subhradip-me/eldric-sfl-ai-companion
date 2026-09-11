@@ -15,4 +15,14 @@ export const FarmSnapshotSchema = z.object({
   normalizedState: z.record(z.string(), z.unknown()).optional(),
 });
 
+export const CalculationProvenanceSchema = z.object({
+  farmId: z.string().min(1),
+  snapshotVersion: z.number().int().nonnegative(),
+  calculationEngineVersion: z.string(),
+  gameDataVersion: z.string(),
+  marketDataVersion: z.string().optional(),
+  plannerVersion: z.string().optional(),
+  computedAt: z.number(),
+});
+
 export type ValidatedFarmSnapshot = z.infer<typeof FarmSnapshotSchema>;
