@@ -1,0 +1,700 @@
+{
+  "commonPetCount": 20,
+  "commonCategories": 7,
+  "commonTradeable": false,
+  "onePerType": true,
+  "maxNftPets": 7,
+  "categories": {
+    "Guardian": "Chewed Bone",
+    "Hunter": "Ribbon",
+    "Voyager": "Ruffroot",
+    "Beast": "Wild Grass",
+    "Moonkin": "Heart Leaf",
+    "Snowkin": "Frost Pebble",
+    "Forager": "Dewberry"
+  },
+  "commonPets": [
+    {
+      "type": "Dog",
+      "names": [
+        "Barkley",
+        "Biscuit",
+        "Cloudy"
+      ],
+      "categories": [
+        "Guardian",
+        "Hunter"
+      ],
+      "fetch": [
+        [
+          "Acorn",
+          1
+        ],
+        [
+          "Chewed Bone",
+          3
+        ],
+        [
+          "Ribbon",
+          7
+        ],
+        [
+          "Fossil Shell",
+          20
+        ]
+      ]
+    },
+    {
+      "type": "Cat",
+      "names": [
+        "Meowchi",
+        "Butters",
+        "Smokey"
+      ],
+      "categories": [
+        "Hunter",
+        "Moonkin"
+      ],
+      "fetch": [
+        [
+          "Acorn",
+          1
+        ],
+        [
+          "Ribbon",
+          3
+        ],
+        [
+          "Heart Leaf",
+          7
+        ],
+        [
+          "Fossil Shell",
+          20
+        ]
+      ]
+    },
+    {
+      "type": "Owl",
+      "names": [
+        "Twizzle",
+        "Flicker",
+        "Pippin"
+      ],
+      "categories": [
+        "Moonkin",
+        "Forager"
+      ],
+      "fetch": [
+        [
+          "Acorn",
+          1
+        ],
+        [
+          "Heart Leaf",
+          3
+        ],
+        [
+          "Dewberry",
+          7
+        ],
+        [
+          "Fossil Shell",
+          20
+        ]
+      ]
+    },
+    {
+      "type": "Horse",
+      "names": [
+        "Burro",
+        "Pinto",
+        "Roan",
+        "Stallion"
+      ],
+      "categories": [
+        "Voyager",
+        "Beast"
+      ],
+      "fetch": [
+        [
+          "Acorn",
+          1
+        ],
+        [
+          "Ruffroot",
+          3
+        ],
+        [
+          "Wild Grass",
+          7
+        ],
+        [
+          "Fossil Shell",
+          20
+        ]
+      ]
+    },
+    {
+      "type": "Bull",
+      "names": [
+        "Mudhorn",
+        "Bison",
+        "Oxen"
+      ],
+      "categories": [
+        "Beast",
+        "Snowkin"
+      ],
+      "fetch": [
+        [
+          "Acorn",
+          1
+        ],
+        [
+          "Wild Grass",
+          3
+        ],
+        [
+          "Frost Pebble",
+          7
+        ],
+        [
+          "Fossil Shell",
+          20
+        ]
+      ]
+    },
+    {
+      "type": "Hamster",
+      "names": [
+        "Nibbles",
+        "Peanuts"
+      ],
+      "categories": [
+        "Forager",
+        "Guardian"
+      ],
+      "fetch": [
+        [
+          "Acorn",
+          1
+        ],
+        [
+          "Dewberry",
+          3
+        ],
+        [
+          "Chewed Bone",
+          7
+        ],
+        [
+          "Fossil Shell",
+          20
+        ]
+      ]
+    },
+    {
+      "type": "Penguin",
+      "names": [
+        "Waddles",
+        "Pip",
+        "Skipper"
+      ],
+      "categories": [
+        "Snowkin",
+        "Voyager"
+      ],
+      "fetch": [
+        [
+          "Acorn",
+          1
+        ],
+        [
+          "Frost Pebble",
+          3
+        ],
+        [
+          "Ruffroot",
+          7
+        ],
+        [
+          "Fossil Shell",
+          20
+        ]
+      ]
+    }
+  ],
+  "nftPets": [
+    {
+      "type": "Dragon",
+      "categories": [
+        "Snowkin",
+        "Guardian",
+        "Voyager"
+      ],
+      "fetch": [
+        [
+          "Acorn",
+          1
+        ],
+        [
+          "Frost Pebble",
+          3
+        ],
+        [
+          "Chewed Bone",
+          7
+        ],
+        [
+          "Moonfur",
+          12
+        ],
+        [
+          "Fossil Shell",
+          20
+        ],
+        [
+          "Ruffroot",
+          25
+        ]
+      ],
+      "supply": 300
+    },
+    {
+      "type": "Phoenix",
+      "categories": [
+        "Moonkin",
+        "Beast",
+        "Guardian"
+      ],
+      "fetch": [
+        [
+          "Acorn",
+          1
+        ],
+        [
+          "Heart Leaf",
+          3
+        ],
+        [
+          "Wild Grass",
+          7
+        ],
+        [
+          "Chewed Bone",
+          12
+        ],
+        [
+          "Fossil Shell",
+          20
+        ],
+        [
+          "Ribbon",
+          25
+        ]
+      ],
+      "supply": 450
+    },
+    {
+      "type": "Griffin",
+      "categories": [
+        "Voyager",
+        "Forager",
+        "Beast"
+      ],
+      "fetch": [
+        [
+          "Acorn",
+          1
+        ],
+        [
+          "Ruffroot",
+          3
+        ],
+        [
+          "Dewberry",
+          7
+        ],
+        [
+          "Wild Grass",
+          12
+        ],
+        [
+          "Fossil Shell",
+          20
+        ],
+        [
+          "Wild Grass",
+          25
+        ]
+      ],
+      "supply": 450
+    },
+    {
+      "type": "Ram",
+      "categories": [
+        "Hunter",
+        "Voyager",
+        "Moonkin"
+      ],
+      "fetch": [
+        [
+          "Acorn",
+          1
+        ],
+        [
+          "Ribbon",
+          3
+        ],
+        [
+          "Ruffroot",
+          7
+        ],
+        [
+          "Moonfur",
+          12
+        ],
+        [
+          "Fossil Shell",
+          20
+        ],
+        [
+          "Heart Leaf",
+          25
+        ]
+      ],
+      "supply": 450
+    },
+    {
+      "type": "Warthog",
+      "categories": [
+        "Beast",
+        "Snowkin",
+        "Hunter"
+      ],
+      "fetch": [
+        [
+          "Acorn",
+          1
+        ],
+        [
+          "Wild Grass",
+          3
+        ],
+        [
+          "Frost Pebble",
+          7
+        ],
+        [
+          "Moonfur",
+          12
+        ],
+        [
+          "Fossil Shell",
+          20
+        ],
+        [
+          "Ribbon",
+          25
+        ]
+      ],
+      "supply": 450
+    },
+    {
+      "type": "Wolf",
+      "categories": [
+        "Guardian",
+        "Hunter",
+        "Forager"
+      ],
+      "fetch": [
+        [
+          "Acorn",
+          1
+        ],
+        [
+          "Chewed Bone",
+          3
+        ],
+        [
+          "Ribbon",
+          7
+        ],
+        [
+          "Moonfur",
+          12
+        ],
+        [
+          "Fossil Shell",
+          20
+        ],
+        [
+          "Dewberry",
+          25
+        ]
+      ],
+      "supply": 450
+    },
+    {
+      "type": "Bear",
+      "categories": [
+        "Forager",
+        "Moonkin",
+        "Snowkin"
+      ],
+      "fetch": [
+        [
+          "Acorn",
+          1
+        ],
+        [
+          "Dewberry",
+          3
+        ],
+        [
+          "Heart Leaf",
+          7
+        ],
+        [
+          "Moonfur",
+          12
+        ],
+        [
+          "Fossil Shell",
+          20
+        ],
+        [
+          "Frost Pebble",
+          25
+        ]
+      ],
+      "supply": 450
+    }
+  ],
+  "fetching": {
+    "energyCosts": {
+      "basic": 100,
+      "tier2": 200,
+      "tier3": 200,
+      "fossilShell": 300
+    },
+    "noTimerOrCooldown": true,
+    "energyDoesNotExpire": true,
+    "fossilShellAlwaysWhole": true
+  },
+  "levelPerks": [
+    {
+      "level": 3,
+      "perk": "Unlock Category / first non-Acorn resource"
+    },
+    {
+      "level": 5,
+      "perk": "+5 energy per pet food"
+    },
+    {
+      "level": 7,
+      "perk": "Unlock 2nd fetched item category"
+    },
+    {
+      "level": 10,
+      "perk": "3 food requests per day"
+    },
+    {
+      "level": 12,
+      "perk": "Unlock Moonfur (NFT only)"
+    },
+    {
+      "level": 15,
+      "perk": "+0.1 extra fetched resource (including Acorn)"
+    },
+    {
+      "level": 18,
+      "perk": "+1 Acorn yield"
+    },
+    {
+      "level": 20,
+      "perk": "Unlock Fossil Shell"
+    },
+    {
+      "level": 25,
+      "perk": "Unlock 3rd fetched item category (NFT only)"
+    },
+    {
+      "level": 27,
+      "perk": "Pet Experience +10%"
+    },
+    {
+      "level": 30,
+      "perk": "4th request per day (NFT only)"
+    },
+    {
+      "level": 35,
+      "perk": "+5 energy per pet food (+10 total)"
+    },
+    {
+      "level": 40,
+      "perk": "Pet Experience +15% (25% total NFT only)"
+    },
+    {
+      "level": 50,
+      "perk": "+0.05 extra fetched resource (+0.15 total)"
+    },
+    {
+      "level": 60,
+      "perk": "+1 non-Acorn/Moonfur resource yield (NFT only)"
+    },
+    {
+      "level": 75,
+      "perk": "+5 energy per pet food (+15 total)"
+    },
+    {
+      "level": 85,
+      "perk": "Pet Experience +25% (50% total NFT only)"
+    },
+    {
+      "level": 100,
+      "perk": "+0.1 extra fetched resource (+0.25 total)"
+    }
+  ],
+  "nftExclusivePerks": [
+    {
+      "level": 12,
+      "perk": "Unlock Moonfur fetching"
+    },
+    {
+      "level": 25,
+      "perk": "Unlock 3rd fetching category"
+    },
+    {
+      "level": 30,
+      "perk": "Unlock 4th request / second T2 food request"
+    },
+    {
+      "level": 40,
+      "perk": "Pet Experience +15%"
+    },
+    {
+      "level": 60,
+      "perk": "+1 non-Acorn/Moonfur resource yield"
+    },
+    {
+      "level": 85,
+      "perk": "Pet Experience +25%"
+    },
+    {
+      "level": 150,
+      "perk": "+0.25 extra Moonfur yield"
+    },
+    {
+      "level": 200,
+      "perk": "Unlock 5th request / second T3 food request"
+    }
+  ],
+  "requests": {
+    "slots": 3,
+    "slotOrder": [
+      "Easy",
+      "Medium",
+      "Hard"
+    ],
+    "dailyReset": true,
+    "oneFoodPerRequest": true,
+    "resetCost": "Gems; cost increases with use",
+    "unfedPenalty": "Lose 500 XP after 3 consecutive days; penalty occurs once",
+    "notRequested": [
+      "Rapid Roast",
+      "Beetroot Blaze",
+      "Mushroom Soup",
+      "Mushroom Jacket Potatoes",
+      "Kale & Mushroom Pie",
+      "Shroom Syrup",
+      "Furikake Sprinkle",
+      "Creamy Crab Bite",
+      "Crimstone Infused Fish Oil",
+      "Surimi Rice Bowl"
+    ],
+    "restrictions": [
+      "Never request a fish product ingredient",
+      "Never request a mushroom ingredient",
+      "Only ask for foods that can be made with resources bought from Marketplace"
+    ]
+  },
+  "experience": {
+    "sleepXp": "+10 XP every 2 hours during nap mode",
+    "socialXp": "+1 to +5 XP, capped at 50 XP per pet per day"
+  },
+  "obtaining": [
+    {
+      "type": "Common Pet Egg",
+      "cost": "150,000 Coins",
+      "limit": "once"
+    },
+    {
+      "type": "Common Pet Egg",
+      "cost": "10,000 Love Charms",
+      "limit": "once"
+    },
+    {
+      "type": "Common Pet Egg",
+      "cost": "Chapter Track Reward",
+      "limit": "one per Chapter"
+    },
+    {
+      "type": "NFT Pet Egg",
+      "cost": "Chapter Raffle",
+      "amount": "varies"
+    },
+    {
+      "type": "NFT Pet Egg",
+      "cost": "Chapter Ticket Auction",
+      "limit": "one per Chapter"
+    }
+  ],
+  "nftAttributes": {
+    "typeChance": "6 types 15% each; Dragon 10%",
+    "furColourPatterns": 15,
+    "accessories": 10,
+    "bibChances": {
+      "basic": {
+        "chance": 0.33,
+        "xpBonus": 0
+      },
+      "mid": {
+        "chance": 0.33,
+        "xpBonus": 5
+      },
+      "great": {
+        "chance": 0.33,
+        "xpBonus": 10
+      }
+    },
+    "auraChances": {
+      "none": 0.86,
+      "basic": 0.08,
+      "epic": 0.04,
+      "mega": 0.02
+    },
+    "auraEnergyMultipliers": {
+      "none": 1,
+      "basic": 1.5,
+      "epic": 2,
+      "mega": 3
+    }
+  },
+  "petHouse": {
+    "size": "3x3",
+    "baseCapacity": {
+      "common": 3,
+      "nft": 1
+    },
+    "upgradeable": true,
+    "bonusFromBeingInside": false,
+    "storesOnlyPets": true,
+    "cannotRemoveWhileOccupied": true,
+    "disabledBy": [
+      "Tornado",
+      "Tsunami"
+    ]
+  }
+}

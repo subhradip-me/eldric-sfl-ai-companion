@@ -3,7 +3,7 @@
  * Composes SunflowerClient, PlannerService, RecipeService, XpEngine, SnapshotService, ActivityService.
  */
 import type { Request, Response } from 'express';
-import { sunflowerClient, snapshotService, activityService, farmNormalizer } from '../services/farm/index.js';
+import { sunflowerClient, snapshotService, activityService, farmNormalizer, dashboardService } from '../services/farm/index.js';
 import { summarizeActiveProduction, calculateFoodXp, resolveEffectContext } from '../core/index.js';
 import { plannerService, recipeService, xpEngine } from '../services/cooking/index.js';
 import { UserModel } from '../models/UserModel.js';
@@ -18,45 +18,68 @@ type AuthReq = Request & { userId: number };
 export class FarmController {
   private userModel = new UserModel();
 
-  /** GET /api/farm — canonical farm state for the authenticated user */
+  private resolveFarmId(req: Request, user: { username?: string; farm_id: string | null } | null): { farmId: string | null; isDevOverride: boolean } {
+    const isDevUser = user?.username === 'dev';
+    const devHeader = (req.headers['x-dev-farm-id'] as string | undefined)?.trim();
+    if (isDevUser && devHeader) {
+      return { farmId: devHeader, isDevOverride: true };
+    }
+    return { farmId: user?.farm_id ?? null, isDevOverride: false };
+  }
+
+  /** GET /api/farm — canonical farm state for the authenticated user (supports x-dev-farm-id override for dev account) */
   async getFarmData(req: Request, res: Response): Promise<void> {
     try {
       const { userId } = req as AuthReq;
       const user = await this.userModel.findById(userId);
+      const { farmId, isDevOverride } = this.resolveFarmId(req, user);
 
-      if (!user || !user.farm_id) {
+      if (!farmId) {
         res.status(400).json({ success: false, error: 'No farm ID associated with your account. Please set your farm ID in settings.' });
         return;
       }
 
-      const { canonical, raw, stale } = await sunflowerClient.getFarm(user.farm_id);
+      const { canonical, raw, stale } = await sunflowerClient.getFarm(farmId);
 
       // Phase 2: Loss-aware normalization & diagnostics
       const normResult = farmNormalizer.normalize(raw || canonical, {
-        farmId: user.farm_id,
-        source: 'community-api',
+        farmId,
+        source: isDevOverride ? 'dev-override' : 'community-api',
       });
 
       // Phase 1: Deterministic active production yield summary
       const prodSummary = summarizeActiveProduction({
         items: normResult.normalizedState.production.active,
         now: Date.now(),
-        farmId: user.farm_id,
+        farmId,
       });
 
-      // Save snapshot asynchronously (fire-and-forget) - preserve full raw data (collectibles, interior, etc.)
-      snapshotService.save(raw || canonical, userId).catch((err) =>
-        console.warn('Failed to save snapshot:', (err as Error).message)
+      // Save snapshot asynchronously only if not a dev override or if running under dev user
+      if (!isDevOverride || user?.username === 'dev') {
+        snapshotService.save(raw || canonical, userId).catch((err) =>
+          console.warn('Failed to save snapshot:', (err as Error).message)
+        );
+      }
+
+      // Deterministic dashboard view model across all 6 categories
+      const dashboard = dashboardService.build(
+        normResult.normalizedState,
+        canonical,
+        prodSummary.value,
+        normResult.rawHash
       );
 
       res.json({
         ...canonical,
         stale,
+        isDevOverride,
+        effectiveFarmId: farmId,
         normalized: normResult.normalizedState,
         rawHash: normResult.rawHash,
         diagnostics: normResult.diagnostics,
         activeProduction: prodSummary.value,
         provenance: prodSummary.provenance,
+        dashboard,
         target: {
           level: 100,
           xp: L100,
@@ -80,30 +103,31 @@ export class FarmController {
     }
   }
 
-  /** GET /api/farm/planner — optimised per-building cooking plan */
+  /** GET /api/farm/planner — optimised per-building cooking plan (supports x-dev-farm-id override) */
   async getPlanner(req: Request, res: Response): Promise<void> {
     try {
       const { userId } = req as AuthReq;
       const user = await this.userModel.findById(userId);
+      const { farmId } = this.resolveFarmId(req, user);
 
-      if (!user || !user.farm_id) {
+      if (!farmId) {
         res.status(400).json({ success: false, error: 'No farm ID associated with your account' });
         return;
       }
 
       const [{ canonical, raw }, { prices }] = await Promise.all([
-        sunflowerClient.getFarm(user.farm_id),
+        sunflowerClient.getFarm(farmId),
         sunflowerClient.getPrices(),
       ]);
 
       const normResult = farmNormalizer.normalize(raw || canonical, {
-        farmId: user.farm_id,
+        farmId,
         source: 'community-api',
       });
       const effectRes = resolveEffectContext(normResult.normalizedState, {
         now: Date.now(),
         season: normResult.normalizedState.temporal?.season,
-        farmId: user.farm_id,
+        farmId,
       });
 
       const planResult = plannerService.plan(canonical, prices, recipes, items, modifiers, effectRes.value);
@@ -147,19 +171,20 @@ export class FarmController {
     }
   }
 
-  /** GET /api/farm/recipes — all recipes with skill-adjusted stats and FLOWER cost */
+  /** GET /api/farm/recipes — all recipes with skill-adjusted stats and FLOWER cost (supports x-dev-farm-id override) */
   async getRecipes(req: Request, res: Response): Promise<void> {
     try {
       const { userId } = req as AuthReq;
       const user = await this.userModel.findById(userId);
+      const { farmId } = this.resolveFarmId(req, user);
 
-      if (!user || !user.farm_id) {
+      if (!farmId) {
         res.status(400).json({ success: false, error: 'No farm ID associated with your account' });
         return;
       }
 
       const [{ canonical, raw }, { prices }] = await Promise.all([
-        sunflowerClient.getFarm(user.farm_id),
+        sunflowerClient.getFarm(farmId),
         sunflowerClient.getPrices().catch(() => ({ prices: {} as Record<string, number>, updatedAt: null, stale: false })),
       ]);
 
@@ -170,7 +195,7 @@ export class FarmController {
 
       // Phase 2: Loss-aware normalization
       const normResult = farmNormalizer.normalize(raw || canonical, {
-        farmId: user.farm_id,
+        farmId,
         source: 'community-api',
       });
       const normState = normResult.normalizedState;
@@ -179,7 +204,7 @@ export class FarmController {
       const effectRes = resolveEffectContext(normState, {
         now: Date.now(),
         season: normState.temporal?.season,
-        farmId: user.farm_id,
+        farmId,
       });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -196,7 +221,7 @@ export class FarmController {
           isVip: normState.buffs.vip,
           buildingOil: bldOil,
           effectContext: effectRes.value,
-          farmId: user.farm_id ?? undefined,
+          farmId: farmId ?? undefined,
         });
         const eff = foodXpResult.value;
         const dep = recipeService.expand(r.name, recipes as unknown as Parameters<typeof recipeService.expand>[1], 0, eff.ingredientMultiplier ?? 1);

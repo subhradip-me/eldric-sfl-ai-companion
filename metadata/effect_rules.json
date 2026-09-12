@@ -1,0 +1,140 @@
+{
+  "activationPrinciple": "Inventory ownership alone does not activate effects; active state must be proven by equipped/placed/unlocked/timed state.",
+  "knownItemEffects": [
+    {
+      "item": "Blossombeard",
+      "domain": "food XP",
+      "operation": "MULTIPLIER",
+      "value": 1.1,
+      "description": "+10% XP"
+    },
+    {
+      "item": "Desert Gnome",
+      "domain": "cooking time",
+      "operation": "MULTIPLIER",
+      "value": 0.9,
+      "description": "-10% cooking time"
+    }
+  ],
+  "shrineEffects": [
+    {
+      "name": "Boar Shrine",
+      "effects": [
+        "-20% Cooking Time"
+      ]
+    },
+    {
+      "name": "Hound Shrine",
+      "effects": [
+        "+100 Pet XP per food request"
+      ]
+    },
+    {
+      "name": "Sparrow Shrine",
+      "effects": [
+        "-25% Crop Growth Time"
+      ]
+    },
+    {
+      "name": "Fox Shrine",
+      "effects": [
+        "-25% Crafting Box Time",
+        "10% chance to instantly craft a recipe"
+      ]
+    },
+    {
+      "name": "Toucan Shrine",
+      "effects": [
+        "-25% Fruit Growth Time"
+      ]
+    },
+    {
+      "name": "Collie Shrine",
+      "effects": [
+        "-25% Cow Sleep Time",
+        "-25% Sheep Sleep Time",
+        "-5% Feed to feed animals"
+      ]
+    },
+    {
+      "name": "Moth Shrine",
+      "effects": [
+        "-25% Flower Growth Time",
+        "+20% chance to get +1 Flower"
+      ]
+    },
+    {
+      "name": "Badger Shrine",
+      "effects": [
+        "-25% Tree Recovery Time",
+        "-25% Stone Recovery Time"
+      ]
+    },
+    {
+      "name": "Mole Shrine",
+      "effects": [
+        "-25% Iron Recovery Time",
+        "-25% Gold Recovery Time",
+        "-25% Crimstone Recovery Time"
+      ]
+    },
+    {
+      "name": "Tortoise Shrine",
+      "effects": [
+        "-33% Greenhouse Growth Time",
+        "-10% Crop Machine Growth Time"
+      ]
+    },
+    {
+      "name": "Stag Shrine",
+      "effects": [
+        "-25% Oil Recovery Time",
+        "+15 Oil every 3rd drill"
+      ]
+    },
+    {
+      "name": "Bear Shrine",
+      "effects": [
+        "+0.5 Honey Production Speed",
+        "+20% chance of bee swarm"
+      ]
+    },
+    {
+      "name": "Bantam Shrine",
+      "effects": [
+        "-25% Chicken Sleep Time",
+        "-5% Feed to feed chickens"
+      ]
+    },
+    {
+      "name": "Legendary Shrine",
+      "effects": [
+        "+1 Crop Yield",
+        "+1 Fruit Patch Yield",
+        "+1 Wood",
+        "+1 Stone",
+        "+1 Flower",
+        "-50% Cooking Time"
+      ]
+    },
+    {
+      "name": "Trading Shrine",
+      "effects": [
+        "-2.5% resource tax"
+      ]
+    },
+    {
+      "name": "Obsidian Shrine",
+      "effects": [
+        "Bulk harvest all ready crops and plant seeds"
+      ]
+    }
+  ],
+  "canonicalFormulaStatus": "Order for combining additions/multipliers was proposed in the architecture plan but must be verified against authoritative implementation before freezing as game math.",
+  "epistemicTiers": [
+    "AUTHORITATIVE",
+    "OBSERVED",
+    "DERIVED",
+    "INFERRED"
+  ]
+}

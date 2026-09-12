@@ -150,9 +150,14 @@ export class Orchestrator {
         const latest = await snapshotService.latest(userId, 1);
         if (latest && latest.length > 0) {
           const raw = latest[0];
+          // Check if snapshot belongs to the requested farmId
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const snapshotFarmId = String((raw as any)?.id || (raw as any)?.farm?.id || (raw as any)?.farmId || '');
+          const isMatchingFarm = !snapshotFarmId || !farmId || snapshotFarmId === String(farmId);
+
           // Ensure snapshot has rich structures / placed collectibles or fall through to fresh cache
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const hasRichData = Boolean(
+          const hasRichData = isMatchingFarm && Boolean(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (raw as any)?.collectibles ||
             // eslint-disable-next-line @typescript-eslint/no-explicit-any

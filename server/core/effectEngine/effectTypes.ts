@@ -28,7 +28,7 @@ export type EquippedSlot =
   | 'dress'
   | 'suit';
 
-export type EffectDomain = 'xp' | 'cooking' | 'crops' | 'resources' | 'animals' | 'fishing';
+export type EffectDomain = 'xp' | 'cooking' | 'crops' | 'resources' | 'animals' | 'fishing' | 'processing';
 export type EffectOperation = 'multiply' | 'add' | 'flag';
 
 export type EffectActivation =
@@ -162,6 +162,32 @@ export interface EffectContext {
     catchAdditions: {
       flat: number;
       bySeason: Record<string, number>;
+    };
+  };
+
+  processing: {
+    agingTimeMultipliers: {
+      global: number;
+      fishAging: number;
+    };
+    agingYieldMultipliers: {
+      output: number;
+      ingredientCost: number;
+    };
+    primeAgedChanceMultiplier: number;
+    fermentationYieldAdditions: number;
+    saltBonus: {
+      refinedSaltChance: number;
+      saltPerHarvest: number;
+      chargeReplenishTimeMultiplier: number;
+      rakeCostMultiplier: number;
+      restore1ChargeChance: number;
+      saltSurgeUnlocked: boolean;
+    };
+    compostTimeMultiplier: number;
+    compostYieldAdditions: {
+      worm: number;
+      fertiliser: number;
     };
   };
 

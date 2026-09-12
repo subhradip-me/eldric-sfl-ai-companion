@@ -1,0 +1,877 @@
+{
+  "buildingUnlocks": {
+    "Hen House": 6,
+    "Barn": 30
+  },
+  "capacityPerBuildingLevel": {
+    "1": 10,
+    "2": 15,
+    "3": 20
+  },
+  "chickenCoopNftBonus": "+5 animals for each building level",
+  "purchase": {
+    "Chicken": {
+      "coins": 50,
+      "requiredLevel": 6
+    },
+    "Cow": {
+      "coins": 100,
+      "requiredLevel": 14
+    },
+    "Sheep": {
+      "coins": 120,
+      "requiredLevel": 18
+    }
+  },
+  "productionRules": {
+    "Chicken": [
+      {
+        "animalType": "Chicken",
+        "fromLevel": 0,
+        "toLevel": 1,
+        "outputs": [
+          {
+            "item": 1,
+            "quantity": "Egg"
+          }
+        ],
+        "xp": 60
+      },
+      {
+        "animalType": "Chicken",
+        "fromLevel": 1,
+        "toLevel": 2,
+        "outputs": [
+          {
+            "item": 1,
+            "quantity": "Egg"
+          }
+        ],
+        "xp": 120
+      },
+      {
+        "animalType": "Chicken",
+        "fromLevel": 2,
+        "toLevel": 3,
+        "outputs": [
+          {
+            "item": 1,
+            "quantity": "Egg"
+          },
+          {
+            "item": 1,
+            "quantity": "Feather"
+          }
+        ],
+        "xp": 240
+      },
+      {
+        "animalType": "Chicken",
+        "fromLevel": 3,
+        "toLevel": 4,
+        "outputs": [
+          {
+            "item": 2,
+            "quantity": "Egg"
+          },
+          {
+            "item": 1,
+            "quantity": "Feather"
+          }
+        ],
+        "xp": 360
+      },
+      {
+        "animalType": "Chicken",
+        "fromLevel": 4,
+        "toLevel": 5,
+        "outputs": [
+          {
+            "item": 2,
+            "quantity": "Egg"
+          },
+          {
+            "item": 1,
+            "quantity": "Feather"
+          }
+        ],
+        "xp": 480
+      },
+      {
+        "animalType": "Chicken",
+        "fromLevel": 5,
+        "toLevel": 6,
+        "outputs": [
+          {
+            "item": 2,
+            "quantity": "Egg"
+          },
+          {
+            "item": 1,
+            "quantity": "Feather"
+          }
+        ],
+        "xp": 660
+      },
+      {
+        "animalType": "Chicken",
+        "fromLevel": 6,
+        "toLevel": 7,
+        "outputs": [
+          {
+            "item": 2,
+            "quantity": "Egg"
+          },
+          {
+            "item": 1,
+            "quantity": "Feather"
+          }
+        ],
+        "xp": 840
+      },
+      {
+        "animalType": "Chicken",
+        "fromLevel": 7,
+        "toLevel": 8,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Egg"
+          },
+          {
+            "item": 1,
+            "quantity": "Feather"
+          }
+        ],
+        "xp": 1020
+      },
+      {
+        "animalType": "Chicken",
+        "fromLevel": 8,
+        "toLevel": 9,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Egg"
+          },
+          {
+            "item": 2,
+            "quantity": "Feather"
+          }
+        ],
+        "xp": 1200
+      },
+      {
+        "animalType": "Chicken",
+        "fromLevel": 9,
+        "toLevel": 10,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Egg"
+          },
+          {
+            "item": 2,
+            "quantity": "Feather"
+          }
+        ],
+        "xp": 1440
+      },
+      {
+        "animalType": "Chicken",
+        "fromLevel": 10,
+        "toLevel": 11,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Egg"
+          },
+          {
+            "item": 2,
+            "quantity": "Feather"
+          }
+        ],
+        "xp": 1680
+      },
+      {
+        "animalType": "Chicken",
+        "fromLevel": 11,
+        "toLevel": 12,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Egg"
+          },
+          {
+            "item": 2,
+            "quantity": "Feather"
+          }
+        ],
+        "xp": 1920
+      },
+      {
+        "animalType": "Chicken",
+        "fromLevel": 12,
+        "toLevel": 13,
+        "outputs": [
+          {
+            "item": 4,
+            "quantity": "Egg"
+          },
+          {
+            "item": 2,
+            "quantity": "Feather"
+          }
+        ],
+        "xp": 2160
+      },
+      {
+        "animalType": "Chicken",
+        "fromLevel": 13,
+        "toLevel": 14,
+        "outputs": [
+          {
+            "item": 4,
+            "quantity": "Egg"
+          },
+          {
+            "item": 2,
+            "quantity": "Feather"
+          }
+        ],
+        "xp": 2400
+      },
+      {
+        "animalType": "Chicken",
+        "fromLevel": 14,
+        "toLevel": 15,
+        "outputs": [
+          {
+            "item": 5,
+            "quantity": "Egg"
+          },
+          {
+            "item": 3,
+            "quantity": "Feather"
+          }
+        ],
+        "xp": 2720
+      }
+    ],
+    "Cow": [
+      {
+        "animalType": "Cow",
+        "fromLevel": 0,
+        "toLevel": 1,
+        "outputs": [
+          {
+            "item": 1,
+            "quantity": "Milk"
+          },
+          {
+            "item": 1,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 180
+      },
+      {
+        "animalType": "Cow",
+        "fromLevel": 1,
+        "toLevel": 2,
+        "outputs": [
+          {
+            "item": 1,
+            "quantity": "Milk"
+          },
+          {
+            "item": 1,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 360
+      },
+      {
+        "animalType": "Cow",
+        "fromLevel": 2,
+        "toLevel": 3,
+        "outputs": [
+          {
+            "item": 1,
+            "quantity": "Milk"
+          },
+          {
+            "item": 1,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 720
+      },
+      {
+        "animalType": "Cow",
+        "fromLevel": 3,
+        "toLevel": 4,
+        "outputs": [
+          {
+            "item": 2,
+            "quantity": "Milk"
+          },
+          {
+            "item": 1,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 1080
+      },
+      {
+        "animalType": "Cow",
+        "fromLevel": 4,
+        "toLevel": 5,
+        "outputs": [
+          {
+            "item": 2,
+            "quantity": "Milk"
+          },
+          {
+            "item": 1,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 1440
+      },
+      {
+        "animalType": "Cow",
+        "fromLevel": 5,
+        "toLevel": 6,
+        "outputs": [
+          {
+            "item": 2,
+            "quantity": "Milk"
+          },
+          {
+            "item": 2,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 1980
+      },
+      {
+        "animalType": "Cow",
+        "fromLevel": 6,
+        "toLevel": 7,
+        "outputs": [
+          {
+            "item": 2,
+            "quantity": "Milk"
+          },
+          {
+            "item": 2,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 2520
+      },
+      {
+        "animalType": "Cow",
+        "fromLevel": 7,
+        "toLevel": 8,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Milk"
+          },
+          {
+            "item": 2,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 3060
+      },
+      {
+        "animalType": "Cow",
+        "fromLevel": 8,
+        "toLevel": 9,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Milk"
+          },
+          {
+            "item": 2,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 3600
+      },
+      {
+        "animalType": "Cow",
+        "fromLevel": 9,
+        "toLevel": 10,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Milk"
+          },
+          {
+            "item": 3,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 4320
+      },
+      {
+        "animalType": "Cow",
+        "fromLevel": 10,
+        "toLevel": 11,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Milk"
+          },
+          {
+            "item": 3,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 5040
+      },
+      {
+        "animalType": "Cow",
+        "fromLevel": 11,
+        "toLevel": 12,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Milk"
+          },
+          {
+            "item": 3,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 5760
+      },
+      {
+        "animalType": "Cow",
+        "fromLevel": 12,
+        "toLevel": 13,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Milk"
+          },
+          {
+            "item": 3,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 6480
+      },
+      {
+        "animalType": "Cow",
+        "fromLevel": 13,
+        "toLevel": 14,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Milk"
+          },
+          {
+            "item": 3,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 7200
+      },
+      {
+        "animalType": "Cow",
+        "fromLevel": 14,
+        "toLevel": 15,
+        "outputs": [
+          {
+            "item": 4,
+            "quantity": "Milk"
+          },
+          {
+            "item": 4,
+            "quantity": "Leather"
+          }
+        ],
+        "xp": 8160
+      }
+    ],
+    "Sheep": [
+      {
+        "animalType": "Sheep",
+        "fromLevel": 0,
+        "toLevel": 1,
+        "outputs": [
+          {
+            "item": 1,
+            "quantity": "Wool"
+          },
+          {
+            "item": 1,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 120
+      },
+      {
+        "animalType": "Sheep",
+        "fromLevel": 1,
+        "toLevel": 2,
+        "outputs": [
+          {
+            "item": 1,
+            "quantity": "Wool"
+          },
+          {
+            "item": 1,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 240
+      },
+      {
+        "animalType": "Sheep",
+        "fromLevel": 2,
+        "toLevel": 3,
+        "outputs": [
+          {
+            "item": 1,
+            "quantity": "Wool"
+          },
+          {
+            "item": 1,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 480
+      },
+      {
+        "animalType": "Sheep",
+        "fromLevel": 3,
+        "toLevel": 4,
+        "outputs": [
+          {
+            "item": 2,
+            "quantity": "Wool"
+          },
+          {
+            "item": 1,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 720
+      },
+      {
+        "animalType": "Sheep",
+        "fromLevel": 4,
+        "toLevel": 5,
+        "outputs": [
+          {
+            "item": 2,
+            "quantity": "Wool"
+          },
+          {
+            "item": 1,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 960
+      },
+      {
+        "animalType": "Sheep",
+        "fromLevel": 5,
+        "toLevel": 6,
+        "outputs": [
+          {
+            "item": 2,
+            "quantity": "Wool"
+          },
+          {
+            "item": 2,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 1320
+      },
+      {
+        "animalType": "Sheep",
+        "fromLevel": 6,
+        "toLevel": 7,
+        "outputs": [
+          {
+            "item": 2,
+            "quantity": "Wool"
+          },
+          {
+            "item": 2,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 1680
+      },
+      {
+        "animalType": "Sheep",
+        "fromLevel": 7,
+        "toLevel": 8,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Wool"
+          },
+          {
+            "item": 2,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 2040
+      },
+      {
+        "animalType": "Sheep",
+        "fromLevel": 8,
+        "toLevel": 9,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Wool"
+          },
+          {
+            "item": 2,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 2400
+      },
+      {
+        "animalType": "Sheep",
+        "fromLevel": 9,
+        "toLevel": 10,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Wool"
+          },
+          {
+            "item": 3,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 2880
+      },
+      {
+        "animalType": "Sheep",
+        "fromLevel": 10,
+        "toLevel": 11,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Wool"
+          },
+          {
+            "item": 3,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 3360
+      },
+      {
+        "animalType": "Sheep",
+        "fromLevel": 11,
+        "toLevel": 12,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Wool"
+          },
+          {
+            "item": 3,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 3840
+      },
+      {
+        "animalType": "Sheep",
+        "fromLevel": 12,
+        "toLevel": 13,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Wool"
+          },
+          {
+            "item": 3,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 4320
+      },
+      {
+        "animalType": "Sheep",
+        "fromLevel": 13,
+        "toLevel": 14,
+        "outputs": [
+          {
+            "item": 3,
+            "quantity": "Wool"
+          },
+          {
+            "item": 3,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 4800
+      },
+      {
+        "animalType": "Sheep",
+        "fromLevel": 14,
+        "toLevel": 15,
+        "outputs": [
+          {
+            "item": 4,
+            "quantity": "Wool"
+          },
+          {
+            "item": 4,
+            "quantity": "Merino Wool"
+          }
+        ],
+        "xp": 5440
+      }
+    ]
+  },
+  "health": {
+    "checkIntervalHours": 24,
+    "sickResourceMultiplier": 0.5,
+    "sickExchangeSaleMultiplier": 0.75,
+    "spreadChance": "increases with number of sick animals"
+  },
+  "loveTools": {
+    "Petting Hand": 25,
+    "Brush": 40,
+    "Music Box": 50
+  },
+  "loveRequestProbabilityByLevel": [
+    {
+      "level": 0,
+      "Petting Hand": 0,
+      "Brush": 0,
+      "Music Box": 0
+    },
+    {
+      "level": 1,
+      "Petting Hand": 100,
+      "Brush": 0,
+      "Music Box": 0
+    },
+    {
+      "level": 2,
+      "Petting Hand": 80,
+      "Brush": 20,
+      "Music Box": 0
+    },
+    {
+      "level": 3,
+      "Petting Hand": 70,
+      "Brush": 30,
+      "Music Box": 0
+    },
+    {
+      "level": 4,
+      "Petting Hand": 60,
+      "Brush": 30,
+      "Music Box": 10
+    },
+    {
+      "level": 5,
+      "Petting Hand": 50,
+      "Brush": 40,
+      "Music Box": 10
+    },
+    {
+      "level": 6,
+      "Petting Hand": 50,
+      "Brush": 30,
+      "Music Box": 20
+    },
+    {
+      "level": 7,
+      "Petting Hand": 40,
+      "Brush": 40,
+      "Music Box": 20
+    },
+    {
+      "level": 8,
+      "Petting Hand": 40,
+      "Brush": 30,
+      "Music Box": 30
+    },
+    {
+      "level": 9,
+      "Petting Hand": 30,
+      "Brush": 40,
+      "Music Box": 30
+    },
+    {
+      "level": 10,
+      "Petting Hand": 30,
+      "Brush": 30,
+      "Music Box": 40
+    },
+    {
+      "level": 11,
+      "Petting Hand": 20,
+      "Brush": 40,
+      "Music Box": 40
+    },
+    {
+      "level": 12,
+      "Petting Hand": 20,
+      "Brush": 30,
+      "Music Box": 50
+    },
+    {
+      "level": 13,
+      "Petting Hand": 10,
+      "Brush": 40,
+      "Music Box": 50
+    },
+    {
+      "level": 14,
+      "Petting Hand": 10,
+      "Brush": 30,
+      "Music Box": 60
+    },
+    {
+      "level": 15,
+      "Petting Hand": 10,
+      "Brush": 20,
+      "Music Box": 70
+    }
+  ],
+  "toyProgression": {
+    "Chicken": {
+      "1-4": "Doll",
+      "5": "Gilded Doll",
+      "6-9": "Wooly Doll",
+      "10": "Gilded Doll",
+      "11-14": "Wooly Doll",
+      "15": "too old to wake"
+    },
+    "Sheep": {
+      "1-4": "Lumber Doll",
+      "5": "Gilded Doll",
+      "6-10": "Lumber Doll",
+      "11-14": "Moo Doll",
+      "15": "too old to wake"
+    },
+    "Cow": {
+      "1-4": "Cluck Doll",
+      "5": "Gilded Doll",
+      "6-10": "Crude Doll"
+    }
+  }
+}

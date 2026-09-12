@@ -338,6 +338,31 @@ export function resolveEffectContext(
         bySeason: {},
       },
     },
+    processing: {
+      agingTimeMultipliers: {
+        global: 1.0,
+        fishAging: 1.0,
+      },
+      agingYieldMultipliers: {
+        output: 1.0,
+        ingredientCost: 1.0,
+      },
+      primeAgedChanceMultiplier: 1.0,
+      fermentationYieldAdditions: 0,
+      saltBonus: {
+        refinedSaltChance: 0,
+        saltPerHarvest: 0,
+        chargeReplenishTimeMultiplier: 1.0,
+        rakeCostMultiplier: 1.0,
+        restore1ChargeChance: 0,
+        saltSurgeUnlocked: false,
+      },
+      compostTimeMultiplier: 1.0,
+      compostYieldAdditions: {
+        worm: 0,
+        fertiliser: 0,
+      },
+    },
     activeEffects,
     computedAt,
     ruleVersion: CURRENT_RULE_VERSION,
@@ -458,6 +483,47 @@ export function resolveEffectContext(
         if (rule?.condition) {
           effectContext.fishing.catchAdditions.bySeason[rule.condition] =
             (effectContext.fishing.catchAdditions.bySeason[rule.condition] ?? 0) + val;
+        }
+      }
+    }
+
+    // Processing Domain (Aging Shed & Composting)
+    if (eff.domain === 'processing') {
+      if (eff.operation === 'multiply' && typeof val === 'number') {
+        if (eff.target === 'agingTime' || eff.target === 'fishAging') {
+          effectContext.processing.agingTimeMultipliers.fishAging *= val;
+        } else if (eff.target === 'globalAgingTime') {
+          effectContext.processing.agingTimeMultipliers.global *= val;
+        } else if (eff.target === 'primeAgedChance') {
+          effectContext.processing.primeAgedChanceMultiplier *= val;
+        } else if (eff.target === 'agingOutput') {
+          effectContext.processing.agingYieldMultipliers.output *= val;
+        } else if (eff.target === 'agingCost') {
+          effectContext.processing.agingYieldMultipliers.ingredientCost *= val;
+        } else if (eff.target === 'chargeReplenishTime') {
+          effectContext.processing.saltBonus.chargeReplenishTimeMultiplier *= val;
+        } else if (eff.target === 'rakeCost') {
+          effectContext.processing.saltBonus.rakeCostMultiplier *= val;
+        } else if (eff.target === 'compostTime') {
+          effectContext.processing.compostTimeMultiplier *= val;
+        }
+      } else if (eff.operation === 'add' && typeof val === 'number') {
+        if (eff.target === 'fermentationYield') {
+          effectContext.processing.fermentationYieldAdditions += val;
+        } else if (eff.target === 'refinedSaltChance') {
+          effectContext.processing.saltBonus.refinedSaltChance += val;
+        } else if (eff.target === 'saltPerHarvest') {
+          effectContext.processing.saltBonus.saltPerHarvest += val;
+        } else if (eff.target === 'restore1ChargeChance') {
+          effectContext.processing.saltBonus.restore1ChargeChance += val;
+        } else if (eff.target === 'compostWorm') {
+          effectContext.processing.compostYieldAdditions.worm += val;
+        } else if (eff.target === 'compostFertiliser') {
+          effectContext.processing.compostYieldAdditions.fertiliser += val;
+        }
+      } else if (eff.operation === 'flag') {
+        if (eff.target === 'saltSurgeUnlocked') {
+          effectContext.processing.saltBonus.saltSurgeUnlocked = Boolean(val);
         }
       }
     }

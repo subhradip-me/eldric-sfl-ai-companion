@@ -1032,4 +1032,232 @@ export const EFFECT_REGISTRY: Record<string, EffectDefinition> = {
       },
     ],
   },
+
+  // ── Processing & Aging Skills ──────────────────────────────────────────────
+  'Speedy Aging': {
+    id: 'Speedy Aging',
+    sourceType: 'passive_skill',
+    ruleVersion: CURRENT_RULE_VERSION,
+    sourceRef: 'skills.json',
+    effects: [
+      {
+        domain: 'processing',
+        operation: 'multiply',
+        target: 'agingTime',
+        value: 0.90,
+        description: '-10% fish aging time in Aging Shed',
+      },
+    ],
+  },
+  'Fish Smoking': {
+    id: 'Fish Smoking',
+    sourceType: 'passive_skill',
+    ruleVersion: CURRENT_RULE_VERSION,
+    sourceRef: 'skills.json',
+    effects: [
+      {
+        domain: 'processing',
+        operation: 'multiply',
+        target: 'primeAgedChance',
+        value: 2.00,
+        description: '2x chance for Prime Aged fish in Aging Shed',
+      },
+    ],
+  },
+  'Ager': {
+    id: 'Ager',
+    sourceType: 'passive_skill',
+    ruleVersion: CURRENT_RULE_VERSION,
+    sourceRef: 'skills.json',
+    effects: [
+      {
+        domain: 'processing',
+        operation: 'multiply',
+        target: 'agingOutput',
+        value: 2.00,
+        description: '2x fish aging output in Aging Shed',
+      },
+      {
+        domain: 'processing',
+        operation: 'multiply',
+        target: 'agingCost',
+        value: 2.00,
+        description: '2x fish aging ingredient cost in Aging Shed',
+      },
+    ],
+  },
+  'Bacalhau': {
+    id: 'Bacalhau',
+    sourceType: 'passive_skill',
+    ruleVersion: CURRENT_RULE_VERSION,
+    sourceRef: 'skills.json',
+    effects: [
+      {
+        domain: 'processing',
+        operation: 'add',
+        target: 'fermentationYield',
+        value: 1,
+        description: '+1 yield from Fermentation Rack in Aging Shed',
+      },
+    ],
+  },
+  'Refiner': {
+    id: 'Refiner',
+    sourceType: 'passive_skill',
+    ruleVersion: CURRENT_RULE_VERSION,
+    sourceRef: 'skills.json',
+    effects: [
+      {
+        domain: 'processing',
+        operation: 'add',
+        target: 'refinedSaltChance',
+        value: 0.15,
+        description: '15% chance for +1 Refined Salt output',
+      },
+    ],
+  },
+  'Wide Rakes': {
+    id: 'Wide Rakes',
+    sourceType: 'passive_skill',
+    ruleVersion: CURRENT_RULE_VERSION,
+    sourceRef: 'skills.json',
+    effects: [
+      {
+        domain: 'processing',
+        operation: 'add',
+        target: 'saltPerHarvest',
+        value: 2,
+        description: '+2 Salt per harvest from salt nodes',
+      },
+    ],
+  },
+  'Salty Seas': {
+    id: 'Salty Seas',
+    sourceType: 'passive_skill',
+    ruleVersion: CURRENT_RULE_VERSION,
+    sourceRef: 'skills.json',
+    effects: [
+      {
+        domain: 'processing',
+        operation: 'multiply',
+        target: 'chargeReplenishTime',
+        value: 0.90,
+        description: '-10% salt node replenish time',
+      },
+    ],
+  },
+  'Cheap Rakes': {
+    id: 'Cheap Rakes',
+    sourceType: 'passive_skill',
+    ruleVersion: CURRENT_RULE_VERSION,
+    sourceRef: 'skills.json',
+    effects: [
+      {
+        domain: 'processing',
+        operation: 'multiply',
+        target: 'rakeCost',
+        value: 0.80,
+        description: '-20% salt rake coin cost',
+      },
+    ],
+  },
+  'Sea Blessed': {
+    id: 'Sea Blessed',
+    sourceType: 'passive_skill',
+    ruleVersion: CURRENT_RULE_VERSION,
+    sourceRef: 'skills.json',
+    effects: [
+      {
+        domain: 'processing',
+        operation: 'add',
+        target: 'restore1ChargeChance',
+        value: 0.05,
+        description: '5% chance on salt harvest to restore 1 charge to 4 nodes',
+      },
+    ],
+  },
+  'Salt Surge': {
+    id: 'Salt Surge',
+    sourceType: 'passive_skill',
+    ruleVersion: CURRENT_RULE_VERSION,
+    sourceRef: 'skills.json',
+    effects: [
+      {
+        domain: 'processing',
+        operation: 'flag',
+        target: 'saltSurgeUnlocked',
+        value: true,
+        description: 'Ability to recharge all salt nodes to max',
+      },
+    ],
+  },
+  'Swift Decomposer': {
+    id: 'Swift Decomposer',
+    sourceType: 'passive_skill',
+    ruleVersion: CURRENT_RULE_VERSION,
+    sourceRef: 'skills.json',
+    effects: [
+      {
+        domain: 'processing',
+        operation: 'multiply',
+        target: 'compostTime',
+        value: 0.90,
+        description: '-10% composter cycle time',
+      },
+    ],
+  },
+  'Composting Overhaul': {
+    id: 'Composting Overhaul',
+    sourceType: 'passive_skill',
+    ruleVersion: CURRENT_RULE_VERSION,
+    sourceRef: 'skills.json',
+    effects: [
+      {
+        domain: 'processing',
+        operation: 'add',
+        target: 'compostWorm',
+        value: 2,
+        description: '+2 Worms from composters',
+      },
+    ],
+  },
+  'Composting Revamp': {
+    id: 'Composting Revamp',
+    sourceType: 'passive_skill',
+    ruleVersion: CURRENT_RULE_VERSION,
+    sourceRef: 'skills.json',
+    effects: [
+      {
+        domain: 'processing',
+        operation: 'add',
+        target: 'compostFertiliser',
+        value: 5,
+        description: '+5 Fertilisers from composters',
+      },
+    ],
+  },
+
+  // ── Processing Collectibles ────────────────────────────────────────────────
+  'Salt Sculpture': {
+    id: 'Salt Sculpture',
+    sourceType: 'collectible',
+    ruleVersion: CURRENT_RULE_VERSION,
+    sourceRef: 'gameMetadata.json',
+    effects: [
+      {
+        domain: 'processing',
+        operation: 'multiply',
+        target: 'agingTime',
+        value: 0.95,
+        description: '-5% Aging Shed time from Salt Sculpture',
+      },
+      {
+        domain: 'processing',
+        operation: 'add',
+        target: 'saltPerHarvest',
+        value: 1,
+        description: '+1 Salt per harvest from Salt Sculpture',
+      },
+    ],
+  },
 };

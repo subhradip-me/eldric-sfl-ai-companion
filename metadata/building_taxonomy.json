@@ -1,0 +1,112 @@
+{
+  "Workbench": {
+    "category": "CRAFTING",
+    "productionModel": "CRAFTING",
+    "evidence": "farm snapshot contains building; Workbench restock is shown in Stock & Limits"
+  },
+  "Market": {
+    "category": "TRADING",
+    "productionModel": "TRADING",
+    "evidence": "farm snapshot; Stock & Limits documents Market Restock"
+  },
+  "Fire Pit": {
+    "category": "COOKING",
+    "productionModel": "COOKING",
+    "evidence": "farm snapshot + cooking dataset"
+  },
+  "Mansion": {
+    "category": "UTILITY",
+    "productionModel": "NONE",
+    "evidence": "farm snapshot; no production evidence provided"
+  },
+  "Water Well": {
+    "category": "RESOURCE_GENERATION",
+    "productionModel": "RESOURCE_RECOVERY",
+    "evidence": "farm snapshot; exact recovery rules not supplied in this dataset"
+  },
+  "Kitchen": {
+    "category": "COOKING",
+    "productionModel": "COOKING",
+    "evidence": "farm snapshot + cooking dataset"
+  },
+  "Toolshed": {
+    "category": "STORAGE",
+    "productionModel": "STORAGE",
+    "evidence": "UI screenshot: “A place for tool storage” and +50% workbench tool stock"
+  },
+  "Bakery": {
+    "category": "COOKING",
+    "productionModel": "COOKING",
+    "evidence": "farm snapshot + cooking dataset"
+  },
+  "Smoothie Shack": {
+    "category": "COOKING",
+    "productionModel": "COOKING",
+    "evidence": "farm snapshot + cooking dataset"
+  },
+  "Barn": {
+    "category": "ANIMAL_PRODUCTION",
+    "productionModel": "ANIMAL_DRIVEN",
+    "evidence": "farm snapshot + animal rules screenshots"
+  },
+  "Crafting Box": {
+    "category": "CRAFTING",
+    "productionModel": "CRAFTING",
+    "evidence": "Crafting Box source screenshot/page"
+  },
+  "Deli": {
+    "category": "COOKING",
+    "productionModel": "COOKING",
+    "evidence": "farm snapshot + cooking dataset"
+  },
+  "Hen House": {
+    "category": "ANIMAL_PRODUCTION",
+    "productionModel": "ANIMAL_DRIVEN",
+    "evidence": "farm snapshot + animal rules screenshots"
+  },
+  "Premium Composter": {
+    "category": "PROCESSING",
+    "productionModel": "COMPOSTING",
+    "evidence": "farm snapshot has producing state"
+  },
+  "Greenhouse": {
+    "category": "GROWING",
+    "productionModel": "CROP_PLOT",
+    "evidence": "Greenhouse source screenshot: 4 plots/slots"
+  },
+  "Crop Machine": {
+    "category": "PROCESSING",
+    "productionModel": "CROP_PROCESSING",
+    "evidence": "farm snapshot has queue, grow time and oil allocation"
+  },
+  "Warehouse": {
+    "category": "STORAGE",
+    "productionModel": "STORAGE",
+    "evidence": "UI screenshot: “Keeps your seeds safe” and +20% market seed stock"
+  },
+  "Compost Bin": {
+    "category": "PROCESSING",
+    "productionModel": "COMPOSTING",
+    "evidence": "farm snapshot has producing state"
+  },
+  "Turbo Composter": {
+    "category": "PROCESSING",
+    "productionModel": "COMPOSTING",
+    "evidence": "farm snapshot has producing state"
+  },
+  "Fish Market": {
+    "category": "PROCESSING",
+    "productionModel": "SEASONAL_RECIPE",
+    "evidence": "farm snapshot has processing state; Fish Market source screenshot"
+  },
+  "Pet House": {
+    "category": "ANIMAL_UTILITY",
+    "productionModel": "PET_MANAGEMENT",
+    "evidence": "Pet mechanics screenshot/page: 3x3, pet storage/management, no boost"
+  },
+  "Aging Shed": {
+    "category": "PROCESSING",
+    "productionModel": "RACK_PROCESSING",
+    "evidence": "farm snapshot has Aging/Fermentation/Spice racks with six slots each"
+  }
+}

@@ -1,0 +1,1054 @@
+{
+  "_meta": {
+    "source": "sfl.world/info/cooking",
+    "game_version": "Sunflower Land World v0.9.8",
+    "notes": [
+      "baseXp and baseCookMinutes are the canonical game values (no boosts/skills).",
+      "Dynamic fields (sfl_ingredients_cost_p2p, xp_per_sfl, xp_per_day) are NOT stored here.",
+      "They are computed at runtime via xpEngine + live market prices + farm skills/boosters.",
+      "instantGems is the gem cost to skip the cook timer.",
+      "Intermediate recipes that are also ingredients (e.g. Cheese, Fancy Fries, Mashed Potato,",
+      "Boiled Eggs, Roast Veggies, Goblin's Treat) are kept as full entries so expand() can",
+      "recurse into them — the planner skips them as goals via an intermediates set.",
+      "verified:true means ingredient list + XP confirmed against the sfl.world data source."
+    ],
+    "intermediates": [
+      "Cheese",
+      "Fancy Fries",
+      "Mashed Potato",
+      "Boiled Eggs",
+      "Roast Veggies",
+      "Goblin's Treat"
+    ]
+  },
+  "Rapid Roast": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 300,
+    "baseCookMinutes": 0.167,
+    "instantGems": 1,
+    "ingredients": {
+      "Magic Mushroom": 1,
+      "Pumpkin": 40
+    }
+  },
+  "Pizza Margherita": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 25000,
+    "baseCookMinutes": 1200,
+    "instantGems": 40,
+    "ingredients": {
+      "Tomato": 30,
+      "Cheese": 5,
+      "Wheat": 20
+    }
+  },
+  "Popcorn": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 200,
+    "baseCookMinutes": 12,
+    "instantGems": 4,
+    "ingredients": {
+      "Sunflower": 100,
+      "Corn": 5
+    }
+  },
+  "Antipasto": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 3000,
+    "baseCookMinutes": 180,
+    "instantGems": 14,
+    "ingredients": {
+      "Olive": 2,
+      "Grape": 2
+    }
+  },
+  "Rice Bun": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 2600,
+    "baseCookMinutes": 300,
+    "instantGems": 20,
+    "ingredients": {
+      "Rice": 2,
+      "Wheat": 50
+    }
+  },
+  "Pumpkin Soup": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 24,
+    "baseCookMinutes": 3,
+    "instantGems": 2,
+    "ingredients": {
+      "Pumpkin": 10
+    }
+  },
+  "Reindeer Carrot": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 36,
+    "baseCookMinutes": 5,
+    "instantGems": 2,
+    "ingredients": {
+      "Carrot": 5
+    }
+  },
+  "Cabbers n Mash": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 250,
+    "baseCookMinutes": 40,
+    "instantGems": 5,
+    "ingredients": {
+      "Mashed Potato": 10,
+      "Cabbage": 20
+    }
+  },
+  "Mashed Potato": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 3,
+    "baseCookMinutes": 0.5,
+    "instantGems": 1,
+    "ingredients": {
+      "Potato": 8
+    }
+  },
+  "Kale Omelette": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1250,
+    "baseCookMinutes": 210,
+    "instantGems": 14,
+    "ingredients": {
+      "Egg": 40,
+      "Kale": 5
+    }
+  },
+  "Mushroom Soup": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 56,
+    "baseCookMinutes": 10,
+    "instantGems": 3,
+    "ingredients": {
+      "Wild Mushroom": 5
+    }
+  },
+  "Rhubarb Tart": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 5,
+    "baseCookMinutes": 1,
+    "instantGems": 1,
+    "ingredients": {
+      "Rhubarb": 3
+    }
+  },
+  "Bumpkin Broth": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 96,
+    "baseCookMinutes": 20,
+    "instantGems": 4,
+    "ingredients": {
+      "Carrot": 10,
+      "Cabbage": 5
+    }
+  },
+  "Fried Tofu": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 400,
+    "baseCookMinutes": 90,
+    "instantGems": 8,
+    "ingredients": {
+      "Soybean": 15,
+      "Sunflower": 200
+    }
+  },
+  "Kale Stew": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 400,
+    "baseCookMinutes": 120,
+    "instantGems": 8,
+    "ingredients": {
+      "Kale": 10
+    }
+  },
+  "Gumbo": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 600,
+    "baseCookMinutes": 240,
+    "instantGems": 14,
+    "ingredients": {
+      "Potato": 50,
+      "Pumpkin": 30,
+      "Carrot": 20,
+      "Red Snapper": 3
+    }
+  },
+  "Boiled Eggs": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 90,
+    "baseCookMinutes": 60,
+    "instantGems": 5,
+    "ingredients": {
+      "Egg": 10
+    }
+  },
+  "Furikake Sprinkle": {
+    "building": "Fire Pit",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1000,
+    "baseCookMinutes": 0,
+    "instantGems": 1,
+    "ingredients": {
+      "Fish Flake": 1,
+      "Seaweed": 1
+    }
+  },
+  "Beetroot Blaze": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 2000,
+    "baseCookMinutes": 0.5,
+    "instantGems": 1,
+    "ingredients": {
+      "Magic Mushroom": 2,
+      "Beetroot": 50
+    }
+  },
+  "Sushi Roll": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 2000,
+    "baseCookMinutes": 60,
+    "instantGems": 5,
+    "ingredients": {
+      "Angelfish": 1,
+      "Seaweed": 1,
+      "Rice": 2
+    }
+  },
+  "Caprese Salad": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 6000,
+    "baseCookMinutes": 180,
+    "instantGems": 14,
+    "ingredients": {
+      "Cheese": 1,
+      "Tomato": 25,
+      "Kale": 20
+    }
+  },
+  "Mushroom Jacket Potatoes": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 240,
+    "baseCookMinutes": 10,
+    "instantGems": 3,
+    "ingredients": {
+      "Wild Mushroom": 10,
+      "Potato": 5
+    }
+  },
+  "Pancakes": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1000,
+    "baseCookMinutes": 60,
+    "instantGems": 5,
+    "ingredients": {
+      "Wheat": 10,
+      "Egg": 10,
+      "Honey": 6
+    }
+  },
+  "Ocean's Olive": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 2000,
+    "baseCookMinutes": 120,
+    "instantGems": 8,
+    "ingredients": {
+      "Olive Flounder": 1,
+      "Olive": 2
+    }
+  },
+  "Spaghetti al Limone": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 15000,
+    "baseCookMinutes": 900,
+    "instantGems": 40,
+    "ingredients": {
+      "Wheat": 10,
+      "Lemon": 15,
+      "Cheese": 3
+    }
+  },
+  "Steamed Red Rice": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 3000,
+    "baseCookMinutes": 240,
+    "instantGems": 14,
+    "ingredients": {
+      "Rice": 3,
+      "Beetroot": 50
+    }
+  },
+  "Fish Burger": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1300,
+    "baseCookMinutes": 120,
+    "instantGems": 8,
+    "ingredients": {
+      "Beetroot": 10,
+      "Wheat": 10,
+      "Horse Mackerel": 1
+    }
+  },
+  "Fish n Chips": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 2000,
+    "baseCookMinutes": 240,
+    "instantGems": 14,
+    "ingredients": {
+      "Fancy Fries": 1,
+      "Halibut": 1
+    }
+  },
+  "Fruit Salad": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 225,
+    "baseCookMinutes": 30,
+    "instantGems": 4,
+    "ingredients": {
+      "Apple": 1,
+      "Orange": 1,
+      "Blueberry": 1
+    }
+  },
+  "Seafood Basket": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 2200,
+    "baseCookMinutes": 300,
+    "instantGems": 20,
+    "ingredients": {
+      "Blowfish": 2,
+      "Napoleanfish": 2,
+      "Sunfish": 2
+    }
+  },
+  "Tofu Scramble": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1000,
+    "baseCookMinutes": 180,
+    "instantGems": 14,
+    "ingredients": {
+      "Soybean": 20,
+      "Egg": 20,
+      "Cauliflower": 10
+    }
+  },
+  "Sunflower Crunch": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 50,
+    "baseCookMinutes": 10,
+    "instantGems": 3,
+    "ingredients": {
+      "Sunflower": 300
+    }
+  },
+  "Fried Calamari": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1500,
+    "baseCookMinutes": 300,
+    "instantGems": 20,
+    "ingredients": {
+      "Sunflower": 200,
+      "Wheat": 15,
+      "Squid": 1
+    }
+  },
+  "Fish Omelette": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1500,
+    "baseCookMinutes": 300,
+    "instantGems": 20,
+    "ingredients": {
+      "Egg": 40,
+      "Surgeonfish": 1,
+      "Butterflyfish": 2
+    }
+  },
+  "Bumpkin Roast": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 2500,
+    "baseCookMinutes": 720,
+    "instantGems": 25,
+    "ingredients": {
+      "Mashed Potato": 20,
+      "Roast Veggies": 5
+    }
+  },
+  "Goblin Brunch": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 2500,
+    "baseCookMinutes": 720,
+    "instantGems": 25,
+    "ingredients": {
+      "Boiled Eggs": 5,
+      "Goblin's Treat": 1
+    }
+  },
+  "Bumpkin ganoush": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1000,
+    "baseCookMinutes": 300,
+    "instantGems": 20,
+    "ingredients": {
+      "Eggplant": 30,
+      "Potato": 50,
+      "Parsnip": 10
+    }
+  },
+  "Chowder": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1000,
+    "baseCookMinutes": 480,
+    "instantGems": 25,
+    "ingredients": {
+      "Beetroot": 10,
+      "Wheat": 10,
+      "Parsnip": 5,
+      "Anchovy": 3
+    }
+  },
+  "Roast Veggies": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 170,
+    "baseCookMinutes": 120,
+    "instantGems": 8,
+    "ingredients": {
+      "Cauliflower": 15,
+      "Carrot": 10
+    }
+  },
+  "Cauliflower Burger": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 255,
+    "baseCookMinutes": 180,
+    "instantGems": 14,
+    "ingredients": {
+      "Cauliflower": 15,
+      "Wheat": 5
+    }
+  },
+  "Goblin's Treat": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 500,
+    "baseCookMinutes": 360,
+    "instantGems": 20,
+    "ingredients": {
+      "Pumpkin": 10,
+      "Radish": 20,
+      "Cabbage": 10
+    }
+  },
+  "Bumpkin Salad": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 290,
+    "baseCookMinutes": 210,
+    "instantGems": 14,
+    "ingredients": {
+      "Beetroot": 20,
+      "Parsnip": 10
+    }
+  },
+  "Club Sandwich": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 170,
+    "baseCookMinutes": 180,
+    "instantGems": 14,
+    "ingredients": {
+      "Sunflower": 100,
+      "Carrot": 25,
+      "Wheat": 5
+    }
+  },
+  "Surimi Rice Bowl": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 3000,
+    "baseCookMinutes": 0,
+    "instantGems": 1,
+    "ingredients": {
+      "Fish Stick": 1,
+      "Rice": 1,
+      "Onion": 1
+    }
+  },
+  "Creamy Crab Bite": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 10000,
+    "baseCookMinutes": 0,
+    "instantGems": 1,
+    "ingredients": {
+      "Crab Stick": 1,
+      "Cheese": 3
+    }
+  },
+  "Crimstone Infused Fish Oil": {
+    "building": "Kitchen",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 18000,
+    "baseCookMinutes": 0,
+    "instantGems": 1,
+    "ingredients": {
+      "Fish Oil": 1,
+      "Crimstone": 1
+    }
+  },
+  "Shroom Syrup": {
+    "building": "Deli",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 10000,
+    "baseCookMinutes": 0.167,
+    "instantGems": 1,
+    "ingredients": {
+      "Magic Mushroom": 3,
+      "Honey": 20
+    }
+  },
+  "Blue Cheese": {
+    "building": "Deli",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 6000,
+    "baseCookMinutes": 180,
+    "instantGems": 14,
+    "ingredients": {
+      "Cheese": 2,
+      "Blueberry": 10
+    }
+  },
+  "Honey Cheddar": {
+    "building": "Deli",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 15000,
+    "baseCookMinutes": 720,
+    "instantGems": 25,
+    "ingredients": {
+      "Cheese": 3,
+      "Honey": 5
+    }
+  },
+  "Fermented Fish": {
+    "building": "Deli",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 3000,
+    "baseCookMinutes": 1440,
+    "instantGems": 40,
+    "ingredients": {
+      "Tuna": 6
+    }
+  },
+  "Blueberry Jam": {
+    "building": "Deli",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 500,
+    "baseCookMinutes": 720,
+    "instantGems": 25,
+    "ingredients": {
+      "Blueberry": 5
+    }
+  },
+  "Fancy Fries": {
+    "building": "Deli",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1000,
+    "baseCookMinutes": 1440,
+    "instantGems": 40,
+    "ingredients": {
+      "Sunflower": 500,
+      "Potato": 500
+    }
+  },
+  "Sauerkraut": {
+    "building": "Deli",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 500,
+    "baseCookMinutes": 1440,
+    "instantGems": 40,
+    "ingredients": {
+      "Cabbage": 20
+    }
+  },
+  "Fermented Carrots": {
+    "building": "Deli",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 250,
+    "baseCookMinutes": 1440,
+    "instantGems": 40,
+    "ingredients": {
+      "Carrot": 20
+    }
+  },
+  "Cheese": {
+    "building": "Deli",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1,
+    "baseCookMinutes": 20,
+    "instantGems": 4,
+    "ingredients": {
+      "Milk": 3
+    }
+  },
+  "Grape Juice": {
+    "building": "Smoothie Shack",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 3300,
+    "baseCookMinutes": 180,
+    "instantGems": 14,
+    "ingredients": {
+      "Grape": 5,
+      "Radish": 20
+    }
+  },
+  "Sour Shake": {
+    "building": "Smoothie Shack",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1000,
+    "baseCookMinutes": 60,
+    "instantGems": 5,
+    "ingredients": {
+      "Lemon": 20
+    }
+  },
+  "Purple Smoothie": {
+    "building": "Smoothie Shack",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 310,
+    "baseCookMinutes": 30,
+    "instantGems": 4,
+    "ingredients": {
+      "Blueberry": 5,
+      "Cabbage": 10
+    }
+  },
+  "Power Smoothie": {
+    "building": "Smoothie Shack",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 775,
+    "baseCookMinutes": 90,
+    "instantGems": 8,
+    "ingredients": {
+      "Blueberry": 10,
+      "Kale": 5
+    }
+  },
+  "Orange Juice": {
+    "building": "Smoothie Shack",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 375,
+    "baseCookMinutes": 45,
+    "instantGems": 5,
+    "ingredients": {
+      "Orange": 5
+    }
+  },
+  "Apple Juice": {
+    "building": "Smoothie Shack",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 500,
+    "baseCookMinutes": 60,
+    "instantGems": 5,
+    "ingredients": {
+      "Apple": 5
+    }
+  },
+  "Bumpkin Detox": {
+    "building": "Smoothie Shack",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 975,
+    "baseCookMinutes": 120,
+    "instantGems": 8,
+    "ingredients": {
+      "Apple": 5,
+      "Orange": 5,
+      "Carrot": 10
+    }
+  },
+  "The Lot": {
+    "building": "Smoothie Shack",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1500,
+    "baseCookMinutes": 210,
+    "instantGems": 14,
+    "ingredients": {
+      "Blueberry": 1,
+      "Orange": 1,
+      "Grape": 1,
+      "Apple": 1,
+      "Banana": 1
+    }
+  },
+  "Banana Blast": {
+    "building": "Smoothie Shack",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 775,
+    "baseCookMinutes": 180,
+    "instantGems": 14,
+    "ingredients": {
+      "Banana": 10,
+      "Egg": 10
+    }
+  },
+  "Slow Juice": {
+    "building": "Smoothie Shack",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 7500,
+    "baseCookMinutes": 1440,
+    "instantGems": 40,
+    "ingredients": {
+      "Grape": 10,
+      "Kale": 100
+    }
+  },
+  "Carrot Juice": {
+    "building": "Smoothie Shack",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 200,
+    "baseCookMinutes": 60,
+    "instantGems": 5,
+    "ingredients": {
+      "Carrot": 30
+    }
+  },
+  "Quick Juice": {
+    "building": "Smoothie Shack",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 100,
+    "baseCookMinutes": 30,
+    "instantGems": 4,
+    "ingredients": {
+      "Sunflower": 50,
+      "Pumpkin": 40
+    }
+  },
+  "Lemon Cheesecake": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 30000,
+    "baseCookMinutes": 1800,
+    "instantGems": 60,
+    "ingredients": {
+      "Lemon": 20,
+      "Cheese": 5,
+      "Egg": 40
+    }
+  },
+  "Honey Cake": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 4000,
+    "baseCookMinutes": 480,
+    "instantGems": 25,
+    "ingredients": {
+      "Honey": 10,
+      "Wheat": 10,
+      "Egg": 20
+    }
+  },
+  "Orange Cake": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 730,
+    "baseCookMinutes": 240,
+    "instantGems": 14,
+    "ingredients": {
+      "Orange": 5,
+      "Egg": 30,
+      "Wheat": 10
+    }
+  },
+  "Apple Pie": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 720,
+    "baseCookMinutes": 240,
+    "instantGems": 14,
+    "ingredients": {
+      "Apple": 5,
+      "Wheat": 10,
+      "Egg": 20
+    }
+  },
+  "Kale & Mushroom Pie": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 720,
+    "baseCookMinutes": 240,
+    "instantGems": 14,
+    "ingredients": {
+      "Wild Mushroom": 10,
+      "Kale": 5,
+      "Wheat": 5
+    }
+  },
+  "Sunflower Cake": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 525,
+    "baseCookMinutes": 390,
+    "instantGems": 25,
+    "ingredients": {
+      "Sunflower": 1000,
+      "Wheat": 10,
+      "Egg": 30
+    }
+  },
+  "Potato Cake": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 650,
+    "baseCookMinutes": 630,
+    "instantGems": 25,
+    "ingredients": {
+      "Potato": 500,
+      "Wheat": 10,
+      "Egg": 30
+    }
+  },
+  "Pumpkin Cake": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 625,
+    "baseCookMinutes": 630,
+    "instantGems": 25,
+    "ingredients": {
+      "Pumpkin": 130,
+      "Wheat": 10,
+      "Egg": 30
+    }
+  },
+  "Eggplant Cake": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1400,
+    "baseCookMinutes": 1440,
+    "instantGems": 40,
+    "ingredients": {
+      "Eggplant": 30,
+      "Wheat": 10,
+      "Egg": 30
+    }
+  },
+  "Carrot Cake": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 750,
+    "baseCookMinutes": 780,
+    "instantGems": 40,
+    "ingredients": {
+      "Carrot": 120,
+      "Wheat": 10,
+      "Egg": 30
+    }
+  },
+  "Cabbage Cake": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 860,
+    "baseCookMinutes": 900,
+    "instantGems": 40,
+    "ingredients": {
+      "Cabbage": 90,
+      "Wheat": 10,
+      "Egg": 30
+    }
+  },
+  "Beetroot Cake": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1250,
+    "baseCookMinutes": 1320,
+    "instantGems": 40,
+    "ingredients": {
+      "Beetroot": 100,
+      "Wheat": 10,
+      "Egg": 30
+    }
+  },
+  "Parsnip Cake": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1300,
+    "baseCookMinutes": 1440,
+    "instantGems": 40,
+    "ingredients": {
+      "Parsnip": 45,
+      "Wheat": 10,
+      "Egg": 30
+    }
+  },
+  "Cauliflower Cake": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1190,
+    "baseCookMinutes": 1320,
+    "instantGems": 40,
+    "ingredients": {
+      "Cauliflower": 60,
+      "Wheat": 10,
+      "Egg": 30
+    }
+  },
+  "Cornbread": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 600,
+    "baseCookMinutes": 720,
+    "instantGems": 25,
+    "ingredients": {
+      "Corn": 15,
+      "Wheat": 5,
+      "Egg": 10
+    }
+  },
+  "Radish Cake": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1200,
+    "baseCookMinutes": 1440,
+    "instantGems": 40,
+    "ingredients": {
+      "Radish": 25,
+      "Wheat": 10,
+      "Egg": 30
+    }
+  },
+  "Wheat Cake": {
+    "building": "Bakery",
+    "verified": true,
+    "baseOutput": 1,
+    "baseXp": 1100,
+    "baseCookMinutes": 1440,
+    "instantGems": 40,
+    "ingredients": {
+      "Wheat": 35,
+      "Egg": 30
+    }
+  }
+}

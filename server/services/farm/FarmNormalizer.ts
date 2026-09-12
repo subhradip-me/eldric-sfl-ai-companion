@@ -131,7 +131,7 @@ export class FarmNormalizer {
     };
 
     // 5. Extract Economy State
-    const rawBalance = f['balance'] ?? '0';
+    const rawBalance = f['balance'] ?? f['flower'] ?? '0';
     const flowerStr = String(rawBalance);
     const flowerApprox = Number(rawBalance) || 0;
     const coins = this.toNum(f['coins']);
@@ -463,6 +463,19 @@ export class FarmNormalizer {
           startedAt: this.toNum(plot['startedAt']),
           readyAt: this.toNum(plot['readyAt']) || this.toNum(plot['startedAt']) + 300000,
           expectedOutput: this.toNum(plot['expectedYield']) || this.toNum(plot['count']) || 1,
+        };
+        active.push(item);
+        crops.push(item);
+      } else if (typeof plot['name'] === 'string') {
+        const item: ActiveProductionItem = {
+          id: `crop_${id}`,
+          category: 'CROP',
+          item: plot['name'],
+          quantity: 1,
+          status: 'OBSERVED',
+          startedAt: this.toNum(plot['plantedAt']),
+          readyAt: this.toNum(plot['readyAt']) || this.toNum(plot['plantedAt']) + 300000,
+          expectedOutput: this.toNum(plot['amount']) || 1,
         };
         active.push(item);
         crops.push(item);

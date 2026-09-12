@@ -26,6 +26,10 @@ import {
   calculateEffectiveFoodXp,
   calculateEffectiveResourceYield,
   calculateEffectiveCropYield,
+  calculateEffectiveAgingTime,
+  calculateEffectiveAgingYield,
+  calculateEffectiveAgingCost,
+  calculateEffectivePrimeAgedChance,
   EFFECT_REGISTRY,
 } from '../core/effectEngine/index.js';
 import { FarmNormalizer } from '../services/farm/FarmNormalizer.js';
@@ -469,6 +473,179 @@ describe('Phase 7: Pure Deterministic Effect Resolution Engine', () => {
       assert.deepEqual(res1.provenance, res2.provenance);
       assert.equal(res1.provenance.farmId, 'farm-det-1');
       assert.equal(res1.provenance.computedAt, fixedTime);
+    });
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 9. Aging Shed & Processing Effects Resolution
+  // ─────────────────────────────────────────────────────────────────────────
+  describe('Aging Shed & Processing Effects Resolution', () => {
+    it('resolves default neutral processing context when no aging skills or buffs are active', () => {
+      const farm = normalizer.normalize(
+        {
+          id: 'farm-aging-baseline',
+          bumpkin: { id: 1, level: 1, experience: 0, skills: {} },
+        },
+        { farmId: 'farm-aging-baseline' }
+      ).normalizedState;
+
+      const effectRes = resolveEffectContext(farm);
+      const proc = effectRes.value.processing;
+
+      assert.equal(proc.agingTimeMultipliers.fishAging, 1.0);
+      assert.equal(proc.agingTimeMultipliers.global, 1.0);
+      assert.equal(proc.agingYieldMultipliers.output, 1.0);
+      assert.equal(proc.agingYieldMultipliers.ingredientCost, 1.0);
+      assert.equal(proc.primeAgedChanceMultiplier, 1.0);
+      assert.equal(proc.fermentationYieldAdditions, 0);
+      assert.equal(proc.saltBonus.refinedSaltChance, 0);
+      assert.equal(proc.saltBonus.saltPerHarvest, 0);
+      assert.equal(proc.saltBonus.chargeReplenishTimeMultiplier, 1.0);
+      assert.equal(proc.saltBonus.rakeCostMultiplier, 1.0);
+      assert.equal(proc.saltBonus.restore1ChargeChance, 0);
+      assert.equal(proc.saltBonus.saltSurgeUnlocked, false);
+      assert.equal(proc.compostTimeMultiplier, 1.0);
+      assert.equal(proc.compostYieldAdditions.worm, 0);
+      assert.equal(proc.compostYieldAdditions.fertiliser, 0);
+    });
+
+    it('resolves Speedy Aging, Fish Smoking, and Bacalhau passive skills', () => {
+      const farm = normalizer.normalize(
+        {
+          id: 'farm-aging-skills',
+          bumpkin: {
+            id: 2,
+            level: 30,
+            experience: 50000,
+            skills: {
+              'Speedy Aging': 1,
+              'Fish Smoking': 1,
+              'Bacalhau': 1,
+            },
+          },
+        },
+        { farmId: 'farm-aging-skills' }
+      ).normalizedState;
+
+      const effectRes = resolveEffectContext(farm);
+      const proc = effectRes.value.processing;
+
+      assert.equal(proc.agingTimeMultipliers.fishAging, 0.9, 'Speedy Aging should reduce fish aging time to 0.9x');
+      assert.equal(proc.primeAgedChanceMultiplier, 2.0, 'Fish Smoking should double prime aged chance to 2.0x');
+      assert.equal(proc.fermentationYieldAdditions, 1, 'Bacalhau should add +1 to fermentation yield');
+
+      // Verify calculation operations
+      const baseMinutes = 80;
+      const effectiveMinutes = calculateEffectiveAgingTime(baseMinutes, [proc.agingTimeMultipliers.fishAging]);
+      assert.equal(effectiveMinutes, 72, '80 minutes * 0.9 = 72 minutes');
+
+      const effectivePrimeChance = calculateEffectivePrimeAgedChance(0.15, proc.primeAgedChanceMultiplier);
+      assert.equal(effectivePrimeChance, 0.30, '15% chance * 2.0 = 30% chance');
+
+      const effectiveFermYield = calculateEffectiveAgingYield(1, 1.0, proc.fermentationYieldAdditions);
+      assert.equal(effectiveFermYield, 2, '1 base yield + 1 Bacalhau bonus = 2 output');
+    });
+
+    it('resolves Ager skill with 2x output multiplier and 2x ingredient cost multiplier', () => {
+      const farm = normalizer.normalize(
+        {
+          id: 'farm-ager',
+          bumpkin: {
+            id: 3,
+            level: 40,
+            experience: 100000,
+            skills: {
+              'Ager': 1,
+            },
+          },
+        },
+        { farmId: 'farm-ager' }
+      ).normalizedState;
+
+      const effectRes = resolveEffectContext(farm);
+      const proc = effectRes.value.processing;
+
+      assert.equal(proc.agingYieldMultipliers.output, 2.0, 'Ager should double aging output');
+      assert.equal(proc.agingYieldMultipliers.ingredientCost, 2.0, 'Ager should double aging ingredient cost');
+
+      const baseFishOutput = 1;
+      const baseSaltRequired = 12;
+      const boostedOutput = calculateEffectiveAgingYield(baseFishOutput, proc.agingYieldMultipliers.output);
+      const boostedCost = calculateEffectiveAgingCost(baseSaltRequired, proc.agingYieldMultipliers.ingredientCost);
+
+      assert.equal(boostedOutput, 2, '1 fish * 2 = 2 fish');
+      assert.equal(boostedCost, 24, '12 salt * 2 = 24 salt');
+    });
+
+    it('resolves Salt bonuses (Refiner, Wide Rakes, Salty Seas, Cheap Rakes, Sea Blessed, Salt Surge)', () => {
+      const farm = normalizer.normalize(
+        {
+          id: 'farm-salt-master',
+          bumpkin: {
+            id: 4,
+            level: 50,
+            experience: 200000,
+            skills: {
+              'Refiner': 1,
+              'Wide Rakes': 1,
+              'Salty Seas': 1,
+              'Cheap Rakes': 1,
+              'Sea Blessed': 1,
+              'Salt Surge': 1,
+            },
+          },
+        },
+        { farmId: 'farm-salt-master' }
+      ).normalizedState;
+
+      const effectRes = resolveEffectContext(farm);
+      const salt = effectRes.value.processing.saltBonus;
+
+      assert.equal(salt.refinedSaltChance, 0.15, 'Refiner gives 15% refined salt chance');
+      assert.equal(salt.saltPerHarvest, 2, 'Wide Rakes gives +2 salt per harvest');
+      assert.equal(salt.chargeReplenishTimeMultiplier, 0.90, 'Salty Seas gives -10% replenish time');
+      assert.equal(salt.rakeCostMultiplier, 0.80, 'Cheap Rakes gives -20% coin cost');
+      assert.equal(salt.restore1ChargeChance, 0.05, 'Sea Blessed gives 5% chance');
+      assert.equal(salt.saltSurgeUnlocked, true, 'Salt Surge unlocks max node recharge');
+    });
+
+    it('placed Salt Sculpture activates aging time reduction and salt per harvest bonus', () => {
+      const farm = normalizer.normalize(
+        {
+          id: 'farm-salt-sculpture',
+          bumpkin: { id: 5, level: 10, experience: 5000, skills: {} },
+          collectibles: {
+            'Salt Sculpture': [
+              { id: 'salt-sculpt-1', coordinates: { x: 2, y: 1 } },
+            ],
+          },
+        },
+        { farmId: 'farm-salt-sculpture' }
+      ).normalizedState;
+
+      const effectRes = resolveEffectContext(farm);
+      const proc = effectRes.value.processing;
+
+      assert.equal(proc.agingTimeMultipliers.fishAging, 0.95, 'Placed Salt Sculpture provides 0.95x aging time');
+      assert.equal(proc.saltBonus.saltPerHarvest, 1, 'Placed Salt Sculpture provides +1 salt per harvest');
+    });
+
+    it('unplaced Salt Sculpture in inventory produces ZERO processing effect', () => {
+      const farm = normalizer.normalize(
+        {
+          id: 'farm-salt-sculpture-inventory',
+          bumpkin: { id: 6, level: 10, experience: 5000, skills: {} },
+          inventory: { 'Salt Sculpture': 1 },
+          collectibles: {},
+        },
+        { farmId: 'farm-salt-sculpture-inventory' }
+      ).normalizedState;
+
+      const effectRes = resolveEffectContext(farm);
+      const proc = effectRes.value.processing;
+
+      assert.equal(proc.agingTimeMultipliers.fishAging, 1.0, 'Unplaced Salt Sculpture produces no aging boost');
+      assert.equal(proc.saltBonus.saltPerHarvest, 0, 'Unplaced Salt Sculpture produces no salt harvest boost');
     });
   });
 });

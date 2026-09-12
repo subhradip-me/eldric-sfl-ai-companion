@@ -1,4 +1,5 @@
 import pg from "pg";
+import bcrypt from "bcryptjs";
 
 export const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -104,4 +105,21 @@ export async function init() {
     CREATE INDEX IF NOT EXISTS idx_snapshots_user_created  ON snapshots(user_id, created_at DESC);
     CREATE INDEX IF NOT EXISTS idx_chat_user_session       ON chat_messages(user_id, session_id, created_at);
   `);
+
+  // ── 7. Seed default developer account if not present ─────────────────────────
+  try {
+    const devUser = await pool.query('SELECT id FROM users WHERE username = $1', ['dev']);
+    if (devUser.rows.length === 0) {
+      const devHash = await bcrypt.hash('developer123', 10);
+      await pool.query(
+        `INSERT INTO users (username, email, password_hash, farm_id)
+         VALUES ($1, $2, $3, $4)
+         ON CONFLICT (username) DO NOTHING`,
+        ['dev', 'dev@sunflower-ai.internal', devHash, '346853928974080']
+      );
+      console.log('🛠️  Developer account seeded: username: dev / password: developer123 / farm: 346853928974080');
+    }
+  } catch (seedErr) {
+    console.warn('⚠️  Could not seed dev account (will proceed):', seedErr.message);
+  }
 }

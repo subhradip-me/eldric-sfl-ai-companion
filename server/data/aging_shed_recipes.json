@@ -1,0 +1,750 @@
+{
+  "facility": "Aging Shed",
+  "category": "PROCESSING",
+  "type": "RACK_PROCESSING",
+  "racks": {
+    "AGING": {
+      "recipes": [
+        {
+          "input": "Anchovy",
+          "inputQuantity": 1,
+          "salt": 5,
+          "timeMinutes": 32,
+          "output": {
+            "aged": "Aged Anchovy",
+            "prime": "Prime Aged Anchovy"
+          },
+          "xp": {
+            "basic": 80,
+            "aged": 240,
+            "prime": 312
+          }
+        },
+        {
+          "input": "Blowfish",
+          "inputQuantity": 1,
+          "salt": 10,
+          "timeMinutes": 68,
+          "output": {
+            "aged": "Aged Blowfish",
+            "prime": "Prime Aged Blowfish"
+          },
+          "xp": {
+            "basic": 170,
+            "aged": 510,
+            "prime": 663
+          }
+        },
+        {
+          "input": "Butterflyfish",
+          "inputQuantity": 1,
+          "salt": 7,
+          "timeMinutes": 44,
+          "output": {
+            "aged": "Aged Butterflyfish",
+            "prime": "Prime Aged Butterflyfish"
+          },
+          "xp": {
+            "basic": 110,
+            "aged": 330,
+            "prime": 429
+          }
+        },
+        {
+          "input": "Clownfish",
+          "inputQuantity": 1,
+          "salt": 17,
+          "timeMinutes": 75.6,
+          "output": {
+            "aged": "Aged Clownfish",
+            "prime": "Prime Aged Clownfish"
+          },
+          "xp": {
+            "basic": 210,
+            "aged": 840,
+            "prime": 1092
+          }
+        },
+        {
+          "input": "Halibut",
+          "inputQuantity": 1,
+          "salt": 18,
+          "timeMinutes": 79.2,
+          "output": {
+            "aged": "Aged Halibut",
+            "prime": "Prime Aged Halibut"
+          },
+          "xp": {
+            "basic": 220,
+            "aged": 880,
+            "prime": 1144
+          }
+        },
+        {
+          "input": "Horse Mackerel",
+          "inputQuantity": 1,
+          "salt": 20,
+          "timeMinutes": 90,
+          "output": {
+            "aged": "Aged Horse Mackerel",
+            "prime": "Prime Aged Horse Mackerel"
+          },
+          "xp": {
+            "basic": 250,
+            "aged": 1000,
+            "prime": 1300
+          }
+        },
+        {
+          "input": "Muskellunge",
+          "inputQuantity": 1,
+          "salt": 20,
+          "timeMinutes": 90,
+          "output": {
+            "aged": "Aged Muskellunge",
+            "prime": "Prime Aged Muskellunge"
+          },
+          "xp": {
+            "basic": 250,
+            "aged": 1000,
+            "prime": 1300
+          }
+        },
+        {
+          "input": "Porgy",
+          "inputQuantity": 1,
+          "salt": 20,
+          "timeMinutes": 90,
+          "output": {
+            "aged": "Aged Porgy",
+            "prime": "Prime Aged Porgy"
+          },
+          "xp": {
+            "basic": 250,
+            "aged": 1000,
+            "prime": 1300
+          }
+        },
+        {
+          "input": "Sea Bass",
+          "inputQuantity": 1,
+          "salt": 8,
+          "timeMinutes": 56,
+          "output": {
+            "aged": "Aged Sea Bass",
+            "prime": "Prime Aged Sea Bass"
+          },
+          "xp": {
+            "basic": 140,
+            "aged": 420,
+            "prime": 546
+          }
+        },
+        {
+          "input": "Sea Horse",
+          "inputQuantity": 1,
+          "salt": 19,
+          "timeMinutes": 86.4,
+          "output": {
+            "aged": "Aged Sea Horse",
+            "prime": "Prime Aged Sea Horse"
+          },
+          "xp": {
+            "basic": 240,
+            "aged": 960,
+            "prime": 1248
+          }
+        },
+        {
+          "input": "Squid",
+          "inputQuantity": 1,
+          "salt": 20,
+          "timeMinutes": 90,
+          "output": {
+            "aged": "Aged Squid",
+            "prime": "Prime Aged Squid"
+          },
+          "xp": {
+            "basic": 250,
+            "aged": 1000,
+            "prime": 1300
+          }
+        },
+        {
+          "input": "Angelfish",
+          "inputQuantity": 1,
+          "salt": 20,
+          "timeMinutes": 90,
+          "output": {
+            "aged": "Aged Angelfish",
+            "prime": "Prime Aged Angelfish"
+          },
+          "xp": {
+            "basic": 250,
+            "aged": 1000,
+            "prime": 1300
+          }
+        },
+        {
+          "input": "Barred Knifejaw",
+          "inputQuantity": 1,
+          "salt": 58,
+          "timeMinutes": 139.2,
+          "output": {
+            "aged": "Aged Barred Knifejaw",
+            "prime": "Prime Aged Barred Knifejaw"
+          },
+          "xp": {
+            "basic": 580,
+            "aged": 2900,
+            "prime": 3770
+          }
+        },
+        {
+          "input": "Hammerhead shark",
+          "inputQuantity": 1,
+          "salt": 75,
+          "timeMinutes": 180,
+          "output": {
+            "aged": "Aged Hammerhead shark",
+            "prime": "Prime Aged Hammerhead shark"
+          },
+          "xp": {
+            "basic": 750,
+            "aged": 3750,
+            "prime": 4875
+          }
+        },
+        {
+          "input": "Moray Eel",
+          "inputQuantity": 1,
+          "salt": 18,
+          "timeMinutes": 79.2,
+          "output": {
+            "aged": "Aged Moray Eel",
+            "prime": "Prime Aged Moray Eel"
+          },
+          "xp": {
+            "basic": 220,
+            "aged": 880,
+            "prime": 1144
+          }
+        },
+        {
+          "input": "Napoleanfish",
+          "inputQuantity": 1,
+          "salt": 11,
+          "timeMinutes": 72,
+          "output": {
+            "aged": "Aged Napoleanfish",
+            "prime": "Prime Aged Napoleanfish"
+          },
+          "xp": {
+            "basic": 180,
+            "aged": 540,
+            "prime": 702
+          }
+        },
+        {
+          "input": "Olive Flounder",
+          "inputQuantity": 1,
+          "salt": 11,
+          "timeMinutes": 72,
+          "output": {
+            "aged": "Aged Olive Flounder",
+            "prime": "Prime Aged Olive Flounder"
+          },
+          "xp": {
+            "basic": 180,
+            "aged": 540,
+            "prime": 702
+          }
+        },
+        {
+          "input": "Ray",
+          "inputQuantity": 1,
+          "salt": 43,
+          "timeMinutes": 103.2,
+          "output": {
+            "aged": "Aged Ray",
+            "prime": "Prime Aged Ray"
+          },
+          "xp": {
+            "basic": 430,
+            "aged": 2150,
+            "prime": 2795
+          }
+        },
+        {
+          "input": "Red Snapper",
+          "inputQuantity": 1,
+          "salt": 6,
+          "timeMinutes": 40,
+          "output": {
+            "aged": "Aged Red Snapper",
+            "prime": "Prime Aged Red Snapper"
+          },
+          "xp": {
+            "basic": 100,
+            "aged": 300,
+            "prime": 390
+          }
+        },
+        {
+          "input": "Rock Blackfish",
+          "inputQuantity": 1,
+          "salt": 26,
+          "timeMinutes": 115.2,
+          "output": {
+            "aged": "Aged Rock Blackfish",
+            "prime": "Prime Aged Rock Blackfish"
+          },
+          "xp": {
+            "basic": 320,
+            "aged": 1280,
+            "prime": 1664
+          }
+        },
+        {
+          "input": "Surgeonfish",
+          "inputQuantity": 1,
+          "salt": 17,
+          "timeMinutes": 75.6,
+          "output": {
+            "aged": "Aged Surgeonfish",
+            "prime": "Prime Aged Surgeonfish"
+          },
+          "xp": {
+            "basic": 210,
+            "aged": 840,
+            "prime": 1092
+          }
+        },
+        {
+          "input": "Tilapia",
+          "inputQuantity": 1,
+          "salt": 11,
+          "timeMinutes": 76,
+          "output": {
+            "aged": "Aged Tilapia",
+            "prime": "Prime Aged Tilapia"
+          },
+          "xp": {
+            "basic": 190,
+            "aged": 570,
+            "prime": 741
+          }
+        },
+        {
+          "input": "Walleye",
+          "inputQuantity": 1,
+          "salt": 17,
+          "timeMinutes": 75.6,
+          "output": {
+            "aged": "Aged Walleye",
+            "prime": "Prime Aged Walleye"
+          },
+          "xp": {
+            "basic": 210,
+            "aged": 840,
+            "prime": 1092
+          }
+        },
+        {
+          "input": "Zebra Turkeyfish",
+          "inputQuantity": 1,
+          "salt": 18,
+          "timeMinutes": 79.2,
+          "output": {
+            "aged": "Aged Zebra Turkeyfish",
+            "prime": "Prime Aged Zebra Turkeyfish"
+          },
+          "xp": {
+            "basic": 220,
+            "aged": 880,
+            "prime": 1144
+          }
+        },
+        {
+          "input": "Blue Marlin",
+          "inputQuantity": 1,
+          "salt": 12,
+          "timeMinutes": 80,
+          "output": {
+            "aged": "Aged Blue Marlin",
+            "prime": "Prime Aged Blue Marlin"
+          },
+          "xp": {
+            "basic": 200,
+            "aged": 600,
+            "prime": 780
+          }
+        },
+        {
+          "input": "Cobia",
+          "inputQuantity": 1,
+          "salt": 25,
+          "timeMinutes": 111.6,
+          "output": {
+            "aged": "Aged Cobia",
+            "prime": "Prime Aged Cobia"
+          },
+          "xp": {
+            "basic": 310,
+            "aged": 1240,
+            "prime": 1612
+          }
+        },
+        {
+          "input": "Coelacanth",
+          "inputQuantity": 1,
+          "salt": 41,
+          "timeMinutes": 98.4,
+          "output": {
+            "aged": "Aged Coelacanth",
+            "prime": "Prime Aged Coelacanth"
+          },
+          "xp": {
+            "basic": 410,
+            "aged": 2050,
+            "prime": 2665
+          }
+        },
+        {
+          "input": "Football fish",
+          "inputQuantity": 1,
+          "salt": 12,
+          "timeMinutes": 80,
+          "output": {
+            "aged": "Aged Football fish",
+            "prime": "Prime Aged Football fish"
+          },
+          "xp": {
+            "basic": 200,
+            "aged": 600,
+            "prime": 780
+          }
+        },
+        {
+          "input": "Mahi Mahi",
+          "inputQuantity": 1,
+          "salt": 12,
+          "timeMinutes": 80,
+          "output": {
+            "aged": "Aged Mahi Mahi",
+            "prime": "Prime Aged Mahi Mahi"
+          },
+          "xp": {
+            "basic": 200,
+            "aged": 600,
+            "prime": 780
+          }
+        },
+        {
+          "input": "Oarfish",
+          "inputQuantity": 1,
+          "salt": 18,
+          "timeMinutes": 79.2,
+          "output": {
+            "aged": "Aged Oarfish",
+            "prime": "Prime Aged Oarfish"
+          },
+          "xp": {
+            "basic": 220,
+            "aged": 880,
+            "prime": 1144
+          }
+        },
+        {
+          "input": "Parrotfish",
+          "inputQuantity": 1,
+          "salt": 44,
+          "timeMinutes": 105.6,
+          "output": {
+            "aged": "Aged Parrotfish",
+            "prime": "Prime Aged Parrotfish"
+          },
+          "xp": {
+            "basic": 440,
+            "aged": 2200,
+            "prime": 2860
+          }
+        },
+        {
+          "input": "Saw Shark",
+          "inputQuantity": 1,
+          "salt": 192,
+          "timeMinutes": 460.8,
+          "output": {
+            "aged": "Aged Saw Shark",
+            "prime": "Prime Aged Saw Shark"
+          },
+          "xp": {
+            "basic": 1920,
+            "aged": 9600,
+            "prime": 12480
+          }
+        },
+        {
+          "input": "Sunfish",
+          "inputQuantity": 1,
+          "salt": 12,
+          "timeMinutes": 80,
+          "output": {
+            "aged": "Aged Sunfish",
+            "prime": "Prime Aged Sunfish"
+          },
+          "xp": {
+            "basic": 200,
+            "aged": 600,
+            "prime": 780
+          }
+        },
+        {
+          "input": "Trout",
+          "inputQuantity": 1,
+          "salt": 26,
+          "timeMinutes": 118.8,
+          "output": {
+            "aged": "Aged Trout",
+            "prime": "Prime Aged Trout"
+          },
+          "xp": {
+            "basic": 330,
+            "aged": 1320,
+            "prime": 1716
+          }
+        },
+        {
+          "input": "Tuna",
+          "inputQuantity": 1,
+          "salt": 12,
+          "timeMinutes": 80,
+          "output": {
+            "aged": "Aged Tuna",
+            "prime": "Prime Aged Tuna"
+          },
+          "xp": {
+            "basic": 200,
+            "aged": 600,
+            "prime": 780
+          }
+        },
+        {
+          "input": "Weakfish",
+          "inputQuantity": 1,
+          "salt": 17,
+          "timeMinutes": 75.6,
+          "output": {
+            "aged": "Aged Weakfish",
+            "prime": "Prime Aged Weakfish"
+          },
+          "xp": {
+            "basic": 210,
+            "aged": 840,
+            "prime": 1092
+          }
+        },
+        {
+          "input": "Whale Shark",
+          "inputQuantity": 1,
+          "salt": 137,
+          "timeMinutes": 328.8,
+          "output": {
+            "aged": "Aged Whale Shark",
+            "prime": "Prime Aged Whale Shark"
+          },
+          "xp": {
+            "basic": 1370,
+            "aged": 6850,
+            "prime": 8905
+          }
+        },
+        {
+          "input": "White Shark",
+          "inputQuantity": 1,
+          "salt": 200,
+          "timeMinutes": 480,
+          "output": {
+            "aged": "Aged White Shark",
+            "prime": "Prime Aged White Shark"
+          },
+          "xp": {
+            "basic": 2000,
+            "aged": 10000,
+            "prime": 13000
+          }
+        }
+      ]
+    },
+    "FERMENTATION": {
+      "recipes": [
+        {
+          "output": "Pickled Radish",
+          "ingredients": [
+            { "item": "Radish", "quantity": 10 },
+            { "item": "Salt", "quantity": 5 }
+          ],
+          "timeMinutes": 60
+        },
+        {
+          "output": "Pickled Zucchini",
+          "ingredients": [
+            { "item": "Zucchini", "quantity": 75 },
+            { "item": "Salt", "quantity": 5 }
+          ],
+          "timeMinutes": 60
+        },
+        {
+          "output": "Pickled Tomato",
+          "ingredients": [
+            { "item": "Tomato", "quantity": 15 },
+            { "item": "Salt", "quantity": 5 }
+          ],
+          "timeMinutes": 60
+        },
+        {
+          "output": "Pickled Broccoli",
+          "ingredients": [
+            { "item": "Broccoli", "quantity": 20 },
+            { "item": "Salt", "quantity": 5 }
+          ],
+          "timeMinutes": 60
+        },
+        {
+          "output": "Pickled Onion",
+          "ingredients": [
+            { "item": "Onion", "quantity": 10 },
+            { "item": "Salt", "quantity": 5 }
+          ],
+          "timeMinutes": 60
+        },
+        {
+          "output": "Pickled Pepper",
+          "ingredients": [
+            { "item": "Pepper", "quantity": 30 },
+            { "item": "Salt", "quantity": 5 }
+          ],
+          "timeMinutes": 60
+        },
+        {
+          "output": "Greenhouse Glow",
+          "variants": [
+            {
+              "ingredients": [
+                { "item": "Pickled Tomato", "quantity": 1 },
+                { "item": "Refined Salt", "quantity": 1 }
+              ]
+            },
+            {
+              "ingredients": [
+                { "item": "Pickled Zucchini", "quantity": 1 },
+                { "item": "Refined Salt", "quantity": 1 }
+              ]
+            },
+            {
+              "ingredients": [
+                { "item": "Pickled Broccoli", "quantity": 1 },
+                { "item": "Refined Salt", "quantity": 1 }
+              ]
+            }
+          ],
+          "timeMinutes": 120,
+          "effect": {
+            "greenhouseGrowthTimeMultiplier": 0.8
+          }
+        },
+        {
+          "output": "Greenhouse Goodie",
+          "variants": [
+            {
+              "ingredients": [
+                { "item": "Pickled Radish", "quantity": 1 },
+                { "item": "Refined Salt", "quantity": 1 }
+              ]
+            },
+            {
+              "ingredients": [
+                { "item": "Pickled Pepper", "quantity": 1 },
+                { "item": "Refined Salt", "quantity": 1 }
+              ]
+            },
+            {
+              "ingredients": [
+                { "item": "Pickled Onion", "quantity": 1 },
+                { "item": "Refined Salt", "quantity": 1 }
+              ]
+            }
+          ],
+          "timeMinutes": 120,
+          "effect": {
+            "greenhouseCropYieldAddition": 0.2
+          }
+        },
+        {
+          "output": "Sproutroot Surprise",
+          "ingredients": [
+            { "item": "Sprout Mix", "quantity": 5 },
+            { "item": "Rapid Root", "quantity": 5 },
+            { "item": "Refined Salt", "quantity": 2 }
+          ],
+          "timeMinutes": 2,
+          "effect": {
+            "plotCropYieldAddition": 0.2,
+            "plotGrowthTimeMultiplier": 0.5
+          }
+        },
+        {
+          "output": "Turbofruit Mix",
+          "ingredients": [
+            { "item": "Rapid Root", "quantity": 5 },
+            { "item": "Fruitful Blend", "quantity": 5 },
+            { "item": "Refined Salt", "quantity": 2 }
+          ],
+          "timeMinutes": 2,
+          "effect": {
+            "fruitPatchYieldAddition": 0.1,
+            "fruitPatchGrowthTimeMultiplier": 0.8
+          }
+        }
+      ]
+    },
+    "SPICE": {
+      "recipes": [
+        {
+          "output": "Refined Salt",
+          "outputQuantity": 1,
+          "ingredients": [
+            { "item": "Salt", "quantity": 10 }
+          ],
+          "timeMinutes": 60
+        },
+        {
+          "output": "Salt Lick",
+          "outputQuantity": 5,
+          "ingredients": [
+            { "item": "Refined Salt", "quantity": 5 }
+          ],
+          "timeMinutes": 60,
+          "effect": {
+            "animalYieldAddition": 0.05,
+            "harvests": 3
+          }
+        },
+        {
+          "output": "Honey Treat",
+          "outputQuantity": 5,
+          "ingredients": [
+            { "item": "Refined Salt", "quantity": 5 },
+            { "item": "Honey", "quantity": 5 }
+          ],
+          "timeMinutes": 60,
+          "effect": {
+            "animalFeedCostMultiplier": 0.75,
+            "harvests": 3
+          }
+        }
+      ]
+    }
+  }
+}

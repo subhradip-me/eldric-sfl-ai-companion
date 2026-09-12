@@ -1,0 +1,141 @@
+{
+  "facility": "Fish Market",
+  "category": "PROCESSING",
+  "recipes": {
+    "Fish Flake": {
+      "type": "FISH_PROCESSING",
+      "durationMinutes": 60,
+      "baseXp": 0,
+      "gemCost": 1,
+      "icon": "🐟",
+      "outputs": [
+        { "item": "Fish Flake", "amount": 1, "type": "Processed Catch" }
+      ],
+      "ingredientsBySeason": {
+        "AUTUMN": [
+          { "item": "Anchovy", "quantity": 4 },
+          { "item": "Halibut", "quantity": 2 },
+          { "item": "Mussel", "quantity": 2 }
+        ],
+        "WINTER": [
+          { "item": "Anchovy", "quantity": 4 },
+          { "item": "Blowfish", "quantity": 2 },
+          { "item": "Clownfish", "quantity": 2 }
+        ],
+        "SPRING": [
+          { "item": "Anchovy", "quantity": 4 },
+          { "item": "Porgy", "quantity": 2 },
+          { "item": "Sea Bass", "quantity": 2 }
+        ],
+        "SUMMER": [
+          { "item": "Anchovy", "quantity": 4 },
+          { "item": "Butterflyfish", "quantity": 2 },
+          { "item": "Sea Horse", "quantity": 2 }
+        ]
+      }
+    },
+
+    "Fish Stick": {
+      "type": "FISH_PROCESSING",
+      "durationMinutes": 120,
+      "baseXp": 0,
+      "gemCost": 2,
+      "icon": "🥖",
+      "outputs": [
+        { "item": "Fish Stick", "amount": 1, "type": "Processed Catch" }
+      ],
+      "ingredientsBySeason": {
+        "AUTUMN": [
+          { "item": "Red Snapper", "quantity": 6 },
+          { "item": "Moray Eel", "quantity": 2 },
+          { "item": "Napoleanfish", "quantity": 2 }
+        ],
+        "WINTER": [
+          { "item": "Red Snapper", "quantity": 6 },
+          { "item": "Walleye", "quantity": 2 },
+          { "item": "Angelfish", "quantity": 2 }
+        ],
+        "SPRING": [
+          { "item": "Red Snapper", "quantity": 6 },
+          { "item": "Olive Flounder", "quantity": 2 },
+          { "item": "Zebra Turkeyfish", "quantity": 2 }
+        ],
+        "SUMMER": [
+          { "item": "Red Snapper", "quantity": 6 },
+          { "item": "Surgeonfish", "quantity": 2 },
+          { "item": "Tilapia", "quantity": 2 }
+        ]
+      }
+    },
+
+    "Crab Stick": {
+      "type": "FISH_PROCESSING",
+      "durationMinutes": 240,
+      "baseXp": 0,
+      "gemCost": 4,
+      "icon": "🦀",
+      "outputs": [
+        { "item": "Crab Stick", "amount": 1, "type": "Processed Catch" }
+      ],
+      "ingredientsBySeason": {
+        "AUTUMN": [
+          { "item": "Crab", "quantity": 1 },
+          { "item": "Shrimp", "quantity": 1 },
+          { "item": "Lobster", "quantity": 1 },
+          { "item": "Barnacle", "quantity": 1 }
+        ],
+        "WINTER": [
+          { "item": "Crab", "quantity": 1 },
+          { "item": "Oyster", "quantity": 1 },
+          { "item": "Isopod", "quantity": 1 },
+          { "item": "Garden Eel", "quantity": 1 }
+        ],
+        "SPRING": [
+          { "item": "Crab", "quantity": 1 },
+          { "item": "Blue Crab", "quantity": 1 },
+          { "item": "Hermit Crab", "quantity": 1 },
+          { "item": "Sea Slug", "quantity": 1 }
+        ],
+        "SUMMER": [
+          { "item": "Crab", "quantity": 1 },
+          { "item": "Mussel", "quantity": 1 },
+          { "item": "Horseshoe Crab", "quantity": 1 },
+          { "item": "Sea Snail", "quantity": 1 }
+        ]
+      }
+    },
+
+    "Fish Oil": {
+      "type": "FISH_PROCESSING",
+      "durationMinutes": 960,
+      "baseXp": 0,
+      "gemCost": 8,
+      "icon": "🛢️",
+      "outputs": [
+        { "item": "Fish Oil", "amount": 1, "type": "Guaranteed Bait" }
+      ],
+      "ingredientsBySeason": {
+        "AUTUMN": [
+          { "item": "Tuna", "quantity": 8 },
+          { "item": "Mahi Mahi", "quantity": 4 },
+          { "item": "Crab", "quantity": 2 }
+        ],
+        "WINTER": [
+          { "item": "Tuna", "quantity": 8 },
+          { "item": "Blue Marlin", "quantity": 2 },
+          { "item": "Football fish", "quantity": 2 }
+        ],
+        "SPRING": [
+          { "item": "Tuna", "quantity": 8 },
+          { "item": "Weakfish", "quantity": 2 },
+          { "item": "Oarfish", "quantity": 2 }
+        ],
+        "SUMMER": [
+          { "item": "Tuna", "quantity": 8 },
+          { "item": "Cobia", "quantity": 2 },
+          { "item": "Sunfish", "quantity": 2 }
+        ]
+      }
+    }
+  }
+}

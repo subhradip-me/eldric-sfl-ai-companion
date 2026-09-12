@@ -6,7 +6,7 @@
     "setup": "node setup.js",
     "start": "tsx server/index.js",
     "dev": "tsx watch server/index.js",
-    "test": "tsx --test server/tests/*.test.js",
+    "test": "tsx --test \"server/tests/*.test.ts\" \"server/tests/*.test.js\"",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

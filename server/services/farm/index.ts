@@ -10,3 +10,5 @@ export * from './plannerContextExtractors.js';
 export { SunflowerClient, sunflowerClient } from './SunflowerClient.js';
 export { SnapshotService, snapshotService } from './SnapshotService.js';
 export { ActivityService, activityService } from './ActivityService.js';
+export { DashboardService, dashboardService } from './DashboardService.js';
+export type { DashboardViewModel } from './DashboardService.js';

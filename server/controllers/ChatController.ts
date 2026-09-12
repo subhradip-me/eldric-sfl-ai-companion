@@ -24,13 +24,17 @@ export class ChatController {
       }
 
       const user = await this.userModel.findById(userId);
-      if (!user || !user.farm_id) {
+      const isDevUser = user?.username === 'dev';
+      const devFarmId = (req.headers['x-dev-farm-id'] as string | undefined)?.trim();
+      const effectiveFarmId = (isDevUser && devFarmId) ? devFarmId : user?.farm_id;
+
+      if (!effectiveFarmId) {
         res.status(400).json({ success: false, error: 'No farm ID associated with your account. Please set your farm ID in settings.' });
         return;
       }
 
       const priorMessages = await chatStoreService.getSession(sessionId, userId).catch(() => []);
-      const response = await orchestrator.runAgent(message, sessionId, userId, user.farm_id, priorMessages);
+      const response = await orchestrator.runAgent(message, sessionId, userId, effectiveFarmId, priorMessages);
 
       // Save messages fire-and-forget
       chatStoreService.saveMessage({ sessionId, role: 'user', content: message, userId })

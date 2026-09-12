@@ -1,0 +1,28 @@
+{
+  "restock": {
+    "market": {
+      "costGems": 15,
+      "scope": "replenishes stock for crops, fruits, flowers and greenhouse goods"
+    },
+    "workbench": {
+      "costGems": 10,
+      "scope": "replenishes all tools available there"
+    },
+    "digging": {
+      "costGems": 5,
+      "items": {
+        "Sand Shovel": 50,
+        "Sand Drill": 10
+      }
+    },
+    "full": {
+      "costGems": 20,
+      "scope": "restocks seeds, workbench and digging categories"
+    }
+  },
+  "inventoryLimits": {
+    "seedLimit": "2.5 times stock amount",
+    "toolLimit": "varies by tool"
+  },
+  "strategyNote": "Buying everything before restock can fill inventory; the source notes trade-offs around restocking and tool/seed progression."
+}
