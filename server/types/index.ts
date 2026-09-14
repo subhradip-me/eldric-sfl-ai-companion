@@ -22,11 +22,25 @@ export interface AuthenticatedRequest extends Request {
   username: string;
 }
 
+export type DeviceType = 'desktop' | 'mobile';
+
+export interface ActiveSession {
+  id: number;
+  user_id: number;
+  device_type: DeviceType;
+  refresh_token_hash: string;
+  created_at: string | number;
+  last_active_at: string | number;
+}
+
 export interface CreateUserInput {
   username: string;
   email: string;
   passwordHash: string;
   farmId?: string | null;
+  registrationIp?: string | null;
+  role?: string;
+  initialCredits?: number;
 }
 
 export interface UserRecord {
@@ -35,6 +49,10 @@ export interface UserRecord {
   email: string;
   password_hash: string;
   farm_id: string | null;
+  registration_ip?: string | null;
+  role?: string;
+  ai_credits?: number;
+  ai_credits_used?: number;
   created_at: number;
   updated_at: number;
   last_login: number | null;
@@ -44,6 +62,10 @@ export interface AuthResult {
   success: boolean;
   user?: Partial<UserRecord>;
   token?: string;
+  accessToken?: string;
+  refreshToken?: string;
+  conflict?: boolean;
+  deviceType?: DeviceType;
   error?: string;
 }
 

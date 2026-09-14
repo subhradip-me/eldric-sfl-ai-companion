@@ -24,7 +24,7 @@ export class ChatController {
       }
 
       const user = await this.userModel.findById(userId);
-      const isDevUser = user?.username === 'dev';
+      const isDevUser = user?.username === 'dev' || user?.role === 'DEVELOPER';
       const devFarmId = (req.headers['x-dev-farm-id'] as string | undefined)?.trim();
       const effectiveFarmId = (isDevUser && devFarmId) ? devFarmId : user?.farm_id;
 
@@ -33,8 +33,31 @@ export class ChatController {
         return;
       }
 
-      const priorMessages = await chatStoreService.getSession(sessionId, userId).catch(() => []);
-      const response = await orchestrator.runAgent(message, sessionId, userId, effectiveFarmId, priorMessages);
+      // 1. Reserve credit before calling AI provider (atomic condition: ai_credits >= 1)
+      let reservedCredits: { ai_credits: number; ai_credits_used: number } | null = null;
+      if (!isDevUser) {
+        reservedCredits = await this.userModel.deductAiCredit(userId, 1);
+        if (!reservedCredits) {
+          res.status(403).json({
+            success: false,
+            error: 'You have exhausted your AI credits (0 credits remaining). Please contact support to recharge your credits.',
+            creditsRemaining: 0,
+          });
+          return;
+        }
+      }
+
+      let response;
+      try {
+        const priorMessages = await chatStoreService.getSession(sessionId, userId).catch(() => []);
+        response = await orchestrator.runAgent(message, sessionId, userId, effectiveFarmId, priorMessages);
+      } catch (aiError) {
+        // If the AI call itself throws, refund the reserved credit
+        if (!isDevUser) {
+          await this.userModel.addAiCredits(userId, 1).catch(() => {});
+        }
+        throw aiError;
+      }
 
       // Save messages fire-and-forget
       chatStoreService.saveMessage({ sessionId, role: 'user', content: message, userId })
@@ -48,6 +71,7 @@ export class ChatController {
         steps: response.steps,
         warnings: response.warnings,
         provenance: response.provenance,
+        creditsRemaining: isDevUser ? 999999 : reservedCredits?.ai_credits,
       });
     } catch (error) {
       console.error('Chat error:', error);

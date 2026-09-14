@@ -8,6 +8,74 @@
     "2": 15,
     "3": 20
   },
+  "buildingTiers": {
+    "Hen House": {
+      "unlockLevel": 6,
+      "levels": {
+        "1": {
+          "capacity": 10,
+          "coins": 100,
+          "resources": { "Wood": 30, "Iron": 5, "Gold": 5 },
+          "p2pCostSfl": 2.28
+        },
+        "2": {
+          "capacity": 15,
+          "coins": 7500,
+          "resources": { "Wood": 500, "Stone": 50, "Iron": 40, "Gold": 10 },
+          "p2pCostSfl": 33.58
+        },
+        "3": {
+          "capacity": 20,
+          "coins": 50000,
+          "resources": { "Wood": 2500, "Stone": 150, "Iron": 100, "Gold": 50, "Oil": 100 },
+          "p2pCostSfl": 150.33
+        }
+      }
+    },
+    "Barn": {
+      "unlockLevel": 30,
+      "levels": {
+        "1": {
+          "capacity": 10,
+          "coins": 200,
+          "resources": { "Wood": 150, "Iron": 10, "Gold": 10 },
+          "p2pCostSfl": 5.64
+        },
+        "2": {
+          "capacity": 15,
+          "coins": 10000,
+          "resources": { "Wood": 1000, "Stone": 100, "Iron": 75, "Gold": 30 },
+          "p2pCostSfl": 69.90
+        },
+        "3": {
+          "capacity": 20,
+          "coins": 75000,
+          "resources": { "Wood": 5000, "Stone": 300, "Iron": 200, "Crimstone": 125, "Oil": 250 },
+          "p2pCostSfl": 309.47
+        }
+      }
+    }
+  },
+  "feedRules": {
+    "Chicken": [
+      { "fromLevel": 0, "toLevel": 3, "feed": "Kernel Blend", "quantity": 1, "xp": 60 },
+      { "fromLevel": 3, "toLevel": 6, "feed": "Hay", "quantity": 1, "xp": 60 },
+      { "fromLevel": 6, "toLevel": 10, "feed": "NutriBarley", "quantity": 1, "xp": 60 },
+      { "fromLevel": 10, "toLevel": 15, "feed": "Mixed Grain", "quantity": 1, "xp": 80, "cheapestFeed": "NutriBarley", "cheapestXp": 30 }
+    ],
+    "Cow": [
+      { "fromLevel": 0, "toLevel": 3, "feed": "Kernel Blend", "quantity": 5, "xp": 60 },
+      { "fromLevel": 3, "toLevel": 6, "feed": "Hay", "quantity": 5, "xp": 60 },
+      { "fromLevel": 6, "toLevel": 10, "feed": "NutriBarley", "quantity": 5, "xp": 60 },
+      { "fromLevel": 10, "toLevel": 15, "feed": "Mixed Grain", "quantity": 5, "xp": 80, "cheapestFeed": "NutriBarley", "cheapestXp": 30 }
+    ],
+    "Sheep": [
+      { "fromLevel": 0, "toLevel": 3, "feed": "Kernel Blend", "quantity": 3, "xp": 60 },
+      { "fromLevel": 3, "toLevel": 6, "feed": "Hay", "quantity": 3, "xp": 60 },
+      { "fromLevel": 6, "toLevel": 10, "feed": "NutriBarley", "quantity": 3, "xp": 60 },
+      { "fromLevel": 10, "toLevel": 15, "feed": "Mixed Grain", "quantity": 3, "xp": 80, "cheapestFeed": "NutriBarley", "cheapestXp": 30 }
+    ]
+  },
   "chickenCoopNftBonus": "+5 animals for each building level",
   "purchase": {
     "Chicken": {

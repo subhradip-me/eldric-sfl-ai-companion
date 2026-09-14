@@ -52,24 +52,34 @@ async function connectWithRetry(attempts = 10, delay = 2000): Promise<void> {
 ### 1.2 Class-Based Controllers (`server/controllers/`)
 
 #### `AuthController.ts`
-Manages user authentication lifecycle, registration, credentials validation, profile inspection, and farm binding:
+Manages user authentication lifecycle, registration with 1-account-per-IP enforcement, session conflict detection, profile inspection, and farm binding:
 
 ```typescript
 // server/controllers/AuthController.ts - Authentication controller
 export class AuthController {
   async register(req: Request, res: Response) {
     const { username, email, password, farmId } = req.body;
-    // Validates inputs, creates user via AuthService, issues JWT
-    const { user, token } = await authService.register(username, email, password, farmId);
-    res.cookie('token', token, { httpOnly: true, maxAge: 7 * 24 * 3600 * 1000 });
-    return res.json({ success: true, user, token });
+    const clientIp = (req.headers['x-forwarded-for'] as string)?.split(',')[0].trim() || req.ip;
+    // Validates inputs, enforces 1-account-per-IP, creates user with initial credits (50)
+    const result = await authService.register({
+      username,
+      email,
+      password,
+      farmId,
+      registrationIp: clientIp,
+    });
+    if (!result.success) return res.status(409).json({ success: false, error: result.error });
+    return res.json({ success: true, user: result.user, token: result.token });
   }
 
   async login(req: Request, res: Response) {
-    const { username, password } = req.body;
-    const { user, token } = await authService.login(username, password);
-    res.cookie('token', token, { httpOnly: true, maxAge: 7 * 24 * 3600 * 1000 });
-    return res.json({ success: true, user, token });
+    const { username, password, deviceType = 'desktop', forceDisconnect = false } = req.body;
+    // Enforces 1 Desktop + 1 Mobile concurrent session cap
+    const result = await authService.login(username, password, deviceType, forceDisconnect);
+    if (!result.success && result.conflict) {
+      return res.status(409).json({ success: false, conflict: true, deviceType, error: result.error });
+    }
+    return res.json({ success: true, user: result.user, token: result.token });
   }
 
   async me(req: Request, res: Response) {
@@ -125,20 +135,46 @@ export class FarmController {
 ```
 
 #### `ChatController.ts`
-Handles conversational assistant requests, thread retrieval, and session cleanup:
+Handles conversational assistant requests, atomic AI credit pre-allocation, thread retrieval, and session cleanup:
 
 ```typescript
 // server/controllers/ChatController.ts - Conversational AI controller
 export class ChatController {
+  private userModel = new UserModel();
+
   async sendMessage(req: Request, res: Response) {
-    const { message, sessionId } = req.body;
-    const { answer, steps } = await orchestrator.runAgent(
-      message,
-      sessionId,
-      req.user!.userId,
-      req.user!.farmId || process.env.SUNFLOWER_FARM_ID!
-    );
-    return res.json({ answer, steps });
+    const { userId } = req as Request & { userId: number };
+    const { message, sessionId = 'default' } = req.body;
+    const user = await this.userModel.findById(userId);
+    const isDevUser = user?.username === 'dev' || user?.role === 'DEVELOPER';
+
+    // 1. Reserve credit before calling AI provider (atomic condition: ai_credits >= 1)
+    if (!isDevUser) {
+      const reserved = await this.userModel.deductAiCredit(userId, 1);
+      if (!reserved) {
+        return res.status(403).json({
+          success: false,
+          error: 'You have exhausted your AI credits (0 credits remaining).',
+          creditsRemaining: 0,
+        });
+      }
+    }
+
+    try {
+      const priorMessages = await chatStoreService.getSession(sessionId, userId).catch(() => []);
+      const { answer, steps } = await orchestrator.runAgent(
+        message,
+        sessionId,
+        userId,
+        user?.farm_id!,
+        priorMessages
+      );
+      return res.json({ answer, steps, creditsRemaining: user?.ai_credits });
+    } catch (aiError) {
+      // Automatic refund on provider failure
+      if (!isDevUser) await this.userModel.addAiCredits(userId, 1).catch(() => {});
+      throw aiError;
+    }
   }
 
   async getSessions(req: Request, res: Response) {
@@ -155,7 +191,122 @@ export class ChatController {
 
 ---
 
-### 1.3 Modular Business Services (`server/services/`)
+### 1.3 Pure Deterministic Core Calculation Engines (`server/core/`)
+
+#### 1. Codex Deliveries & Tasks Engine (`server/core/economyEngine/deliveries.ts`)
+Evaluates active NPC delivery orders across Coins, SFL, and seasonal Shiny Feathers, alongside Weekly Chores and the Poppy Mega Bounty board with full cryptographic provenance:
+
+```typescript
+// server/core/economyEngine/deliveries.ts
+export function evaluateDeliveries(
+  farm: CanonicalFarmState,
+  prices: MarketPrice = {},
+  options: { now?: number } = {}
+): CalculationResult<DeliveriesEvaluation> {
+  // Evaluates Coin, SFL, and Ascension Age seasonal Shiny Feathers
+  // Seasonal NPCs: Elite (6), Medium (3), Standard (2) + 3 VIP Bonus
+  // Determines readyNow, total market ingredient flower cost, net profit, and ROI
+  return {
+    value: {
+      deliveries,
+      bestCoinsDelivery,
+      bestReadyNowDelivery,
+      bestSflDelivery,
+      bestFeathersDelivery,
+      totalActiveCount,
+      readyCount,
+    },
+    provenance: { engine: 'deliveriesEngine', version: '1.2.0', sourceSha256, evaluatedAt },
+  };
+}
+
+export function evaluateCodexTasks(
+  farm: CanonicalFarmState,
+  options: { now?: number } = {}
+): CalculationResult<CodexTasksEvaluation> {
+  // Tab 21: Maps chore requirements against farmActivity counters
+  // Tab 33: Evaluates Poppy Mega Bounty Board across 6 categories
+  return {
+    value: { chores, megaBounties, totalFeathersAvailable, choresReadyToClaim, bountiesReadyToClaim },
+    provenance: { engine: 'codexTasksEngine', version: '1.2.0', sourceSha256, evaluatedAt },
+  };
+}
+```
+
+---
+
+### 1.4 Database Models (`server/models/`)
+
+#### `UserModel.ts`
+Manages user accounts, IP attribution, and atomic AI credit reservations and refunds:
+
+```typescript
+// server/models/UserModel.ts - User entity & atomic credit ledger
+export class UserModel {
+  async deductAiCredit(userId: number, amount = 1): Promise<{ ai_credits: number; ai_credits_used: number } | null> {
+    const result = await db.query(
+      `UPDATE users
+       SET ai_credits = ai_credits - $2,
+           ai_credits_used = ai_credits_used + $2
+       WHERE id = $1 AND ai_credits >= $2
+       RETURNING ai_credits, ai_credits_used`,
+      [userId, amount]
+    );
+    return (result.rows[0] as { ai_credits: number; ai_credits_used: number }) ?? null;
+  }
+
+  async addAiCredits(userId: number, amount: number): Promise<{ ai_credits: number } | null> {
+    const result = await db.query(
+      `UPDATE users
+       SET ai_credits = ai_credits + $2
+       WHERE id = $1
+       RETURNING ai_credits`,
+      [userId, amount]
+    );
+    return (result.rows[0] as { ai_credits: number }) ?? null;
+  }
+}
+```
+
+#### `SessionModel.ts`
+Enforces the dual-device concurrent session cap (1 Desktop + 1 Mobile) with SHA-256 hashed refresh tokens:
+
+```typescript
+// server/models/SessionModel.ts - Concurrent device session cap
+export class SessionModel {
+  static async findByUserAndDevice(userId: number, deviceType: DeviceType): Promise<ActiveSession | null> {
+    const result = await db.query(
+      `SELECT * FROM active_sessions WHERE user_id = $1 AND device_type = $2`,
+      [userId, deviceType]
+    );
+    return (result.rows[0] as ActiveSession) ?? null;
+  }
+
+  static async create(userId: number, deviceType: DeviceType, refreshToken: string): Promise<ActiveSession | null> {
+    const tokenHash = this.hashToken(refreshToken);
+    try {
+      const result = await db.query(
+        `INSERT INTO active_sessions (user_id, device_type, refresh_token_hash)
+         VALUES ($1, $2, $3)
+         RETURNING *`,
+        [userId, deviceType, tokenHash]
+      );
+      return result.rows[0] as ActiveSession;
+    } catch (err: unknown) {
+      if ((err as { code?: string })?.code === '23505') return null; // Race condition safety net
+      throw err;
+    }
+  }
+
+  static async deleteByUserAndDevice(userId: number, deviceType: DeviceType): Promise<void> {
+    await db.query(`DELETE FROM active_sessions WHERE user_id = $1 AND device_type = $2`, [userId, deviceType]);
+  }
+}
+```
+
+---
+
+### 1.5 Modular Business Services (`server/services/`)
 
 #### 1. Cooking Domain (`server/services/cooking/`)
 
@@ -424,13 +575,18 @@ export class SnapshotService {
 #### 3. AI Agent Domain (`server/services/ai/`)
 
 ##### `Orchestrator.ts`
-Autonomous agent running a multi-turn tool execution loop using Groq Cloud LLM. Features deduplication bypass via `force: true` and building ownership verification:
+Autonomous agent running a multi-turn tool execution loop using Groq Cloud LLM. Features deduplication bypass via `force: true`, building ownership verification, and 15 deterministic tools:
 
 ```typescript
 // server/services/ai/Orchestrator.ts - Tool Execution Engine
 export class Orchestrator {
   public readonly tools: Record<string, ToolDef> = {
     get_farm_state: { /* ... */ },
+    get_roadmap: { /* ... */ },
+    check_action_permission: { /* ... */ },
+    evaluate_strategy_feasibility: { /* ... */ },
+    get_temporal_context: { /* ... */ },
+    get_history_metrics: { /* ... */ },
     compute_recipe_cost: {
       description: 'Deterministic recipe economics. Warns if the player lacks the required building.',
       parameters: { type: 'object', properties: { recipe: { type: 'string' } }, required: ['recipe'] },
@@ -450,10 +606,47 @@ export class Orchestrator {
         };
       },
     },
-    // 10 other tools: get_planner, get_cooking_board, get_expansion_guide, etc.
+    get_active_effects: { /* ... */ },
+    get_market_prices: { /* ... */ },
+    recall_memory: { /* ... */ },
+    get_item_metadata: { /* ... */ },
+    get_expansion_details: { /* ... */ },
+    evaluate_buy_vs_farm: {
+      description: 'Feed vs market ROI breakdown for animal produce (Milk, Eggs, Wool).',
+      parameters: { type: 'object', properties: { product: { type: 'string' } }, required: ['product'] },
+      exec: async ({ product }, context) => {
+        const [{ canonical }, { prices }] = await Promise.all([sunflowerClient.getFarm(context.farmId), sunflowerClient.getPrices()]);
+        return evaluateBuyVsFarm(product, canonical, prices);
+      },
+    },
+    get_deliveries: {
+      description: 'Evaluates NPC delivery orders sorted by profit, Coins, SFL, and readyNow status.',
+      parameters: {
+        type: 'object',
+        properties: { category: { type: 'string', enum: ['all', 'coins', 'sfl', 'feathers', 'ready'] } },
+      },
+      exec: async ({ category = 'all' }, context) => {
+        const [{ canonical }, { prices }] = await Promise.all([sunflowerClient.getFarm(context.farmId), sunflowerClient.getPrices()]);
+        return evaluateDeliveries(canonical, prices, { category });
+      },
+    },
+    get_codex_chores_and_bounties: {
+      description: 'Evaluates Weekly Chores with live farmActivity progress and Poppy Mega Bounties.',
+      parameters: { type: 'object', properties: {} },
+      exec: async (_args, context) => {
+        const { canonical } = await sunflowerClient.getFarm(context.farmId);
+        return evaluateCodexTasks(canonical);
+      },
+    },
   };
 
-  async runAgent(message: string, sessionId: string, userId: number, farmId: string) {
+  /**
+   * Rule 9: Mandatory Real-Examples Disambiguation Rule
+   * If player intent is ambiguous or multiple options exist, the AI is STRICTLY
+   * FORBIDDEN from using fake system placeholders (e.g. "Delivery 1 - Milk & Eggs").
+   * It MUST always cite real, active orders and chores from the player's Codex board.
+   */
+  async runAgent(message: string, sessionId: string, userId: number, farmId: string, priorMessages = []) {
     // 8-round iterative loop with tool execution, dedup bypass, and fallback recovery
   }
 }
@@ -465,10 +658,11 @@ export class Orchestrator {
 
 ### 2.1 Workspace & Views (`client/src/App.jsx`)
 Main workspace shell implementing the hybrid Obsidian + Notion layout:
+- **`Header & Status Bar`**: Live AI Credits counter badge, active session device indicator, SFL community sync status.
 - **`Dashboard`**: Bumpkin Level 100 progress gauge, treasury stats, active cooking overviews.
 - **`Planner`**: Full per-building recipe comparison table, XP/FLOWER vs XP/Hour toggles, and daily blueprints.
 - **`Recipes`**: Building-by-building catalogue with `Ready` and `Missing` filters.
 - **`Market`**: Orderbook valuation, inventory stock filters, and deficit alerts.
 - **`Activity`**: Observed on-chain counters vs inferred inventory movements.
 - **`Quests`**: Deliveries, chore board, and animal bounties.
-- **`AntigravityChatModal`**: Floating Dr. Bumpkin copilot with markdown formatting and tool inspection.
+- **`AntigravityChatModal`**: Floating Dr. Bumpkin copilot with markdown formatting, live tool inspection, and remaining AI credits display.

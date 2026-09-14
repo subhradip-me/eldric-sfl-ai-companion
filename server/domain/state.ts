@@ -60,6 +60,7 @@ export interface BuildingInstance {
     amount?: number;
   }>;
   oil?: number;
+  level?: number;
 }
 
 export interface FarmStructureState {
@@ -82,6 +83,13 @@ export interface AnimalInstance {
   id: string;
   type: 'chicken' | 'cow' | 'sheep';
   level: number;
+  experience?: number;
+  state?: string;
+  asleepAt?: TimestampMs;
+  awakeAt?: TimestampMs;
+  lovedAt?: TimestampMs;
+  item?: string;
+  healthCheckedAt?: TimestampMs;
   fedAt?: TimestampMs;
   rewardReadyAt?: TimestampMs;
   multiplier?: number;

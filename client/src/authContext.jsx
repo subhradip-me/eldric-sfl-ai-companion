@@ -2,9 +2,26 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext(null);
 
+function normalizeUser(userData) {
+  if (!userData) return null;
+  const isDev = userData.username === 'dev' || userData.role === 'DEVELOPER';
+  const credits = userData.aiCredits ?? userData.ai_credits ?? (isDev ? 999999 : 50);
+  const creditsUsed = userData.aiCreditsUsed ?? userData.ai_credits_used ?? 0;
+  return {
+    ...userData,
+    farmId: userData.farmId ?? userData.farm_id,
+    aiCredits: credits,
+    ai_credits: credits,
+    aiCreditsUsed: creditsUsed,
+    ai_credits_used: creditsUsed,
+    role: userData.role || (userData.username === 'dev' ? 'DEVELOPER' : 'USER'),
+  };
+}
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(() => localStorage.getItem('auth_token'));
+  const [refreshToken, setRefreshToken] = useState(() => localStorage.getItem('refresh_token'));
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,38 +33,60 @@ export function AuthProvider({ children }) {
         },
       })
         .then((res) => res.json())
-        .then((data) => {
+        .then(async (data) => {
           if (data.success) {
-            setUser(data.user);
+            setUser(normalizeUser(data.user));
+          } else if (refreshToken) {
+            // Attempt token renewal
+            const refRes = await fetch('/api/auth/refresh', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ refreshToken }),
+            });
+            const refData = await refRes.json();
+            if (refData.success && refData.accessToken) {
+              localStorage.setItem('auth_token', refData.accessToken);
+              setToken(refData.accessToken);
+              const retry = await fetch('/api/auth/me', {
+                headers: { 'Authorization': `Bearer ${refData.accessToken}` },
+              }).then((r) => r.json());
+              if (retry.success) setUser(normalizeUser(retry.user));
+            } else {
+              logout();
+            }
           } else {
-            // Invalid token
-            localStorage.removeItem('auth_token');
-            setToken(null);
+            logout();
           }
         })
-        .catch(() => {
-          localStorage.removeItem('auth_token');
-          setToken(null);
-        })
+        .catch(() => logout())
         .finally(() => setLoading(false));
     } else {
       setLoading(false);
     }
   }, [token]);
 
-  const login = async (username, password) => {
+  const login = async (username, password, { forceDisconnect = false } = {}) => {
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, forceDisconnect }),
     });
 
     const data = await res.json();
 
+    if (res.status === 409 && data.error === 'SESSION_CONFLICT') {
+      return { conflict: true, deviceType: data.deviceType, message: data.message };
+    }
+
     if (data.success) {
-      localStorage.setItem('auth_token', data.token);
-      setToken(data.token);
-      setUser(data.user);
+      const accToken = data.accessToken || data.token;
+      localStorage.setItem('auth_token', accToken);
+      setToken(accToken);
+      if (data.refreshToken) {
+        localStorage.setItem('refresh_token', data.refreshToken);
+        setRefreshToken(data.refreshToken);
+      }
+      setUser(normalizeUser(data.user));
       return { success: true };
     }
 
@@ -64,9 +103,14 @@ export function AuthProvider({ children }) {
     const data = await res.json();
 
     if (data.success) {
-      localStorage.setItem('auth_token', data.token);
-      setToken(data.token);
-      setUser(data.user);
+      const accToken = data.accessToken || data.token;
+      localStorage.setItem('auth_token', accToken);
+      setToken(accToken);
+      if (data.refreshToken) {
+        localStorage.setItem('refresh_token', data.refreshToken);
+        setRefreshToken(data.refreshToken);
+      }
+      setUser(normalizeUser(data.user));
       return { success: true };
     }
 
@@ -74,9 +118,21 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
+    if (token) {
+      fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+      }).catch(() => {});
+    }
     localStorage.removeItem('auth_token');
+    localStorage.removeItem('refresh_token');
     setToken(null);
+    setRefreshToken(null);
     setUser(null);
+  };
+
+  const setAiCredits = (credits) => {
+    setUser((prev) => (prev ? { ...prev, aiCredits: credits, ai_credits: credits } : prev));
   };
 
   const updateFarmId = async (farmId) => {
@@ -92,7 +148,6 @@ export function AuthProvider({ children }) {
     const data = await res.json();
 
     if (data.success && user) {
-      // Use the server-returned farmId (it may have been normalised, e.g. trimmed)
       const savedId = data.farmId ?? farmId;
       setUser({ ...user, farmId: savedId, farm_id: savedId });
       return { success: true };
@@ -112,6 +167,7 @@ export function AuthProvider({ children }) {
         register,
         logout,
         updateFarmId,
+        setAiCredits,
       }}
     >
       {children}

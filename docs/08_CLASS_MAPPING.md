@@ -6,7 +6,7 @@
 erDiagram
     USERS ||--o{ SNAPSHOTS : "owns"
     USERS ||--o{ CHAT_MESSAGES : "creates"
-    USERS ||--o{ SESSIONS : "authorizes"
+    USERS ||--o{ ACTIVE_SESSIONS : "authenticates"
 
     USERS {
         int id PK
@@ -14,9 +14,22 @@ erDiagram
         string email UK
         string password_hash
         string farm_id
+        string registration_ip
+        string role
+        int ai_credits
+        int ai_credits_used
         timestamp created_at
         timestamp updated_at
         timestamp last_login
+    }
+
+    ACTIVE_SESSIONS {
+        int id PK
+        int user_id FK
+        string device_type UK
+        text refresh_token_hash
+        timestamp created_at
+        timestamp last_active_at
     }
 
     SNAPSHOTS {
@@ -39,12 +52,6 @@ erDiagram
         int user_id FK
         bigint created_at
     }
-
-    SESSIONS {
-        string sid PK
-        json sess
-        timestamp expire
-    }
 ```
 
 ---
@@ -52,7 +59,7 @@ erDiagram
 ## 2. Database Table Schemas
 
 ### 2.1 `users`
-Represents registered user accounts and workspace owners.
+Represents registered user accounts, workspace owners, IP attribution, and AI credit quotas.
 
 | Column | Type | Constraints | Description |
 |---|---|---|---|
@@ -61,13 +68,31 @@ Represents registered user accounts and workspace owners.
 | `email` | `VARCHAR(255)` | `UNIQUE NOT NULL` | Verified user email address |
 | `password_hash` | `VARCHAR(255)` | `NOT NULL` | bcrypt hash (salt rounds = 10) |
 | `farm_id` | `VARCHAR(100)` | `NULLABLE` | Sunflower Land on-chain Farm NFT ID |
+| `registration_ip`| `VARCHAR(45)` | `NULLABLE` | IP address at registration (1-Account-Per-IP gate) |
+| `role` | `VARCHAR(20)` | `DEFAULT 'USER'` | Authorization tier: `'USER'` or `'DEVELOPER'` |
+| `ai_credits` | `INTEGER` | `DEFAULT 50` | Available AI invocation credits |
+| `ai_credits_used`| `INTEGER` | `DEFAULT 0` | Cumulative AI credits consumed |
 | `created_at` | `TIMESTAMP` | `DEFAULT CURRENT_TIMESTAMP` | Account creation timestamp |
 | `updated_at` | `TIMESTAMP` | `DEFAULT CURRENT_TIMESTAMP` | Last profile update timestamp |
 | `last_login` | `TIMESTAMP` | `NULLABLE` | Timestamp of most recent successful login |
 
-**Indexes**: `idx_users_username`, `idx_users_email`, `idx_users_farm_id`.
+**Indexes**: `idx_users_username`, `idx_users_email`, `idx_users_farm_id`, `idx_users_registration_ip`.
 
-### 2.2 `snapshots`
+### 2.2 `active_sessions`
+Enforces the concurrent dual-device session limit (1 Desktop + 1 Mobile per user).
+
+| Column | Type | Constraints | Description |
+|---|---|---|---|
+| `id` | `SERIAL` | `PRIMARY KEY` | Auto-incrementing session identifier |
+| `user_id` | `INTEGER` | `REFERENCES users(id) ON DELETE CASCADE` | Associated workspace owner |
+| `device_type` | `VARCHAR(10)` | `CHECK (device_type IN ('desktop', 'mobile'))` | Client device form factor |
+| `refresh_token_hash` | `TEXT` | `NOT NULL` | SHA-256 hash of issued refresh token |
+| `created_at` | `TIMESTAMP` | `DEFAULT now()` | Session initiation timestamp |
+| `last_active_at` | `TIMESTAMP` | `DEFAULT now()` | Timestamp of most recent token refresh |
+
+**Indexes**: `idx_one_session_per_device_type UNIQUE (user_id, device_type)`.
+
+### 2.3 `snapshots`
 Time-series log of farm state observations used for activity and progression analysis.
 
 | Column | Type | Constraints | Description |
@@ -83,7 +108,7 @@ Time-series log of farm state observations used for activity and progression ana
 
 **Indexes**: `idx_snapshots_user_created (user_id, created_at DESC)`, `idx_snapshots_created`.
 
-### 2.3 `chat_messages`
+### 2.4 `chat_messages`
 Stores assistant conversation logs and vector embeddings for semantic search.
 
 | Column | Type | Constraints | Description |

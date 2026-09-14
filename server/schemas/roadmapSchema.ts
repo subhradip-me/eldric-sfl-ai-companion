@@ -19,14 +19,16 @@ export const ResourceReservationMapSchema = z.record(z.string(), ResourceCommitm
 
 export const PlanActionSchema = z.object({
   actionId: z.string().min(1),
-  type: z.enum(['PLANT', 'HARVEST', 'COOK', 'BUY', 'SELL', 'RESERVE']),
+  type: z.enum(['PLANT', 'HARVEST', 'COOK', 'BUY', 'GATHER', 'PRODUCE', 'SELL', 'RESERVE']),
   item: z.string().min(1),
   quantity: z.number().positive(),
   building: z.string().optional(),
+  currentStock: z.number().optional(),
   estimatedCostFlower: z.number().optional(),
   estimatedXpGain: z.number().optional(),
   estimatedReadyAt: z.number().int().positive().optional(),
   reasoning: z.string().min(1),
+  ingredientBreakdown: z.array(z.any()).optional(),
 });
 
 export const ActionScoreSchema = z.object({
@@ -91,6 +93,7 @@ export const DailyObjectiveSchema = z.object({
   completionCriteria: z.array(z.string()).default([]),
   warnings: z.array(PlanWarningSchema).default([]),
   opportunities: z.array(PlanOpportunitySchema).default([]),
+  ingredientSummary: z.array(z.any()).optional(),
 });
 
 export const PhaseSchema = z.object({

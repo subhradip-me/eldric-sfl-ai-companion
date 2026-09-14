@@ -106,20 +106,47 @@ export async function init() {
     CREATE INDEX IF NOT EXISTS idx_chat_user_session       ON chat_messages(user_id, session_id, created_at);
   `);
 
-  // ── 7. Seed default developer account if not present ─────────────────────────
+  // ── 7. Users security & credits columns ───────────────────────────────────────
+  await pool.query(`
+    ALTER TABLE users ADD COLUMN IF NOT EXISTS registration_ip VARCHAR(45);
+    ALTER TABLE users ADD COLUMN IF NOT EXISTS role VARCHAR(20) DEFAULT 'USER';
+    ALTER TABLE users ADD COLUMN IF NOT EXISTS ai_credits INTEGER DEFAULT 50;
+    ALTER TABLE users ADD COLUMN IF NOT EXISTS ai_credits_used INTEGER DEFAULT 0;
+    CREATE INDEX IF NOT EXISTS idx_users_registration_ip ON users(registration_ip);
+  `);
+
+  // ── 8. Active sessions table (concurrent device cap) ───────────────────────────
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS active_sessions (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      device_type VARCHAR(10) NOT NULL CHECK (device_type IN ('desktop', 'mobile')),
+      refresh_token_hash TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT now(),
+      last_active_at TIMESTAMP DEFAULT now()
+    );
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_one_session_per_device_type ON active_sessions(user_id, device_type);
+  `);
+
+  // ── 9. Seed default developer account if not present ─────────────────────────
   try {
     const devUser = await pool.query('SELECT id FROM users WHERE username = $1', ['dev']);
     if (devUser.rows.length === 0) {
       const devHash = await bcrypt.hash('developer123', 10);
       await pool.query(
-        `INSERT INTO users (username, email, password_hash, farm_id)
-         VALUES ($1, $2, $3, $4)
-         ON CONFLICT (username) DO NOTHING`,
+        `INSERT INTO users (username, email, password_hash, farm_id, role, ai_credits)
+         VALUES ($1, $2, $3, $4, 'DEVELOPER', 999999)
+         ON CONFLICT (username) DO UPDATE SET role = 'DEVELOPER', ai_credits = 999999`,
         ['dev', 'dev@sunflower-ai.internal', devHash, '346853928974080']
       );
-      console.log('🛠️  Developer account seeded: username: dev / password: developer123 / farm: 346853928974080');
+      console.log('🛠️  Developer account seeded: username: dev / password: developer123 / farm: 346853928974080 (role: DEVELOPER, unlimited credits)');
+    } else {
+      await pool.query(`UPDATE users SET role = 'DEVELOPER', ai_credits = 999999 WHERE username = 'dev'`);
     }
   } catch (seedErr) {
     console.warn('⚠️  Could not seed dev account (will proceed):', seedErr.message);
   }
 }
+
+export const db = pool;
+

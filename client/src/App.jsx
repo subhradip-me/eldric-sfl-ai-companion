@@ -3405,12 +3405,15 @@ function DevFarmSwitcherModal({
 ═════════════════════════════════════════════════════════════════════════════ */
 const NEW_SESSION = () => crypto.randomUUID();
 
-function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSession, farm, user, activeFarmId, isDevOverride }) {
+function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSession, farm, user, activeFarmId, isDevOverride, onCreditsUpdated }) {
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [maximized, setMaximized] = useState(false);
   const endRef = useRef(null);
   const inputRef = useRef(null);
+
+  const isDev = user?.username === "dev" || user?.role === "DEVELOPER" || isDevOverride;
+  const currentCredits = isDev ? 999999 : (user?.aiCredits ?? user?.ai_credits ?? 50);
 
   const isResumed = msgs.some((m) => m.role === "history");
 
@@ -3439,12 +3442,25 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
 
   const send = async (text) => {
     if (!text?.trim() || busy) return;
+    if (!isDev && currentCredits <= 0) {
+      setMsgs((m) => [
+        ...m,
+        {
+          role: "ai",
+          text: "⚠️ You have exhausted your AI credits (0 remaining). Please contact support to recharge your credits.",
+        },
+      ]);
+      return;
+    }
     setMsgs((m) => [...m, { role: "you", text }]);
     setInput("");
     setBusy(true);
     try {
       const r = await api.chat(text, sessionId);
-      setMsgs((m) => [...m, { role: "ai", text: r.answer ?? r.error ?? "No response received", steps: r.steps ?? [] }]);
+      if (r?.creditsRemaining !== undefined && onCreditsUpdated) {
+        onCreditsUpdated(r.creditsRemaining);
+      }
+      setMsgs((m) => [...m, { role: "ai", text: r.answer ?? (r.error ? `⚠️ ${r.error}` : "No response received"), steps: r.steps ?? [] }]);
     } catch (err) {
       setMsgs((m) => [...m, { role: "ai", text: `⚠️ Error communicating with server: ${err.message}` }]);
     } finally {
@@ -3510,6 +3526,23 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
               <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-amber-500/15 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/30 dark:border-amber-500/20 font-medium">
                 Gemini
               </span>
+
+              {/* In-Modal AI Credit Pill */}
+              <div
+                className={`flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono border transition-all ${
+                  isDev
+                    ? "bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30 font-semibold"
+                    : currentCredits <= 0
+                    ? "bg-rose-500/20 text-rose-700 dark:text-rose-400 border-rose-500/40 font-bold animate-pulse"
+                    : currentCredits <= 5
+                    ? "bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30 font-bold"
+                    : "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/25 font-medium"
+                }`}
+                title={isDev ? "Developer Account: Unlimited AI Usage" : `${currentCredits} AI Credits Remaining (1 credit per prompt)`}
+              >
+                <span>⚡</span>
+                <span>{isDev ? "Unlimited (Dev)" : `${currentCredits} Credits`}</span>
+              </div>
             </div>
           </div>
 
@@ -3565,9 +3598,26 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
               <h2 className="text-xl font-bold font-display text-[#1a1a1a] dark:text-white mb-1.5">
                 How can I help you?
               </h2>
-              <p className="text-xs text-[#666] dark:text-[#999] max-w-sm mb-6 font-mono">
+              <p className="text-xs text-[#666] dark:text-[#999] max-w-sm mb-4 font-mono">
                 Ask anything about cooking schedules, XP projections, inventory arbitrage, or island delivery priorities.
               </p>
+
+              {/* AI Copilot Credit Quota Balance Card */}
+              <div className="w-full max-w-sm mb-5 p-2.5 rounded-xl bg-black/[0.03] dark:bg-white/[0.03] border border-black/10 dark:border-white/10 flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-amber-500/15 flex items-center justify-center text-base">⚡</div>
+                  <div className="text-left">
+                    <div className="font-semibold text-[#1a1a1a] dark:text-white text-[11px]">AI Copilot Balance</div>
+                    <div className="text-[10px] font-mono text-[#888]">1 query = 1 credit reserved</div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className={`font-mono font-bold text-xs ${isDev ? "text-purple-600 dark:text-purple-400" : currentCredits <= 0 ? "text-rose-500 font-bold" : currentCredits <= 5 ? "text-amber-600 font-bold" : "text-emerald-600 dark:text-emerald-400"}`}>
+                    {isDev ? "⚡ Unlimited" : `⚡ ${currentCredits} Credits`}
+                  </div>
+                  <div className="text-[9px] text-[#888] font-mono">{isDev ? "Developer tier" : "Initial allocation: 50"}</div>
+                </div>
+              </div>
 
               {/* Antigravity Action Chips */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
@@ -3648,6 +3698,15 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
 
         {/* Antigravity Input Composer Dock */}
         <div className="p-3 sm:p-4 bg-[#f4f3ef] dark:bg-[#121214] border-t border-black/10 dark:border-white/10 shrink-0">
+          {!isDev && currentCredits <= 0 && (
+            <div className="mb-2.5 p-2.5 rounded-lg bg-rose-500/15 border border-rose-500/30 text-rose-800 dark:text-rose-300 text-xs flex items-center justify-between">
+              <span className="flex items-center gap-2">
+                <span>⚠️</span>
+                <span>You have exhausted your AI credits (0 remaining). Please contact support to recharge.</span>
+              </span>
+            </div>
+          )}
+
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -3658,13 +3717,14 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
             <input
               ref={inputRef}
               value={input}
+              disabled={!isDev && currentCredits <= 0}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask Dr. Bumpkin (e.g. What should I cook?)..."
-              className="flex-1 bg-transparent px-3 py-2 text-xs text-[#1a1a1a] dark:text-white placeholder-[#888] dark:placeholder-[#777] outline-none font-sans"
+              placeholder={!isDev && currentCredits <= 0 ? "AI credits exhausted (0 remaining)..." : "Ask Dr. Bumpkin (e.g. What should I cook?)..."}
+              className="flex-1 bg-transparent px-3 py-2 text-xs text-[#1a1a1a] dark:text-white placeholder-[#888] dark:placeholder-[#777] outline-none font-sans disabled:opacity-50"
             />
             <button
               type="submit"
-              disabled={busy || !input.trim()}
+              disabled={busy || !input.trim() || (!isDev && currentCredits <= 0)}
               className="px-3 py-2 bg-amber-500 hover:bg-amber-400 disabled:opacity-40 text-slate-950 font-bold rounded-lg transition-all text-xs flex items-center gap-1.5 shadow-md shadow-amber-500/10"
             >
               <span>Send</span>
@@ -3673,7 +3733,10 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
           </form>
 
           <div className="mt-2 px-1 flex items-center justify-between text-[10px] font-mono text-[#777] select-none">
-            <span>Dr. Bumpkin has access to your live farm data</span>
+            <span className="flex items-center gap-1.5">
+              <span className="text-amber-500 font-bold">⚡</span>
+              <span>{isDev ? "Unlimited Developer Access" : `1 credit consumed per prompt · ${currentCredits} available`}</span>
+            </span>
             <span>Enter ↵ to send · Esc to close</span>
           </div>
         </div>
@@ -3869,7 +3932,7 @@ export default function App() {
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   const { theme, toggleTheme } = useTheme();
-  const { user, loading, isAuthenticated, logout } = useAuth();
+  const { user, loading, isAuthenticated, logout, setAiCredits } = useAuth();
 
   // Chat copilot state
   const [sessionId, setSessionId] = useState(() => NEW_SESSION());
@@ -3903,7 +3966,8 @@ export default function App() {
     }
   };
 
-  const isDevUser = user?.username === 'dev';
+  const isDevUser = user?.username === 'dev' || user?.role === 'DEVELOPER';
+  const userCredits = isDevUser ? 999999 : (user?.aiCredits ?? user?.ai_credits ?? 50);
 
   // Developer Mode & Multi-Farm Testing State (strictly reserved for 'dev' account)
   const [devMode, setDevMode] = useState(() => {
@@ -4088,6 +4152,24 @@ export default function App() {
             🔄
           </button>
 
+          {/* AI Credits Badge (Click opens Dr. Bumpkin) */}
+          <button
+            onClick={() => setCopilotOpen(true)}
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono border transition-all shrink-0 cursor-pointer shadow-xs hover:scale-105 select-none ${
+              isDevUser
+                ? "bg-purple-500/15 hover:bg-purple-500/25 text-purple-700 dark:text-purple-300 border-purple-500/40 font-semibold"
+                : userCredits <= 0
+                ? "bg-rose-500/20 hover:bg-rose-500/30 text-rose-700 dark:text-rose-400 border-rose-500/50 font-bold animate-pulse"
+                : userCredits <= 5
+                ? "bg-amber-500/15 hover:bg-amber-500/25 text-amber-700 dark:text-amber-400 border-amber-500/40 font-bold"
+                : "bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 font-medium"
+            }`}
+            title={isDevUser ? "Developer Account: Unlimited AI Usage" : `AI Copilot: ${userCredits} Credits Remaining (1 credit/query). Click to open chat.`}
+          >
+            <span className="text-amber-500 dark:text-amber-400 animate-pulse">⚡</span>
+            <span>{isDevUser ? "Unlimited (Dev)" : `${userCredits} Credits`}</span>
+          </button>
+
           {/* AI Copilot Drawer Toggle */}
           <button
             onClick={() => setCopilotOpen(!copilotOpen)}
@@ -4199,6 +4281,12 @@ export default function App() {
                   <div className="px-2 py-1 border-b border-black/5 dark:border-white/5 text-[11px] font-mono text-[#888]">
                     <div className="font-bold text-[#1a1a1a] dark:text-white truncate">{user?.username}</div>
                     <div>Farm: #{activeFarmId} {isDevOverride && "(Dev)"}</div>
+                    <div className="flex items-center justify-between mt-1 pt-1 border-t border-black/5 dark:border-white/5 text-[10px]">
+                      <span>AI Credits:</span>
+                      <span className={isDevUser ? "text-purple-600 dark:text-purple-400 font-bold" : userCredits <= 0 ? "text-rose-500 font-bold" : userCredits <= 5 ? "text-amber-500 font-bold" : "text-emerald-600 dark:text-emerald-400 font-semibold"}>
+                        {isDevUser ? "⚡ Unlimited (Dev)" : `⚡ ${userCredits}`}
+                      </span>
+                    </div>
                   </div>
                   {isDevUser && (
                     <button
@@ -4250,7 +4338,13 @@ export default function App() {
                     </div>
                     <div className="truncate">
                       <div className="text-xs font-bold text-[#1a1a1a] dark:text-white truncate">SFL Shanty</div>
-                      <div className="text-[10px] text-[#888] truncate">{user?.username}'s Vault</div>
+                      <div className="text-[10px] text-[#888] truncate flex items-center gap-1">
+                        <span className="truncate">{user?.username}</span>
+                        <span>·</span>
+                        <span className={isDevUser ? "text-purple-600 dark:text-purple-400 font-bold" : userCredits <= 0 ? "text-rose-500 font-bold" : userCredits <= 5 ? "text-amber-500 font-bold" : "text-emerald-600 dark:text-emerald-400 font-medium"}>
+                          ⚡ {isDevUser ? "Unlimited" : `${userCredits} cr`}
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <span className="text-[10px] opacity-60">▾</span>
@@ -4262,6 +4356,12 @@ export default function App() {
                     <div className="px-2 py-1.5 border-b border-black/5 dark:border-white/5 text-[11px] font-mono text-[#888]">
                       <div>User: {user?.username}</div>
                       <div>Farm: #{activeFarmId} {isDevOverride && "(Dev)"}</div>
+                      <div className="flex items-center justify-between mt-1 pt-1 border-t border-black/5 dark:border-white/5 text-[10px]">
+                        <span>AI Credits:</span>
+                        <span className={isDevUser ? "text-purple-600 dark:text-purple-400 font-bold" : userCredits <= 0 ? "text-rose-500 font-bold" : userCredits <= 5 ? "text-amber-500 font-bold" : "text-emerald-600 dark:text-emerald-400 font-semibold"}>
+                          {isDevUser ? "⚡ Unlimited (Dev)" : `⚡ ${userCredits} Credits`}
+                        </span>
+                      </div>
                     </div>
                     {isDevUser && (
                       <button
@@ -4441,6 +4541,7 @@ export default function App() {
           user={user}
           activeFarmId={activeFarmId}
           isDevOverride={isDevOverride}
+          onCreditsUpdated={setAiCredits}
         />
       </div>
 
@@ -4475,6 +4576,18 @@ export default function App() {
         </div>
 
         <div className="hidden sm:flex items-center gap-3 shrink-0">
+          <button
+            onClick={() => setCopilotOpen(true)}
+            className="flex items-center gap-1 hover:text-amber-500 transition-colors cursor-pointer select-none"
+            title="AI Copilot Balance (Click to open Dr. Bumpkin)"
+          >
+            <span className="text-amber-500">⚡</span>
+            <span>Credits:</span>
+            <span className={isDevUser ? "text-purple-600 dark:text-purple-400 font-bold" : userCredits <= 0 ? "text-rose-500 font-bold" : userCredits <= 5 ? "text-amber-500 font-bold" : "text-emerald-600 dark:text-emerald-400 font-semibold"}>
+              {isDevUser ? "Unlimited" : userCredits}
+            </span>
+          </button>
+          <span className="opacity-40">|</span>
           <span>FLOWER: {Number(farm?.currencies.flowerApprox ?? 0).toFixed(2)}</span>
           <span className="opacity-40">|</span>
           <span className="text-amber-500 font-medium">Deterministic Core v1.0.0</span>

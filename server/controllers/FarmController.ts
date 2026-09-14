@@ -4,6 +4,7 @@
  */
 import type { Request, Response } from 'express';
 import { sunflowerClient, snapshotService, activityService, farmNormalizer, dashboardService } from '../services/farm/index.js';
+import { hotStore } from '../storage/index.js';
 import { summarizeActiveProduction, calculateFoodXp, resolveEffectContext } from '../core/index.js';
 import { plannerService, recipeService, xpEngine } from '../services/cooking/index.js';
 import { UserModel } from '../models/UserModel.js';
@@ -53,6 +54,20 @@ export class FarmController {
         now: Date.now(),
         farmId,
       });
+
+      // Commit live farm state directly to Redis Hot Store
+      const nowMs = Date.now();
+      hotStore.commit({
+        farmId,
+        snapshotVersion: nowMs,
+        state: normResult.normalizedState,
+        updatedAt: nowMs,
+        syncStatus: 'SUCCESS',
+      }).catch((err) => console.warn('Failed to commit to hotStore:', (err as Error).message));
+
+      if (raw) {
+        hotStore.setRaw(farmId, raw).catch(() => {});
+      }
 
       // Save snapshot asynchronously only if not a dev override or if running under dev user
       if (!isDevOverride || user?.username === 'dev') {

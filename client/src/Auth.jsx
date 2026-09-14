@@ -25,6 +25,8 @@ function useAuthTheme() {
   return { theme, toggleTheme };
 }
 
+import { SessionConflictModal } from './components/SessionConflictModal.jsx';
+
 export function AuthScreen() {
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState('');
@@ -32,9 +34,25 @@ export function AuthScreen() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [conflict, setConflict] = useState(null);
 
   const { theme, toggleTheme } = useAuthTheme();
   const { login, register } = useAuth();
+
+  const handleConfirmForceDisconnect = async () => {
+    setConflict(null);
+    setLoading(true);
+    try {
+      const result = await login(username, password, { forceDisconnect: true });
+      if (!result.success) {
+        setError(result.error || 'Authentication failed');
+      }
+    } catch {
+      setError('An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,6 +63,11 @@ export function AuthScreen() {
       let result;
       if (isLogin) {
         result = await login(username, password);
+        if (result?.conflict) {
+          setConflict({ deviceType: result.deviceType, message: result.message });
+          setLoading(false);
+          return;
+        }
       } else {
         if (!email) {
           setError('Email is required');
@@ -232,6 +255,14 @@ export function AuthScreen() {
           SFL Shanty · Hybrid Notion Workspace + Obsidian Engine
         </div>
       </div>
+
+      {conflict && (
+        <SessionConflictModal
+          deviceType={conflict.deviceType}
+          onCancel={() => setConflict(null)}
+          onConfirm={handleConfirmForceDisconnect}
+        />
+      )}
     </div>
   );
 }

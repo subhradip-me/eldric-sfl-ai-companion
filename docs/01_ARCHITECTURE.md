@@ -12,11 +12,14 @@ graph TB
         UI[Obsidian & Notion UI Shell]
         AuthUI[Auth & Farm Link Modal]
         ChatUI[Antigravity Chat Modal]
+        CreditsUI[AI Credits Badge & Quota]
+        SessionUI[Session Conflict Modal]
         Ctx[Auth Context & JWT Storage]
     end
 
     subgraph Gateway["API Gateway & Middleware (Express + TypeScript)"]
         Router["/api (server/index.ts)"]
+        IPGate["ipGate Middleware (1-Account/IP)"]
         AuthMid["authenticateToken Middleware"]
         CORS["CORS & Cookie Parser"]
     end
@@ -24,7 +27,14 @@ graph TB
     subgraph Controllers["Controller Layer (Class-Based)"]
         AC["AuthController.ts"]
         FC["FarmController.ts"]
-        CC["ChatController.ts"]
+        CC["ChatController.ts (Credit Reservation)"]
+    end
+
+    subgraph CoreEngines["Pure Deterministic Core Engines (server/core/)"]
+        DelivEng["economyEngine/deliveries.ts"]
+        CostEng["economyEngine/cost.ts"]
+        ProdEng["productionEngine/production.ts"]
+        EffectEng["effectEngine/resolution.ts"]
     end
 
     subgraph ModularServices["Modular Service Layer (server/services/)"]
@@ -40,19 +50,27 @@ graph TB
             Plan["PlannerService.ts"]
         end
         subgraph AIDomain["ai/"]
-            Orch["Orchestrator.ts (Agent Loop)"]
+            Orch["Orchestrator.ts (15-Tool Agent Loop)"]
             GroqClient["GroqClient.ts"]
         end
         subgraph AuthDomain["auth/"]
-            AuthSvc["AuthService.ts"]
+            AuthSvc["AuthService.ts (IP Gate & Sessions)"]
         end
         subgraph ChatDomain["chat/"]
             ChatStore["ChatStoreService.ts (ONNX Embeddings)"]
         end
     end
 
+    subgraph Models["Model Layer (server/models/)"]
+        UserMdl["UserModel.ts (Credits & IP)"]
+        SessMdl["SessionModel.ts (Device Caps)"]
+        SnapMdl["Snapshot.ts"]
+        ChatMdl["ChatMessage.ts"]
+    end
+
     subgraph Storage["Data & Persistence Layer"]
         PG[(PostgreSQL 16)]
+        Redis[(Redis 7 Hot Store)]
         PGV[(pgvector Cosine Embeddings)]
         RuleFiles[(Static Game Rules JSON)]
     end
@@ -65,23 +83,34 @@ graph TB
     UI --> Router
     AuthUI --> Router
     ChatUI --> Router
-    Router --> AuthMid
+    Router --> IPGate
+    IPGate --> AuthMid
     AuthMid --> Controllers
 
     AC --> AuthSvc
-    AuthSvc --> PG
+    AuthSvc --> UserMdl
+    AuthSvc --> SessMdl
     FC --> SFL
     FC --> Norm
     FC --> Plan
     FC --> Snap
     FC --> Act
+    FC --> DelivEng
+    CC --> UserMdl
     CC --> Orch
 
     SFL --> SFL_API
+    SFL --> Redis
     Orch --> Groq
     Orch --> ChatStore
+    Orch --> DelivEng
+    Orch --> CostEng
+    Orch --> ProdEng
+    Orch --> EffectEng
     ChatStore --> PGV
     Snap --> PG
+    UserMdl --> PG
+    SessMdl --> PG
     Plan --> XPEng
     Plan --> Rec
     Plan --> RuleFiles
@@ -309,41 +338,107 @@ export class PlannerService {
 }
 ```
 
-#### 3. AI Agent Domain (`server/services/ai/`)
-- `Orchestrator.ts`: Autonomous agent loop implementing **PLAN → ACT → CHECK → FIX** across up to 8 conversational rounds. It calls live tools to inspect farm state, prices, planner output, and land expansion rules before answering.
+#### 3. Pure Deterministic Calculation Engines (`server/core/`)
+- `economyEngine/deliveries.ts`: Pure, deterministic evaluation of Codex Deliveries, Weekly Chores, and Poppy Mega Bounties with SHA-256 cryptographic provenance.
+  - Evaluates Coin deliveries, SFL orders, and Ascension Age seasonal Shiny Feathers based on NPC tiers (Elite: 6, Medium: 3, Standard: 2) with active VIP Membership boosts (+3 Feathers / +15 to +45 Ascension points).
+  - Tracks ingredient readiness (`readyNow`), market ingredient FLOWER cost, net SFL profit, and return on investment.
+  - Maps Weekly Chores against `farmActivity` counters (`currentProgress = farmActivity[activityName] - initialProgress`).
+  - Evaluates the Poppy Mega Bounty board across 6 distinct categories (Flowers, Fish, Crustaceans, Animals, Artefacts, Giant Crops).
+- `economyEngine/cost.ts`: Evaluates animal produce economics (Milk, Eggs, Wool) strictly from market prices, comparing feed costs vs market purchases with zero hardcoded prices.
+- `productionEngine/production.ts`: Projects yields, busy timers, and active pipeline completion across cooking buildings, crops, and animal barns.
+- `effectEngine/resolution.ts`: Resolves placed collectibles, equipped wearables, and seasonal conditions into an authoritative `EffectContext`.
+
+#### 4. AI Agent Domain (`server/services/ai/`)
+- `Orchestrator.ts`: Autonomous agent loop implementing **PLAN → ACT → CHECK → FIX** across up to 8 conversational rounds. It calls **15 specialized deterministic tools**:
+  1. `get_farm_state`: Normalized inventory, level, XP, currencies, buildings, skills from snapshots or hot store.
+  2. `get_roadmap`: Multi-phase tactical roadmap with daily objectives and resource commitments.
+  3. `check_action_permission`: Discretionary balance and hard reserve constraint validator.
+  4. `evaluate_strategy_feasibility`: Recipe or crafting feasibility check against budgets and deadlines.
+  5. `get_temporal_context`: In-game Sunflower clock, day boundary, and seasonal urgency index.
+  6. `get_history_metrics`: Historical deltas with strict observed vs inferred separation.
+  7. `compute_recipe_cost`: Effective recipe economics with building ownership verification gates.
+  8. `get_active_effects`: Resolution of placed collectibles, equipped wearables, and timed buffs.
+  9. `get_market_prices`: Live P2P community market orderbook prices in FLOWER.
+  10. `recall_memory`: Semantic vector search across past archived conversational sessions (`pgvector`).
+  11. `get_item_metadata`: Static game metadata lookup with collision disambiguation.
+  12. `get_expansion_details`: Multi-island progression requirements (Desert, Volcano, etc.).
+  13. `evaluate_buy_vs_farm`: Feed vs market ROI breakdown for animal produce (Milk, Eggs, Wool).
+  14. `get_deliveries`: Evaluates NPC delivery orders sorted by profit, Coins, SFL, and `readyNow` status.
+  15. `get_codex_chores_and_bounties`: Evaluates Weekly Chores and Poppy Mega Bounties with live progress.
+- **Anti-Hallucination Real-Examples Disambiguation (Rule 9)**: When player intent is ambiguous, Dr. Bumpkin is strictly forbidden from using fake system placeholders (e.g. `"Delivery 1 - Milk & Eggs"`). It MUST always cite real, active orders and chores directly from the player's Codex board with NPC names, exact ingredients, and actual rewards.
 - Supports tool-level deduplication bypass with `force: true`.
-- Enforces building ownership validation when evaluating recipe costs.
 
 ---
 
-### 2.5 Persistence Layer (PostgreSQL 16 + pgvector)
-PostgreSQL 16 provides transactional ACID persistence and vector similarity search:
-- Relational tables: `users`, `snapshots`, `sessions`.
-- Vector search: `chat_messages` table with an `embedding vector(384)` column generated by `@xenova/transformers`. Queries utilize cosine distance (`<=>` operator).
-- Connection pooling via `pg.Pool` with parameterized queries to eliminate SQL injection vulnerabilities.
+### 2.5 Persistence & Hot Cache Layer
+PostgreSQL 16 provides transactional ACID persistence and vector similarity search, augmented with Redis 7 for live state projections:
+- **Relational & Auth Tables**:
+  - `users`: ID, username, email, `password_hash`, `farm_id`, `registration_ip`, `role`, `ai_credits`, `ai_credits_used`.
+  - `active_sessions`: Strict concurrent session tracking with `(user_id, device_type)` unique constraint and SHA-256 hashed refresh tokens.
+  - `snapshots`: Time-series farm states indexed by `(user_id, created_at DESC)`.
+- **Vector Search Table**:
+  - `chat_messages`: Vector embeddings (`vector(384)`) generated by `@xenova/transformers`, queried using cosine distance (`<=>` operator).
+- **Redis 7 Hot Store**:
+  - In-memory monotonic farm state projection caching canonical and raw blockchain states for rapid agent reads.
+  - Includes transparent in-memory fallback (`MemoryHotStore`) for hermetic local test runs and offline development.
 
 ---
 
-## 3. Security Architecture
+## 3. Security & Governance Architecture
 
 ```
-Client (Browser)                 Server (Express)                 Database (PostgreSQL)
-       │                                │                                    │
-       ├──── POST /api/auth/login ─────►│                                    │
-       │    { username, password }      │                                    │
-       │                                ├──── SELECT password_hash ─────────►│
-       │                                │◄─── Return user row ───────────────┤
-       │                                │                                    │
-       │                                │ [bcrypt.compare(pw, hash)]         │
-       │                                │ [jwt.sign({ userId, ... })]        │
-       │◄─── 200 OK + JWT Token ────────┤                                    │
-       │                                │                                    │
-       ├──── GET /api/farm ────────────►│                                    │
-       │    Bearer <token>              │ [jwt.verify(token)]                │
-       │                                ├──── SELECT snapshots WHERE id=... ─►│
+Client (Browser / Mobile)                 Server (Express API)                 Database / Redis
+       │                                         │                                    │
+       ├──── POST /api/auth/register ───────────►│                                    │
+       │    { username, pw, email }              ├──── SELECT id FROM users ─────────►│
+       │                                         │     WHERE registration_ip = $1     │
+       │                                         │◄─── [If exists: 409 Conflict] ─────┤
+       │                                         │                                    │
+       ├──── POST /api/auth/login ──────────────►│                                    │
+       │    { username, password, deviceType }   ├──── SELECT * FROM active_sessions ─►│
+       │                                         │     WHERE user_id = $1             │
+       │                                         │     AND device_type = $2           │
+       │                                         │◄─── [If active & !force: 409] ─────┤
+       │                                         │                                    │
+       │                                         │ [bcrypt.compare(pw, hash)]         │
+       │                                         │ [Issue 15m Access + 30d Refresh]   │
+       │◄─── 200 OK + JWT Tokens ────────────────┤                                    │
+       │                                         │                                    │
+       ├──── POST /api/chat { message } ────────►│                                    │
+       │    Bearer <access_token>                ├──── UPDATE users SET               │
+       │                                         │     ai_credits = ai_credits - 1    │
+       │                                         │     WHERE id = $1 AND              │
+       │                                         │     ai_credits >= 1 RETURNING ... ─►│
+       │                                         │◄─── [Credit Reserved] ─────────────┤
+       │                                         │ [Run 15-Tool Agent Loop]           │
+       │                                         │ (If AI error -> Auto-Refund +1)    │
+       │◄─── 200 OK + Answer & Credits ──────────┤                                    │
 ```
 
-1. **Password Encryption**: Stored using `bcrypt` with salt factor 10. Passwords never appear in plaintext logs or API responses.
-2. **Stateless JWT Authorization**: Cryptographically signed JSON Web Tokens (`HS256`) containing `userId`, `username`, and `farmId` with a 7-day expiration.
-3. **Tenant Data Isolation**: Database queries enforce `WHERE user_id = $1` filters across all snapshot and chat queries, preventing cross-account access.
+1. **One-Account-Per-IP Sybil Protection**:
+   - `ipGate.ts` and `AuthService.ts` record client IP address (`req.headers['x-forwarded-for']` or `req.ip`) during registration.
+   - Restricts public user accounts to 1 registration per IP address to prevent Sybil bot farms.
+   - Developer accounts (`username === 'dev'` or `role === 'DEVELOPER'`) are explicitly exempted.
+
+2. **Concurrent Dual-Device Session Cap (1 Desktop + 1 Mobile)**:
+   - Tracks active sessions in `active_sessions` with device classification (`desktop` vs `mobile`).
+   - If a user attempts to log into a second desktop while an active desktop session exists, the server returns a `409 SESSION_CONFLICT` requiring explicit confirmation.
+   - When confirmed with `forceDisconnect: true`, the previous session's refresh token is deleted and invalidated immediately.
+
+3. **Atomic AI Credit Quota & Usage Ledger**:
+   - Pre-allocates credits using atomic SQL condition:
+     ```sql
+     UPDATE users
+     SET ai_credits = ai_credits - $2,
+         ai_credits_used = ai_credits_used + $2
+     WHERE id = $1 AND ai_credits >= $2
+     RETURNING ai_credits, ai_credits_used;
+     ```
+   - Guarantees zero negative balances under race conditions.
+   - Automated rollback refund (`addAiCredits(userId, 1)`) restores reserved credits if LLM inference fails.
+   - Developer accounts have unlimited credits (999,999) and bypass deduction.
+
+4. **Stateless JWT Authorization & Tenant Isolation**:
+   - Short-lived 15-minute access tokens for API authorization paired with 30-day refresh tokens.
+   - Strict `WHERE user_id = $1` tenant isolation on all database queries.
 

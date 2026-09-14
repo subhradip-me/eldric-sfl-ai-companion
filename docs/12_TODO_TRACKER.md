@@ -63,9 +63,18 @@ This tracker details prioritized backlog items, verification tasks, and architec
 - [x] Discord-style permanent mobile dock (`w-12`) with disabled squish drawer and user popover.
 - [x] In-flight request deduplication map and atomic disk persistence caching in `SunflowerClient.ts`.
 - [x] Snapshot delta tracking engine (observed counters vs inferred movements).
-- [x] Autonomous Agentic Tool Loop in `Orchestrator.ts` with 12 deterministic tools and Groq Cloud LLM.
 - [x] Building ownership verification and warning banner in `compute_recipe_cost`.
 - [x] In-turn tool call deduplication cache with `force: true` bypass.
 - [x] Swapped argument order bug fix in `snapshotService.latest(context.userId, 2)`.
-- [x] Multi-island progression roadmap and Volcano Island journey calculations in `get_expansion_guide`.
+- [x] Multi-island progression roadmap and Volcano Island journey calculations in `get_expansion_details`.
+- [x] Pure deterministic Effect Engine (`resolution.ts`) evaluating placed collectibles, equipped wearables, and timed buffs.
+- [x] Pure deterministic Animal Economics Engine (`cost.ts`) for Milk, Eggs, and Wool comparing feed cost vs market purchases without hardcoded prices.
+- [x] Pure deterministic Codex Deliveries & Tasks Engine (`deliveries.ts`) with Coin/SFL ROI sorting, VIP Shiny Feather scaling, Weekly Chore delta tracking, and Poppy Mega Bounty board evaluation.
+- [x] Autonomous Agentic Tool Loop in `Orchestrator.ts` expanded to 15 deterministic tools with Groq Cloud LLM.
+- [x] Strict Anti-Hallucination Real-Examples Disambiguation Rule (Rule 9: forbid fake system placeholders; always quote real player orders).
+- [x] Sybil-resistant 1-Account-Per-IP registration gate (`registration_ip` with developer exemption).
+- [x] Dual-device concurrent session management (1 Desktop + 1 Mobile cap via `active_sessions`, SHA-256 hashed refresh tokens, 409 conflict handshake, and force-disconnect).
+- [x] Atomic AI Credit quota and rollback ledger (`ai_credits`, `ai_credits_used`, atomic PostgreSQL reservation, automated failure refund, and live UI balance counter).
+- [x] Multi-stage production containerization with `Dockerfile` and `docker-compose.yml` (Node.js 20, PostgreSQL 16 + pgvector, Redis 7).
+- [x] Comprehensive test suite with 186/186 unit tests passing (`npm test`).
 

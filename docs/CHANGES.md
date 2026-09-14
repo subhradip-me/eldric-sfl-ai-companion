@@ -1,5 +1,86 @@
 # 📝 Sunflower AI Engineering Changelog
 
+## 🚀 Release: `v1.2.0` — Codex Deliveries Engine, Security Gates & Containerization (2026-09-13 / 2026-09-14)
+
+### 🎯 Objective
+Empower Sunflower AI with deterministic Codex Deliveries, Weekly Chores & Poppy Bounty economic evaluation, expand Dr. Bumpkin's autonomous tool catalog to 15 tools with anti-hallucination real-example disambiguation, enforce Sybil-resistant registration (1 account per IP), manage concurrent device sessions (1 desktop + 1 mobile), implement an atomic AI credit quota model with real-time UI display, and containerize the stack with Docker & Redis hot store.
+
+---
+
+### 1. Pure Deterministic Codex Deliveries, Weekly Chores & Poppy Bounty Engine
+- **Engine File**: [`server/core/economyEngine/deliveries.ts`](file:///d:/System33/User/SUBHRADIP/Sunflower%20Land%20HQ/sunflower-ai/server/core/economyEngine/deliveries.ts).
+- **Deliveries Evaluation (`evaluateDeliveries`)**:
+  - Automatically evaluates active NPC delivery orders across Coins, SFL, and Ascension Age seasonal Shiny Feathers.
+  - Computes ingredient readiness (`readyNow`), market ingredient FLOWER costs, net SFL profit, and return on investment.
+  - Dynamic Shiny Feather rewards based on NPC tier:
+    - **Elite NPCs** (Pharaoh, Tywin): 6 base Shiny Feathers.
+    - **Medium NPCs** (Cornwell, Bert, Raven, Jester): 3 base Shiny Feathers.
+    - **Standard NPCs** (Finley, Miranda, etc.): 2 base Shiny Feathers.
+  - Active VIP Membership boost: deterministically adds `+3 Shiny Feathers` to all seasonal orders (Pharaoh: 6 + 3 = 9 Feathers / +45 Ascension points; Cornwell: 3 + 3 = 6 Feathers / +30 pts; Finley/Miranda: 2 + 3 = 5 Feathers / +25 pts).
+  - Highlights top recommendations: `bestCoinsDelivery` (Victoria: 1,100 Coins), `bestReadyNowDelivery` (Corale: 2 Mahi Mahi -> 578 Coins instantly with zero extra investment), `bestSflDelivery` (Grimtooth: 0.4 SFL), and `bestFeathersDelivery` (Pharaoh: 9 Feathers).
+- **Weekly Chores & Bounties (`evaluateCodexTasks`)**:
+  - Tab 21: Maps active chore requirements against live `farmActivity` counters (`currentProgress = farmActivity[activityName] - initialProgress`), e.g., Pumpkin' Pete at 199/200 pumpkins with 4 Shiny Feathers under VIP.
+  - Tab 33: Categorizes Poppy Mega Bounty Board across 6 distinct domains (Flowers, Fish, Crustaceans, Animals, Artefacts, Giant Crops) and computes claim readiness.
+- **Cryptographic Provenance**:
+  - Wraps results in an authoritative `CalculationResult` envelope with SHA-256 state provenance.
+
+---
+
+### 2. Autonomous AI Orchestrator Expansion (15 Tools & Anti-Hallucination Disambiguation)
+- **Tools Added**:
+  - `get_deliveries`: Evaluates Coin, SFL, and seasonal delivery orders with net profit calculations and `readyNow` sorting.
+  - `get_codex_chores_and_bounties`: Evaluates Weekly Chores with live `farmActivity` progress and the Poppy Mega Bounty board.
+- **Anti-Hallucination Real-Examples Disambiguation (Rule 9)**:
+  - If player intent is ambiguous or the AI must ask clarifying questions, the AI is strictly prohibited from inventing fake placeholder examples like `"Delivery 1 - Milk & Eggs"`. It MUST always cite real, active orders and chores directly from the player's Codex board with NPC names, exact ingredients, and actual rewards.
+
+---
+
+### 3. Security, Sybil Protection & Concurrent Session Governance
+- **1-Account-Per-IP Registration Gate**:
+  - Extracted client IP using reverse proxy trust (`req.headers['x-forwarded-for']` or `req.ip`) stored in `users.registration_ip`.
+  - Blocks automated bot and sybil multi-account creation on public networks.
+  - Developer accounts (`username === 'dev'` or `role === 'DEVELOPER'`) are cleanly exempted.
+- **Concurrent Session Management (1 Desktop + 1 Mobile)**:
+  - Device-specific session tracking via `active_sessions` table (`user_id`, `device_type`, `refresh_token_hash`, `last_active_at`).
+  - Strict 1 Desktop + 1 Mobile concurrent limit: a new login on the same device type detects conflict, returns a 409 session conflict handshake, or supports `forceDisconnect: true` to invalidate previous refresh tokens.
+  - Dual-token lifecycle: short-lived 15m `accessToken` + 30d `refreshToken` hashed with SHA-256.
+
+---
+
+### 4. Atomic AI Credit Quota & Usage Ledger
+- **Atomic Credit Reservation**:
+  - Database schema adds `ai_credits` (default: 50) and `ai_credits_used` (default: 0).
+  - Pre-allocates/deducts 1 credit before calling LLM providers using atomic SQL:
+    `UPDATE users SET ai_credits = ai_credits - $2, ai_credits_used = ai_credits_used + $2 WHERE id = $1 AND ai_credits >= $2 RETURNING ai_credits, ai_credits_used`.
+  - Prevents race conditions and negative balances under concurrent requests.
+  - Automatic refund on provider failure (`addAiCredits(userId, 1)`).
+  - Developer accounts granted 999,999 credits and exempt from deduction.
+- **Live UI Display**:
+  - Displays remaining AI credits and usage in real-time in the application header and chat modal.
+
+---
+
+### 5. Multi-Stage Docker Containerization & Redis Hot Store
+- **Production Containerization**:
+  - Multi-stage `Dockerfile` optimizing build caching: Stage 1 builds React 19 / Vite SPA, Stage 2 packages Node.js 20 ESM TypeScript runtime.
+  - `docker-compose.yml` orchestrates Node server, PostgreSQL 16 + pgvector, and Redis 7 Alpine hot cache with health checks and persistent volumes.
+- **Hermetic Fallback**:
+  - Seamless in-memory hot store fallback when Redis is offline or running locally without Docker.
+
+---
+
+### 6. Automated Testing & Verification
+- **186 / 186 Automated Unit Tests Passing** (`npm test`):
+  - Deliveries & Codex suite (`server/tests/deliveries.test.ts`).
+  - Concurrent Sessions suite (`server/tests/sessions.test.ts`).
+  - Security & AI Credit suite (`server/tests/securityAndCredits.test.ts`).
+  - Deterministic Calculation Core & Effect Engine (`server/tests/phase7Effects.test.ts`).
+  - Animal Produce & Feed Production Engine (`server/tests/animalEconomics.test.ts`).
+- **Production Frontend Bundle**:
+  - Clean Vite build in ~1.0s without warnings or type errors.
+
+---
+
 ## 🚀 Branch: `refactor/js-to-ts-migration` (2026-09-09 / 2026-09-10)
 
 ### 🎯 Objective

@@ -14,6 +14,7 @@
 
 import { sunflowerClient, farmNormalizer } from '../farm/index.js';
 import { snapshotService, activityService } from '../farm/index.js';
+import { hotStore } from '../../storage/index.js';
 import { extractTemporalContext } from '../farm/temporalContextExtractors.js';
 import { extractFarmHistoryDelta } from '../farm/historyContextExtractors.js';
 import { extractPlannerContext } from '../farm/plannerContextExtractors.js';
@@ -21,12 +22,17 @@ import {
   calculateFoodXp,
   calculateCostBreakdown,
   getItemPrice,
+  calculateAnimalProduceCost,
+  getFarmAnimalSetupStatus,
+  ANIMAL_PRODUCE_MAP,
   checkImmediateActionPermitted,
   checkFutureActionPermitted,
   evaluateFeasibility,
   buildResourceLedger,
   resolveCandidateIntent,
   resolveEffectContext,
+  evaluateDeliveries,
+  evaluateCodexTasks,
 } from '../../core/index.js';
 import { chatStoreService } from '../chat/index.js';
 import { ChatMessage } from '../../models/index.js';
@@ -43,6 +49,7 @@ import type {
   ActionPermissionResult,
   CalculationProvenance,
   MarketPrice,
+  BuyVsFarmResult,
 } from '../../domain/index.js';
 
 import recipesData from '../../data/recipes.json' with { type: 'json' };
@@ -90,11 +97,54 @@ ARCHITECTURAL RULES (Strictly Enforced):
    - The flower cost of a recipe is the ACQUISITION EXPENSE / market valuation of its ingredients. It is a COST/INVESTMENT.
    - Players SPEND or INVEST FLOWER/ingredients to cook dishes; they NEVER receive FLOWER from cooking.
    - NEVER tell the user they will "receive X FLOWER" from cooking. Always state that it "costs X FLOWER" or "requires X FLOWER in ingredients".
-6. FORMATTING:
+6. BUY VS FARM / PRODUCTION ECONOMICS:
+   - When asked "Should I farm X or buy from market?" (e.g. Milk, Eggs, Wool, crops, resources), or about buying cost vs farming cost:
+     * MUST call evaluate_buy_vs_farm with item: "<ItemName>".
+     * You MUST clearly present BOTH sides of the economic decision:
+       1. Market Buying Cost: Live P2P FLOWER price per unit from market.
+       2. In-House Production Cost: Feed cost per cycle divided by produce yield (production means feed cost x production yield).
+          - For Milk: 5x Kernel Blend (~0.075 FLOWER at Level 0, producing 1 Milk + 1 Leather = 0.075 FLOWER/Milk). As cows level up (Level 3+), they eat 5x Hay (~0.064 FLOWER) and produce 2 Milk (+ 1 Leather), cutting unit production cost to 0.032 FLOWER/Milk!
+          - For Eggs: 1x Kernel Blend (~0.015 FLOWER at Level 0, producing 1 Egg = 0.015 FLOWER/Egg). At Level 3+, 1x Hay (~0.013 FLOWER) produces 2 Eggs (+ 1 Feather) = 0.0065 FLOWER/Egg!
+          - For Wool: 3x Kernel Blend (~0.045 FLOWER at Level 0, producing 1 Wool = 0.045 FLOWER/Wool). At Level 3+, 3x Hay (~0.038 FLOWER) produces 2 Wool (+ 1 Merino Wool) = 0.019 FLOWER/Wool!
+       3. Feed Inventory: State if the player already has feed on hand in inventory (which reduces out-of-pocket cash feed expense to 0!).
+       4. Capital / Setup Requirements: If the player does NOT currently own the building or animals, state the setup status clearly:
+          - Barn unlock: Level 30 (note if player's level meets this, e.g. Lv 62 MET!). Initial Level 1 construction requires: 200 Coins, 150 Wood, 10 Iron, 10 Gold (P2P cost: ~5.64 SFL). Cow purchase: 100 Coins.
+          - Hen House unlock: Level 6. Initial Level 1 construction requires: 100 Coins, 30 Wood, 5 Iron, 5 Gold (P2P cost: ~2.28 SFL). Chicken purchase: 50 Coins.
+       5. Recommendation: Provide a balanced dual-horizon recommendation:
+          - Short-Term: If Barn/cows are unbuilt and the produce is needed right now for a recipe or delivery, buying from the market is immediate and avoids the setup capital.
+          - Long-Term: In-house farming is far more economical and sustainable once established (especially as animals level up, cutting production cost by more than half, plus bonus secondary goods like Leather, Feathers, or Merino Wool!).
+7. FORMATTING:
    - Be concise, direct, and actionable.
    - Use bold for key numbers (**120 FLOWER**, **5,000 XP**).
    - Use small markdown tables (max 4 columns) for comparisons.
-   - Clearly highlight Warnings and Avoid actions returned by tools.`;
+   - Clearly highlight Warnings and Avoid actions returned by tools.
+8. INGREDIENT STRATEGY & CURRENT STOCK:
+   - When presenting recipes, daily targets, or cooking recommendations from get_roadmap:
+     * You MUST use the exact ingredientBreakdown array provided on each candidate or daily objective ingredientSummary.
+     * NEVER report "Current Stock: 0" for an item if owned > 0 in ingredientBreakdown or get_farm_state. Cite the true stock (e.g. "Crimstone: 22", "Magic Mushroom: 143", "Honey: 11.5").
+     * When rendering an Ingredient Strategy or Shopping List table, use these exact columns:
+       | Ingredient | Current Stock | Needed | Cost (FLOWER) | Action |
+       | Crimstone | 22 | 1 | 0.00 | In Stock |
+       | Fish Oil | 0 | 1 | 0.10 | Buy from Market |
+       | Magic Mushroom | 143 | 3 | 0.00 | In Stock |
+       | Honey | 11.5 | 20 | 0.17 | Buy 8.5 (11.5 In Stock) |
+     * If an item is unpurchasable / gather-only (actionType: 'GATHER'), clearly state Action: "Mine/Forage on island" (Cost: 0 FLOWER).
+     * Distinguish clearly between DISHES (e.g. Crimstone Infused Fish Oil) and raw INGREDIENTS (e.g. Fish Oil, Crimstone). Never list a cooked dish name in the Ingredient column.
+9. CODEX DELIVERIES, WEEKLY CHORES & BOUNTIES:
+   - When asked "Which delivery gives the best return?", "What deliveries should I do?", "What orders do I have?", or questions about deliveries, codex, chores, or bounties:
+     * MUST call get_deliveries and/or get_codex_chores_and_bounties.
+     * Categorize delivery options clearly:
+       1. Best Immediate Return (Ready to Deliver Now): Highlight any orders the player can fulfill right now because all required items are already in their inventory (e.g. Corale: 2 Mahi Mahi for 578 Coins).
+       2. Best Coins Return: Compare active coin orders (e.g. Victoria: 1,100 Coins, Peggy: 928 Coins, Tango: 544 Coins) and state what items are missing.
+       3. Best SFL Return: State active SFL orders (e.g. Grimtooth: 0.4 SFL for 3 Boiled Eggs, Grubnuk: 0.5 SFL for 1 Kale Omelette) and highlight net profit over ingredient cost.
+       4. Best Shiny Feathers Return (Ascension Age): State seasonal orders (e.g. Pharaoh: 9 Shiny Feathers / +45 Ascension Age points, Cornwell: 6 Shiny Feathers, Finley: 5 Shiny Feathers).
+     * Distinguish clearly between fulfilled/completed orders (e.g. Betty, Blacksmith, Old Salty, Guria, Gordo, Gambit, Grimbly) and active unfulfilled orders.
+   - MANDATORY DISAMBIGUATION & REAL-EXAMPLES RULE:
+     * If the user's prompt is brief, numbered, or ambiguous (e.g. "2", "flower delivery", "what next?"), or if you need clarification:
+     * NEVER EVER use imaginary placeholder examples like "Delivery 1 - Milk & Eggs", "Delivery 2 - Crops", or "Delivery 3 - Flower".
+     * YOU MUST ALWAYS USE REAL EXAMPLES FROM THE PLAYER'S ACTUAL FARM STATE / ACTIVE CODEX:
+       - If the user says "2" or a number: Map it to the actual active orders involving 2 items or order #2 (e.g., Corale's 2 Mahi Mahi for 578 Coins, Victoria's 2 Olive + 20 Wheat for 1,100 Coins, Peggy's 2 Banana Blast for 928 Coins, Raven's 2 Blue Clover for 6 Feathers, or Pharaoh's 2 Vases for 9 Feathers).
+       - If the user says "flower delivery": Detail active flower orders/bounties (e.g. previously completed Guria's 1 Purple Daffodil for 1.1 SFL, active Raven's 2 Blue Clover for 6 Feathers, and Poppy's Flower Bounties: Red Daffodil, Purple Balloon Flower, White Daffodil, White Clover, Blue Daffodil).`;
 
 export interface ToolContext {
   sessionId?: string;
@@ -114,9 +164,12 @@ export interface ToolDef {
  * Deterministic JSON stringify with sorted keys for canonical deduplication.
  */
 export function stableStringify(obj: unknown): string {
+  if (obj === undefined) return 'null';
   if (obj === null || typeof obj !== 'object') return JSON.stringify(obj);
-  if (Array.isArray(obj)) return `[${obj.map(stableStringify).join(',')}]`;
-  const keys = Object.keys(obj as object).sort();
+  if (Array.isArray(obj)) return `[${obj.map((item) => (item === undefined ? 'null' : stableStringify(item))).join(',')}]`;
+  const keys = Object.keys(obj as object)
+    .filter((k) => (obj as any)[k] !== undefined)
+    .sort();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return `{${keys.map((k) => `${JSON.stringify(k)}:${stableStringify((obj as any)[k])}`).join(',')}}`;
 }
@@ -124,6 +177,7 @@ export function stableStringify(obj: unknown): string {
 export class Orchestrator {
   private normalizer = farmNormalizer;
   private memoryStates = new Map<string, { state: NormalizedFarmState; staleness: SnapshotFreshness; version: number }>();
+  private memoryRawStates = new Map<string, unknown>();
 
   /**
    * Register an in-memory farm state for testing or active session context.
@@ -133,6 +187,31 @@ export class Orchestrator {
       ? (rawOrNormalized as NormalizedFarmState)
       : this.normalizer.normalize(rawOrNormalized, { farmId }).normalizedState;
     this.memoryStates.set(farmId, { state: norm, staleness, version });
+    this.memoryRawStates.set(farmId, rawOrNormalized);
+  }
+
+  /**
+   * Helper to retrieve raw farm snapshot if available.
+   */
+  public async getStoredRawFarm(farmId: string, userId?: number): Promise<any> {
+    if (this.memoryRawStates.has(farmId)) {
+      return this.memoryRawStates.get(farmId);
+    }
+    try {
+      const raw = await hotStore.getRaw(farmId);
+      if (raw) return raw;
+    } catch {}
+    try {
+      const farmData = await sunflowerClient.getFarm(farmId);
+      if (farmData?.raw) return farmData.raw;
+    } catch {}
+    if (userId) {
+      try {
+        const snaps = await snapshotService.latest(userId, 1);
+        if (snaps.length > 0) return snaps[0];
+      } catch {}
+    }
+    return null;
   }
 
   /**
@@ -144,49 +223,39 @@ export class Orchestrator {
       return this.memoryStates.get(farmId)!;
     }
 
-    // 2. Try SnapshotService (Postgres snapshots)
-    if (userId) {
-      try {
-        const latest = await snapshotService.latest(userId, 1);
-        if (latest && latest.length > 0) {
-          const raw = latest[0];
-          // Check if snapshot belongs to the requested farmId
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const snapshotFarmId = String((raw as any)?.id || (raw as any)?.farm?.id || (raw as any)?.farmId || '');
-          const isMatchingFarm = !snapshotFarmId || !farmId || snapshotFarmId === String(farmId);
-
-          // Ensure snapshot has rich structures / placed collectibles or fall through to fresh cache
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const hasRichData = isMatchingFarm && Boolean(
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (raw as any)?.collectibles ||
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (raw as any)?.farm?.collectibles ||
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (raw as any)?.structures?.placedCollectibles?.length ||
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (raw as any)?.home?.collectibles ||
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (raw as any)?.interior
-          );
-          if (hasRichData) {
-            const norm = this.normalizer.normalize(raw, { farmId, source: 'DB_SNAPSHOT' });
-            const diffMs = Date.now() - (norm.normalizedState.metadata.capturedAt || Date.now());
-            const staleness: SnapshotFreshness = diffMs < 10 * 60 * 1000 ? 'FRESH' : diffMs < 60 * 60 * 1000 ? 'STALE' : 'VERY_STALE';
-            return { state: norm.normalizedState, staleness, version: norm.normalizedState.metadata.capturedAt };
-          }
-        }
-      } catch {
-        // Fall through gracefully if DB is unconfigured in test environment
+    // 2. Query Redis Hot Store first (live hot state, sub-millisecond retrieval)
+    try {
+      const hotCache = await hotStore.get(farmId);
+      if (hotCache && hotCache.state) {
+        const diffMs = Date.now() - (hotCache.updatedAt || Date.now());
+        const staleness: SnapshotFreshness = diffMs < 10 * 60 * 1000 ? 'FRESH' : diffMs < 60 * 60 * 1000 ? 'STALE' : 'VERY_STALE';
+        return { state: hotCache.state, staleness, version: hotCache.snapshotVersion };
       }
+    } catch {
+      // Gracefully fall through on cache miss or connection error
     }
 
-    // 3. Fallback: SunflowerClient cache / fetch if available
+    // 3. Fallback: SunflowerClient cache / fetch if available, then commit directly to Redis Hot Store
     try {
       const farmData = await sunflowerClient.getFarm(farmId);
       const norm = this.normalizer.normalize(farmData.raw, { farmId, source: 'CACHE_OR_API' });
       const staleness: SnapshotFreshness = farmData.stale ? 'STALE' : 'FRESH';
-      return { state: norm.normalizedState, staleness, version: 1 };
+      const nowMs = Date.now();
+
+      // Commit live state to hotStore for subsequent sub-millisecond retrieval
+      hotStore.commit({
+        farmId,
+        snapshotVersion: nowMs,
+        state: norm.normalizedState,
+        updatedAt: nowMs,
+        syncStatus: 'SUCCESS',
+      }).catch(() => {});
+
+      if (farmData.raw) {
+        hotStore.setRaw(farmId, farmData.raw).catch(() => {});
+      }
+
+      return { state: norm.normalizedState, staleness, version: nowMs };
     } catch {
       // 4. Default baseline farm state if offline or running in test environment without network
       const defaultState = this.normalizer.normalize({
@@ -236,11 +305,25 @@ export class Orchestrator {
               },
               buildings: Object.keys(state.structures.buildings),
               skills: Object.keys(state.player.skills),
-              inventory: state.inventory.all,
-              activeProduction: state.production.active,
+              inventory: Object.fromEntries(
+                Object.entries(state.inventory.all).filter(([_, qty]) => Number(qty) > 0)
+              ),
+              activeProduction: state.production.active.map((p) => ({
+                item: p.item,
+                category: p.category,
+                readyAt: p.readyAt,
+                status: p.status,
+              })),
               equipped: state.player.equipped,
-              placedCollectibles: state.structures.placedCollectibles?.map((p) => p.name) ?? [],
+              placedCollectibles: Array.from(new Set(state.structures.placedCollectibles?.map((p) => p.name) ?? [])),
               activeBoosts: effectRes.value.activeEffects.map((e) => `${e.sourceId}: ${e.description}`),
+              animals: Object.values(state.animals?.animals ?? {}).map((a) => ({
+                id: a.id,
+                type: a.type,
+                level: a.level,
+                experience: a.experience,
+                state: a.state,
+              })),
             },
             epistemicTier: 'OBSERVED',
             staleness,
@@ -1174,6 +1257,394 @@ export class Orchestrator {
         }
       },
     },
+
+    // ── 16. evaluate_buy_vs_farm (Production vs Market Economics) ───────────
+    evaluate_buy_vs_farm: {
+      description: 'Deterministic economic comparison between buying an item on the live P2P market vs producing it in-house (feed cost * feed required / produce yield for animal products like Milk, Eggs, Wool; seed cost & time for crops; ingredients for recipes). Includes farm capital readiness (building & animal ownership, level requirement, missing materials) and inventory feed offset.',
+      parameters: {
+        type: 'object',
+        properties: {
+          item: { type: 'string', description: "Item name to evaluate, e.g. 'Milk', 'Egg', 'Wool', 'Leather', 'Feather'" },
+          quantity: { type: 'number', description: 'Quantity to evaluate (default 1)' },
+          animalLevel: { type: 'number', description: 'Optional animal level override (defaults to current farm animal level or 0 if unowned)' },
+        },
+        required: ['item'],
+      },
+      exec: async ({ item, quantity = 1, animalLevel }, context) => {
+        try {
+          if (!item || typeof item !== 'string') {
+            return {
+              tool: 'evaluate_buy_vs_farm',
+              success: false,
+              epistemicTier: 'DERIVED',
+              error: {
+                code: 'INVALID_ARGUMENT',
+                message: 'Parameter "item" is required and must be a string.',
+                retryable: false,
+              },
+            };
+          }
+
+          const targetItem = item.trim();
+          const [{ state, version }, { prices }] = await Promise.all([
+            this.getStoredFarmState(context.farmId, context.userId),
+            sunflowerClient.getPrices(),
+          ]);
+
+          const marketPrice = getItemPrice(targetItem, prices);
+
+          // Check if item is an animal produce (Milk, Egg, Wool, Leather, Feather, Merino Wool)
+          const animalProduceMeta = ANIMAL_PRODUCE_MAP[targetItem];
+
+          if (animalProduceMeta) {
+            const animalType = animalProduceMeta.animalType;
+            const effectRes = resolveEffectContext(state, {
+              now: Date.now(),
+              season: state.temporal?.season,
+              farmId: context.farmId,
+              snapshotVersion: version,
+            });
+
+            // Find animal level on farm if not overridden
+            let effectiveLevel = 0;
+            const animalsOfType = Object.values(state.animals?.animals ?? {}).filter(
+              (a) => (a.type || 'chicken').toLowerCase() === animalType.toLowerCase()
+            );
+            if (animalLevel != null) {
+              effectiveLevel = Number(animalLevel);
+            } else if (animalsOfType.length > 0) {
+              effectiveLevel = Math.max(...animalsOfType.map((a) => a.level || 0));
+            }
+
+            const yieldAddition = animalType === 'Cow'
+              ? effectRes.value.animals.yieldAdditions.milk
+              : animalType === 'Chicken'
+              ? effectRes.value.animals.yieldAdditions.egg
+              : effectRes.value.animals.yieldAdditions.wool;
+
+            const economics = calculateAnimalProduceCost({
+              produceItem: targetItem,
+              animalLevel: effectiveLevel,
+              prices,
+              inventory: state.inventory.all,
+              feedCostMultiplier: effectRes.value.animals.costMultipliers.feed,
+              freeChickenFeed: effectRes.value.animals.flags.freeChickenFeed,
+              yieldAddition,
+            });
+
+            const setupStatus = getFarmAnimalSetupStatus(animalType, state);
+            const unitProduceCost = economics?.unitProduceCostFlower ?? null;
+            let costDiff: number | null = null;
+            let percentSavings: number | null = null;
+            let recommendation: 'BUY_FROM_MARKET' | 'FARM_IN_HOUSE' | 'NEUTRAL' | 'UNPRICED' = 'UNPRICED';
+
+            if (unitProduceCost != null && marketPrice != null) {
+              costDiff = unitProduceCost - marketPrice;
+              percentSavings = marketPrice > 0 ? ((unitProduceCost - marketPrice) / marketPrice) * 100 : 0;
+              if (costDiff > 0.001) {
+                recommendation = 'BUY_FROM_MARKET';
+              } else if (costDiff < -0.001) {
+                recommendation = 'FARM_IN_HOUSE';
+              } else {
+                recommendation = 'NEUTRAL';
+              }
+            }
+
+            // Multi-tier progression comparison
+            const activeTier = economics?.activeTier;
+            const feedOnHand = economics?.feedOnHand ?? 0;
+            const feedItem = activeTier?.feedItem ?? 'feed';
+            const feedQty = activeTier?.feedQuantity ?? 1;
+
+            let explanation = '';
+            if (setupStatus.canProduceNow) {
+              explanation += `Farm Setup: You already own ${setupStatus.buildingName} (Level ${setupStatus.buildingLevel}) with ${setupStatus.animalsSummary ?? `${setupStatus.animalCount}x ${animalType}s`}. `;
+            } else {
+              explanation += `Setup Status: You do not yet have an active ${setupStatus.buildingName} / ${animalType} setup (${setupStatus.missingRequirements.join('; ')}). `;
+            }
+
+            if (marketPrice != null) {
+              explanation += `Market Buying Price: ${marketPrice.toFixed(4)} FLOWER per unit. `;
+            } else {
+              explanation += `Market Buying Price: Currently unlisted/no active trades for ${targetItem} on the P2P market. `;
+            }
+
+            if (unitProduceCost != null) {
+              explanation += `In-House Production Cost: ${unitProduceCost.toFixed(4)} FLOWER per unit (requires ${feedQty}x ${feedItem} costing ${activeTier?.feedCostFlower ?? 0} FLOWER per cycle to yield ${activeTier?.produceYield ?? 1} ${targetItem}${activeTier?.secondaryProduce?.item ? ` + ${activeTier.secondaryProduce.quantity} ${activeTier.secondaryProduce.item}` : ''}). `;
+            } else {
+              explanation += `In-House Production: Requires ${feedQty}x ${feedItem} per cycle, but ${feedItem} currently has no active P2P market price. `;
+            }
+
+            if (economics && economics.allTiers.length > 1) {
+              const tier0 = economics.allTiers[0];
+              const tier1 = economics.allTiers[1];
+              if (tier0.unitCostFlower != null && tier1.unitCostFlower != null) {
+                explanation += `Tier progression: Level 0–3 costs ${tier0.unitCostFlower.toFixed(4)} FLOWER/unit (${tier0.feedQuantity}x ${tier0.feedItem}); Level 3–6 drops to ${tier1.unitCostFlower.toFixed(4)} FLOWER/unit (${tier1.feedQuantity}x ${tier1.feedItem}). `;
+              }
+            }
+
+            if (feedOnHand >= feedQty) {
+              explanation += `You already have ${feedOnHand}x ${feedItem} in inventory, so the immediate feed expense is 0 FLOWER! `;
+            } else {
+              explanation += `You have ${feedOnHand}x ${feedItem} in inventory (need ${feedQty}x for a feeding cycle). `;
+            }
+
+            if (setupStatus.canProduceNow) {
+              if (feedOnHand < feedQty) {
+                explanation += `Short-term: If you need ${targetItem} immediately and don't have enough ${feedItem} to feed now, buying from the market is the instant option. Long-term / Recurring: Farm in-house since your farm is already equipped with ${setupStatus.animalCount} ${animalType}s.`;
+              } else {
+                explanation += `Recommendation: ${recommendation === 'FARM_IN_HOUSE' ? 'FARM_IN_HOUSE is more cost-effective than buying from the market.' : recommendation === 'BUY_FROM_MARKET' ? 'BUY_FROM_MARKET is currently cheaper than feed cost.' : recommendation === 'UNPRICED' ? 'Market price data incomplete for exact recommendation.' : 'Both options have comparable costs.'}`;
+              }
+            } else {
+              explanation += `Initial setup: ${setupStatus.initialSetupCost.coins} Coins and materials (${Object.entries(setupStatus.initialSetupCost.resources).map(([r, q]) => `${q} ${r}`).join(', ')}). `;
+              explanation += `Short-term recommendation: BUY_FROM_MARKET for immediate needs. Long-term recommendation: FARM_IN_HOUSE once Barn/Cows are built for lower recurring unit costs.`;
+            }
+
+            const data: BuyVsFarmResult = {
+              item: targetItem,
+              category: 'ANIMAL_PRODUCE',
+              marketPriceFlower: marketPrice != null ? Number(marketPrice.toFixed(4)) : null,
+              unitProduceCostFlower: unitProduceCost != null ? Number(unitProduceCost.toFixed(4)) : null,
+              costDifferenceFlower: costDiff != null ? Number(costDiff.toFixed(4)) : null,
+              percentSavings: percentSavings != null ? Number(percentSavings.toFixed(1)) : null,
+              recommendation,
+              animalEconomics: economics ?? undefined,
+              setupStatus,
+              summary: explanation,
+            };
+
+            return {
+              tool: 'evaluate_buy_vs_farm',
+              success: true,
+              data,
+              epistemicTier: 'DERIVED',
+              provenance: {
+                farmId: context.farmId,
+                snapshotVersion: version,
+                calculationEngineVersion: '2.0.0',
+                gameDataVersion: '2026.09.13',
+                computedAt: Date.now(),
+              },
+            };
+          }
+
+          // Fallback for non-animal produce (crops or standard resources)
+          const data: BuyVsFarmResult = {
+            item: targetItem,
+            category: 'RESOURCE',
+            marketPriceFlower: Number(marketPrice.toFixed(4)),
+            unitProduceCostFlower: Number(marketPrice.toFixed(4)),
+            costDifferenceFlower: 0,
+            percentSavings: 0,
+            recommendation: 'NEUTRAL',
+            summary: `Market price for ${targetItem} is ${marketPrice.toFixed(4)} FLOWER.`,
+          };
+
+          return {
+            tool: 'evaluate_buy_vs_farm',
+            success: true,
+            data,
+            epistemicTier: 'DERIVED',
+            provenance: {
+              farmId: context.farmId,
+              snapshotVersion: version,
+              calculationEngineVersion: '2.0.0',
+              gameDataVersion: '2026.09.13',
+              computedAt: Date.now(),
+            },
+          };
+        } catch (e) {
+          return {
+            tool: 'evaluate_buy_vs_farm',
+            success: false,
+            epistemicTier: 'DERIVED',
+            error: {
+              code: 'INTERNAL_ERROR',
+              message: String((e as Error).message ?? e),
+              retryable: false,
+            },
+          };
+        }
+      },
+    },
+
+    // ── 17. get_deliveries (Codex Delivery Orders & Economics) ─────────────
+    get_deliveries: {
+      description: 'Authoritative Sunflower Land Codex delivery orders evaluation (Coins, SFL, and Seasonal/Shiny Feather deliveries). Analyzes requirements against current farm inventory, checks readiness to deliver immediately, calculates market costs, net profit, and ROI (return on investment), and identifies the best delivery in each reward category.',
+      parameters: {
+        type: 'object',
+        properties: {
+          category: {
+            type: 'string',
+            enum: ['ALL', 'COINS', 'SFL', 'FEATHERS', 'READY_NOW'],
+            description: 'Optional filter: "COINS" for coin orders, "SFL" for SFL orders, "FEATHERS" for seasonal/Ascension Age feather orders, "READY_NOW" for orders where player already has all items in inventory, or "ALL" (default).',
+          },
+          npc: {
+            type: 'string',
+            description: 'Optional specific NPC name to inspect (e.g. "victoria", "corale", "pharaoh", "grimtooth", "peggy").',
+          },
+        },
+      },
+      exec: async ({ category = 'ALL', npc: targetNpc }, context) => {
+        try {
+          const [{ state, staleness, version }, { prices }, rawFarm] = await Promise.all([
+            this.getStoredFarmState(context.farmId, context.userId),
+            sunflowerClient.getPrices(),
+            this.getStoredRawFarm(context.farmId, context.userId),
+          ]);
+
+          const farmObj = rawFarm?.farm ?? rawFarm ?? {};
+          const rawOrders = farmObj?.delivery?.orders ?? state.deliveries?.orders ?? [];
+          const isVip = Boolean(state.buffs.vip || (farmObj?.vip?.expiresAt && Number(farmObj.vip.expiresAt) > Date.now()));
+
+          const evalResult = evaluateDeliveries({
+            orders: rawOrders,
+            inventory: state.inventory.all,
+            prices,
+            isVip,
+            farmId: context.farmId,
+            snapshotVersion: version,
+            computedAt: Date.now(),
+          });
+
+          let activeOrders = evalResult.value.activeOrders;
+          let completedOrders = evalResult.value.completedOrders;
+
+          if (category === 'COINS') {
+            activeOrders = evalResult.value.activeCoinDeliveries;
+          } else if (category === 'SFL') {
+            activeOrders = evalResult.value.activeSflDeliveries;
+          } else if (category === 'FEATHERS') {
+            activeOrders = evalResult.value.activeFeatherDeliveries;
+          } else if (category === 'READY_NOW') {
+            activeOrders = evalResult.value.readyNowDeliveries;
+          }
+
+          if (targetNpc) {
+            const lowerNpc = targetNpc.toLowerCase().trim();
+            activeOrders = activeOrders.filter((o) => o.npc.toLowerCase().includes(lowerNpc));
+            completedOrders = completedOrders.filter((o) => o.npc.toLowerCase().includes(lowerNpc));
+          }
+
+          return {
+            tool: 'get_deliveries',
+            success: true,
+            data: {
+              activeOrdersCount: activeOrders.length,
+              completedOrdersCount: completedOrders.length,
+              readyNowCount: evalResult.value.readyNowCount,
+              bestCoinsDelivery: evalResult.value.bestCoinsDelivery,
+              bestSflDelivery: evalResult.value.bestSflDelivery,
+              bestFeathersDelivery: evalResult.value.bestFeathersDelivery,
+              bestReadyNowDelivery: evalResult.value.bestReadyNowDelivery,
+              recommendation: evalResult.value.recommendation,
+              activeOrders,
+              completedOrders: completedOrders.map((o) => ({
+                id: o.id,
+                npc: o.npc,
+                rewardType: o.rewardType,
+                rewardCoins: o.rewardCoins,
+                rewardSfl: o.rewardSfl,
+                rewardFeathers: o.rewardFeathers,
+                completedAt: o.completedAt,
+              })),
+            },
+            provenance: evalResult.provenance,
+            epistemicTier: 'OBSERVED',
+            staleness,
+          };
+        } catch (e) {
+          return {
+            tool: 'get_deliveries',
+            success: false,
+            epistemicTier: 'OBSERVED',
+            error: {
+              code: 'INTERNAL_ERROR',
+              message: String((e as Error).message ?? e),
+              retryable: false,
+            },
+          };
+        }
+      },
+    },
+
+    // ── 18. get_codex_chores_and_bounties (Weekly Chores & Poppy Bounties) ─
+    get_codex_chores_and_bounties: {
+      description: 'Authoritative Sunflower Land Codex Weekly Chores (Codex Tab 21), Poppy Mega Bounty Board (Codex Tab 33: Flowers, Fish, Crustaceans, Animals, Artefacts), and Daily Bumpkin Chores. Reports current progress, target requirements, rewards (including VIP +3 feather boost), and ready-to-claim status against current farm inventory.',
+      parameters: {
+        type: 'object',
+        properties: {
+          tab: {
+            type: 'string',
+            enum: ['ALL', 'WEEKLY_CHORES', 'BOUNTIES', 'DAILY_CHORES', 'CHECKLIST'],
+            description: 'Codex tab to inspect: "WEEKLY_CHORES" (Tab 21), "BOUNTIES" (Tab 33 Poppy), "DAILY_CHORES", "CHECKLIST", or "ALL" (default).',
+          },
+          bountyType: {
+            type: 'string',
+            enum: ['ALL', 'FLOWER', 'FISH', 'CRUSTACEAN', 'ANIMAL', 'ARTEFACT', 'GIANT_CROP'],
+            description: 'Optional category filter for Poppy Mega Bounty Board.',
+          },
+        },
+      },
+      exec: async ({ tab = 'ALL', bountyType = 'ALL' }, context) => {
+        try {
+          const [{ state, staleness, version }, rawFarm] = await Promise.all([
+            this.getStoredFarmState(context.farmId, context.userId),
+            this.getStoredRawFarm(context.farmId, context.userId),
+          ]);
+
+          const farmObj = rawFarm?.farm ?? rawFarm ?? {};
+          const isVip = Boolean(state.buffs.vip || (farmObj?.vip?.expiresAt && Number(farmObj.vip.expiresAt) > Date.now()));
+
+          const evalResult = evaluateCodexTasks({
+            choreBoard: farmObj?.choreBoard ?? state.deliveries?.chores,
+            bounties: farmObj?.bounties ?? state.deliveries?.bounties,
+            dailyChores: farmObj?.chores,
+            farmActivity: farmObj?.farmActivity ?? {},
+            inventory: state.inventory.all,
+            isVip,
+            farmId: context.farmId,
+            snapshotVersion: version,
+            computedAt: Date.now(),
+          });
+
+          let weeklyChores = evalResult.value.weeklyChores;
+          let bounties = evalResult.value.bounties;
+
+          if (bountyType !== 'ALL') {
+            bounties = bounties.filter((b) => b.category === bountyType);
+          }
+
+          return {
+            tool: 'get_codex_chores_and_bounties',
+            success: true,
+            data: {
+              tab,
+              bountyType,
+              weeklyChores: tab === 'BOUNTIES' ? [] : weeklyChores,
+              bounties: tab === 'WEEKLY_CHORES' ? [] : bounties,
+              dailyChores: tab === 'WEEKLY_CHORES' || tab === 'BOUNTIES' ? [] : evalResult.value.dailyChores,
+              summary: evalResult.value.summary,
+              recommendation: evalResult.value.recommendation,
+            },
+            provenance: evalResult.provenance,
+            epistemicTier: 'OBSERVED',
+            staleness,
+          };
+        } catch (e) {
+          return {
+            tool: 'get_codex_chores_and_bounties',
+            success: false,
+            epistemicTier: 'OBSERVED',
+            error: {
+              code: 'INTERNAL_ERROR',
+              message: String((e as Error).message ?? e),
+              retryable: false,
+            },
+          };
+        }
+      },
+    },
   };
 
   private readonly toolDefs = Object.entries(this.tools).map(([name, t]) => ({
@@ -1397,7 +1868,19 @@ export class Orchestrator {
         }
 
         let payload = JSON.stringify(result);
-        if (payload.length > 15000) payload = payload.slice(0, 15000) + '..."TRUNCATED"';
+        const MAX_TOOL_PAYLOAD_BYTES = 32000;
+        if (payload.length > MAX_TOOL_PAYLOAD_BYTES) {
+          console.error(`⚠️ Tool ${name} result payload exceeded budget (${payload.length} bytes > ${MAX_TOOL_PAYLOAD_BYTES} bytes)`);
+          payload = JSON.stringify({
+            tool: name,
+            success: false,
+            error: {
+              code: 'PAYLOAD_TOO_LARGE',
+              message: `Tool result exceeded maximum payload budget (${payload.length} bytes > ${MAX_TOOL_PAYLOAD_BYTES} bytes). Summarized data must be requested.`,
+              retryable: false,
+            },
+          });
+        }
         messages.push({ role: 'tool', tool_call_id: tc.id, content: payload });
       }
     }

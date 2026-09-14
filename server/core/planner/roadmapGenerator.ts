@@ -28,6 +28,7 @@ import type {
   PlanVersion,
   TimestampMs,
   EffectContext,
+  IngredientRequirement,
 } from '../../domain/index.js';
 import { generateCandidates } from './candidateGenerator.js';
 import { evaluateFeasibility } from './feasibilitySolver.js';
@@ -161,8 +162,27 @@ export function generateRoadmap(params: GenerateRoadmapParams): Roadmap {
     }
   }
 
-  // Add top ranked candidate actions
-  for (const { candidate } of scoredCandidates) {
+  // Add top ranked candidate actions (limit to top 6 to keep daily plan focused and payload bounded)
+  const topScored = scoredCandidates.slice(0, 6);
+  const ingredientMap = new Map<string, IngredientRequirement>();
+
+  for (const { candidate } of topScored) {
+    if (candidate.ingredientBreakdown) {
+      for (const req of candidate.ingredientBreakdown) {
+        const existing = ingredientMap.get(req.item);
+        if (existing) {
+          existing.needed = Math.round((existing.needed + req.needed) * 10000) / 10000;
+          existing.missing = Math.round(Math.max(0, existing.needed - existing.owned) * 10000) / 10000;
+          existing.status = existing.missing === 0 ? 'OWNED' : existing.owned > 0 ? 'PARTIAL' : 'MISSING';
+          if (existing.unitCostFlower != null) {
+            existing.totalCostFlower = Math.round(existing.missing * existing.unitCostFlower * 10000) / 10000;
+          }
+        } else {
+          ingredientMap.set(req.item, { ...req });
+        }
+      }
+    }
+
     if (candidate.targetActions && candidate.targetActions.length > 0) {
       for (const act of candidate.targetActions) {
         // Immediate action permission check
@@ -186,6 +206,8 @@ export function generateRoadmap(params: GenerateRoadmapParams): Roadmap {
     }
   }
 
+  const ingredientSummary = Array.from(ingredientMap.values());
+
   // Deduplicate day 1 actions by actionId
   const seenActionIds = new Set<string>();
   const uniqueDay1Actions = day1Actions.filter((a) => {
@@ -206,6 +228,21 @@ export function generateRoadmap(params: GenerateRoadmapParams): Roadmap {
     });
   }
 
+  // Keep reservedResources focused on active commitments and planned action items to keep payload bounded
+  const relevantResourceKeys = new Set<string>(['FLOWER']);
+  for (const [resKey, commitment] of Object.entries(ledger)) {
+    if (commitment.reservedForTomorrow > 0 || commitment.phaseReserve > 0) {
+      relevantResourceKeys.add(resKey);
+    }
+  }
+  for (const act of uniqueDay1Actions) {
+    relevantResourceKeys.add(act.item);
+  }
+  const focusedLedger: ResourceReservationMap = {};
+  for (const key of relevantResourceKeys) {
+    if (ledger[key]) focusedLedger[key] = ledger[key];
+  }
+
   // 7. Compose Daily Objectives & Phases
   const dailyObjectives: DailyObjective[] = [
     {
@@ -213,7 +250,7 @@ export function generateRoadmap(params: GenerateRoadmapParams): Roadmap {
       dateStr: (gameTime as any)?.utcDateStr ?? (gameTime ? `Day ${gameTime.currentDay}` : undefined),
       title: `Day 1: ${goal.objective.replace(/_/g, ' ')} Execution`,
       targetActions: uniqueDay1Actions,
-      reservedResources: ledger,
+      reservedResources: focusedLedger,
       avoidActions: avoidActions.length > 0 ? avoidActions : undefined,
       completionCriteria: [
         'Complete scheduled harvest cycles',
@@ -221,6 +258,7 @@ export function generateRoadmap(params: GenerateRoadmapParams): Roadmap {
       ],
       warnings,
       opportunities,
+      ingredientSummary: ingredientSummary.length > 0 ? ingredientSummary : undefined,
     },
   ];
 

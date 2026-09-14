@@ -1,0 +1,42 @@
+{
+  "farm": {
+    "id": "346853928974080",
+    "coins": 998.5244999999932,
+    "balance": "1.998479128133535118",
+    "bumpkin": {
+      "id": 346853928974080,
+      "level": 62,
+      "experience": 2495578
+    },
+    "inventory": {
+      "Sunflower Seed": "327",
+      "Pumpkin Seed": "27",
+      "Sunflower": "169.405",
+      "Potato": "166",
+      "Carrot": "24.005",
+      "Beetroot": "41.37",
+      "Parsnip": "35.005",
+      "Radish": "0.2113",
+      "Kale": "1.9685",
+      "Eggplant": "27.505",
+      "Corn": "30.7612",
+      "Barley": "150.2227",
+      "Rhubarb": "55",
+      "Onion": "2.4",
+      "Honey": "11.517039120370374023",
+      "Wild Mushroom": "242",
+      "Magic Mushroom": "143",
+      "Crimstone": "22",
+      "Sunstone": "2",
+      "Crab": "45",
+      "Fish Oil": "0"
+    },
+    "buildings": {
+      "Fire Pit": [{ "id": "fp-1", "coordinates": { "x": 0, "y": 0 } }],
+      "Kitchen": [{ "id": "k-1", "coordinates": { "x": 5, "y": 5 } }],
+      "Deli": [{ "id": "d-1", "coordinates": { "x": 10, "y": 10 } }],
+      "Smoothie Shack": [{ "id": "ss-1", "coordinates": { "x": 15, "y": 15 } }]
+    },
+    "collectibles": {}
+  }
+}

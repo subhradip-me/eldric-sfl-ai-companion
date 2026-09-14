@@ -5,8 +5,19 @@ import cookieParser from "cookie-parser";
 import { init } from "./db/database.js";
 import apiRoutes from "./routes/index.js";
 
+import path from "path";
+import { fileURLToPath } from "url";
+import fs from "fs";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const clientDistPath = path.resolve(__dirname, "../client/dist");
+
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Trust exactly 1 reverse proxy hop (Docker / Nginx) to prevent X-Forwarded-For spoofing
+app.set('trust proxy', 1);
 
 // Middleware
 app.use(cors({ 
@@ -15,6 +26,11 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(cookieParser());
+
+// Top-level Docker healthcheck endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ ok: true, timestamp: Date.now(), uptime: process.uptime() });
+});
 
 // Request logging middleware (development)
 if (process.env.NODE_ENV !== 'production') {
@@ -37,6 +53,15 @@ const asyncHandler = (fn) => (req, res, next) => {
 
 // Mount API routes
 app.use('/api', apiRoutes);
+
+// Serve client SPA in production if built
+if (fs.existsSync(clientDistPath)) {
+  app.use(express.static(clientDistPath));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(clientDistPath, 'index.html'));
+  });
+}
 
 // 404 handler
 app.use((req, res) => {

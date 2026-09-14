@@ -130,6 +130,15 @@ export class SunflowerClient {
       Honey: 0.02,
       Egg: 0.01,
       Milk: 0.03,
+      Wool: 0.024,
+      Leather: 0.15,
+      Feather: 0.01,
+      'Merino Wool': 0.05,
+      'Kernel Blend': 0.015,
+      Hay: 0.013,
+      NutriBarley: 0.016,
+      'Mixed Grain': 0.044,
+      Barley: 0.012,
     };
 
     if (!process.env.PRICES_API_URL) {

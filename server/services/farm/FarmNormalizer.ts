@@ -28,7 +28,7 @@ import type {
   PlacedCollectibleInstance,
   TimedBuffInstance,
 } from '../../domain/index.js';
-import { levelFromXp } from '../../core/index.js';
+import { levelFromXp, animalLevelFromXp } from '../../core/index.js';
 import type { CanonicalFarmState } from '../../types/index.js';
 import recipesData from '../../data/recipes.json' with { type: 'json' };
 import { itemMetadataService } from '../metadata/index.js';
@@ -351,13 +351,40 @@ export class FarmNormalizer {
         }));
         const readyAt = crafting.length > 0 ? Math.max(...crafting.map((c) => c.readyAt)) : (this.toNum(obj['readyAt']) || null);
 
+        const bldLevel = this.toNum(obj['level'])
+          || (name === 'Barn' ? this.toNum((farm['barn'] as any)?.level) : 0)
+          || (name === 'Hen House' ? this.toNum((farm['henHouse'] as any)?.level) : 0)
+          || (name === 'Water Well' ? this.toNum((farm['waterWell'] as any)?.level) : 0)
+          || (name === 'Aging Shed' ? this.toNum((farm['agingShed'] as any)?.level) : 0)
+          || (name === 'Pet House' ? this.toNum((farm['petHouse'] as any)?.level) : 0)
+          || 1;
+
         return {
           readyAt,
           oil: this.toNum(obj['oil']),
           crafting,
           coordinates: obj['coordinates'] as { x: number; y: number } | undefined,
+          level: bldLevel,
         };
       });
+    }
+
+    // Ensure dedicated building keys (Barn, Hen House, Water Well, Aging Shed) are recorded even if omitted from buildings dictionary
+    if (!buildings['Barn'] && farm['barn']) {
+      const barnLvl = this.toNum((farm['barn'] as any)?.level) || 1;
+      buildings['Barn'] = [{ readyAt: null, level: barnLvl }];
+    }
+    if (!buildings['Hen House'] && farm['henHouse']) {
+      const henLvl = this.toNum((farm['henHouse'] as any)?.level) || 1;
+      buildings['Hen House'] = [{ readyAt: null, level: henLvl }];
+    }
+    if (!buildings['Water Well'] && farm['waterWell']) {
+      const wellLvl = this.toNum((farm['waterWell'] as any)?.level) || 1;
+      buildings['Water Well'] = [{ readyAt: null, level: wellLvl }];
+    }
+    if (!buildings['Aging Shed'] && farm['agingShed']) {
+      const agingLvl = this.toNum((farm['agingShed'] as any)?.level) || 1;
+      buildings['Aging Shed'] = [{ readyAt: null, level: agingLvl }];
     }
 
     const placedCollectibles = this.extractPlacedCollectibles(farm);
@@ -550,19 +577,89 @@ export class FarmNormalizer {
   }
 
   private extractAnimals(farm: Record<string, unknown>): AnimalState {
-    const rawAnimals = (farm['animals'] ?? farm['chickens'] ?? {}) as Record<string, unknown>;
-    const animals: Record<string, any> = {};
+    const animals: Record<string, AnimalInstance> = {};
 
-    for (const [id, data] of Object.entries(rawAnimals)) {
-      const a = data as Record<string, unknown>;
+    const processAnimal = (id: string, raw: unknown, defaultType: 'chicken' | 'cow' | 'sheep' = 'chicken') => {
+      if (!raw || typeof raw !== 'object') return;
+      const a = raw as Record<string, unknown>;
+      const rawType = String(a['type'] ?? defaultType).toLowerCase();
+      const type = (rawType === 'cow' ? 'cow' : rawType === 'sheep' ? 'sheep' : 'chicken') as 'chicken' | 'cow' | 'sheep';
+
+      const exp = this.toNum(a['experience'] ?? a['xp']);
+      const level = this.toNum(a['level']) || animalLevelFromXp(type, exp);
+
       animals[id] = {
-        id,
-        type: (a['type'] as any) ?? 'chicken',
-        level: this.toNum(a['level']) || 1,
+        id: String(a['id'] ?? id),
+        type,
+        level,
+        ...(a['experience'] != null || a['xp'] != null ? { experience: exp } : {}),
+        ...(a['state'] ? { state: String(a['state']) } : {}),
+        ...(a['item'] ? { item: String(a['item']) } : {}),
+        ...(a['lovedAt'] ? { lovedAt: this.toNum(a['lovedAt']) } : {}),
+        ...(a['asleepAt'] ? { asleepAt: this.toNum(a['asleepAt']) } : {}),
+        ...(a['awakeAt'] ? { awakeAt: this.toNum(a['awakeAt']) } : {}),
+        ...(a['healthCheckedAt'] ? { healthCheckedAt: this.toNum(a['healthCheckedAt']) } : {}),
         fedAt: this.toNum(a['fedAt']) || undefined,
         rewardReadyAt: this.toNum(a['rewardReadyAt']) || undefined,
         multiplier: this.toNum(a['multiplier']) || 1,
       };
+    };
+
+    // 1. Barn animals (Cows and Sheep in Sunflower Land live in farm.barn.animals)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const barn = (farm['barn'] ?? (farm['farm'] as any)?.barn) as Record<string, unknown> | undefined;
+    if (barn && typeof barn === 'object') {
+      const barnAnimals = barn['animals'] as Record<string, unknown> | undefined;
+      if (barnAnimals && typeof barnAnimals === 'object') {
+        for (const [id, data] of Object.entries(barnAnimals)) {
+          processAnimal(id, data, 'cow');
+        }
+      }
+    }
+
+    // 2. Hen House animals (Chickens in Sunflower Land live in farm.henHouse.animals)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const henHouse = (farm['henHouse'] ?? (farm['farm'] as any)?.henHouse) as Record<string, unknown> | undefined;
+    if (henHouse && typeof henHouse === 'object') {
+      const henAnimals = henHouse['animals'] as Record<string, unknown> | undefined;
+      if (henAnimals && typeof henAnimals === 'object') {
+        for (const [id, data] of Object.entries(henAnimals)) {
+          processAnimal(id, data, 'chicken');
+        }
+      }
+    }
+
+    // 3. Generic or legacy animals mapping (e.g. farm.animals)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const rawAnimals = (farm['animals'] ?? (farm['farm'] as any)?.animals) as Record<string, unknown> | undefined;
+    if (rawAnimals && typeof rawAnimals === 'object') {
+      for (const [id, data] of Object.entries(rawAnimals)) {
+        if (!animals[id]) {
+          processAnimal(id, data, 'chicken');
+        }
+      }
+    }
+
+    // 4. Legacy chickens mapping (farm.chickens)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const rawChickens = (farm['chickens'] ?? (farm['farm'] as any)?.chickens) as Record<string, unknown> | undefined;
+    if (rawChickens && typeof rawChickens === 'object') {
+      for (const [id, data] of Object.entries(rawChickens)) {
+        if (!animals[id]) {
+          processAnimal(id, data, 'chicken');
+        }
+      }
+    }
+
+    // 5. Legacy cows mapping (farm.cows)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const rawCows = (farm['cows'] ?? (farm['farm'] as any)?.cows) as Record<string, unknown> | undefined;
+    if (rawCows && typeof rawCows === 'object') {
+      for (const [id, data] of Object.entries(rawCows)) {
+        if (!animals[id]) {
+          processAnimal(id, data, 'cow');
+        }
+      }
     }
 
     return { animals };

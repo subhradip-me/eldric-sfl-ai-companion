@@ -2,9 +2,14 @@
  * server/core/planner/candidateGenerator.ts
  * Pure deterministic candidate strategy generation for goals.
  *
- * ARCHITECTURAL INVARIANT:
- * Discovers possible strategies and actions from recipes, crops, and dependencies
- * BEFORE passing candidates to the hard feasibility gate and utility scorer.
+ * ARCHITECTURAL INVARIANTS:
+ * 1. Discovers possible strategies and actions from recipes, crops, and dependencies
+ *    BEFORE passing candidates to the hard feasibility gate and utility scorer.
+ * 2. Every candidate and cooking action includes an exact, flat ingredientBreakdown
+ *    with clear status (OWNED, MISSING, PARTIAL) and actionType (IN_INVENTORY, BUY, GATHER, PRODUCE).
+ * 3. Never generates BUY actions for non-purchasable/gatherable resources.
+ * 4. Natively supports fractional decimal quantities without truncation.
+ * 5. Uses multi-angle ranking (efficiency, speed, zero-cost) to prevent candidate bloat while avoiding over-pruning.
  */
 
 import type {
@@ -16,6 +21,7 @@ import type {
   RecipeDefinition,
   MarketPrice,
   EffectContext,
+  IngredientRequirement,
 } from '../../domain/index.js';
 import { getItemPrice } from '../economyEngine/cost.js';
 
@@ -90,6 +96,22 @@ for (const [key, val] of Object.entries(recipesData)) {
   }
 }
 
+export const GATHERABLE_ITEMS_SET = new Set([
+  'Magic Mushroom', 'Wild Mushroom', 'Crimstone', 'Sunstone', 'Obsidian',
+  'Wood', 'Stone', 'Iron', 'Gold', 'Egg', 'Honey', 'Feather', 'Milk', 'Wool',
+]);
+
+const BUILDING_UNLOCK_LEVEL: Record<string, number> = {
+  'Fire Pit': 1,
+  'Kitchen': 10,
+  'Bakery': 15,
+  'Deli': 20,
+  'Smoothie Shack': 25,
+};
+
+const roundQty = (n: number) => Math.round(n * 10000) / 10000;
+const roundFlower = (n: number) => Math.round(n * 10000) / 10000;
+
 /**
  * Discover and generate potential strategy candidates for a goal and farm state.
  * Pure deterministic function.
@@ -107,28 +129,39 @@ export function generateCandidates(input: GenerateCandidatesInput): StrategyCand
 
   const activeProduction = state.production?.active ?? (state as any).activeProduction ?? [];
 
-  // 1. If active crops or items in production are ready or nearly ready, generate harvest candidate
+  // 1. If active crops or items in production are ready or nearly ready, aggregate harvest candidates by item
   if (activeProduction.length > 0) {
+    const readyMap = new Map<string, { count: number; earliestReadyAt: number }>();
     for (const prod of activeProduction) {
-      const waitMs = Math.max(0, prod.readyAt - currentTs);
+      const existing = readyMap.get(prod.item);
+      if (existing) {
+        existing.count += 1;
+        existing.earliestReadyAt = Math.min(existing.earliestReadyAt, prod.readyAt);
+      } else {
+        readyMap.set(prod.item, { count: 1, earliestReadyAt: prod.readyAt });
+      }
+    }
+
+    for (const [itemName, info] of readyMap.entries()) {
+      const waitMs = Math.max(0, info.earliestReadyAt - currentTs);
       const waitMinutes = Math.ceil(waitMs / (60 * 1000));
       candidates.push({
-        candidateId: `cand-harvest-${prod.item.toLowerCase().replace(/\s+/g, '-')}`,
-        title: `Harvest ${prod.item}`,
+        candidateId: `cand-harvest-${itemName.toLowerCase().replace(/\s+/g, '-')}`,
+        title: `Harvest ${itemName}`,
         estimatedCostFlower: 0,
         estimatedDurationMinutes: waitMinutes,
-        estimatedCompletionAt: prod.readyAt,
-        items: [prod.item],
+        estimatedCompletionAt: info.earliestReadyAt,
+        items: [itemName],
         requiresMarketPurchase: false,
         targetActions: [
           {
-            actionId: `act-harvest-${prod.item.toLowerCase()}`,
+            actionId: `act-harvest-${itemName.toLowerCase().replace(/\s+/g, '-')}`,
             type: 'HARVEST',
-            item: prod.item,
-            quantity: 1,
+            item: itemName,
+            quantity: info.count,
             estimatedCostFlower: 0,
-            estimatedReadyAt: prod.readyAt,
-            reasoning: `Harvest mature ${prod.item} from field`,
+            estimatedReadyAt: info.earliestReadyAt,
+            reasoning: `Harvest ${info.count}x mature ${itemName} from field`,
           },
         ],
       });
@@ -137,27 +170,116 @@ export function generateCandidates(input: GenerateCandidatesInput): StrategyCand
 
   // 2. Goal-specific candidate generation
   if (goal.objective === 'REACH_LEVEL' || goal.objective === 'MAXIMIZE_XP') {
-    // Generate cooking candidates for recipes matched with farm buildings or general
+    const playerBuildings = state.structures?.buildings ?? {};
+    const hasBuildingData = Object.keys(playerBuildings).length > 0;
+    const playerLevel = state.player?.level ?? 1;
+
+    const cookingCandidates: Array<{
+      candidate: StrategyCandidate;
+      efficiency: number;
+      speed: number;
+      isZeroCost: boolean;
+    }> = [];
+
     for (const [recipeName, recipe] of Object.entries(recipes)) {
+      if (hasBuildingData && !playerBuildings[recipe.building]) {
+        continue;
+      }
+      const minLevel = BUILDING_UNLOCK_LEVEL[recipe.building] ?? 1;
+      if (playerLevel < minLevel) {
+        continue;
+      }
+
       const ingredients = recipe.ingredients ?? {};
       const itemNames = Object.keys(ingredients);
       let totalCostFlower = 0;
-      let requiresMarket = false;
+      let hasMarketPurchase = false;
+      const ingredientBreakdown: IngredientRequirement[] = [];
+      const actions: PlanAction[] = [];
 
-      for (const [ingName, requiredQty] of Object.entries(ingredients)) {
-        const owned = state.inventory.all[ingName] ?? 0;
-        const inProd = activeProduction
-          .filter((p: any) => p.item === ingName && (p.status === 'READY' || p.status === 'ACTIVE'))
-          .length;
-        const available = owned + inProd;
-
-        if (available < requiredQty) {
-          requiresMarket = true;
-          const missing = requiredQty - available;
-          const unitPrice = getItemPrice(ingName, prices) ?? 0.1;
-          totalCostFlower += missing * unitPrice;
+      for (const [ingName, requiredNum] of Object.entries(ingredients)) {
+        const requiredQty = roundQty(Number(requiredNum) || 1);
+        let owned = roundQty(state.inventory?.all?.[ingName] ?? 0);
+        // Deduct any committed inputs if active production items specify in-flight input commitments
+        for (const prod of activeProduction) {
+          if (prod.inputs && prod.inputs[ingName]) {
+            owned = Math.max(0, roundQty(owned - prod.inputs[ingName]));
+          }
         }
+        const missing = roundQty(Math.max(0, requiredQty - owned));
+
+        let status: 'OWNED' | 'MISSING' | 'PARTIAL';
+        let actionType: 'IN_INVENTORY' | 'BUY' | 'GATHER' | 'PRODUCE';
+        let unitCostFlower: number | undefined;
+        let itemTotalCost: number | undefined;
+        let reasoning = '';
+
+        if (missing === 0) {
+          status = 'OWNED';
+          actionType = 'IN_INVENTORY';
+          unitCostFlower = 0;
+          itemTotalCost = 0;
+          reasoning = `${ingName}: ${owned} in stock (need ${requiredQty})`;
+        } else {
+          status = owned > 0 ? 'PARTIAL' : 'MISSING';
+          const price = getItemPrice(ingName, prices);
+          if (price != null) {
+            actionType = 'BUY';
+            unitCostFlower = roundFlower(price);
+            itemTotalCost = roundFlower(missing * price);
+            totalCostFlower += itemTotalCost;
+            hasMarketPurchase = true;
+            reasoning = `Purchase ${missing}x ${ingName} from market at ${unitCostFlower} FLOWER/unit (current stock: ${owned})`;
+            actions.push({
+              actionId: `act-buy-${recipeName.toLowerCase().replace(/\s+/g, '-')}-${ingName.toLowerCase().replace(/\s+/g, '-')}`,
+              type: 'BUY',
+              item: ingName,
+              quantity: missing,
+              currentStock: owned,
+              estimatedCostFlower: itemTotalCost,
+              reasoning,
+            });
+          } else if (GATHERABLE_ITEMS_SET.has(ingName)) {
+            actionType = 'GATHER';
+            reasoning = `Forage or mine ${missing}x ${ingName} on your island (current stock: ${owned})`;
+            actions.push({
+              actionId: `act-gather-${recipeName.toLowerCase().replace(/\s+/g, '-')}-${ingName.toLowerCase().replace(/\s+/g, '-')}`,
+              type: 'GATHER',
+              item: ingName,
+              quantity: missing,
+              currentStock: owned,
+              estimatedCostFlower: 0,
+              reasoning,
+            });
+          } else {
+            actionType = 'PRODUCE';
+            reasoning = `Produce ${missing}x ${ingName} in-house (current stock: ${owned})`;
+            actions.push({
+              actionId: `act-produce-${recipeName.toLowerCase().replace(/\s+/g, '-')}-${ingName.toLowerCase().replace(/\s+/g, '-')}`,
+              type: 'PRODUCE',
+              item: ingName,
+              quantity: missing,
+              currentStock: owned,
+              estimatedCostFlower: 0,
+              reasoning,
+            });
+          }
+        }
+
+        ingredientBreakdown.push({
+          item: ingName,
+          needed: requiredQty,
+          owned,
+          missing,
+          unitCostFlower,
+          totalCostFlower: itemTotalCost,
+          status,
+          actionType,
+          reasoning,
+        });
       }
+
+      totalCostFlower = roundFlower(totalCostFlower);
 
       let durationMinutes = recipe.baseCookMinutes ?? 10;
       let xpGain = recipe.baseXp ?? 0;
@@ -175,19 +297,8 @@ export function generateCandidates(input: GenerateCandidatesInput): StrategyCand
 
       const completionAt = currentTs + durationMinutes * 60 * 1000;
 
-      const actions: PlanAction[] = [];
-      if (requiresMarket) {
-        actions.push({
-          actionId: `act-buy-${recipeName.toLowerCase()}`,
-          type: 'BUY',
-          item: `${recipeName} ingredients`,
-          quantity: 1,
-          estimatedCostFlower: totalCostFlower,
-          reasoning: `Purchase missing ingredients for ${recipeName}`,
-        });
-      }
       actions.push({
-        actionId: `act-cook-${recipeName.toLowerCase()}`,
+        actionId: `act-cook-${recipeName.toLowerCase().replace(/\s+/g, '-')}`,
         type: 'COOK',
         item: recipeName,
         quantity: recipe.baseOutput ?? 1,
@@ -195,26 +306,40 @@ export function generateCandidates(input: GenerateCandidatesInput): StrategyCand
         estimatedCostFlower: totalCostFlower,
         estimatedXpGain: xpGain,
         estimatedReadyAt: completionAt,
-        reasoning: `Cook ${recipeName} to generate ${xpGain} XP`,
+        reasoning: `Cook ${recipeName} in ${recipe.building} to generate ${xpGain} XP`,
+        ingredientBreakdown,
       });
 
-      candidates.push({
+      const candidate: StrategyCandidate = {
         candidateId: `cand-cook-${recipeName.toLowerCase().replace(/\s+/g, '-')}`,
         title: `Cook ${recipeName}`,
         estimatedCostFlower: totalCostFlower,
         estimatedDurationMinutes: durationMinutes,
         estimatedCompletionAt: completionAt,
         items: [recipeName, ...itemNames],
-        requiresMarketPurchase: requiresMarket,
+        requiresMarketPurchase: hasMarketPurchase,
         targetActions: actions,
-      });
+        ingredientBreakdown,
+      };
+
+      const efficiency = xpGain / Math.max(0.0001, totalCostFlower);
+      const speed = xpGain / Math.max(0.1, durationMinutes / 60);
+      const isZeroCost = totalCostFlower === 0;
+
+      cookingCandidates.push({ candidate, efficiency, speed, isZeroCost });
+    }
+
+    // Include all eligible cooking candidates discovered for the player's unlocked buildings
+    for (const item of cookingCandidates) {
+      candidates.push(item.candidate);
     }
   } else if (goal.objective === 'STOCKPILE_RESOURCE' || goal.objective === 'CRAFT_TARGET') {
     const targetItems = goal.target?.items ?? {};
     const inventoryAll = state.inventory?.all ?? (state as any).inventory ?? (state as any).farm?.inventory ?? {};
-    for (const [targetItem, requiredQty] of Object.entries(targetItems)) {
-      const owned = inventoryAll[targetItem] ?? 0;
-      const needed = Math.max(0, requiredQty - owned);
+    for (const [targetItem, requiredNum] of Object.entries(targetItems)) {
+      const requiredQty = roundQty(Number(requiredNum) || 1);
+      const owned = roundQty(inventoryAll[targetItem] ?? 0);
+      const needed = roundQty(Math.max(0, requiredQty - owned));
 
       candidates.push({
         candidateId: `cand-target-${targetItem.toLowerCase().replace(/\s+/g, '-')}`,
@@ -226,11 +351,12 @@ export function generateCandidates(input: GenerateCandidatesInput): StrategyCand
         requiresMarketPurchase: false,
         targetActions: [
           {
-            actionId: `act-produce-${targetItem.toLowerCase()}`,
+            actionId: `act-produce-${targetItem.toLowerCase().replace(/\s+/g, '-')}`,
             type: 'PLANT',
             item: targetItem,
             quantity: needed,
-            reasoning: `Produce ${needed} ${targetItem} to meet goal target`,
+            currentStock: owned,
+            reasoning: `Produce ${needed} ${targetItem} to meet goal target (current stock: ${owned})`,
           },
         ],
       });

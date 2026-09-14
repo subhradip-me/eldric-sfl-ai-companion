@@ -18,6 +18,18 @@ export interface ResourceCommitment {
 export type ResourceReservationMap = Record<string, ResourceCommitment>;
 export type ResourceLedger = Record<string, ResourceCommitment>;
 
+export interface IngredientRequirement {
+  item: string;
+  needed: number;
+  owned: number;
+  missing: number;
+  unitCostFlower?: number;
+  totalCostFlower?: number;
+  status: 'OWNED' | 'MISSING' | 'PARTIAL';
+  actionType: 'IN_INVENTORY' | 'BUY' | 'GATHER' | 'PRODUCE';
+  reasoning?: string;
+}
+
 export interface StrategyCandidate {
   candidateId: string;
   title: string;
@@ -27,6 +39,7 @@ export interface StrategyCandidate {
   items: string[];
   requiresMarketPurchase: boolean;
   targetActions?: PlanAction[];
+  ingredientBreakdown?: IngredientRequirement[];
 }
 
 export interface FeasibilityAssessment {
@@ -43,14 +56,16 @@ export interface ActionPermissionResult {
 
 export interface PlanAction {
   actionId: string;
-  type: 'PLANT' | 'HARVEST' | 'COOK' | 'BUY' | 'SELL' | 'RESERVE';
+  type: 'PLANT' | 'HARVEST' | 'COOK' | 'BUY' | 'GATHER' | 'PRODUCE' | 'SELL' | 'RESERVE';
   item: string;
   quantity: number;
   building?: string;
+  currentStock?: number;
   estimatedCostFlower?: number;
   estimatedXpGain?: number;
   estimatedReadyAt?: TimestampMs;
   reasoning: string;
+  ingredientBreakdown?: IngredientRequirement[];
 }
 
 /**
@@ -97,6 +112,7 @@ export interface DailyObjective {
   completionCriteria: string[];
   warnings: PlanWarning[];
   opportunities: PlanOpportunity[];
+  ingredientSummary?: IngredientRequirement[];
 }
 
 export interface Phase {

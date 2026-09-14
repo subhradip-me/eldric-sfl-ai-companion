@@ -70,3 +70,78 @@ export function calculateLevelProgress(
     progressFraction,
   };
 }
+
+export const CHICKEN_LEVEL_XP: Record<number, number> = {
+  1: 60,
+  2: 120,
+  3: 240,
+  4: 360,
+  5: 480,
+  6: 660,
+  7: 840,
+  8: 1020,
+  9: 1200,
+  10: 1440,
+  11: 1680,
+  12: 1920,
+  13: 2160,
+  14: 2400,
+  15: 2720,
+};
+
+export const COW_LEVEL_XP: Record<number, number> = {
+  1: 180,
+  2: 360,
+  3: 720,
+  4: 1080,
+  5: 1440,
+  6: 1980,
+  7: 2520,
+  8: 3060,
+  9: 3600,
+  10: 4320,
+  11: 5040,
+  12: 5760,
+  13: 6480,
+  14: 7200,
+  15: 8160,
+};
+
+export const SHEEP_LEVEL_XP: Record<number, number> = {
+  1: 120,
+  2: 240,
+  3: 480,
+  4: 720,
+  5: 960,
+  6: 1320,
+  7: 1680,
+  8: 2040,
+  9: 2400,
+  10: 2880,
+  11: 3360,
+  12: 3840,
+  13: 4320,
+  14: 4800,
+  15: 5440,
+};
+
+/**
+ * Derive animal level from cumulative XP based on metadata/animal_rules.json production rules.
+ */
+export function animalLevelFromXp(
+  animalType: 'chicken' | 'cow' | 'sheep' | 'Chicken' | 'Cow' | 'Sheep',
+  xp: number
+): number {
+  if (xp <= 0) return 0;
+  const key = animalType.toLowerCase();
+  const table = key === 'cow' ? COW_LEVEL_XP : key === 'sheep' ? SHEEP_LEVEL_XP : CHICKEN_LEVEL_XP;
+  let lvl = 0;
+  for (const [levelStr, reqXp] of Object.entries(table)) {
+    const l = Number(levelStr);
+    if (xp >= reqXp) {
+      lvl = Math.max(lvl, l);
+    }
+  }
+  return lvl;
+}
+

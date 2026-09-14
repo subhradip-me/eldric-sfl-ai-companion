@@ -1,81 +1,101 @@
-# Sunflower AI 🌻 — Farm Command Center (V1.1)
+# Sunflower AI 🌻 — Farm Command Center (V1.2)
 
-Decision-support tool for reaching Bumpkin Level 100 with multi-user authentication and MVC architecture.
+Decision-support platform and autonomous AI strategist for reaching Bumpkin Level 100 in **Sunflower Land (SFL)**. Built with deterministic core economic engines, multi-user authentication, concurrent session management, credit-gated conversational AI, and containerized deployment.
 
 ## Architecture
 
-**MVC Structure:**
-- `server/models/` - Database models (User, ChatMessage, Snapshot)
-- `server/controllers/` - Request handlers (authController, farmController, chatController)
-- `server/routes/` - Route definitions (auth, farm, chat)
-- `server/middleware/` - Authentication middleware
-- `server/services/` - Business logic (AI orchestrator, planner, recipes, etc.)
+**Pure Deterministic Core (`server/core/`):**
+- Zero framework or database dependencies; all calculations are pure functions with cryptographic provenance.
+- `economyEngine/`: FLOWER valuations, Buy vs Farm animal economics, and **Codex Deliveries & Tasks Engine** (`evaluateDeliveries`, `evaluateCodexTasks`).
+- `effectEngine/`: Deterministic boost resolution with placed collectibles coordinates/interior gates, equipped wearables gates, timed buffs, and seasonal filters.
+- `xpEngine/`, `productionEngine/`, `temporalEngine/` (Sunflower Clock & UTC resets), `historyEngine/` (Observed facts vs Inferred movements), and `planner/` (Hierarchical multi-phase roadmap).
 
-**User-Scoped Data:**
-- Each user has their own farm_id, chat history, and snapshots
-- JWT-based authentication with 7-day token expiry
-- All data is isolated by user_id
+**MVC & Service Layer (`server/`):**
+- `server/models/`: Database models (`User`, `ChatMessage`, `Snapshot`, `UserSession`, `AiCreditLedger`).
+- `server/controllers/`: Request handlers (`AuthController`, `FarmController`, `ChatController`).
+- `server/services/`: AI Orchestrator (`Orchestrator.ts` with 15 deterministic tools), Redis Hot Store (`redisHotStore.ts`), and Auth services.
+- `server/middleware/`: JWT verification, One-Account-Per-IP registration gate (`ipGate.ts`), and concurrent session guard.
 
-## Run
+**Security & Resource Governance:**
+- **One Account Per IP Registration Gate**: Prevents multi-account abuse by enforcing 1 registration per IP (developers exempted).
+- **AI Credit Quota Model**: New users receive 50 free credits. Each AI prompt consumes 1 credit with atomic reservation and automatic refund on failure. Developer accounts have unmetered access.
+- **Concurrent Session Management**: Enforces a strict limit of 1 active desktop + 1 active mobile session per user. Conflicts trigger HTTP 409 with an interactive resolution modal and refresh token revocation.
 
+## Deployment & Run
+
+### A. One-Command Docker Deployment (Recommended)
 ```bash
-# 1. Database
+# 1. Configure environment
+cp .env.example .env        # Set SUNFLOWER_API_KEY, GROQ_API_KEY, JWT_SECRET
+
+# 2. Start full container stack (App, PostgreSQL 16 + pgvector, Redis)
 docker compose up -d
 
-# 2. Setup (first time only - creates tables and demo user)
-cp .env.example .env        # fill SUNFLOWER_API_KEY + GROQ_API_KEY + JWT_SECRET
-npm install
-npm run setup              # Creates users, snapshots, chat_messages tables + demo user
+# Sunflower AI is live at http://localhost:3000 (served via production bundle)
+```
 
-# 3. Server
+### B. Local Development Run
+```bash
+# 1. Database & Cache
+docker compose up -d postgres redis
+
+# 2. Setup (creates tables, vector extensions, and demo user)
+npm install
+npm run setup
+
+# 3. Backend Server
 npm start                   # http://localhost:3000
 
-# 4. Client (separate terminal)
+# 4. Frontend Client (separate terminal)
 cd client && npm install && npm run dev   # http://localhost:5173
 
 # Demo credentials: username=demo, password=demo123
-
-# Tests (incl. Pizza golden test)
+# Tests: 186 / 186 unit tests passing
 npm test
 ```
 
-## Authentication Flow
+## Dr. Bumpkin AI Copilot (15 Specialized Tools)
 
-1. **Register** - `POST /api/auth/register` with username, email, password (optional farmId)
-2. **Login** - `POST /api/auth/login` returns JWT token
-3. **Set Farm ID** - `PUT /api/auth/farm` with farmId (Sunflower Land farm ID)
-4. **Access Protected Routes** - Include `Authorization: Bearer <token>` header
+Operates on an agentic loop powered by Groq (`llama-3.3-70b-versatile`):
+1. `get_farm_state`: Snapshot-first normalized farm inventory, level, currencies, buildings, skills, and data freshness.
+2. `get_deliveries`: **Codex Delivery Orders evaluation** (Coins, SFL, and Ascension Age Shiny Feathers). Compares against live inventory, flags orders ready to deliver right now, and calculates net profit and ROI.
+3. `get_codex_chores_and_bounties`: **Weekly Chores** (Codex Tab 21) with real-time `farmActivity` progress tracking, **Poppy Mega Bounty Board** (Tab 33), and daily tasks.
+4. `evaluate_buy_vs_farm`: Live market price vs in-house animal feeding cost comparison (Milk, Eggs, Wool) with Barn/Hen House capital setup status.
+5. `get_expansion_details`: Current island status, Plot requirements, node additions, and multi-stage roadmap to future islands (Desert → Volcano).
+6. `compute_recipe_cost`: Effective recipe economics, XP boosts, cooking time, and building ownership verification.
+7. `get_roadmap`: Multi-phase strategic roadmap, daily objectives, and seasonal deadline urgency warnings.
+8. `check_action_permission`: Discretionary reserve checks preventing commitment violations against tomorrow's goals.
+9. `evaluate_strategy_feasibility`: Deterministic feasibility evaluation against hard constraints (budget, blacklists, deadlines).
+10. `get_active_effects`: Authoritative active boost proof (equipped wearables, placed collectibles, skills, timed buffs, VIP).
+11. `get_temporal_context`: Sunflower Clock, UTC daily reset countdown, season boundaries, and weather events.
+12. `get_history_metrics`: Historical progression deltas separating directly proven OBSERVED facts from INFERRED events.
+13. `get_item_metadata`: Authoritative official game catalog definitions, slot/part classifications, and collision disambiguation.
+14. `get_market_prices`: Live P2P market prices in FLOWER.
+15. `recall_memory`: Semantic vector search across past chat sessions using `pgvector`.
 
-## Endpoints
+> **Anti-Hallucination Disambiguation Rule**: Dr. Bumpkin is strictly prohibited from inventing fake "system examples" like `"Delivery 1 - Milk & Eggs"`. When clarifying brief or numbered prompts (e.g. "2" or "flower delivery"), the AI always cites real active orders and tasks from the player's Codex.
 
-**Auth:**
-- `POST /api/auth/register` - Create new user account
-- `POST /api/auth/login` - Login and get JWT token
-- `GET /api/auth/me` - Get current user info (protected)
-- `PUT /api/auth/farm` - Update farm ID (protected)
-- `PUT /api/auth/password` - Change password (protected)
+## Key Endpoints
 
-**Farm Data (requires auth + farm_id):**
-- `GET /api/farm` - Get farm state for authenticated user
-- `GET /api/planner` - Get optimized recipe plan
-- `GET /api/activity` - Get activity delta between snapshots
-- `GET /api/xp-progression?days=7` - Get XP progression chart
+**Auth & Governance:**
+- `POST /api/auth/register` - Create account (enforces 1-per-IP limit)
+- `POST /api/auth/login` - Login with device detection (desktop/mobile) and session conflict check
+- `POST /api/auth/session/resolve` - Force-disconnect an existing session and claim new session
+- `GET /api/auth/me` - Get current user info, session state, and AI credit balance
+- `PUT /api/auth/farm` - Update linked Sunflower Land farm ID
 
-**Chat (requires auth + farm_id):**
-- `POST /api/chat` - Send message to AI assistant
-- `GET /api/sessions` - List all chat sessions
-- `GET /api/sessions/:id` - Get messages for a session
-- `DELETE /api/sessions/:id` - Delete a chat session
+**Farm Data (User-Scoped):**
+- `GET /api/farm` - Normalized farm state, active production yields, and hotStore sync
+- `GET /api/planner` - Optimized cooking roadmap and Level 100 forecasts
+- `GET /api/activity` - Historical activity deltas between snapshots
+- `GET /api/xp-progression?days=7` - XP progression time-series
+
+**AI & Chat:**
+- `POST /api/chat` - Multi-turn conversational agent (credit-metered, 1 credit/prompt)
+- `GET /api/sessions` - List chat sessions
+- `GET /api/sessions/:id` - Fetch chat history for session
+- `DELETE /api/sessions/:id` - Delete chat session
 
 **Public:**
-- `GET /api/health` - Health check
-- `GET /api/market` - Market prices (no auth needed)
-
-## Notes / TODO before trusting numbers
-
-- `server/data/levels.json` has **placeholder** level anchors — paste the verified level table.
-- All recipes are `verified: false`; ingredient lists for Lemon Cheesecake, Honey Cheddar, Shroom Syrup and Cheese cook times are guesses — confirm in-game.
-- `modifiers.json` values (except Double Nom) are placeholders; EFFECTIVE vs OBSERVED mismatches will reveal wrong ones.
-- Routes are consolidated in `server/index.js` (small app); split into `routes/` files when they grow.
-- Snapshots require Postgres; the server still runs without it (snapshots/activity/history disabled).
-- DB image is now `pgvector/pgvector:pg16` (chat memory + history). If you had the old volume: `docker compose down -v && docker compose up -d`, then `npm install` (new dep: @xenova/transformers — embedding model ~25MB downloads on first chat).
+- `GET /api/health` - Health check (DB, Redis, API connectivity)
+- `GET /api/market` - Live P2P market prices

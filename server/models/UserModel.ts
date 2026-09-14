@@ -8,12 +8,20 @@ import type { UserRecord, CreateUserInput } from '../types/index.js';
 export class UserModel {
   /** Insert a new user and return the created record. */
   async create(data: CreateUserInput): Promise<UserRecord> {
-    const { username, email, passwordHash, farmId = null } = data;
+    const {
+      username,
+      email,
+      passwordHash,
+      farmId = null,
+      registrationIp = null,
+      role = 'USER',
+      initialCredits = Number(process.env.INITIAL_AI_CREDITS) || 50,
+    } = data;
     const result = await pool.query(
-      `INSERT INTO users (username, email, password_hash, farm_id, created_at, updated_at)
-       VALUES ($1, $2, $3, $4, NOW(), NOW())
-       RETURNING id, username, email, password_hash, farm_id, created_at, updated_at, last_login`,
-      [username, email, passwordHash, farmId]
+      `INSERT INTO users (username, email, password_hash, farm_id, registration_ip, role, ai_credits, created_at, updated_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, NOW(), NOW())
+       RETURNING id, username, email, password_hash, farm_id, registration_ip, role, ai_credits, ai_credits_used, created_at, updated_at, last_login`,
+      [username, email, passwordHash, farmId, registrationIp, role, initialCredits]
     );
     return result.rows[0] as UserRecord;
   }
@@ -21,7 +29,7 @@ export class UserModel {
   /** Find a user by username or email (used for login). */
   async findByUsernameOrEmail(identifier: string): Promise<UserRecord | null> {
     const result = await pool.query(
-      'SELECT * FROM users WHERE username = $1 OR email = $1',
+      'SELECT id, username, email, password_hash, farm_id, registration_ip, role, ai_credits, ai_credits_used, created_at, updated_at, last_login FROM users WHERE username = $1 OR email = $1',
       [identifier]
     );
     return (result.rows[0] as UserRecord) ?? null;
@@ -30,10 +38,54 @@ export class UserModel {
   /** Find a user by primary key. */
   async findById(userId: number): Promise<UserRecord | null> {
     const result = await pool.query(
-      'SELECT id, username, email, password_hash, farm_id, created_at, updated_at, last_login FROM users WHERE id = $1',
+      'SELECT id, username, email, password_hash, farm_id, registration_ip, role, ai_credits, ai_credits_used, created_at, updated_at, last_login FROM users WHERE id = $1',
       [userId]
     );
     return (result.rows[0] as UserRecord) ?? null;
+  }
+
+  /** Find an existing non-developer user with the given registration IP. */
+  async findByRegistrationIp(ip: string): Promise<UserRecord | null> {
+    const result = await pool.query(
+      `SELECT id, username, email, password_hash, farm_id, registration_ip, role, ai_credits, ai_credits_used, created_at, updated_at, last_login
+       FROM users
+       WHERE registration_ip = $1 AND role != 'DEVELOPER' AND username != 'dev'
+       LIMIT 1`,
+      [ip]
+    );
+    return (result.rows[0] as UserRecord) ?? null;
+  }
+
+  /**
+   * Conditional atomic AI credit deduction.
+   * Only succeeds if ai_credits >= amount. Returns null if insufficient credits.
+   */
+  async deductAiCredit(userId: number, amount = 1): Promise<{ ai_credits: number; ai_credits_used: number } | null> {
+    const result = await pool.query(
+      `UPDATE users
+       SET ai_credits = ai_credits - $2,
+           ai_credits_used = ai_credits_used + $2,
+           updated_at = NOW()
+       WHERE id = $1 AND ai_credits >= $2
+       RETURNING ai_credits, ai_credits_used`,
+      [userId, amount]
+    );
+    if (result.rows.length === 0) return null;
+    return result.rows[0] as { ai_credits: number; ai_credits_used: number };
+  }
+
+  /** Add or refund AI credits for a user. */
+  async addAiCredits(userId: number, amount: number): Promise<{ ai_credits: number } | null> {
+    const result = await pool.query(
+      `UPDATE users
+       SET ai_credits = ai_credits + $2,
+           updated_at = NOW()
+       WHERE id = $1
+       RETURNING ai_credits`,
+      [userId, amount]
+    );
+    if (result.rows.length === 0) return null;
+    return result.rows[0] as { ai_credits: number };
   }
 
   /** Return true if either username or email is already taken. */

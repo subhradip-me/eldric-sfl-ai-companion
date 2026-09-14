@@ -15,46 +15,79 @@ sequenceDiagram
     autonumber
     actor User as Player / Client
     participant Frontend as React SPA (Auth.jsx / api.js)
+    participant IPGate as ipGate Middleware
     participant AuthCtrl as AuthController.ts
     participant AuthSvc as AuthService.ts
+    participant SessModel as SessionModel.ts
     participant UserModel as User.ts Model
     participant DB as PostgreSQL 16
     participant Middleware as authenticateToken (middleware/auth.ts)
 
-    %% Registration / Login
-    User->>Frontend: Enter username & password
-    Frontend->>AuthCtrl: POST /api/auth/login { username, password }
-    AuthCtrl->>AuthSvc: login(username, password)
+    %% 1. Registration Flow with IP Gate
+    rect rgb(240, 248, 255)
+    note right of User: Registration Flow (1 Account per IP Gate)
+    User->>Frontend: Register { username, email, password, farmId }
+    Frontend->>IPGate: POST /api/auth/register
+    IPGate->>AuthCtrl: Forward with client IP
+    AuthCtrl->>AuthSvc: register({ username, email, password, farmId, registrationIp })
+    AuthSvc->>DB: SELECT id FROM users WHERE registration_ip = $1 AND role != 'DEVELOPER'
+    alt IP Already Registered
+        DB-->>AuthSvc: Found existing row
+        AuthSvc-->>AuthCtrl: 409 Conflict: Registration limit reached
+        AuthCtrl-->>Frontend: 409 Conflict
+    else IP Clean
+        AuthSvc->>AuthSvc: bcrypt.hash(password, 10)
+        AuthSvc->>DB: INSERT INTO users (..., registration_ip, ai_credits = 50)
+        DB-->>AuthSvc: New User record
+        AuthSvc-->>AuthCtrl: 200 OK + JWT tokens
+        AuthCtrl-->>Frontend: 200 OK { success: true, user, token }
+    end
+    end
+
+    %% 2. Login Flow with Concurrent Device Cap
+    rect rgb(255, 250, 240)
+    note right of User: Login Flow (1 Desktop + 1 Mobile Cap)
+    User->>Frontend: Login { username, password, deviceType }
+    Frontend->>AuthCtrl: POST /api/auth/login
+    AuthCtrl->>AuthSvc: login(username, password, deviceType, forceDisconnect)
     AuthSvc->>UserModel: findByUsername(username)
     UserModel->>DB: SELECT * FROM users WHERE username = $1
     DB-->>UserModel: User record (with password_hash)
-    UserModel-->>AuthSvc: User entity
     AuthSvc->>AuthSvc: bcrypt.compare(password, password_hash)
     
-    alt Password Valid
-        AuthSvc->>AuthSvc: jwt.sign({ userId, username, farmId }, JWT_SECRET, { expiresIn: '7d' })
-        AuthSvc->>UserModel: updateLastLogin(userId)
+    AuthSvc->>SessModel: findByUserAndDevice(userId, deviceType)
+    alt Slot Occupied & !forceDisconnect
+        SessModel-->>AuthSvc: Existing active session found
+        AuthSvc-->>AuthCtrl: 409 Conflict { conflict: true, deviceType }
+        AuthCtrl-->>Frontend: 409 Conflict -> Show Session Conflict Modal
+        Frontend->>User: "Already logged in on desktop. Disconnect?"
+    else Slot Free OR forceDisconnect = true
+        opt forceDisconnect = true
+            AuthSvc->>SessModel: deleteByUserAndDevice(userId, deviceType)
+        end
+        AuthSvc->>AuthSvc: Issue 15m Access Token + 30d Refresh Token
+        AuthSvc->>SessModel: create(userId, deviceType, refreshToken)
+        SessModel->>DB: INSERT INTO active_sessions (user_id, device_type, refresh_token_hash)
         AuthCtrl-->>Frontend: 200 OK { success: true, token, user }
         Frontend->>Frontend: localStorage.setItem('token', token)
         Frontend->>User: Render Dashboard
-    else Password Invalid
-        AuthCtrl-->>Frontend: 401 Unauthorized { success: false, error: "Invalid credentials" }
-        Frontend->>User: Display error callout
+    end
     end
 
-    %% Authenticated API Call
-    User->>Frontend: Open Dashboard
-    Frontend->>Middleware: GET /api/farm (Headers: Authorization: Bearer <token>)
-    Middleware->>AuthSvc: verifyToken(token)
-    
-    alt Token Valid
-        Middleware->>Middleware: req.user = decodedPayload
-        Middleware->>AuthCtrl: Forward to FarmController.getFarmData
+    %% 3. Authenticated API Call
+    rect rgb(245, 255, 250)
+    note right of User: Authenticated Request
+    User->>Frontend: Open Command Center
+    Frontend->>Middleware: GET /api/farm (Authorization: Bearer <access_token>)
+    Middleware->>AuthSvc: verifyToken(access_token)
+    alt Access Token Valid
+        Middleware->>AuthCtrl: Forward request
         AuthCtrl-->>Frontend: 200 OK { farm data }
-    else Token Expired or Invalid
-        Middleware-->>Frontend: 401 Unauthorized / 403 Forbidden
-        Frontend->>Frontend: logout() -> Clear localStorage
-        Frontend->>User: Redirect to AuthScreen
+    else Access Token Expired
+        Frontend->>AuthCtrl: POST /api/auth/refresh { refreshToken }
+        AuthCtrl->>SessModel: validateRefreshToken(userId, deviceType, refreshToken)
+        AuthCtrl-->>Frontend: 200 OK { fresh access_token }
+    end
     end
 ```
 
@@ -104,24 +137,57 @@ export const authService = new AuthService();
 
 ---
 
-### 3.2 JWT Token Architecture
-Tokens are cryptographically signed using HMAC-SHA256 (`HS256`):
-- **Secret**: `process.env.JWT_SECRET`
-- **Expiration**: `7d` (7 days)
-- **Token Payload**:
+### 3.2 Dual-Token Architecture & Refresh Mechanism
+Sunflower AI implements a hardened dual-token authentication model:
+- **Access Token**: Short-lived (default `15m`), signed with HMAC-SHA256 (`HS256`). Carried in `Authorization: Bearer <token>` headers or cookies.
   ```json
   {
     "userId": 42,
     "username": "bumpkin_farmer",
-    "farmId": "29411",
     "iat": 1773060000,
-    "exp": 1773664800
+    "exp": 1773060900
   }
   ```
+- **Refresh Token**: Long-lived (default `30d`), bound to device fingerprinting:
+  ```json
+  {
+    "userId": 42,
+    "username": "bumpkin_farmer",
+    "deviceType": "desktop",
+    "jti": "550e8400-e29b-41d4-a716-446655440000",
+    "iat": 1773060000,
+    "exp": 1775652000
+  }
+  ```
+- **Token Hash Storage**: Only the cryptographic SHA-256 hash of the refresh token is stored in the `active_sessions` table (`refresh_token_hash`). If the database is compromised, active refresh tokens cannot be forged.
 
 ---
 
-## 4. Protected Route Middleware (`server/middleware/auth.ts`)
+## 4. Concurrent Session Governance (1 Desktop + 1 Mobile)
+
+To prevent account sharing while supporting cross-device gameplay, Sunflower AI enforces a strict limit of **1 Desktop session + 1 Mobile session** per user:
+
+1. **Device Classification**: The client sends `deviceType: 'desktop' | 'mobile'` based on user agent detection.
+2. **Conflict Detection**: `SessionModel.findByUserAndDevice(userId, deviceType)` checks if a session slot is currently occupied.
+3. **User Handshake**:
+   - If occupied and `forceDisconnect: false`, the server responds with HTTP `409 Conflict`:
+     ```json
+     {
+       "success": false,
+       "conflict": true,
+       "deviceType": "desktop",
+       "error": "You're already logged in on desktop. Disconnect that session to continue here."
+     }
+     ```
+   - The frontend prompts the player with a **Session Conflict Modal**.
+   - If the player chooses to take over the session, the client resubmits login with `forceDisconnect: true`.
+4. **Session Invalidation**:
+   - The server deletes the old session (`deleteByUserAndDevice`), immediately revoking the old refresh token.
+   - The new session is inserted into `active_sessions`. Database unique index `idx_one_session_per_device_type` on `(user_id, device_type)` guarantees race safety under concurrent logins.
+
+---
+
+## 5. Protected Route Middleware (`server/middleware/auth.ts`)
 
 The `authenticateToken` middleware acts as the primary gatekeeper for all private APIs:
 
@@ -146,53 +212,7 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
     return res.status(403).json({ error: 'Invalid or expired token' });
   }
 }
-
-export function requireFarmId(req: Request, res: Response, next: NextFunction) {
-  if (!req.user?.farmId) {
-    return res.status(400).json({ error: 'Sunflower Land Farm ID required' });
-  }
-  next();
-}
 ```
-
----
-
-## 5. Farm NFT Binding Flow (`PUT /api/auth/farm`)
-
-Sunflower Land accounts are tied to an on-chain numeric NFT Farm ID:
-
-```typescript
-// server/controllers/AuthController.ts - Farm ID Association
-export class AuthController {
-  async updateFarmId(req: Request, res: Response) {
-    const { farmId } = req.body;
-    if (!farmId || typeof farmId !== 'string') {
-      return res.status(400).json({ error: 'Valid numeric Farm ID required' });
-    }
-
-    const updated = await User.updateFarmId(req.user!.userId, farmId);
-    if (!updated) return res.status(404).json({ error: 'User not found' });
-
-    // Issue updated token containing the newly bound farm ID
-    const token = authService.generateToken({
-      id: req.user!.userId,
-      username: req.user!.username,
-      farm_id: farmId,
-    });
-
-    res.cookie('token', token, { httpOnly: true, maxAge: 7 * 24 * 3600 * 1000 });
-    return res.json({ success: true, farmId, token });
-  }
-}
-```
-
-1. **Input Validation**: The farm ID must be a non-empty string.
-2. **Database Update**: The server updates the user's `farm_id` column:
-   ```sql
-   UPDATE users SET farm_id = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2 RETURNING *;
-   ```
-3. **Token Re-issuance**: The server re-signs a fresh JWT containing the updated `farmId` and sends it back to the client.
-4. **Immediate State Rehydration**: `authContext.jsx` updates its internal state with the new token, allowing the UI to immediately load live blockchain data without requiring the player to log in again.
 
 ---
 
@@ -202,8 +222,11 @@ All data queries in Sunflower AI enforce strict multi-tenant isolation:
 
 | Data Entity | Isolation Mechanism | SQL Enforcement |
 |---|---|---|
-| **Farm State** | Dynamically retrieved using the authenticated user's bound `farm_id`. | External SFL fetch scoped to `req.user.farmId` |
-| **Historical Snapshots** | User-specific snapshot lookup. | `SELECT * FROM snapshots WHERE user_id = $1 ORDER BY created_at DESC;` |
-| **AI Chat Sessions** | Conversation sessions partition. | `SELECT DISTINCT session_id FROM chat_messages WHERE user_id = $1;` |
-| **Vector RAG Retrieval** | Semantic memory search limited to user's history. | `WHERE user_id = $1 AND session_id != $2 ORDER BY embedding <=> $3 LIMIT 5;` |
+| **Registration Guard** | Sybil prevention per public IP address. | `SELECT id FROM users WHERE registration_ip = $1 AND role != 'DEVELOPER'` |
+| **Concurrent Sessions**| Maximum 1 active desktop + 1 active mobile session. | `SELECT * FROM active_sessions WHERE user_id = $1 AND device_type = $2` |
+| **AI Credit Quota**    | Atomic balance reservation and automated refund. | `UPDATE users SET ai_credits = ai_credits - $2 WHERE id = $1 AND ai_credits >= $2` |
+| **Farm State**         | Scoped to authenticated user's bound `farm_id`. | External SFL fetch scoped to `req.user.farmId` |
+| **Historical Snapshots**| User-specific snapshot lookup. | `SELECT * FROM snapshots WHERE user_id = $1 ORDER BY created_at DESC;` |
+| **AI Chat Sessions**   | Conversation sessions partition. | `SELECT DISTINCT session_id FROM chat_messages WHERE user_id = $1;` |
+| **Vector RAG Retrieval**| Semantic memory search limited to user's history. | `WHERE user_id = $1 AND session_id != $2 ORDER BY embedding <=> $3 LIMIT 5;` |
 

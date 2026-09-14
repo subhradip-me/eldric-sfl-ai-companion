@@ -110,6 +110,10 @@ export function buildResourceLedger(params: BuildResourceLedgerParams): Resource
     const reservedForTomorrow = tomorrowRequirements[item] ?? 0;
     const phaseReserve = phaseRequirements[item] ?? 0;
 
+    if (owned === 0 && inProduction === 0 && reservedForTomorrow === 0 && phaseReserve === 0) {
+      continue;
+    }
+
     ledger[item] = calculateResourceCommitment({
       owned,
       inProduction,
