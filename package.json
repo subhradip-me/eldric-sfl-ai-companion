@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "setup": "node setup.js",
-    "start": "tsx server/index.js",
-    "dev": "tsx watch server/index.js",
+    "start": "tsx server/index.ts",
+    "dev": "tsx watch server/index.ts",
     "test": "tsx --test \"server/tests/*.test.ts\" \"server/tests/*.test.js\"",
     "typecheck": "tsc --noEmit"
   },
