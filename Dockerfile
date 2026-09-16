@@ -29,7 +29,7 @@ ENV PORT=3000
 
 # Install root dependencies
 COPY package*.json ./
-RUN npm ci --omit=dev --prefer-offline --no-audit || npm install --omit=dev
+RUN npm install --omit=dev --no-audit && npm cache clean --force
 
 # Copy server code, game metadata, and configuration
 COPY server/ ./server/
@@ -39,9 +39,6 @@ COPY tsconfig.json ./
 
 # Copy compiled frontend from Stage 1 into client/dist
 COPY --from=builder /app/client/dist ./client/dist
-
-# Set ownership to non-root node user
-RUN chown -R node:node /app
 
 # Run container as non-root user
 USER node
