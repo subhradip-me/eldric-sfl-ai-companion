@@ -29,7 +29,7 @@ ENV PORT=3000
 
 # Install root dependencies
 COPY package*.json ./
-RUN npm ci --omit=dev --prefer-offline --no-audit && npm cache clean --force
+RUN npm install --omit=dev --no-audit && npm cache clean --force
 
 # Copy server code, game metadata, and configuration
 COPY server/ ./server/
