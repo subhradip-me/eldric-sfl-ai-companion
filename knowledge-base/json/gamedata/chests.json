@@ -1,0 +1,906 @@
+{
+  "BASIC_REWARDS": [
+    {
+      "coins": 1600,
+      "weighting": 90000
+    },
+    {
+      "coins": 3200,
+      "weighting": 45000
+    },
+    {
+      "coins": 8000,
+      "weighting": 18000
+    },
+    {
+      "items": {
+        "Gem": {
+          "$unparsed": "1 * BB_TO_GEM_RATIO"
+        }
+      },
+      "weighting": 90000
+    },
+    {
+      "items": {
+        "Gem": {
+          "$unparsed": "2 * BB_TO_GEM_RATIO"
+        }
+      },
+      "weighting": 45000
+    },
+    {
+      "items": {
+        "Gem": {
+          "$unparsed": "5 * BB_TO_GEM_RATIO"
+        }
+      },
+      "weighting": 18000
+    },
+    {
+      "items": {
+        "Gem": {
+          "$unparsed": "10 * BB_TO_GEM_RATIO"
+        }
+      },
+      "weighting": 4500
+    },
+    {
+      "items": {
+        "Axe": 5,
+        "Pickaxe": 5,
+        "Stone Pickaxe": 5
+      },
+      "weighting": 90000
+    },
+    {
+      "items": {
+        "Iron Pickaxe": 10
+      },
+      "weighting": 9000
+    },
+    {
+      "items": {
+        "Rod": 10
+      },
+      "weighting": 18000
+    },
+    {
+      "items": {
+        "Rapid Root": 10,
+        "Sprout Mix": 10
+      },
+      "weighting": 45000
+    },
+    {
+      "items": {
+        "Fishing Lure": 10
+      },
+      "weighting": 9000
+    },
+    {
+      "items": {
+        "Honey Cake": 5
+      },
+      "weighting": 4500
+    },
+    {
+      "items": {
+        "Rice Bun": 2
+      },
+      "weighting": 18000
+    },
+    {
+      "items": {
+        "Caprese Salad": 2
+      },
+      "weighting": 27000
+    },
+    {
+      "items": {
+        "Grape Juice": 3
+      },
+      "weighting": 36000
+    },
+    {
+      "items": {
+        "Sauerkraut": 3
+      },
+      "weighting": 45000
+    },
+    {
+      "items": {
+        "Fancy Fries": 3
+      },
+      "weighting": 90000
+    },
+    {
+      "items": {
+        "Rug": 1
+      },
+      "weighting": 22500
+    },
+    {
+      "items": {
+        "Prize Ticket": 1
+      },
+      "weighting": 4500
+    },
+    {
+      "$unparsed": "...getChapterTrackChestRewards(now, 2.5 * CHEST_MULTIPLIER)"
+    }
+  ],
+  "RARE_REWARDS": [
+    {
+      "coins": 1600,
+      "weighting": 90000
+    },
+    {
+      "coins": 3200,
+      "weighting": 45000
+    },
+    {
+      "coins": 8000,
+      "weighting": 45000
+    },
+    {
+      "coins": 16000,
+      "weighting": 18000
+    },
+    {
+      "items": {
+        "Gem": {
+          "$unparsed": "1 * BB_TO_GEM_RATIO"
+        }
+      },
+      "weighting": 45000
+    },
+    {
+      "items": {
+        "Gem": {
+          "$unparsed": "2 * BB_TO_GEM_RATIO"
+        }
+      },
+      "weighting": 90000
+    },
+    {
+      "items": {
+        "Gem": {
+          "$unparsed": "5 * BB_TO_GEM_RATIO"
+        }
+      },
+      "weighting": 45000
+    },
+    {
+      "items": {
+        "Gem": {
+          "$unparsed": "10 * BB_TO_GEM_RATIO"
+        }
+      },
+      "weighting": 18000
+    },
+    {
+      "items": {
+        "Gem": {
+          "$unparsed": "25 * BB_TO_GEM_RATIO"
+        }
+      },
+      "weighting": 9000
+    },
+    {
+      "items": {
+        "Gem": {
+          "$unparsed": "50 * BB_TO_GEM_RATIO"
+        }
+      },
+      "weighting": 4500
+    },
+    {
+      "items": {
+        "Axe": 15,
+        "Pickaxe": 15,
+        "Stone Pickaxe": 15
+      },
+      "weighting": 45000
+    },
+    {
+      "items": {
+        "Gold Pickaxe": 3
+      },
+      "weighting": 45000
+    },
+    {
+      "items": {
+        "Oil Drill": 3
+      },
+      "weighting": 22500
+    },
+    {
+      "items": {
+        "Rod": 5,
+        "Earthworm": 5,
+        "Red Wiggler": 5,
+        "Grub": 5
+      },
+      "weighting": 45000
+    },
+    {
+      "items": {
+        "Fishing Lure": 25
+      },
+      "weighting": 22500
+    },
+    {
+      "items": {
+        "Honey Cake": 5
+      },
+      "weighting": 27000
+    },
+    {
+      "items": {
+        "Rice Bun": 3
+      },
+      "weighting": 18000
+    },
+    {
+      "items": {
+        "Caprese Salad": 2
+      },
+      "weighting": 45000
+    },
+    {
+      "items": {
+        "Grape Juice": 3
+      },
+      "weighting": 36000
+    },
+    {
+      "items": {
+        "Sunstone": 1
+      },
+      "weighting": 13500
+    },
+    {
+      "items": {
+        "Prize Ticket": 1
+      },
+      "weighting": 18000
+    },
+    {
+      "$unparsed": "...getChapterTrackChestRewards(now, 2.5 * CHEST_MULTIPLIER)"
+    }
+  ],
+  "LUXURY_REWARDS": [
+    {
+      "coins": 3200,
+      "weighting": 90000
+    },
+    {
+      "coins": 8000,
+      "weighting": 45000
+    },
+    {
+      "coins": 16000,
+      "weighting": 45000
+    },
+    {
+      "items": {
+        "Gem": {
+          "$unparsed": "5 * BB_TO_GEM_RATIO"
+        }
+      },
+      "weighting": 45000
+    },
+    {
+      "items": {
+        "Gem": {
+          "$unparsed": "10 * BB_TO_GEM_RATIO"
+        }
+      },
+      "weighting": 90000
+    },
+    {
+      "items": {
+        "Gem": {
+          "$unparsed": "25 * BB_TO_GEM_RATIO"
+        }
+      },
+      "weighting": 22500
+    },
+    {
+      "items": {
+        "Gem": {
+          "$unparsed": "50 * BB_TO_GEM_RATIO"
+        }
+      },
+      "weighting": 9000
+    },
+    {
+      "items": {
+        "Gold Pickaxe": 10
+      },
+      "weighting": 67500
+    },
+    {
+      "items": {
+        "Oil Drill": 5
+      },
+      "weighting": 45000
+    },
+    {
+      "items": {
+        "Rod": 10,
+        "Earthworm": 10,
+        "Red Wiggler": 10,
+        "Grub": 10
+      },
+      "weighting": 45000
+    },
+    {
+      "items": {
+        "Fishing Lure": 25
+      },
+      "weighting": 22500
+    },
+    {
+      "items": {
+        "Honey Cake": 10
+      },
+      "weighting": 45000
+    },
+    {
+      "items": {
+        "Caprese Salad": 5
+      },
+      "weighting": 22500
+    },
+    {
+      "items": {
+        "Grape Juice": 10
+      },
+      "weighting": 22500
+    },
+    {
+      "items": {
+        "Sunstone": 3
+      },
+      "weighting": 22500
+    },
+    {
+      "items": {
+        "Prize Ticket": 1
+      },
+      "weighting": 45000
+    },
+    {
+      "$unparsed": "...getChapterMegastoreChestRewards(now, 1.9 * CHEST_MULTIPLIER)"
+    }
+  ],
+  "BUD_BOX_REWARDS": [
+    {
+      "items": {
+        "Stone Pickaxe": 15
+      },
+      "weighting": 15
+    },
+    {
+      "items": {
+        "Iron Pickaxe": 10
+      },
+      "weighting": 8
+    },
+    {
+      "items": {
+        "Gold Pickaxe": 5
+      },
+      "weighting": 3
+    },
+    {
+      "items": {
+        "Fishing Lure": 10
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Pirate Cake": 3
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Red Lavender": 1,
+        "White Lavender": 1
+      },
+      "weighting": 20
+    },
+    {
+      "items": {
+        "Blue Clover": 1,
+        "Yellow Clover": 1
+      },
+      "weighting": 20
+    },
+    {
+      "items": {
+        "Red Edelweiss": 1,
+        "Purple Edelweiss": 1
+      },
+      "weighting": 20
+    },
+    {
+      "items": {
+        "Blue Gladiolus": 1,
+        "Yellow Gladiolus": 1
+      },
+      "weighting": 20
+    },
+    {
+      "wearables": {
+        "Seedling Hat": 1
+      },
+      "weighting": 1
+    },
+    {
+      "items": {
+        "Prize Ticket": 1
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Oil Drill": 3
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Pizza Margherita": 1
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Spaghetti al Limone": 1
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Beetroot Blaze": 1,
+        "Rapid Roast": 1,
+        "Shroom Syrup": 1
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "White Carrot": 1,
+        "Warty Goblin Pumpkin": 1
+      },
+      "weighting": 20
+    },
+    {
+      "items": {
+        "Adirondack Potato": 1,
+        "Purple Cauliflower": 1
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Chiogga": 1
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Rapid Root": 30,
+        "Sprout Mix": 30
+      },
+      "weighting": 20
+    },
+    {
+      "items": {
+        "Doll": 5
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Time Warp Totem": 1
+      },
+      "weighting": 3
+    },
+    {
+      "items": {
+        "Luxury Key": 1
+      },
+      "weighting": 1
+    }
+  ],
+  "GIFT_GIVER_REWARDS": [
+    {
+      "items": {
+        "Radish Cake": 1
+      },
+      "weighting": 15
+    },
+    {
+      "items": {
+        "Pirate Cake": 1
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Fishing Lure": 3
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Grub": 3,
+        "Earthworm": 3,
+        "Red Wiggler": 3
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Carrot Cake": 1
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Cabbage Cake": 1
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Cauliflower Cake": 1
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Rod": 3
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Pickaxe": 3,
+        "Stone Pickaxe": 2
+      },
+      "weighting": 5
+    }
+  ],
+  "PIRATE_CHEST_REWARDS": [
+    {
+      "items": {
+        "Sand Shovel": 5
+      },
+      "weighting": 20
+    },
+    {
+      "items": {
+        "Grub": 5
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Earthworm": 5
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Sand Shovel": 10
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Sand Drill": 1
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Seaweed": 3
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Orange": 5
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Orange Cake": 1
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Sand": 20
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Hieroglyph": 1
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Pirate Cake": 1
+      },
+      "weighting": 5
+    }
+  ],
+  "BASIC_DESERT_STREAK": [
+    {
+      "items": {
+        "Clam Shell": 1
+      },
+      "weighting": 20
+    },
+    {
+      "items": {
+        "Pipi": 1
+      },
+      "weighting": 20
+    },
+    {
+      "items": {
+        "Sand Shovel": 10
+      },
+      "weighting": 15
+    },
+    {
+      "items": {
+        "Sand Drill": 2
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Radish Cake": 1
+      },
+      "weighting": 15
+    },
+    {
+      "items": {
+        "Wheat Cake": 1
+      },
+      "weighting": 20
+    },
+    {
+      "items": {
+        "Treasure Key": 1
+      },
+      "weighting": 10
+    }
+  ],
+  "ADVANCED_DESERT_STREAK": [
+    {
+      "items": {
+        "Clam Shell": 2
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Treasure Key": 1
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Pirate Cake": 1
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Sand Shovel": 10
+      },
+      "weighting": 15
+    },
+    {
+      "items": {
+        "Sand Drill": 2
+      },
+      "weighting": 15
+    },
+    {
+      "items": {
+        "Prize Ticket": 1
+      },
+      "weighting": 1
+    },
+    {
+      "items": {
+        "Pearl": 1
+      },
+      "weighting": 5
+    }
+  ],
+  "EXPERT_DESERT_STREAK": [
+    {
+      "items": {
+        "Pirate Bounty": 1
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Pearl": 1
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Prize Ticket": 1
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Rare Key": 1
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Sand Shovel": 15
+      },
+      "weighting": 20
+    },
+    {
+      "items": {
+        "Sand Drill": 3
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Pirate Cake": 1
+      },
+      "weighting": 5
+    },
+    {
+      "items": {
+        "Shroom Syrup": 1
+      },
+      "weighting": 1
+    }
+  ],
+  "MANEKI_NEKO_REWARDS": [
+    {
+      "items": {
+        "Pumpkin Soup": 1
+      },
+      "weighting": 50
+    },
+    {
+      "items": {
+        "Cauliflower Burger": 1
+      },
+      "weighting": 35
+    },
+    {
+      "items": {
+        "Mashed Potato": 1
+      },
+      "weighting": 30
+    },
+    {
+      "items": {
+        "Boiled Eggs": 1
+      },
+      "weighting": 30
+    },
+    {
+      "items": {
+        "Bumpkin Broth": 1
+      },
+      "weighting": 30
+    },
+    {
+      "items": {
+        "Sunflower Crunch": 1
+      },
+      "weighting": 20
+    },
+    {
+      "items": {
+        "Bumpkin Salad": 1
+      },
+      "weighting": 15
+    },
+    {
+      "items": {
+        "Goblin's Treat": 1
+      },
+      "weighting": 15
+    },
+    {
+      "items": {
+        "Kale Stew": 1
+      },
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Sunflower Cake": 1
+      },
+      "weighting": 5
+    }
+  ],
+  "FESTIVE_TREE_REWARDS": [
+    {
+      "items": {
+        "Treasure Key": 1
+      },
+      "wearables": {},
+      "weighting": 20
+    },
+    {
+      "items": {
+        "Bronze Food Box": 1
+      },
+      "wearables": {},
+      "weighting": 20
+    },
+    {
+      "items": {
+        "Bronze Love Box": 1
+      },
+      "wearables": {},
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Bronze Tool Box": 1
+      },
+      "wearables": {},
+      "weighting": 10
+    },
+    {
+      "items": {
+        "Rare Key": 1
+      },
+      "wearables": {},
+      "weighting": 5
+    },
+    {
+      "items": {},
+      "wearables": {
+        "Candy Halbred": 1
+      },
+      "weighting": 1
+    },
+    {
+      "items": {},
+      "wearables": {
+        "Cookie Shield": 1
+      },
+      "weighting": 1
+    },
+    {
+      "items": {},
+      "wearables": {
+        "Cozy Reindeer Onesie": 1
+      },
+      "weighting": 1
+    }
+  ]
+}

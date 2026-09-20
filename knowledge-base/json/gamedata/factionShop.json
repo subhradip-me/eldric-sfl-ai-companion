@@ -1,0 +1,1406 @@
+{
+  "BUMPKIN_FACTION_ITEMS": {
+    "Bumpkin Throne": {
+      "name": "Bumpkin Throne",
+      "price": 75000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A throne fit for a Bumpkin.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Charm Egg": {
+      "name": "Bumpkin Charm Egg",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A jewelled egg created by the House of Bumpkin.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Sapphire Bumpkin Goblet": {
+      "name": "Sapphire Bumpkin Goblet",
+      "price": 18750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A sapphire encrusted goblet.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Bunting": {
+      "name": "Bumpkin Bunting",
+      "price": 7500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Colorful flags celebrating the Bumpkin Faction.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Candles": {
+      "name": "Bumpkin Candles",
+      "price": 750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Bumpkin Faction decorative candles.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Left Wall Sconce": {
+      "name": "Bumpkin Left Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Bumpkin Wall Sconce.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Right Wall Sconce": {
+      "name": "Bumpkin Right Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Bumpkin Wall Sconce.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Faction Rug": {
+      "name": "Bumpkin Faction Rug",
+      "price": 100,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magnificent rug made by the talented Bumpkin Faction artisans.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Armor": {
+      "name": "Bumpkin Armor",
+      "price": 112500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A sturdy protection that honors tradition and strength. Earn +20% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Helmet": {
+      "name": "Bumpkin Helmet",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Adorn your head with a symbol of rustic fortitude and unwavering resolve. Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Sword": {
+      "name": "Bumpkin Sword",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A weapon forged in fields and forests, ready for any challenge. Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Pants": {
+      "name": "Bumpkin Pants",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Navigate countryside and city alike blending comfort with the spirit of adventure. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Sabatons": {
+      "name": "Bumpkin Sabatons",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Stampede through fields in this sturdy footwear echoing the resilience of rural life. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Crown": {
+      "name": "Bumpkin Crown",
+      "price": 210000,
+      "requires": "Bumpkin Helmet",
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magestic crown with intricate design and eerie glowing games, fit for a Bumpkin Leader. Earn 25% more in FLOWER and Coin deliveries, and Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Shield": {
+      "name": "Bumpkin Shield",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "This shield radiates with a divine blue light, symbolizing protection and justice. Wood and mineral drops increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Quiver": {
+      "name": "Bumpkin Quiver",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "The Bumpkin Quiver features vibrant red and blue fabrics, reinforced with iron accents that speak to the strength and resilience of the Bumpkin. Crops and fruit yield increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Medallion": {
+      "name": "Bumpkin Medallion",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "This sturdy medallion, crafted from iron and adorned with blue gem, is beloved by Bumpkins. Enhances cooking speed by 25% when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    }
+  },
+  "GOBLIN_FACTION_ITEMS": {
+    "Goblin Throne": {
+      "name": "Goblin Throne",
+      "price": 75000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A throne fit for a Goblin.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Goblin Mischief Egg": {
+      "name": "Goblin Mischief Egg",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A jewelled egg created by the House of Goblin.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Emerald Goblin Goblet": {
+      "name": "Emerald Goblin Goblet",
+      "price": 18750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "An emerald encrusted goblet.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Goblin Bunting": {
+      "name": "Goblin Bunting",
+      "price": 7500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Colorful flags celebrating the Goblin Faction.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Goblin Candles": {
+      "name": "Goblin Candles",
+      "price": 750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Goblin Faction decorative candles.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Goblin Left Wall Sconce": {
+      "name": "Goblin Left Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Goblin Wall Sconce.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Goblin Right Wall Sconce": {
+      "name": "Goblin Right Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Goblin Wall Sconce.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Goblin Faction Rug": {
+      "name": "Goblin Faction Rug",
+      "price": 100,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magnificent rug made by the talented Goblin Faction artisans.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Goblin Armor": {
+      "name": "Goblin Armor",
+      "price": 112500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Rugged and rowdy, Goblin-approved protection. Earn +20% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Helmet": {
+      "name": "Goblin Helmet",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Strong and sturdy, crafted for fearless adventures in untamed lands. Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Pants": {
+      "name": "Goblin Pants",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "These pants blend agility with Goblin craftsmanship for swift maneuvers. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Sabatons": {
+      "name": "Goblin Sabatons",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Designed to outpace and outlast any foe. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Axe": {
+      "name": "Goblin Axe",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "This axe is a testament to Goblin strength and unmatched battle prowess. Earn +10% marks",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Crown": {
+      "name": "Goblin Crown",
+      "price": 210000,
+      "requires": "Goblin Helmet",
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A dark, jagged crown with glowing gems, ideal for the Goblin King. Earn 25% more in FLOWER and Coin deliveries, and Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Shield": {
+      "name": "Goblin Shield",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "This shield is built for Goblin warriors who thrive in the heat of battle. Wood and mineral drops increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Quiver": {
+      "name": "Goblin Quiver",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Crafted from the parts of horned-beasts and stitched with Goblin ingenuity, this quiver is as rugged as it is practical. Crops and fruit yield increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Medallion": {
+      "name": "Goblin Medallion",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Favored by Goblins for its efficiency, it helps you prepare meals at lightning speed, just like their ingenious contraptions and creations. Enhances cooking speed by 25% when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    }
+  },
+  "SUNFLORIAN_FACTION_ITEMS": {
+    "Sunflorian Throne": {
+      "name": "Sunflorian Throne",
+      "price": 75000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A throne fit for a Sunflorian.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Golden Sunflorian Egg": {
+      "name": "Golden Sunflorian Egg",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A jewelled egg created by the House of Sunflorian.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Opal Sunflorian Goblet": {
+      "name": "Opal Sunflorian Goblet",
+      "price": 18750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "An opal encrusted goblet.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Bunting": {
+      "name": "Sunflorian Bunting",
+      "price": 7500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Colorful flags celebrating the Sunflorian Faction.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Candles": {
+      "name": "Sunflorian Candles",
+      "price": 750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Sunflorian Faction decorative candles.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Left Wall Sconce": {
+      "name": "Sunflorian Left Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Sunflorian Wall Sconce.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Right Wall Sconce": {
+      "name": "Sunflorian Right Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Sunflorian Wall Sconce.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Faction Rug": {
+      "name": "Sunflorian Faction Rug",
+      "price": 100,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magnificent rug made by the talented Sunflorian Faction artisans.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Armor": {
+      "name": "Sunflorian Armor",
+      "price": 112500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A shimmering protection that mirrors the sun's strength. Earn +20% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Sword": {
+      "name": "Sunflorian Sword",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A blade ablaze with the courage and brilliance of the sun. Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Helmet": {
+      "name": "Sunflorian Helmet",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "This helmet is a beacon of light and guardian against shadows. Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Pants": {
+      "name": "Sunflorian Pants",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Stride confidently in attire that captures the warmth and energy of all Sunflorians. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Sabatons": {
+      "name": "Sunflorian Sabatons",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Each step taken in these shoes resonating with the power and vitality. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Crown": {
+      "name": "Sunflorian Crown",
+      "price": 210000,
+      "requires": "Sunflorian Helmet",
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A majestic crown, adorned with a radiant ruby centerpiece and golden embellishments, it evokes the grandeur and authority of a leader. Earn 25% more in FLOWER and Coin deliveries, and Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Shield": {
+      "name": "Sunflorian Shield",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A symbol of divine authority, the Sunflorian Shield is reserved for only the most noble of kings and queens. Wood and mineral drops increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Quiver": {
+      "name": "Sunflorian Quiver",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "The Sunflorian Quiver, crafted from luxurious cream-colored fabric and adorned with gleaming gold accents, is a symbol of royal grace and divine blessing. Crops and fruit yield increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Medallion": {
+      "name": "Sunflorian Medallion",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "This medallion embodies the Sunflorians' blend of warmth and efficiency, ensuring your culinary creations are prepared with grace and swiftness. Enhances cooking speed by 25% when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    }
+  },
+  "NIGHTSHADE_FACTION_ITEMS": {
+    "Nightshade Throne": {
+      "name": "Nightshade Throne",
+      "price": 75000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A throne fit for a Nightshade.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Nightshade Veil Egg": {
+      "name": "Nightshade Veil Egg",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A jewelled egg created by the House of Nightshade.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Amethyst Nightshade Goblet": {
+      "name": "Amethyst Nightshade Goblet",
+      "price": 18750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "An amethyst encrusted goblet.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Nightshade Bunting": {
+      "name": "Nightshade Bunting",
+      "price": 7500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Colorful flags celebrating the Nightshade Faction.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Nightshade Candles": {
+      "name": "Nightshade Candles",
+      "price": 750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Nightshade Faction decorative candles.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Nightshade Left Wall Sconce": {
+      "name": "Nightshade Left Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Nightshade Wall Sconce.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Nightshade Right Wall Sconce": {
+      "name": "Nightshade Right Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Nightshade Wall Sconce.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Nightshade Faction Rug": {
+      "name": "Nightshade Faction Rug",
+      "price": 100,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magnificent rug made by the talented Nightshade Faction artisans.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Nightshade Armor": {
+      "name": "Nightshade Armor",
+      "price": 112500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "An Armor, crafted for stealth and resilience in the shadows. Earn +20% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Helmet": {
+      "name": "Nightshade Helmet",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A strong helmet of secrecy and silent strength. Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Pants": {
+      "name": "Nightshade Pants",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "These pants are blending agility with the mystery of the night. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Sabatons": {
+      "name": "Nightshade Sabatons",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Perfect design where every step is a whisper in the dark. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Sword": {
+      "name": "Nightshade Sword",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A blade that strikes with the precision of moonlit steel. Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Crown": {
+      "name": "Nightshade Crown",
+      "price": 210000,
+      "requires": "Nightshade Helmet",
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A midnight-black crown with deep purple and silver details, fitting for a leader whose presence commands respect and mystery. Earn 25% more in FLOWER and Coin deliveries, and Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Shield": {
+      "name": "Nightshade Shield",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "The shield’s surface is a deep, shadowy black feathers with intricate violet accents that pulse with ominous energy. Wood and mineral drops increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Quiver": {
+      "name": "Nightshade Quiver",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Enigmatic and sleek, the Nightshade Quiver is bound in dark, supple leather, designed for those who harvest under the cover of darkness. Crops and fruit yield increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Medallion": {
+      "name": "Nightshade Medallion",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "This medallion channels the Nightshade's secretive allure and their skill in crafting refined and exotic dishes swiftly. Enhances cooking speed by 25% when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    }
+  },
+  "FACTION_SHOP_KEYS": {
+    "Treasure Key": {
+      "name": "Treasure Key",
+      "price": 1000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magic key that can unlock the basic chest located in the plaza near Tywin.",
+      "type": "keys"
+    },
+    "Rare Key": {
+      "name": "Rare Key",
+      "price": 3000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magic key that can unlock the rare chest located in the south of the beach.",
+      "type": "keys"
+    },
+    "Luxury Key": {
+      "name": "Luxury Key",
+      "price": 10000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magic key that can unlock the luxury chest located in the plaza near Bert.",
+      "type": "keys"
+    }
+  },
+  "FACTION_SHOP_ITEMS": {
+    "Golden Faction Goblet": {
+      "name": "Golden Faction Goblet",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A golden goblet.",
+      "type": "collectible"
+    },
+    "Ruby Faction Goblet": {
+      "name": "Ruby Faction Goblet",
+      "price": 75000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A ruby encrusted goblet.",
+      "type": "collectible"
+    },
+    "Knight Gambit": {
+      "name": "Knight Gambit",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Don this hat and be ready to charge into adventure with a playful twist of strategy and style.",
+      "type": "wearable"
+    },
+    "Royal Braids": {
+      "name": "Royal Braids",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A hairstyle fit for a royal.",
+      "type": "wearable"
+    },
+    "Gourmet Hourglass": {
+      "name": "Gourmet Hourglass",
+      "price": 1500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Reduces cooking time by 50% for 4 hours.",
+      "type": "collectible"
+    },
+    "Harvest Hourglass": {
+      "name": "Harvest Hourglass",
+      "price": 5000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Reduces crop growth time by 25% for 6 hours.",
+      "type": "collectible"
+    },
+    "Timber Hourglass": {
+      "name": "Timber Hourglass",
+      "price": 4000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Reduces tree recovery time by 25% for 4 hours.",
+      "type": "collectible"
+    },
+    "Ore Hourglass": {
+      "name": "Ore Hourglass",
+      "price": 8000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Reduces mineral replenish cooldown by 50% for 3 hours.",
+      "type": "collectible"
+    },
+    "Orchard Hourglass": {
+      "name": "Orchard Hourglass",
+      "price": 4000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Reduces fruit growth time by 25% for 6 hours.",
+      "type": "collectible"
+    },
+    "Fisher's Hourglass": {
+      "name": "Fisher's Hourglass",
+      "price": 2000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Gives a 50% chance of +1 fish for 4 hours.",
+      "type": "collectible"
+    },
+    "Blossom Hourglass": {
+      "name": "Blossom Hourglass",
+      "price": 2000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Reduces flower growth time by 25% for 4 hours.",
+      "type": "collectible"
+    },
+    "Paella": {
+      "name": "Paella",
+      "price": 2500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A classic Spanish dish, brimming with flavor.",
+      "type": "food"
+    },
+    "Caponata": {
+      "name": "Caponata",
+      "price": 2000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A flavorful eggplant dish, perfect for sharing.",
+      "type": "food"
+    },
+    "Glazed Carrots": {
+      "name": "Glazed Carrots",
+      "price": 1500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Sweet and savory carrots, a delightful side dish.",
+      "type": "food"
+    },
+    "Bumpkin Throne": {
+      "name": "Bumpkin Throne",
+      "price": 75000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A throne fit for a Bumpkin.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Charm Egg": {
+      "name": "Bumpkin Charm Egg",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A jewelled egg created by the House of Bumpkin.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Sapphire Bumpkin Goblet": {
+      "name": "Sapphire Bumpkin Goblet",
+      "price": 18750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A sapphire encrusted goblet.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Bunting": {
+      "name": "Bumpkin Bunting",
+      "price": 7500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Colorful flags celebrating the Bumpkin Faction.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Candles": {
+      "name": "Bumpkin Candles",
+      "price": 750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Bumpkin Faction decorative candles.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Left Wall Sconce": {
+      "name": "Bumpkin Left Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Bumpkin Wall Sconce.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Right Wall Sconce": {
+      "name": "Bumpkin Right Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Bumpkin Wall Sconce.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Faction Rug": {
+      "name": "Bumpkin Faction Rug",
+      "price": 100,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magnificent rug made by the talented Bumpkin Faction artisans.",
+      "type": "collectible",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Armor": {
+      "name": "Bumpkin Armor",
+      "price": 112500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A sturdy protection that honors tradition and strength. Earn +20% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Helmet": {
+      "name": "Bumpkin Helmet",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Adorn your head with a symbol of rustic fortitude and unwavering resolve. Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Sword": {
+      "name": "Bumpkin Sword",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A weapon forged in fields and forests, ready for any challenge. Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Pants": {
+      "name": "Bumpkin Pants",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Navigate countryside and city alike blending comfort with the spirit of adventure. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Sabatons": {
+      "name": "Bumpkin Sabatons",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Stampede through fields in this sturdy footwear echoing the resilience of rural life. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Crown": {
+      "name": "Bumpkin Crown",
+      "price": 210000,
+      "requires": "Bumpkin Helmet",
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magestic crown with intricate design and eerie glowing games, fit for a Bumpkin Leader. Earn 25% more in FLOWER and Coin deliveries, and Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Shield": {
+      "name": "Bumpkin Shield",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "This shield radiates with a divine blue light, symbolizing protection and justice. Wood and mineral drops increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Quiver": {
+      "name": "Bumpkin Quiver",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "The Bumpkin Quiver features vibrant red and blue fabrics, reinforced with iron accents that speak to the strength and resilience of the Bumpkin. Crops and fruit yield increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Bumpkin Medallion": {
+      "name": "Bumpkin Medallion",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "This sturdy medallion, crafted from iron and adorned with blue gem, is beloved by Bumpkins. Enhances cooking speed by 25% when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "bumpkins"
+    },
+    "Goblin Throne": {
+      "name": "Goblin Throne",
+      "price": 75000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A throne fit for a Goblin.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Goblin Mischief Egg": {
+      "name": "Goblin Mischief Egg",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A jewelled egg created by the House of Goblin.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Emerald Goblin Goblet": {
+      "name": "Emerald Goblin Goblet",
+      "price": 18750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "An emerald encrusted goblet.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Goblin Bunting": {
+      "name": "Goblin Bunting",
+      "price": 7500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Colorful flags celebrating the Goblin Faction.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Goblin Candles": {
+      "name": "Goblin Candles",
+      "price": 750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Goblin Faction decorative candles.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Goblin Left Wall Sconce": {
+      "name": "Goblin Left Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Goblin Wall Sconce.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Goblin Right Wall Sconce": {
+      "name": "Goblin Right Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Goblin Wall Sconce.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Goblin Faction Rug": {
+      "name": "Goblin Faction Rug",
+      "price": 100,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magnificent rug made by the talented Goblin Faction artisans.",
+      "type": "collectible",
+      "faction": "goblins"
+    },
+    "Goblin Armor": {
+      "name": "Goblin Armor",
+      "price": 112500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Rugged and rowdy, Goblin-approved protection. Earn +20% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Helmet": {
+      "name": "Goblin Helmet",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Strong and sturdy, crafted for fearless adventures in untamed lands. Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Pants": {
+      "name": "Goblin Pants",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "These pants blend agility with Goblin craftsmanship for swift maneuvers. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Sabatons": {
+      "name": "Goblin Sabatons",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Designed to outpace and outlast any foe. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Axe": {
+      "name": "Goblin Axe",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "This axe is a testament to Goblin strength and unmatched battle prowess. Earn +10% marks",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Crown": {
+      "name": "Goblin Crown",
+      "price": 210000,
+      "requires": "Goblin Helmet",
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A dark, jagged crown with glowing gems, ideal for the Goblin King. Earn 25% more in FLOWER and Coin deliveries, and Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Shield": {
+      "name": "Goblin Shield",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "This shield is built for Goblin warriors who thrive in the heat of battle. Wood and mineral drops increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Quiver": {
+      "name": "Goblin Quiver",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Crafted from the parts of horned-beasts and stitched with Goblin ingenuity, this quiver is as rugged as it is practical. Crops and fruit yield increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Goblin Medallion": {
+      "name": "Goblin Medallion",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Favored by Goblins for its efficiency, it helps you prepare meals at lightning speed, just like their ingenious contraptions and creations. Enhances cooking speed by 25% when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "goblins"
+    },
+    "Sunflorian Throne": {
+      "name": "Sunflorian Throne",
+      "price": 75000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A throne fit for a Sunflorian.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Golden Sunflorian Egg": {
+      "name": "Golden Sunflorian Egg",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A jewelled egg created by the House of Sunflorian.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Opal Sunflorian Goblet": {
+      "name": "Opal Sunflorian Goblet",
+      "price": 18750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "An opal encrusted goblet.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Bunting": {
+      "name": "Sunflorian Bunting",
+      "price": 7500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Colorful flags celebrating the Sunflorian Faction.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Candles": {
+      "name": "Sunflorian Candles",
+      "price": 750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Sunflorian Faction decorative candles.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Left Wall Sconce": {
+      "name": "Sunflorian Left Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Sunflorian Wall Sconce.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Right Wall Sconce": {
+      "name": "Sunflorian Right Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Sunflorian Wall Sconce.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Faction Rug": {
+      "name": "Sunflorian Faction Rug",
+      "price": 100,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magnificent rug made by the talented Sunflorian Faction artisans.",
+      "type": "collectible",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Armor": {
+      "name": "Sunflorian Armor",
+      "price": 112500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A shimmering protection that mirrors the sun's strength. Earn +20% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Sword": {
+      "name": "Sunflorian Sword",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A blade ablaze with the courage and brilliance of the sun. Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Helmet": {
+      "name": "Sunflorian Helmet",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "This helmet is a beacon of light and guardian against shadows. Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Pants": {
+      "name": "Sunflorian Pants",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Stride confidently in attire that captures the warmth and energy of all Sunflorians. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Sabatons": {
+      "name": "Sunflorian Sabatons",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Each step taken in these shoes resonating with the power and vitality. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Crown": {
+      "name": "Sunflorian Crown",
+      "price": 210000,
+      "requires": "Sunflorian Helmet",
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A majestic crown, adorned with a radiant ruby centerpiece and golden embellishments, it evokes the grandeur and authority of a leader. Earn 25% more in FLOWER and Coin deliveries, and Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Shield": {
+      "name": "Sunflorian Shield",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A symbol of divine authority, the Sunflorian Shield is reserved for only the most noble of kings and queens. Wood and mineral drops increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Quiver": {
+      "name": "Sunflorian Quiver",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "The Sunflorian Quiver, crafted from luxurious cream-colored fabric and adorned with gleaming gold accents, is a symbol of royal grace and divine blessing. Crops and fruit yield increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Sunflorian Medallion": {
+      "name": "Sunflorian Medallion",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "This medallion embodies the Sunflorians' blend of warmth and efficiency, ensuring your culinary creations are prepared with grace and swiftness. Enhances cooking speed by 25% when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "sunflorians"
+    },
+    "Nightshade Throne": {
+      "name": "Nightshade Throne",
+      "price": 75000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A throne fit for a Nightshade.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Nightshade Veil Egg": {
+      "name": "Nightshade Veil Egg",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A jewelled egg created by the House of Nightshade.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Amethyst Nightshade Goblet": {
+      "name": "Amethyst Nightshade Goblet",
+      "price": 18750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "An amethyst encrusted goblet.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Nightshade Bunting": {
+      "name": "Nightshade Bunting",
+      "price": 7500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Colorful flags celebrating the Nightshade Faction.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Nightshade Candles": {
+      "name": "Nightshade Candles",
+      "price": 750,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Nightshade Faction decorative candles.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Nightshade Left Wall Sconce": {
+      "name": "Nightshade Left Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Nightshade Wall Sconce.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Nightshade Right Wall Sconce": {
+      "name": "Nightshade Right Wall Sconce",
+      "price": 375,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Illuminate your living quarters with a Nightshade Wall Sconce.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Nightshade Faction Rug": {
+      "name": "Nightshade Faction Rug",
+      "price": 100,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magnificent rug made by the talented Nightshade Faction artisans.",
+      "type": "collectible",
+      "faction": "nightshades"
+    },
+    "Nightshade Armor": {
+      "name": "Nightshade Armor",
+      "price": 112500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "An Armor, crafted for stealth and resilience in the shadows. Earn +20% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Helmet": {
+      "name": "Nightshade Helmet",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A strong helmet of secrecy and silent strength. Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Pants": {
+      "name": "Nightshade Pants",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "These pants are blending agility with the mystery of the night. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Sabatons": {
+      "name": "Nightshade Sabatons",
+      "price": 37500,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Perfect design where every step is a whisper in the dark. Earn +5% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Sword": {
+      "name": "Nightshade Sword",
+      "price": 56250,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A blade that strikes with the precision of moonlit steel. Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Crown": {
+      "name": "Nightshade Crown",
+      "price": 210000,
+      "requires": "Nightshade Helmet",
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A midnight-black crown with deep purple and silver details, fitting for a leader whose presence commands respect and mystery. Earn 25% more in FLOWER and Coin deliveries, and Earn +10% marks when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Shield": {
+      "name": "Nightshade Shield",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "The shield’s surface is a deep, shadowy black feathers with intricate violet accents that pulse with ominous energy. Wood and mineral drops increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Quiver": {
+      "name": "Nightshade Quiver",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "Enigmatic and sleek, the Nightshade Quiver is bound in dark, supple leather, designed for those who harvest under the cover of darkness. Crops and fruit yield increases by 0.25 when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Nightshade Medallion": {
+      "name": "Nightshade Medallion",
+      "price": 240000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "This medallion channels the Nightshade's secretive allure and their skill in crafting refined and exotic dishes swiftly. Enhances cooking speed by 25% when pledged to this faction. Multiples of this item do not stack.",
+      "type": "wearable",
+      "faction": "nightshades"
+    },
+    "Treasure Key": {
+      "name": "Treasure Key",
+      "price": 1000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magic key that can unlock the basic chest located in the plaza near Tywin.",
+      "type": "keys"
+    },
+    "Rare Key": {
+      "name": "Rare Key",
+      "price": 3000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magic key that can unlock the rare chest located in the south of the beach.",
+      "type": "keys"
+    },
+    "Luxury Key": {
+      "name": "Luxury Key",
+      "price": 10000,
+      "limit": null,
+      "currency": "Mark",
+      "shortDescription": "A magic key that can unlock the luxury chest located in the plaza near Bert.",
+      "type": "keys"
+    }
+  }
+}

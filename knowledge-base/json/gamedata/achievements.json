@@ -1,0 +1,518 @@
+{
+  "ACHIEVEMENTS": {
+    "Bread Winner": {
+      "description": "Earn 0.001 FLOWER",
+      "progress": {
+        "$unparsed": "gameState.farmActivity?.[\"SFL Earned\"] || 0"
+      },
+      "requirement": 0.001,
+      "coins": 0,
+      "introduction": [
+        "Well, well, well, partner... It looks like you need some FLOWER!",
+        "In Sunflower Land, a healthy stash of FLOWER is the key to crafting tools, buildings and rare NFTs",
+        "The quickest way to earn FLOWER is by planting and selling crops."
+      ]
+    },
+    "Sun Seeker": {
+      "description": "Harvest Sunflower 100 times",
+      "progress": {
+        "$unparsed": "gameState.farmActivity?.[\"Sunflower Harvested\"] || 0"
+      },
+      "requirement": 100,
+      "coins": 0,
+      "rewards": {
+        "Basic Bear": 1
+      }
+    },
+    "Cabbage King": {
+      "description": "Harvest Cabbage 200 times",
+      "progress": {
+        "$unparsed": "gameState.farmActivity?.[\"Cabbage Harvested\"] || 0"
+      },
+      "requirement": 200,
+      "coins": 10
+    },
+    "Jack O'Latern": {
+      "description": "Harvest Pumpkin 500 times",
+      "progress": {
+        "$unparsed": "gameState.farmActivity?.[\"Pumpkin Harvested\"] || 0"
+      },
+      "requirement": 500,
+      "coins": 0,
+      "rewards": {
+        "Pumpkin Seed": 50
+      }
+    },
+    "Cool Flower": {
+      "description": "Harvest Cauliflower 100 times",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Cauliflower Harvested\"] || 0"
+      },
+      "requirement": 100,
+      "coins": 70
+    },
+    "Farm Hand": {
+      "description": "Harvest crops 10,000 times",
+      "progress": {
+        "$unparsed": "{\n      const harvestEvents = getKeys(CROPS).map(\n        (name) => `${name} Harvested` as HarvestEvent,\n      );\n\n      return harvestEvents.reduce((count, activityName) => {\n        const amount = gameState.farmActivity[activityName] || 0;\n\n        return count + amount;\n      }, 0);\n    }"
+      },
+      "requirement": 10000,
+      "coins": 0,
+      "rewards": {
+        "Farmer Bear": 1
+      }
+    },
+    "Beetroot Beast": {
+      "description": "Harvest Beetroot 2,000 times",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Beetroot Harvested\"] || 0"
+      },
+      "requirement": 2000,
+      "coins": 0,
+      "rewards": {
+        "Beetroot Seed": 100
+      }
+    },
+    "My life is potato": {
+      "description": "Harvest Potato 5,000 times",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Potato Harvested\"] || 0"
+      },
+      "requirement": 5000,
+      "coins": 300
+    },
+    "Rapid Radish": {
+      "description": "Harvest Radish 200 times",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Radish Harvested\"] || 0"
+      },
+      "requirement": 200,
+      "coins": 400
+    },
+    "20/20 Vision": {
+      "description": "Harvest Carrot 10,000 times",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Carrot Harvested\"] || 0"
+      },
+      "requirement": 10000,
+      "coins": 400
+    },
+    "Staple Crop": {
+      "description": "Harvest Wheat 10,000 times",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Wheat Harvested\"] || 0"
+      },
+      "requirement": 10000,
+      "coins": 500
+    },
+    "Sunflower Superstar": {
+      "description": "Harvest Sunflower 100,000 times",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Sunflower Harvested\"] || 0"
+      },
+      "requirement": 100000,
+      "coins": 0,
+      "rewards": {
+        "Sunflower Bear": 1
+      }
+    },
+    "Bumpkin Billionaire": {
+      "description": "Earn 5,000 FLOWER",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"SFL Earned\"] || 0"
+      },
+      "requirement": 5000,
+      "coins": 0,
+      "rewards": {
+        "Rich Bear": 1
+      }
+    },
+    "Patient Parsnips": {
+      "description": "Harvest Parsnip 5,000 times",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Parsnip Harvested\"] || 0"
+      },
+      "requirement": 5000,
+      "coins": 750
+    },
+    "Crop Champion": {
+      "description": "Harvest 1 million crops",
+      "progress": {
+        "$unparsed": "{\n      const harvestEvents = getKeys(CROPS).map(\n        (name) => `${name} Harvested` as HarvestEvent,\n      );\n\n      return harvestEvents.reduce((count, activityName) => {\n        const amount = gameState.farmActivity[activityName] || 0;\n\n        return count + amount;\n      }, 0);\n    }"
+      },
+      "requirement": 1000000,
+      "coins": 0,
+      "rewards": {
+        "Angel Bear": 1
+      }
+    },
+    "Busy Bumpkin": {
+      "description": "Reach level 2",
+      "progress": {
+        "$unparsed": "getTotalBumpkinLevel({\n        experience: gameState.bumpkin.experience || 0,\n        ascensionLevel: gameState.island.ascensionLevel ?? 0,\n      })"
+      },
+      "requirement": 2,
+      "coins": 10,
+      "introduction": [
+        "Howdy, my ambitious friend! To unlock new crops, expansions, buildings and much more you will need to level up.",
+        "Head over to the Fire Pit, cook up a delicious recipe and feed it to your Bumpkin."
+      ]
+    },
+    "Kiss the Cook": {
+      "description": "Cook 20 meals",
+      "progress": {
+        "$unparsed": "{\n      const cookEvents = getKeys(COOKABLES).map(\n        (name) => `${name} Cooked` as CookEvent,\n      );\n\n      return cookEvents.reduce((count, activityName) => {\n        const amount = gameState.farmActivity[activityName] || 0;\n\n        return count + amount;\n      }, 0);\n    }"
+      },
+      "requirement": 20,
+      "coins": 0,
+      "rewards": {
+        "Club Sandwich": 1
+      }
+    },
+    "Bakers Dozen": {
+      "description": "Bake 13 cakes",
+      "progress": {
+        "$unparsed": "{\n      const cakeEvents = getKeys(COOKABLE_CAKES).map(\n        (name) => `${name} Cooked` as CookEvent,\n      );\n\n      const bakedCakes = cakeEvents.reduce((count, activityName) => {\n        const amount = gameState.farmActivity[activityName] || 0;\n\n        return count + amount;\n      }, 0);\n\n      return bakedCakes;\n    }"
+      },
+      "requirement": 13,
+      "coins": 0,
+      "rewards": {
+        "Chef Bear": 1
+      }
+    },
+    "Brilliant Bumpkin": {
+      "description": "Reach level 20",
+      "progress": {
+        "$unparsed": "getTotalBumpkinLevel({\n        experience: gameState.bumpkin.experience || 0,\n        ascensionLevel: gameState.island.ascensionLevel ?? 0,\n      })"
+      },
+      "requirement": 20,
+      "coins": 0,
+      "rewards": {
+        "Brilliant Bear": 1
+      }
+    },
+    "Chef de Cuisine": {
+      "description": "Cook 5,000 meals",
+      "progress": {
+        "$unparsed": "{\n      const cookEvents = getKeys(COOKABLES).map(\n        (name) => `${name} Cooked` as CookEvent,\n      );\n\n      return cookEvents.reduce((count, activityName) => {\n        const amount = gameState.farmActivity[activityName] || 0;\n\n        return count + amount;\n      }, 0);\n    }"
+      },
+      "requirement": 5000,
+      "coins": 0,
+      "rewards": {
+        "Sunflower Cake": 5
+      }
+    },
+    "Scarecrow Maestro": {
+      "description": "Craft a scarecrow and boost your crops",
+      "progress": {
+        "$unparsed": "gameState.collectibles[\"Basic Scarecrow\"]?.length ?? 0"
+      },
+      "requirement": 1,
+      "coins": 0,
+      "introduction": [
+        "Howdy, partner! It is time you learn the art of crafting and boost your farming abilities",
+        "Travel to the Pumpkin Plaza, visit the Blacksmith and craft a Scarecrow."
+      ]
+    },
+    "Big Spender": {
+      "description": "Spend 10 FLOWER",
+      "progress": {
+        "$unparsed": "(gameState.farmActivity[\"SFL Spent\"] || 0) +\n      (gameState.farmActivity[\"FLOWER Spent\"] || 0)"
+      },
+      "requirement": 10,
+      "coins": 20
+    },
+    "Museum": {
+      "description": "Have 10 different kinds of rare items placed on your land",
+      "progress": {
+        "$unparsed": "getKeys(gameState.collectibles).length"
+      },
+      "requirement": 10,
+      "coins": 0,
+      "rewards": {
+        "Potted Pumpkin": 1
+      }
+    },
+    "High Roller": {
+      "description": "Spend 7,500 FLOWER",
+      "progress": {
+        "$unparsed": "(gameState.farmActivity[\"SFL Spent\"] || 0) +\n      (gameState.farmActivity[\"FLOWER Spent\"] || 0)"
+      },
+      "requirement": 7500,
+      "coins": 0,
+      "rewards": {
+        "Bear Trap": 1
+      }
+    },
+    "Timbeerrr": {
+      "description": "Chop 150 trees",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Tree Chopped\"] || 0"
+      },
+      "requirement": 150,
+      "coins": 0,
+      "rewards": {
+        "Axe": 10
+      }
+    },
+    "Craftmanship": {
+      "description": "Craft 100 tools",
+      "progress": {
+        "$unparsed": "{\n      const craftEvent = getKeys(TOOLS).map(\n        (name) => `${name} Crafted` as CraftedEvent,\n      );\n\n      return craftEvent.reduce((count, activityName) => {\n        const amount = gameState.farmActivity[activityName] || 0;\n\n        return count + amount;\n      }, 0);\n    }"
+      },
+      "requirement": 100,
+      "coins": 0,
+      "rewards": {
+        "Axe": 20
+      }
+    },
+    "Driller": {
+      "description": "Mine 50 stone rocks",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Stone Mined\"] || 0"
+      },
+      "requirement": 50,
+      "coins": 0,
+      "rewards": {
+        "Pickaxe": 10
+      }
+    },
+    "Iron Eyes": {
+      "description": "Mine 50 iron rocks",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Iron Mined\"] || 0"
+      },
+      "requirement": 50,
+      "coins": 0,
+      "rewards": {
+        "Stone Pickaxe": 10
+      }
+    },
+    "El Dorado": {
+      "description": "Mine 50 gold rocks",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Gold Mined\"] || 0"
+      },
+      "requirement": 50,
+      "coins": 0,
+      "rewards": {
+        "Iron Pickaxe": 5
+      }
+    },
+    "Time to chop": {
+      "description": "Craft 500 axes",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Axe Crafted\"] || 0"
+      },
+      "requirement": 500,
+      "coins": 0,
+      "rewards": {
+        "Axe": 25
+      }
+    },
+    "Canary": {
+      "description": "Mine 1,000 stone rocks",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Stone Mined\"] || 0"
+      },
+      "requirement": 1000,
+      "coins": 500
+    },
+    "Something Shiny": {
+      "description": "Mine 500 iron rocks",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Iron Mined\"] || 0"
+      },
+      "requirement": 500,
+      "coins": 0,
+      "rewards": {
+        "Stone Pickaxe": 20
+      }
+    },
+    "Bumpkin Chainsaw Amateur": {
+      "description": "Chop 5,000 trees",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Tree Chopped\"] || 0"
+      },
+      "requirement": 5000,
+      "coins": 0,
+      "rewards": {
+        "Badass Bear": 1
+      }
+    },
+    "Gold Fever": {
+      "description": "Mine 500 gold rocks",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Gold Mined\"] || 0"
+      },
+      "requirement": 500,
+      "coins": 0,
+      "rewards": {
+        "Classy Bear": 1
+      }
+    },
+    "Explorer": {
+      "description": "Expand your Land",
+      "progress": {
+        "$unparsed": "gameState.inventory[\"Basic Land\"]?.toNumber() ?? 0"
+      },
+      "requirement": 4,
+      "introduction": [
+        "Before you can join the fun, you will need to grow your farm and gather some resources. You don't want to turn up empty handed!",
+        "Let's gather some wood by chopping down these trees and expand the island. Go ahead and figure out the best way to do it."
+      ],
+      "coins": 0
+    },
+    "Land Expansion Enthusiast": {
+      "description": "Expand your land to new horizons.",
+      "progress": {
+        "$unparsed": "{\n      return gameState.inventory[\"Basic Land\"]?.toNumber() ?? 0;\n    }"
+      },
+      "requirement": 6,
+      "coins": 0
+    },
+    "Land Expansion Extraordinaire": {
+      "description": "Expand your land to new horizons.",
+      "progress": {
+        "$unparsed": "{\n      return gameState.inventory[\"Basic Land\"]?.toNumber() ?? 0;\n    }"
+      },
+      "requirement": 7,
+      "coins": 0
+    },
+    "Land Baron": {
+      "description": "Expand your land to new horizons.",
+      "progress": {
+        "$unparsed": "{\n      return gameState.inventory[\"Basic Land\"]?.toNumber() ?? 0;\n    }"
+      },
+      "requirement": 5,
+      "coins": 0
+    },
+    "Well of Prosperity": {
+      "description": "Build a well",
+      "progress": {
+        "$unparsed": "{\n      return gameState.buildings[\"Water Well\"]?.length ?? 0;\n    }"
+      },
+      "requirement": 1,
+      "coins": 0,
+      "introduction": [
+        "Well, well, well, what do we have here?",
+        "It looks like your crops are thirsty. To support more crops you must first build a well."
+      ]
+    },
+    "Contractor": {
+      "description": "Have 10 buildings constructed on your land",
+      "progress": {
+        "$unparsed": "{\n      const totalBuildingsOnLand = getKeys(gameState.buildings).reduce(\n        (a, b) => a + (gameState.buildings[b]?.length ?? 0),\n        0,\n      );\n      return totalBuildingsOnLand;\n    }"
+      },
+      "requirement": 10,
+      "coins": 0,
+      "rewards": {
+        "Construction Bear": 1
+      }
+    },
+    "Fruit Aficionado": {
+      "description": "Harvest 50 fruit",
+      "progress": {
+        "$unparsed": "{\n      const fruits = [...getKeys(PATCH_FRUIT), ...getKeys(GREENHOUSE_FRUIT)];\n      const harvestEvents = fruits.map(\n        (name) => `${name} Harvested` as HarvestEvent,\n      );\n\n      return harvestEvents.reduce((count, activityName) => {\n        const amount = gameState.farmActivity[activityName] || 0;\n\n        return count + amount;\n      }, 0);\n    }"
+      },
+      "requirement": 50,
+      "coins": 0,
+      "introduction": [
+        "Hey there, fruit gatherer! Fruits are nature's sweetest gifts, and they bring a burst of flavor to your farm.",
+        "By collecting different fruits, such as apples, oranges, and blueberries, you'll unlock unique recipes, boost your cooking skills, and create delightful treats"
+      ]
+    },
+    "Orange Squeeze": {
+      "description": "Harvest Orange 100 times",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Orange Harvested\"] || 0"
+      },
+      "requirement": 100,
+      "coins": 10
+    },
+    "Apple of my Eye": {
+      "description": "Harvest Apple 500 times",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Apple Harvested\"] || 0"
+      },
+      "requirement": 500,
+      "coins": 400
+    },
+    "Blue Chip": {
+      "description": "Harvest Blueberry 5,000 times",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Blueberry Harvested\"] || 0"
+      },
+      "requirement": 5000,
+      "coins": 800
+    },
+    "Fruit Platter": {
+      "description": "Harvest 50,000 fruits",
+      "progress": {
+        "$unparsed": "{\n      const fruits = [...getKeys(PATCH_FRUIT), ...getKeys(GREENHOUSE_FRUIT)];\n      const harvestEvents = fruits.map(\n        (name) => `${name} Harvested` as HarvestEvent,\n      );\n\n      return harvestEvents.reduce((count, activityName) => {\n        const amount = gameState.farmActivity[activityName] || 0;\n\n        return count + amount;\n      }, 0);\n    }"
+      },
+      "requirement": 50000,
+      "coins": 0,
+      "rewards": {
+        "Devil Bear": 1
+      }
+    },
+    "Delivery Dynamo": {
+      "description": "Complete 3 deliveries",
+      "progress": {
+        "$unparsed": "{\n      return gameState.delivery.fulfilledCount;\n    }"
+      },
+      "requirement": 3,
+      "coins": 0,
+      "introduction": [
+        "Howdy, reliable farmer! Bumpkins from all around need your help with deliveries.",
+        "By completing deliveries, you'll make them happy and earn some fantastic FLOWER rewards in return "
+      ]
+    },
+    "Crowd Favourite": {
+      "description": "Complete 100 deliveries",
+      "progress": {
+        "$unparsed": "{\n      return gameState.delivery.fulfilledCount;\n    }"
+      },
+      "requirement": 100,
+      "coins": 0
+    },
+    "Seasoned Farmer": {
+      "description": "Collect 50 Seasonal Tickets",
+      "progress": {
+        "$unparsed": "{\n      const ticket = getChapterTicket(Date.now());\n      return gameState.inventory[ticket]?.toNumber() ?? 0;\n    }"
+      },
+      "requirement": 50,
+      "coins": 0,
+      "introduction": [
+        "Howdy, seasonal adventurer! Sunflower Land is known for its special seasons filled with unique items and surprises.",
+        "By collecting Seasonal resources, you'll gain access to limited-time rewards, exclusive crafts, and rare treasures. It's like having a front-row ticket to the wonders of each season.",
+        "So complete tasks, participate in events, and gather those Seasonal Tickets to enjoy the best that Sunflower Land has to offer!"
+      ]
+    },
+    "Treasure Hunter": {
+      "description": "Dig 10 holes",
+      "progress": {
+        "$unparsed": "{\n      return gameState.farmActivity[\"Treasure Dug\"] ?? 0;\n    }"
+      },
+      "requirement": 10,
+      "coins": 0,
+      "introduction": [
+        "Ahoy, treasure hunter! Sunflower Land is full of hidden treasures waiting to be discovered.",
+        "Grab your shovel and head to Treasure Island, where you can dig for valuable items and rare surprises."
+      ]
+    },
+    "Egg-cellent Collection": {
+      "description": "Collect Eggs 10 times",
+      "progress": {
+        "$unparsed": "{\n      return gameState.farmActivity[\"Egg Collected\"] ?? 0;\n    }"
+      },
+      "requirement": 10,
+      "coins": 0,
+      "introduction": [
+        "Howdy, egg collector! Chickens are wonderful farm companions that provide us with delicious eggs.",
+        "By collecting eggs, you'll have a fresh supply of ingredients for cooking, and you'll also unlock special recipes and bonuses."
+      ]
+    }
+  }
+}

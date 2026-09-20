@@ -221,4 +221,37 @@ Operates a dynamic multi-round tool-calling loop:
 3. Invokes deterministic tools to fetch fresh state.
 4. If tool call JSON is malformed, prompts model to recover without crashing.
 5. Returns grounded, bold markdown summaries.
-ns.
+
+---
+
+## 3. Knowledge Base Corpus & Ingestion (`knowledge-base/`)
+
+All static reference data lives under a single consolidated `knowledge-base/` folder, split by file type. This is the corpus that feeds the pgvector-backed retrieval layer (`server/services/knowledge/KnowledgeService.ts`), distinct from the live runtime catalogs the server imports directly from `server/data/`.
+
+```
+knowledge-base/
+├── json/
+│   ├── rules/            # Hand-authored game rules & taxonomies (cooking, animals, effects, pets, market stock…)
+│   ├── gamedata/         # Extracted game catalogs (crops, tools, buildings, craftables, seeds…) — 39 files
+│   └── wiki-dump.jsonl   # Crawled wiki pages, one JSON record per line (wiki ingest source)
+└── md/
+    ├── GAME_RULES.md     # Canonical rules reference
+    └── wiki/             # 105 wiki pages, category subfolders preserved (mechanics/, npcs/, factions/, lore/…)
+```
+
+### 3.1 Ingestion Scripts (`sfl-kb-ingest/`)
+Two Node scripts embed the corpus into Postgres (`kb_documents` / `kb_chunks`) using local ONNX embeddings, keyed by `content_hash` so unchanged content is skipped:
+
+| npm script | Source | Purpose |
+|---|---|---|
+| `npm run kb:ingest-wiki` | `knowledge-base/json/wiki-dump.jsonl` | Chunks & embeds wiki pages |
+| `npm run kb:ingest-gamedata` | `knowledge-base/json/gamedata/` | Chunks & embeds extracted game catalogs |
+| `npm run kb:ingest` | both of the above | Full corpus ingest |
+
+### 3.2 Retrieval at Query Time (`KnowledgeService.ts`)
+The AI pipeline queries the embedded corpus through three methods, each graceful-degrading to safe defaults when Postgres is unreachable:
+- `search(options)` — cosine-similarity semantic search over `kb_chunks`.
+- `lookupEntity(entityName, limit)` — targeted entity resolution for the `search_knowledge` tool.
+- `getStats()` — corpus coverage counts (chunks, documents by source, top categories).
+
+> **Runtime vs. corpus distinction**: `server/data/*.json` are imported directly by the server at build time (recipes, items, modifiers, levels, skills, expansion, gameMetadata) and are the authoritative source for deterministic calculations. `knowledge-base/` is the retrieval corpus for natural-language grounding — it is never imported by runtime code, only ingested into the vector store.

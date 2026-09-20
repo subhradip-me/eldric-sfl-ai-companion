@@ -1,0 +1,438 @@
+{
+  "UPGRADABLES": {},
+  "BUILDINGS": {
+    "Town Center": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": {
+          "$unresolvedIdentifier": "Infinity"
+        }
+      },
+      "coins": 0,
+      "constructionSeconds": 30,
+      "ingredients": {}
+    },
+    "Mansion": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": {
+          "$unresolvedIdentifier": "Infinity"
+        }
+      },
+      "coins": 0,
+      "constructionSeconds": 30,
+      "ingredients": {}
+    },
+    "House": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": {
+          "$unresolvedIdentifier": "Infinity"
+        }
+      },
+      "coins": 0,
+      "constructionSeconds": 30,
+      "ingredients": {}
+    },
+    "Manor": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": {
+          "$unresolvedIdentifier": "Infinity"
+        }
+      },
+      "coins": 0,
+      "constructionSeconds": 30,
+      "ingredients": {}
+    },
+    "Market": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": {
+          "$unresolvedIdentifier": "Infinity"
+        }
+      },
+      "coins": 0,
+      "constructionSeconds": 30,
+      "ingredients": {}
+    },
+    "Fire Pit": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": {
+          "$unresolvedIdentifier": "Infinity"
+        }
+      },
+      "coins": 0,
+      "constructionSeconds": 0,
+      "ingredients": {
+        "Wood": 3,
+        "Stone": 2
+      }
+    },
+    "Workbench": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": {
+          "$unresolvedIdentifier": "Infinity"
+        }
+      },
+      "coins": 5,
+      "constructionSeconds": 60,
+      "ingredients": {}
+    },
+    "Tent": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": {
+          "$unresolvedIdentifier": "Infinity"
+        }
+      },
+      "coins": 20,
+      "constructionSeconds": 3600,
+      "ingredients": {
+        "Wood": 50
+      }
+    },
+    "Water Well": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 2
+      },
+      "coins": 100,
+      "constructionSeconds": 300,
+      "ingredients": {
+        "Wood": 5
+      }
+    },
+    "Kitchen": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 5
+      },
+      "coins": 10,
+      "constructionSeconds": 1800,
+      "ingredients": {
+        "Wood": 30,
+        "Stone": 5
+      }
+    },
+    "Barn": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 30
+      },
+      "coins": 200,
+      "constructionSeconds": 7200,
+      "ingredients": {
+        "Wood": 150,
+        "Iron": 10,
+        "Gold": 10
+      }
+    },
+    "Fish Market": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 10
+      },
+      "coins": 0,
+      "constructionSeconds": 3600,
+      "ingredients": {
+        "Wood": 50,
+        "Iron": 10,
+        "Gold": 5
+      }
+    },
+    "Hen House": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 6
+      },
+      "coins": 100,
+      "constructionSeconds": 7200,
+      "ingredients": {
+        "Wood": 30,
+        "Iron": 5,
+        "Gold": 5
+      }
+    },
+    "Bakery": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 8
+      },
+      "coins": 200,
+      "constructionSeconds": 14400,
+      "ingredients": {
+        "Wood": 50,
+        "Stone": 20,
+        "Gold": 5
+      }
+    },
+    "Deli": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 16
+      },
+      "coins": 300,
+      "constructionSeconds": 43200,
+      "ingredients": {
+        "Wood": 50,
+        "Stone": 50,
+        "Gold": 10
+      }
+    },
+    "Smoothie Shack": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 23
+      },
+      "coins": 0,
+      "constructionSeconds": 43200,
+      "ingredients": {
+        "Wood": 25,
+        "Stone": 25,
+        "Iron": 10
+      }
+    },
+    "Toolshed": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 25
+      },
+      "coins": 0,
+      "constructionSeconds": 7200,
+      "ingredients": {
+        "Wood": 500,
+        "Iron": 30,
+        "Gold": 25,
+        "Axe": 100,
+        "Pickaxe": 50
+      }
+    },
+    "Warehouse": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 20
+      },
+      "coins": 0,
+      "constructionSeconds": 7200,
+      "ingredients": {
+        "Wood": 250,
+        "Stone": 150,
+        "Potato": 5000,
+        "Pumpkin": 2000,
+        "Wheat": 500,
+        "Kale": 100
+      }
+    },
+    "Compost Bin": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 7
+      },
+      "coins": 0,
+      "constructionSeconds": 3600,
+      "ingredients": {
+        "Wood": 5,
+        "Stone": 5
+      }
+    },
+    "Turbo Composter": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 12
+      },
+      "coins": 0,
+      "constructionSeconds": 7200,
+      "ingredients": {
+        "Wood": 50,
+        "Stone": 25
+      }
+    },
+    "Premium Composter": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 18
+      },
+      "coins": 0,
+      "constructionSeconds": 14400,
+      "ingredients": {
+        "Gold": 50
+      }
+    },
+    "Greenhouse": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 46
+      },
+      "coins": 4800,
+      "constructionSeconds": 14400,
+      "ingredients": {
+        "Wood": 500,
+        "Stone": 100,
+        "Crimstone": 25,
+        "Oil": 100
+      },
+      "requiredIsland": "desert"
+    },
+    "Crop Machine": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 35
+      },
+      "coins": 8000,
+      "constructionSeconds": 7200,
+      "ingredients": {
+        "Wood": 1250,
+        "Iron": 125,
+        "Crimstone": 50
+      },
+      "requiredIsland": "desert"
+    },
+    "Crafting Box": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 6
+      },
+      "coins": 0,
+      "constructionSeconds": 3600,
+      "ingredients": {
+        "Wood": 100,
+        "Stone": 5
+      }
+    },
+    "Pet House": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 0
+      },
+      "ingredients": {
+        "Wood": 200,
+        "Stone": 100
+      },
+      "coins": 5000,
+      "constructionSeconds": 7200
+    },
+    "Aging Shed": {
+      "unlocksAtLevel": {
+        "ascension": 0,
+        "level": 0
+      },
+      "coins": 200,
+      "constructionSeconds": 0,
+      "ingredients": {
+        "Wood": 30
+      }
+    }
+  },
+  "BUILDINGS_DIMENSIONS": {
+    "Town Center": {
+      "width": 4,
+      "height": 3
+    },
+    "Market": {
+      "width": 3,
+      "height": 2
+    },
+    "Fire Pit": {
+      "width": 3,
+      "height": 2
+    },
+    "House": {
+      "width": 4,
+      "height": 4
+    },
+    "Manor": {
+      "width": 5,
+      "height": 4
+    },
+    "Mansion": {
+      "width": 6,
+      "height": 5
+    },
+    "Workbench": {
+      "width": 3,
+      "height": 2
+    },
+    "Kitchen": {
+      "width": 4,
+      "height": 3
+    },
+    "Bakery": {
+      "width": 4,
+      "height": 3
+    },
+    "Water Well": {
+      "width": 2,
+      "height": 2
+    },
+    "Tent": {
+      "width": 3,
+      "height": 2
+    },
+    "Hen House": {
+      "width": 4,
+      "height": 3
+    },
+    "Deli": {
+      "width": 4,
+      "height": 3
+    },
+    "Smoothie Shack": {
+      "width": 3,
+      "height": 2
+    },
+    "Toolshed": {
+      "width": 2,
+      "height": 2
+    },
+    "Warehouse": {
+      "width": 3,
+      "height": 2
+    },
+    "Compost Bin": {
+      "width": 2,
+      "height": 2
+    },
+    "Turbo Composter": {
+      "width": 2,
+      "height": 2
+    },
+    "Premium Composter": {
+      "width": 2,
+      "height": 2
+    },
+    "Greenhouse": {
+      "width": 4,
+      "height": 4
+    },
+    "Crop Machine": {
+      "width": 5,
+      "height": 4
+    },
+    "Barn": {
+      "width": 4,
+      "height": 4
+    },
+    "Fish Market": {
+      "width": 3,
+      "height": 3
+    },
+    "Crafting Box": {
+      "width": 3,
+      "height": 2
+    },
+    "Pet House": {
+      "width": 3,
+      "height": 3
+    },
+    "Aging Shed": {
+      "width": 3,
+      "height": 2
+    }
+  },
+  "FOOD_PROCESSING_BUILDINGS": [
+    "Fish Market"
+  ]
+}

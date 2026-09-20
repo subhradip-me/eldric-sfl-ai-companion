@@ -1,0 +1,673 @@
+{
+  "ANIMALS": {
+    "Chicken": {
+      "name": "Chicken",
+      "description": "A reliable source of fresh eggs and soft feathers, this chicken happily does its part with the right care.",
+      "price": 200,
+      "ingredients": []
+    },
+    "Cow": {
+      "name": "Cow",
+      "description": "This gentle cow provides fresh milk and durable leather. Keep it happy with plenty of food & affection.",
+      "price": 16000,
+      "ingredients": [],
+      "disabled": true
+    },
+    "Pig": {
+      "name": "Pig",
+      "description": "Produces manure. Requires wheat for feeding",
+      "price": 6400,
+      "ingredients": [],
+      "disabled": true
+    },
+    "Sheep": {
+      "name": "Sheep",
+      "description": "This fluffy sheep provides both regular wool and luxurious merino wool. Keep it happy for the softest results!",
+      "price": 6400,
+      "ingredients": [],
+      "disabled": true
+    }
+  },
+  "ANIMAL_LEVELS": {
+    "Chicken": {
+      "0": 0,
+      "1": 60,
+      "2": 120,
+      "3": 240,
+      "4": 360,
+      "5": 480,
+      "6": 660,
+      "7": 840,
+      "8": 1020,
+      "9": 1200,
+      "10": 1440,
+      "11": 1680,
+      "12": 1920,
+      "13": 2160,
+      "14": 2400,
+      "15": 2720
+    },
+    "Cow": {
+      "0": 0,
+      "1": 180,
+      "2": 360,
+      "3": 720,
+      "4": 1080,
+      "5": 1440,
+      "6": 1980,
+      "7": 2520,
+      "8": 3060,
+      "9": 3600,
+      "10": 4320,
+      "11": 5040,
+      "12": 5760,
+      "13": 6480,
+      "14": 7200,
+      "15": 8160
+    },
+    "Sheep": {
+      "0": 0,
+      "1": 120,
+      "2": 240,
+      "3": 480,
+      "4": 720,
+      "5": 960,
+      "6": 1320,
+      "7": 1680,
+      "8": 2040,
+      "9": 2400,
+      "10": 2880,
+      "11": 3360,
+      "12": 3840,
+      "13": 4320,
+      "14": 4800,
+      "15": 5440
+    }
+  },
+  "ANIMAL_FOODS": {
+    "Kernel Blend": {
+      "name": "Kernel Blend",
+      "type": "food",
+      "description": "Blend of various grains for feed or consumption.",
+      "ingredients": {
+        "Corn": 1
+      }
+    },
+    "Hay": {
+      "name": "Hay",
+      "type": "food",
+      "description": "Dry grass used as animal feed or bedding.",
+      "ingredients": {
+        "Wheat": 1
+      }
+    },
+    "NutriBarley": {
+      "name": "NutriBarley",
+      "type": "food",
+      "description": "Barley-based nutritional supplement or feed.",
+      "ingredients": {
+        "Barley": 1
+      }
+    },
+    "Mixed Grain": {
+      "name": "Mixed Grain",
+      "type": "food",
+      "description": "Mixed grains or seeds for feeding or planting.",
+      "ingredients": {
+        "Wheat": 1,
+        "Corn": 1,
+        "Barley": 1
+      }
+    },
+    "Barn Delight": {
+      "name": "Barn Delight",
+      "type": "medicine",
+      "description": "A magical elixir that cures animal sickness.",
+      "ingredients": {
+        "Lemon": 5,
+        "Honey": 3
+      }
+    },
+    "Omnifeed": {
+      "name": "Omnifeed",
+      "type": "food",
+      "description": "Acts as the best feed for all animals.",
+      "ingredients": {
+        "Gem": 1
+      }
+    }
+  },
+  "ANIMAL_FOOD_EXPERIENCE": {
+    "Chicken": {
+      "0": {
+        "Hay": 10,
+        "Kernel Blend": 60,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "1": {
+        "Hay": 10,
+        "Kernel Blend": 60,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "2": {
+        "Hay": 10,
+        "Kernel Blend": 60,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "3": {
+        "Kernel Blend": 10,
+        "Hay": 60,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "4": {
+        "Kernel Blend": 10,
+        "Hay": 60,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "5": {
+        "Kernel Blend": 10,
+        "Hay": 60,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "6": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 60,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "7": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 60,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "8": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 60,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "9": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 60,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "10": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "11": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "12": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "13": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "14": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "15": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      }
+    },
+    "Cow": {
+      "0": {
+        "Kernel Blend": 60,
+        "Hay": 10,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "1": {
+        "Kernel Blend": 60,
+        "Hay": 10,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "2": {
+        "Kernel Blend": 60,
+        "Hay": 10,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "3": {
+        "Kernel Blend": 10,
+        "Hay": 60,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "4": {
+        "Kernel Blend": 10,
+        "Hay": 60,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "5": {
+        "Kernel Blend": 10,
+        "Hay": 60,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "6": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 60,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "7": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 60,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "8": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 60,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "9": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 60,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "10": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "11": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "12": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "13": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "14": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "15": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      }
+    },
+    "Sheep": {
+      "0": {
+        "Kernel Blend": 60,
+        "Hay": 10,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "1": {
+        "Kernel Blend": 60,
+        "Hay": 10,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "2": {
+        "Kernel Blend": 60,
+        "Hay": 10,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "3": {
+        "Kernel Blend": 10,
+        "Hay": 60,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "4": {
+        "Kernel Blend": 10,
+        "Hay": 60,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "5": {
+        "Kernel Blend": 10,
+        "Hay": 60,
+        "NutriBarley": 20,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "6": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 60,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "7": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 60,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "8": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 60,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "9": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 60,
+        "Mixed Grain": 30,
+        "Omnifeed": 60
+      },
+      "10": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "11": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "12": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "13": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "14": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      },
+      "15": {
+        "Kernel Blend": 10,
+        "Hay": 20,
+        "NutriBarley": 30,
+        "Mixed Grain": 80,
+        "Omnifeed": 80
+      }
+    }
+  },
+  "ANIMAL_RESOURCE_DROP": {
+    "Chicken": {
+      "0": {},
+      "1": {
+        "Egg": 1
+      },
+      "2": {
+        "Egg": 1
+      },
+      "3": {
+        "Egg": 1,
+        "Feather": 1
+      },
+      "4": {
+        "Egg": 2,
+        "Feather": 1
+      },
+      "5": {
+        "Egg": 2,
+        "Feather": 1
+      },
+      "6": {
+        "Egg": 2,
+        "Feather": 1
+      },
+      "7": {
+        "Egg": 2,
+        "Feather": 1
+      },
+      "8": {
+        "Egg": 3,
+        "Feather": 1
+      },
+      "9": {
+        "Egg": 3,
+        "Feather": 2
+      },
+      "10": {
+        "Egg": 3,
+        "Feather": 2
+      },
+      "11": {
+        "Egg": 3,
+        "Feather": 2
+      },
+      "12": {
+        "Egg": 3,
+        "Feather": 2
+      },
+      "13": {
+        "Egg": 4,
+        "Feather": 2
+      },
+      "14": {
+        "Egg": 4,
+        "Feather": 2
+      },
+      "15": {
+        "Egg": 5,
+        "Feather": 3
+      }
+    },
+    "Cow": {
+      "0": {},
+      "1": {
+        "Milk": 1,
+        "Leather": 1
+      },
+      "2": {
+        "Milk": 1,
+        "Leather": 1
+      },
+      "3": {
+        "Milk": 1,
+        "Leather": 1
+      },
+      "4": {
+        "Milk": 2,
+        "Leather": 1
+      },
+      "5": {
+        "Milk": 2,
+        "Leather": 1
+      },
+      "6": {
+        "Milk": 2,
+        "Leather": 2
+      },
+      "7": {
+        "Milk": 2,
+        "Leather": 2
+      },
+      "8": {
+        "Milk": 3,
+        "Leather": 2
+      },
+      "9": {
+        "Milk": 3,
+        "Leather": 2
+      },
+      "10": {
+        "Milk": 3,
+        "Leather": 3
+      },
+      "11": {
+        "Milk": 3,
+        "Leather": 3
+      },
+      "12": {
+        "Milk": 3,
+        "Leather": 3
+      },
+      "13": {
+        "Milk": 3,
+        "Leather": 3
+      },
+      "14": {
+        "Milk": 3,
+        "Leather": 3
+      },
+      "15": {
+        "Milk": 4,
+        "Leather": 4
+      }
+    },
+    "Sheep": {
+      "0": {},
+      "1": {
+        "Wool": 1,
+        "Merino Wool": 1
+      },
+      "2": {
+        "Wool": 1,
+        "Merino Wool": 1
+      },
+      "3": {
+        "Wool": 1,
+        "Merino Wool": 1
+      },
+      "4": {
+        "Wool": 2,
+        "Merino Wool": 1
+      },
+      "5": {
+        "Wool": 2,
+        "Merino Wool": 1
+      },
+      "6": {
+        "Wool": 2,
+        "Merino Wool": 2
+      },
+      "7": {
+        "Wool": 2,
+        "Merino Wool": 2
+      },
+      "8": {
+        "Wool": 3,
+        "Merino Wool": 2
+      },
+      "9": {
+        "Wool": 3,
+        "Merino Wool": 2
+      },
+      "10": {
+        "Wool": 3,
+        "Merino Wool": 3
+      },
+      "11": {
+        "Wool": 3,
+        "Merino Wool": 3
+      },
+      "12": {
+        "Wool": 3,
+        "Merino Wool": 3
+      },
+      "13": {
+        "Wool": 3,
+        "Merino Wool": 3
+      },
+      "14": {
+        "Wool": 3,
+        "Merino Wool": 3
+      },
+      "15": {
+        "Wool": 4,
+        "Merino Wool": 4
+      }
+    }
+  }
+}

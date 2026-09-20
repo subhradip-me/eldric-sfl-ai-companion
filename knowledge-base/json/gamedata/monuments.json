@@ -1,0 +1,300 @@
+{
+  "MEGASTORE_MONUMENTS": {
+    "Teamwork Monument": {
+      "name": "Teamwork Monument",
+      "description": "",
+      "coins": 0,
+      "ingredients": {}
+    },
+    "Cornucopia": {
+      "name": "Cornucopia",
+      "description": "",
+      "coins": 0,
+      "ingredients": {}
+    },
+    "Poseidon's Throne": {
+      "name": "Poseidon's Throne",
+      "description": "",
+      "coins": 0,
+      "ingredients": {}
+    },
+    "Crystal Altar": {
+      "name": "Crystal Altar",
+      "description": "",
+      "coins": 0,
+      "ingredients": {}
+    },
+    "Ascension Monument": {
+      "name": "Ascension Monument",
+      "description": "",
+      "coins": 0,
+      "ingredients": {}
+    }
+  },
+  "HELP_LIMIT_MONUMENTS": {
+    "Farmer's Monument": {
+      "name": "Farmer's Monument",
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Gem": 100
+      },
+      "level": {
+        "ascension": 0,
+        "level": 10
+      }
+    },
+    "Woodcutter's Monument": {
+      "name": "Woodcutter's Monument",
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Gem": 200
+      },
+      "level": {
+        "ascension": 0,
+        "level": 20
+      }
+    },
+    "Miner's Monument": {
+      "name": "Miner's Monument",
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Gem": 300
+      },
+      "level": {
+        "ascension": 0,
+        "level": 50
+      }
+    }
+  },
+  "MONUMENTS": {
+    "Farmer's Monument": {
+      "name": "Farmer's Monument",
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Gem": 100
+      },
+      "level": {
+        "ascension": 0,
+        "level": 10
+      }
+    },
+    "Woodcutter's Monument": {
+      "name": "Woodcutter's Monument",
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Gem": 200
+      },
+      "level": {
+        "ascension": 0,
+        "level": 20
+      }
+    },
+    "Miner's Monument": {
+      "name": "Miner's Monument",
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Gem": 300
+      },
+      "level": {
+        "ascension": 0,
+        "level": 50
+      }
+    },
+    "Teamwork Monument": {
+      "name": "Teamwork Monument",
+      "description": "",
+      "coins": 0,
+      "ingredients": {}
+    },
+    "Cornucopia": {
+      "name": "Cornucopia",
+      "description": "",
+      "coins": 0,
+      "ingredients": {}
+    },
+    "Poseidon's Throne": {
+      "name": "Poseidon's Throne",
+      "description": "",
+      "coins": 0,
+      "ingredients": {}
+    },
+    "Crystal Altar": {
+      "name": "Crystal Altar",
+      "description": "",
+      "coins": 0,
+      "ingredients": {}
+    },
+    "Ascension Monument": {
+      "name": "Ascension Monument",
+      "description": "",
+      "coins": 0,
+      "ingredients": {}
+    }
+  },
+  "WORKBENCH_MONUMENTS": {
+    "Farmer's Monument": {
+      "name": "Farmer's Monument",
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Gem": 100
+      },
+      "level": {
+        "ascension": 0,
+        "level": 10
+      }
+    },
+    "Woodcutter's Monument": {
+      "name": "Woodcutter's Monument",
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Gem": 200
+      },
+      "level": {
+        "ascension": 0,
+        "level": 20
+      }
+    },
+    "Miner's Monument": {
+      "name": "Miner's Monument",
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Gem": 300
+      },
+      "level": {
+        "ascension": 0,
+        "level": 50
+      }
+    },
+    "Big Orange": {
+      "name": "Big Orange",
+      "description": "",
+      "coins": 500,
+      "ingredients": {},
+      "level": {
+        "ascension": 0,
+        "level": 16
+      }
+    },
+    "Big Apple": {
+      "name": "Big Apple",
+      "description": "",
+      "coins": 1500,
+      "ingredients": {},
+      "level": {
+        "ascension": 0,
+        "level": 30
+      }
+    },
+    "Big Banana": {
+      "name": "Big Banana",
+      "description": "",
+      "coins": 4000,
+      "level": {
+        "ascension": 0,
+        "level": 50
+      },
+      "ingredients": {}
+    },
+    "Basic Cooking Pot": {
+      "name": "Basic Cooking Pot",
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Gem": 10
+      },
+      "level": {
+        "ascension": 0,
+        "level": 20
+      }
+    },
+    "Expert Cooking Pot": {
+      "name": "Expert Cooking Pot",
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Gem": 50
+      },
+      "level": {
+        "ascension": 0,
+        "level": 40
+      }
+    },
+    "Advanced Cooking Pot": {
+      "name": "Advanced Cooking Pot",
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Gem": 500
+      },
+      "level": {
+        "ascension": 0,
+        "level": 60
+      }
+    }
+  },
+  "REQUIRED_CHEERS": {
+    "Big Orange": 25,
+    "Big Apple": 50,
+    "Big Banana": 200,
+    "Basic Cooking Pot": 10,
+    "Expert Cooking Pot": 50,
+    "Advanced Cooking Pot": 100,
+    "Farmer's Monument": 100,
+    "Woodcutter's Monument": 1000,
+    "Miner's Monument": 10000,
+    "Teamwork Monument": 100,
+    "Cornucopia": 1000,
+    "Poseidon's Throne": 2000,
+    "Crystal Altar": 1000,
+    "Ascension Monument": 1000
+  },
+  "REWARD_ITEMS": {
+    "Big Orange": {
+      "item": "Giant Orange",
+      "amount": 1
+    },
+    "Big Apple": {
+      "item": "Giant Apple",
+      "amount": 1
+    },
+    "Big Banana": {
+      "item": "Giant Banana",
+      "amount": 1
+    },
+    "Basic Cooking Pot": {
+      "item": "Bronze Food Box",
+      "amount": 2
+    },
+    "Expert Cooking Pot": {
+      "item": "Silver Food Box",
+      "amount": 2
+    },
+    "Advanced Cooking Pot": {
+      "item": "Gold Food Box",
+      "amount": 2
+    }
+  },
+  "RAFFLE_REWARDS": {
+    "Basic Cooking Pot": {
+      "item": "Bronze Food Box",
+      "amount": 1
+    },
+    "Expert Cooking Pot": {
+      "item": "Silver Food Box",
+      "amount": 1
+    },
+    "Advanced Cooking Pot": {
+      "item": "Gold Food Box",
+      "amount": 1
+    }
+  }
+}

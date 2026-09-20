@@ -1,0 +1,282 @@
+{
+  "CRUSTACEANS": [
+    "Isopod",
+    "Blue Crab",
+    "Lobster",
+    "Hermit Crab",
+    "Shrimp",
+    "Mussel",
+    "Oyster",
+    "Anemone",
+    "Barnacle",
+    "Sea Slug",
+    "Sea Snail",
+    "Garden Eel",
+    "Sea Grapes",
+    "Octopus",
+    "Sea Urchin",
+    "Horseshoe Crab"
+  ],
+  "CRUSTACEANS_DESCRIPTIONS": {
+    "Isopod": "Rolls into a little ball when spooked; a cleaning crew on tiny legs.",
+    "Blue Crab": "Darts sideways on tiptoe, waving sapphire pincers in the sand.",
+    "Lobster": "Claws like armored legends, watch your fingers!",
+    "Hermit Crab": "Borrows abandoned shells to create its mobile fortress.",
+    "Shrimp": "Zips through the water with see-through speed, never stays still.",
+    "Mussel": "Clings tight to rocks and filters flavors from the current.",
+    "Oyster": "Mysterious shell, open it for pearls or just salty attitude.",
+    "Anemone": "Tentacles sway hypnotically, turning curious fish into guests.",
+    "Barnacle": "Attaches to anything and doesn't let go, standing guard on the tide.",
+    "Sea Slug": "A sea slug that lives in the ocean and is known for its unique appearance.",
+    "Sea Snail": "Glides patiently, wearing its spiral home on its back.",
+    "Garden Eel": "Peeks from sandy burrows, swaying in underwater gardens.",
+    "Sea Grapes": "Tiny green pearls; sea creatures munch them like candy.",
+    "Octopus": "Vanishing act extraordinaire, with eight arms and endless surprises.",
+    "Sea Urchin": "A spiky purple mystery nestled in underwater crevices.",
+    "Horseshoe Crab": "Ancient survivor with a helmet shell and tail like a sword."
+  },
+  "MARINER_POT_CHUMS": {
+    "Crimstone": 2,
+    "Chewed Bone": 3,
+    "Ruffroot": 3,
+    "Dewberry": 3,
+    "Duskberry": 3,
+    "Lunara": 3,
+    "Moonfur": 1,
+    "Fish Stick": 2,
+    "Crab Stick": 2
+  },
+  "CRAB_POT_CHUMS": {
+    "Heart leaf": 3,
+    "Ribbon": 3,
+    "Wild Grass": 3,
+    "Frost Pebble": 3,
+    "Grape": 5,
+    "Rice": 5,
+    "Crimstone": 2,
+    "Moonfur": 1,
+    "Fish Stick": 2,
+    "Fish Oil": 2,
+    "Crab Stick": 2
+  },
+  "CRUSTACEAN_CHUM_AMOUNTS": {
+    "Heart leaf": 3,
+    "Ribbon": 3,
+    "Wild Grass": 3,
+    "Frost Pebble": 3,
+    "Grape": 5,
+    "Rice": 5,
+    "Crimstone": 2,
+    "Moonfur": 1,
+    "Fish Stick": 2,
+    "Fish Oil": 2,
+    "Crab Stick": 2,
+    "Chewed Bone": 3,
+    "Ruffroot": 3,
+    "Dewberry": 3,
+    "Duskberry": 3,
+    "Lunara": 3
+  },
+  "WATER_TRAP_ANIMATIONS": {
+    "Crab Pot": {
+      "$unparsed": "SUNNYSIDE.tools.crab_pot_placed"
+    },
+    "Mariner Pot": {
+      "$unparsed": "SUNNYSIDE.tools.mariner_pot_placed"
+    }
+  },
+  "CRUSTACEANS_LOOKUP": {
+    "Crab Pot": {
+      "none": "Isopod",
+      "Heart leaf": "Blue Crab",
+      "Ribbon": "Blue Crab",
+      "Wild Grass": "Lobster",
+      "Frost Pebble": "Lobster",
+      "Grape": "Hermit Crab",
+      "Rice": "Hermit Crab",
+      "Crimstone": "Shrimp",
+      "Moonfur": "Mussel",
+      "Fish Stick": "Oyster",
+      "Fish Oil": "Anemone",
+      "Crab Stick": "Anemone"
+    },
+    "Mariner Pot": {
+      "none": "Barnacle",
+      "Crimstone": "Sea Slug",
+      "Chewed Bone": "Sea Snail",
+      "Ruffroot": "Sea Snail",
+      "Dewberry": "Garden Eel",
+      "Duskberry": "Garden Eel",
+      "Lunara": "Sea Grapes",
+      "Moonfur": "Octopus",
+      "Fish Stick": "Sea Urchin",
+      "Crab Stick": "Horseshoe Crab"
+    }
+  },
+  "WATER_TRAP": {
+    "Crab Pot": {
+      "readyTimeHours": 4,
+      "requiredBumpkinLevel": {
+        "ascension": 0,
+        "level": 18
+      },
+      "chums": {
+        "$unparsed": "getKeys(CRAB_POT_CHUMS)"
+      }
+    },
+    "Mariner Pot": {
+      "readyTimeHours": 8,
+      "requiredBumpkinLevel": {
+        "ascension": 0,
+        "level": 24
+      },
+      "chums": {
+        "$unparsed": "getKeys(MARINER_POT_CHUMS)"
+      }
+    }
+  },
+  "TRAP_POSITIONS": {
+    "basic": {
+      "1": {
+        "x": -14,
+        "y": -17
+      }
+    },
+    "spring": {
+      "1": {
+        "x": -13,
+        "y": -19
+      },
+      "2": {
+        "x": -11,
+        "y": -16
+      }
+    },
+    "desert": {
+      "1": {
+        "x": -13,
+        "y": -19
+      },
+      "2": {
+        "x": -10,
+        "y": -16
+      },
+      "3": {
+        "x": -14.5,
+        "y": -18.5
+      }
+    },
+    "volcano": {
+      "1": {
+        "x": -12,
+        "y": -20
+      },
+      "2": {
+        "x": -10,
+        "y": -16.5
+      },
+      "3": {
+        "x": -14,
+        "y": -19.5
+      },
+      "4": {
+        "x": -12,
+        "y": -16
+      }
+    },
+    "swamp": {
+      "1": {
+        "x": -12,
+        "y": -20
+      },
+      "2": {
+        "x": -10,
+        "y": -16.5
+      },
+      "3": {
+        "x": -14,
+        "y": -19.5
+      },
+      "4": {
+        "x": -12,
+        "y": -16
+      }
+    },
+    "spooky": {
+      "1": {
+        "x": -12,
+        "y": -20
+      },
+      "2": {
+        "x": -10,
+        "y": -16.5
+      },
+      "3": {
+        "x": -14,
+        "y": -19.5
+      },
+      "4": {
+        "x": -12,
+        "y": -16
+      }
+    },
+    "crystal": {
+      "1": {
+        "x": -12,
+        "y": -20
+      },
+      "2": {
+        "x": -10,
+        "y": -16.5
+      },
+      "3": {
+        "x": -14,
+        "y": -19.5
+      },
+      "4": {
+        "x": -12,
+        "y": -16
+      }
+    },
+    "galaxy": {
+      "1": {
+        "x": -12,
+        "y": -20
+      },
+      "2": {
+        "x": -10,
+        "y": -16.5
+      },
+      "3": {
+        "x": -14,
+        "y": -19.5
+      },
+      "4": {
+        "x": -12,
+        "y": -16
+      }
+    },
+    "marble": {
+      "1": {
+        "x": -12,
+        "y": -20
+      },
+      "2": {
+        "x": -10,
+        "y": -16.5
+      },
+      "3": {
+        "x": -14,
+        "y": -19.5
+      },
+      "4": {
+        "x": -12,
+        "y": -16
+      }
+    }
+  },
+  "TRAP_DOCK_OFFSET": {
+    "x": 14,
+    "y": 15
+  }
+}

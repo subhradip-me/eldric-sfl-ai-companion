@@ -1,0 +1,681 @@
+{
+  "GREENHOUSE_CROPS": {
+    "Rice": {
+      "sellPrice": 320,
+      "harvestSeconds": 115200,
+      "name": "Rice",
+      "description": "A staple food for many."
+    },
+    "Olive": {
+      "sellPrice": 400,
+      "harvestSeconds": 158400,
+      "name": "Olive",
+      "description": "Zesty with a rich history."
+    }
+  },
+  "GREENHOUSE_SEEDS": {
+    "Rice Seed": {
+      "price": 240,
+      "description": "A staple food for many.",
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 40
+      },
+      "plantSeconds": 115200,
+      "plantingSpot": "Greenhouse",
+      "yield": "Rice"
+    },
+    "Olive Seed": {
+      "price": 320,
+      "description": "Zesty with a rich history.",
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 40
+      },
+      "plantSeconds": 158400,
+      "plantingSpot": "Greenhouse",
+      "yield": "Olive"
+    }
+  },
+  "CROPS": {
+    "Sunflower": {
+      "name": "Sunflower",
+      "description": "A sunny flower",
+      "sellPrice": 0.02,
+      "harvestSeconds": 60
+    },
+    "Potato": {
+      "name": "Potato",
+      "description": "Healthier than you might think.",
+      "sellPrice": 0.14,
+      "harvestSeconds": 300
+    },
+    "Rhubarb": {
+      "sellPrice": 0.24,
+      "harvestSeconds": 600,
+      "name": "Rhubarb",
+      "description": "A tart and tangy vegetable!"
+    },
+    "Pumpkin": {
+      "name": "Pumpkin",
+      "description": "There's more to pumpkin than pie.",
+      "sellPrice": 0.4,
+      "harvestSeconds": 1800
+    },
+    "Zucchini": {
+      "sellPrice": 0.4,
+      "harvestSeconds": 1800,
+      "name": "Zucchini",
+      "description": "Great for salads and stir-fries."
+    },
+    "Carrot": {
+      "name": "Carrot",
+      "description": "They're good for your eyes!",
+      "sellPrice": 0.8,
+      "harvestSeconds": 3600
+    },
+    "Yam": {
+      "sellPrice": 0.8,
+      "harvestSeconds": 3600,
+      "name": "Yam",
+      "description": "A starchy root vegetable "
+    },
+    "Cabbage": {
+      "name": "Cabbage",
+      "description": "Once a luxury, now a food for many.",
+      "sellPrice": 1.5,
+      "harvestSeconds": 7200
+    },
+    "Broccoli": {
+      "sellPrice": 1.5,
+      "harvestSeconds": 7200,
+      "name": "Broccoli",
+      "description": "A cruciferous veggie."
+    },
+    "Soybean": {
+      "name": "Soybean",
+      "description": "A versatile legume!",
+      "sellPrice": 2.3,
+      "harvestSeconds": 10800
+    },
+    "Beetroot": {
+      "name": "Beetroot",
+      "description": "Good for hangovers!",
+      "sellPrice": 2.8,
+      "harvestSeconds": 14400
+    },
+    "Pepper": {
+      "sellPrice": 3,
+      "harvestSeconds": 14400,
+      "name": "Pepper",
+      "description": "Hmm, looks spicy!"
+    },
+    "Cauliflower": {
+      "name": "Cauliflower",
+      "description": "Excellent rice substitute!",
+      "sellPrice": 4.25,
+      "harvestSeconds": 28800
+    },
+    "Parsnip": {
+      "name": "Parsnip",
+      "description": "Not to be mistaken for carrots.",
+      "sellPrice": 6.5,
+      "harvestSeconds": 43200
+    },
+    "Eggplant": {
+      "name": "Eggplant",
+      "description": "Nature's edible work of art.",
+      "sellPrice": 8,
+      "harvestSeconds": 57600
+    },
+    "Corn": {
+      "name": "Corn",
+      "description": "Sun-kissed kernels of delight, nature's summer treasure.",
+      "sellPrice": 9,
+      "harvestSeconds": 72000
+    },
+    "Onion": {
+      "sellPrice": 10,
+      "harvestSeconds": 72000,
+      "name": "Onion",
+      "description": "A pungent veggie."
+    },
+    "Radish": {
+      "name": "Radish",
+      "description": "Takes time but is worth the wait!",
+      "sellPrice": 9.5,
+      "harvestSeconds": 86400
+    },
+    "Wheat": {
+      "name": "Wheat",
+      "description": "The most harvested crop in the world.",
+      "sellPrice": 7,
+      "harvestSeconds": 86400
+    },
+    "Turnip": {
+      "sellPrice": 8,
+      "harvestSeconds": 86400,
+      "name": "Turnip",
+      "description": "A cool-season veggie."
+    },
+    "Kale": {
+      "name": "Kale",
+      "description": "A Bumpkin Power Food!",
+      "sellPrice": 10,
+      "harvestSeconds": 129600
+    },
+    "Artichoke": {
+      "sellPrice": 12,
+      "harvestSeconds": 129600,
+      "name": "Artichoke",
+      "description": "A hearty veggie."
+    },
+    "Barley": {
+      "sellPrice": 12,
+      "harvestSeconds": 172800,
+      "name": "Barley",
+      "description": "Barley is a nutritious cereal grain used in animal feed."
+    },
+    "Saltwort": {
+      "sellPrice": 50,
+      "harvestSeconds": 43200,
+      "name": "Saltwort",
+      "description": "A hardy, briny crop that thrives during Chapter Crop Week."
+    }
+  },
+  "CROP_SEEDS": {
+    "Sunflower Seed": {
+      "description": "A sunny flower",
+      "price": 0.01,
+      "plantSeconds": 60,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 1
+      },
+      "yield": "Sunflower",
+      "plantingSpot": "Crop Plot"
+    },
+    "Potato Seed": {
+      "description": "Healthier than you might think.",
+      "price": 0.1,
+      "plantSeconds": 300,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 1
+      },
+      "yield": "Potato",
+      "plantingSpot": "Crop Plot"
+    },
+    "Rhubarb Seed": {
+      "price": 0.15,
+      "description": "A tart and tangy vegetable!",
+      "plantSeconds": 600,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 1
+      },
+      "plantingSpot": "Crop Plot",
+      "yield": "Rhubarb"
+    },
+    "Pumpkin Seed": {
+      "description": "There's more to pumpkin than pie.",
+      "price": 0.2,
+      "plantSeconds": 1800,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 2
+      },
+      "yield": "Pumpkin",
+      "plantingSpot": "Crop Plot"
+    },
+    "Zucchini Seed": {
+      "price": 0.2,
+      "description": "Great for salads and stir-fries.",
+      "plantSeconds": 1800,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 2
+      },
+      "plantingSpot": "Crop Plot",
+      "yield": "Zucchini"
+    },
+    "Carrot Seed": {
+      "description": "They're good for your eyes!",
+      "price": 0.5,
+      "plantSeconds": 3600,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 2
+      },
+      "yield": "Carrot",
+      "plantingSpot": "Crop Plot"
+    },
+    "Yam Seed": {
+      "price": 0.5,
+      "description": "A starchy root vegetable ",
+      "plantSeconds": 3600,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 2
+      },
+      "plantingSpot": "Crop Plot",
+      "yield": "Yam"
+    },
+    "Cabbage Seed": {
+      "description": "Once a luxury, now a food for many.",
+      "price": 1,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 3
+      },
+      "plantSeconds": 7200,
+      "yield": "Cabbage",
+      "plantingSpot": "Crop Plot"
+    },
+    "Broccoli Seed": {
+      "price": 1,
+      "description": "A cruciferous veggie.",
+      "plantSeconds": 7200,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 3
+      },
+      "plantingSpot": "Crop Plot",
+      "yield": "Broccoli"
+    },
+    "Soybean Seed": {
+      "description": "A versatile legume!",
+      "price": 1.5,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 3
+      },
+      "plantSeconds": 10800,
+      "yield": "Soybean",
+      "plantingSpot": "Crop Plot"
+    },
+    "Beetroot Seed": {
+      "description": "Good for hangovers!",
+      "price": 2,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 3
+      },
+      "plantSeconds": 14400,
+      "yield": "Beetroot",
+      "plantingSpot": "Crop Plot"
+    },
+    "Pepper Seed": {
+      "price": 2,
+      "description": "Hmm, looks spicy!",
+      "plantSeconds": 14400,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 3
+      },
+      "plantingSpot": "Crop Plot",
+      "yield": "Pepper"
+    },
+    "Cauliflower Seed": {
+      "description": "Excellent rice substitute!",
+      "price": 3,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 4
+      },
+      "plantSeconds": 28800,
+      "yield": "Cauliflower",
+      "plantingSpot": "Crop Plot"
+    },
+    "Parsnip Seed": {
+      "description": "Not to be mistaken for carrots.",
+      "price": 5,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 4
+      },
+      "plantSeconds": 43200,
+      "yield": "Parsnip",
+      "plantingSpot": "Crop Plot"
+    },
+    "Eggplant Seed": {
+      "description": "Nature's edible work of art.",
+      "price": 6,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 5
+      },
+      "plantSeconds": 57600,
+      "yield": "Eggplant",
+      "plantingSpot": "Crop Plot"
+    },
+    "Corn Seed": {
+      "description": "Sun-kissed kernels of delight, nature's summer treasure.",
+      "price": 7,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 5
+      },
+      "plantSeconds": 72000,
+      "yield": "Corn",
+      "plantingSpot": "Crop Plot"
+    },
+    "Onion Seed": {
+      "price": 7,
+      "description": "A pungent veggie.",
+      "plantSeconds": 72000,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 5
+      },
+      "plantingSpot": "Crop Plot",
+      "yield": "Onion"
+    },
+    "Radish Seed": {
+      "description": "Takes time but is worth the wait!",
+      "price": 7,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 5
+      },
+      "plantSeconds": 86400,
+      "yield": "Radish",
+      "plantingSpot": "Crop Plot"
+    },
+    "Wheat Seed": {
+      "description": "The most harvested crop in the world.",
+      "price": 5,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 5
+      },
+      "plantSeconds": 86400,
+      "yield": "Wheat",
+      "plantingSpot": "Crop Plot"
+    },
+    "Turnip Seed": {
+      "price": 5,
+      "description": "A cool-season veggie.",
+      "plantSeconds": 86400,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 6
+      },
+      "plantingSpot": "Crop Plot",
+      "yield": "Turnip"
+    },
+    "Kale Seed": {
+      "description": "A Bumpkin Power Food!",
+      "price": 7,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 7
+      },
+      "plantSeconds": 129600,
+      "yield": "Kale",
+      "plantingSpot": "Crop Plot"
+    },
+    "Artichoke Seed": {
+      "price": 7,
+      "description": "A hearty veggie.",
+      "plantSeconds": 129600,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 8
+      },
+      "plantingSpot": "Crop Plot",
+      "yield": "Artichoke"
+    },
+    "Barley Seed": {
+      "price": 10,
+      "description": "Barley is a nutritious cereal grain used in animal feed.",
+      "plantSeconds": 172800,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 14
+      },
+      "plantingSpot": "Crop Plot",
+      "yield": "Barley"
+    },
+    "Saltwort Seed": {
+      "price": 10,
+      "description": "A hardy, briny crop that thrives during Chapter Crop Week.",
+      "plantSeconds": 43200,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 1
+      },
+      "plantingSpot": "Crop Plot",
+      "yield": "Saltwort"
+    }
+  },
+  "ALL_PRODUCE": {
+    "Sunflower": {
+      "name": "Sunflower",
+      "description": "A sunny flower",
+      "sellPrice": 0.02,
+      "harvestSeconds": 60
+    },
+    "Potato": {
+      "name": "Potato",
+      "description": "Healthier than you might think.",
+      "sellPrice": 0.14,
+      "harvestSeconds": 300
+    },
+    "Rhubarb": {
+      "sellPrice": 0.24,
+      "harvestSeconds": 600,
+      "name": "Rhubarb",
+      "description": "A tart and tangy vegetable!"
+    },
+    "Pumpkin": {
+      "name": "Pumpkin",
+      "description": "There's more to pumpkin than pie.",
+      "sellPrice": 0.4,
+      "harvestSeconds": 1800
+    },
+    "Zucchini": {
+      "sellPrice": 0.4,
+      "harvestSeconds": 1800,
+      "name": "Zucchini",
+      "description": "Great for salads and stir-fries."
+    },
+    "Carrot": {
+      "name": "Carrot",
+      "description": "They're good for your eyes!",
+      "sellPrice": 0.8,
+      "harvestSeconds": 3600
+    },
+    "Yam": {
+      "sellPrice": 0.8,
+      "harvestSeconds": 3600,
+      "name": "Yam",
+      "description": "A starchy root vegetable "
+    },
+    "Cabbage": {
+      "name": "Cabbage",
+      "description": "Once a luxury, now a food for many.",
+      "sellPrice": 1.5,
+      "harvestSeconds": 7200
+    },
+    "Broccoli": {
+      "sellPrice": 1.5,
+      "harvestSeconds": 7200,
+      "name": "Broccoli",
+      "description": "A cruciferous veggie."
+    },
+    "Soybean": {
+      "name": "Soybean",
+      "description": "A versatile legume!",
+      "sellPrice": 2.3,
+      "harvestSeconds": 10800
+    },
+    "Beetroot": {
+      "name": "Beetroot",
+      "description": "Good for hangovers!",
+      "sellPrice": 2.8,
+      "harvestSeconds": 14400
+    },
+    "Pepper": {
+      "sellPrice": 3,
+      "harvestSeconds": 14400,
+      "name": "Pepper",
+      "description": "Hmm, looks spicy!"
+    },
+    "Cauliflower": {
+      "name": "Cauliflower",
+      "description": "Excellent rice substitute!",
+      "sellPrice": 4.25,
+      "harvestSeconds": 28800
+    },
+    "Parsnip": {
+      "name": "Parsnip",
+      "description": "Not to be mistaken for carrots.",
+      "sellPrice": 6.5,
+      "harvestSeconds": 43200
+    },
+    "Eggplant": {
+      "name": "Eggplant",
+      "description": "Nature's edible work of art.",
+      "sellPrice": 8,
+      "harvestSeconds": 57600
+    },
+    "Corn": {
+      "name": "Corn",
+      "description": "Sun-kissed kernels of delight, nature's summer treasure.",
+      "sellPrice": 9,
+      "harvestSeconds": 72000
+    },
+    "Onion": {
+      "sellPrice": 10,
+      "harvestSeconds": 72000,
+      "name": "Onion",
+      "description": "A pungent veggie."
+    },
+    "Radish": {
+      "name": "Radish",
+      "description": "Takes time but is worth the wait!",
+      "sellPrice": 9.5,
+      "harvestSeconds": 86400
+    },
+    "Wheat": {
+      "name": "Wheat",
+      "description": "The most harvested crop in the world.",
+      "sellPrice": 7,
+      "harvestSeconds": 86400
+    },
+    "Turnip": {
+      "sellPrice": 8,
+      "harvestSeconds": 86400,
+      "name": "Turnip",
+      "description": "A cool-season veggie."
+    },
+    "Kale": {
+      "name": "Kale",
+      "description": "A Bumpkin Power Food!",
+      "sellPrice": 10,
+      "harvestSeconds": 129600
+    },
+    "Artichoke": {
+      "sellPrice": 12,
+      "harvestSeconds": 129600,
+      "name": "Artichoke",
+      "description": "A hearty veggie."
+    },
+    "Barley": {
+      "sellPrice": 12,
+      "harvestSeconds": 172800,
+      "name": "Barley",
+      "description": "Barley is a nutritious cereal grain used in animal feed."
+    },
+    "Saltwort": {
+      "sellPrice": 50,
+      "harvestSeconds": 43200,
+      "name": "Saltwort",
+      "description": "A hardy, briny crop that thrives during Chapter Crop Week."
+    },
+    "Tomato": {
+      "description": "Rich in Lycopene",
+      "name": "Tomato",
+      "sellPrice": 2,
+      "seed": "Tomato Seed",
+      "isBush": true
+    },
+    "Lemon": {
+      "description": "Because sometimes, you just can't squeeze an orange!",
+      "name": "Lemon",
+      "sellPrice": 6,
+      "seed": "Lemon Seed"
+    },
+    "Blueberry": {
+      "description": "A Goblin's weakness",
+      "name": "Blueberry",
+      "sellPrice": 12,
+      "isBush": true,
+      "seed": "Blueberry Seed"
+    },
+    "Orange": {
+      "description": "Vitamin C to keep your Bumpkin Healthy",
+      "name": "Orange",
+      "sellPrice": 18,
+      "seed": "Orange Seed"
+    },
+    "Apple": {
+      "description": "Perfect for homemade Apple Pie",
+      "name": "Apple",
+      "sellPrice": 25,
+      "seed": "Apple Seed"
+    },
+    "Banana": {
+      "description": "Oh banana!",
+      "name": "Banana",
+      "sellPrice": 25,
+      "isBush": true,
+      "seed": "Banana Plant"
+    },
+    "Celestine": {
+      "description": "A rare berry that grows in the dark.",
+      "name": "Celestine",
+      "sellPrice": 200,
+      "seed": "Celestine Seed",
+      "isBush": true
+    },
+    "Lunara": {
+      "description": "A rare berry that grows in the dark.",
+      "name": "Lunara",
+      "sellPrice": 500,
+      "seed": "Lunara Seed",
+      "isBush": true
+    },
+    "Duskberry": {
+      "description": "A rare berry that grows in the dark.",
+      "name": "Duskberry",
+      "sellPrice": 1000,
+      "seed": "Duskberry Seed",
+      "isBush": true
+    },
+    "Grape": {
+      "description": "A bunch of grapes",
+      "name": "Grape",
+      "sellPrice": 240,
+      "seed": "Grape Seed",
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 40
+      }
+    },
+    "Rice": {
+      "sellPrice": 320,
+      "harvestSeconds": 115200,
+      "name": "Rice",
+      "description": "A staple food for many."
+    },
+    "Olive": {
+      "sellPrice": 400,
+      "harvestSeconds": 158400,
+      "name": "Olive",
+      "description": "Zesty with a rich history."
+    },
+    "$unparsed": "getKeys(EXOTIC_CROPS)\n  // sort by sell price\n  .sort((a, b) => EXOTIC_CROPS[a].sellPrice - EXOTIC_CROPS[b].sellPrice)\n  .reduce(\n    (acc, key) => ({\n      ...acc,\n      [key]: EXOTIC_CROPS[key],\n    }),\n    {} as Record<ExoticCropName, ExoticCrop>,\n  )"
+  }
+}

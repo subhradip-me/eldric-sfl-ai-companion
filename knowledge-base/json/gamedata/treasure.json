@@ -1,0 +1,116 @@
+{
+  "SELLABLE_TREASURES": {
+    "Sand": {
+      "sellPrice": 10,
+      "description": "It gets everywhere"
+    },
+    "Camel Bone": {
+      "sellPrice": 10,
+      "description": "Bones of an ancient camel, rumoured to transport artefacts"
+    },
+    "Crab": {
+      "sellPrice": 15,
+      "description": "A crab, watch out for its claws!"
+    },
+    "Old Bottle": {
+      "sellPrice": 22.5,
+      "description": "Antique pirate bottle, echoing tales of high seas adventure."
+    },
+    "Sea Cucumber": {
+      "sellPrice": 22.5,
+      "description": "A sea cucumber."
+    },
+    "Vase": {
+      "sellPrice": 50,
+      "description": "A fragile item from ancient times"
+    },
+    "Seaweed": {
+      "sellPrice": 75,
+      "description": "Seaweed."
+    },
+    "Cockle Shell": {
+      "sellPrice": 100,
+      "description": "A beautiful shell."
+    },
+    "Starfish": {
+      "sellPrice": 112.5,
+      "description": "The star of the sea."
+    },
+    "Wooden Compass": {
+      "sellPrice": 131.25,
+      "description": "It may not be high-tech, but it will always steer you in the right direction, wood you believe it?"
+    },
+    "Iron Compass": {
+      "sellPrice": 187.5,
+      "description": "Iron out your path to treasure! This compass is 'attract'-ive, and not just to the magnetic North!"
+    },
+    "Emerald Compass": {
+      "sellPrice": 187.5,
+      "description": "Guide your way through the lush mysteries of life! This compass doesn't just point North, it points towards opulence and grandeur!"
+    },
+    "Pipi": {
+      "sellPrice": 187.5,
+      "description": "Plebidonax deltoides, found in the Pacific Ocean."
+    },
+    "Hieroglyph": {
+      "sellPrice": 250,
+      "description": "Unlock the secrets of the hieroglyphs."
+    },
+    "Clam Shell": {
+      "sellPrice": 375,
+      "description": "A clam shell."
+    },
+    "Coral": {
+      "sellPrice": 1500,
+      "description": "A piece of coral, it's pretty"
+    },
+    "Pearl": {
+      "sellPrice": 3750,
+      "description": "Shimmers in the sun."
+    },
+    "Pirate Bounty": {
+      "sellPrice": 7500,
+      "description": "A bounty for a pirate. It's worth a lot of money."
+    },
+    "Scarab": {
+      "sellPrice": 200,
+      "description": "Pharaoh's lost artefact."
+    },
+    "Cow Skull": {
+      "sellPrice": 200,
+      "description": "An ancient skull."
+    },
+    "Ancient Clock": {
+      "description": "",
+      "sellPrice": 200
+    },
+    "Broken Pillar": {
+      "sellPrice": 200,
+      "description": ""
+    },
+    "Coprolite": {
+      "sellPrice": 200,
+      "description": ""
+    },
+    "Moon Crystal": {
+      "sellPrice": 200,
+      "description": "",
+      "$unparsed": "hasChapterEnded(\"Paw Prints\", Date.now())\n        ? {}\n        : {\n            from: CHAPTERS[\"Paw Prints\"].startDate,\n            to: CHAPTERS[\"Paw Prints\"].endDate,\n          }"
+    },
+    "Ammonite Shell": {
+      "sellPrice": 200,
+      "description": "",
+      "$unparsed": "hasChapterEnded(\"Crabs and Traps\", Date.now())\n        ? {}\n        : {\n            from: CHAPTERS[\"Crabs and Traps\"].startDate,\n            to: CHAPTERS[\"Crabs and Traps\"].endDate,\n          }"
+    },
+    "Salt Dino Egg": {
+      "sellPrice": 200,
+      "description": "",
+      "$unparsed": "hasChapterEnded(\"Salt Awakening\", Date.now())\n        ? {}\n        : {\n            from: CHAPTERS[\"Salt Awakening\"].startDate,\n            to: CHAPTERS[\"Salt Awakening\"].endDate,\n          }"
+    },
+    "Otter Pebble": {
+      "sellPrice": 200,
+      "description": "",
+      "$unparsed": "hasChapterEnded(\"Ascension Age\", Date.now())\n        ? {}\n        : {\n            from: CHAPTERS[\"Ascension Age\"].startDate,\n            to: CHAPTERS[\"Ascension Age\"].endDate,\n          }"
+    }
+  }
+}

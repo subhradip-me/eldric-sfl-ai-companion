@@ -1,0 +1,142 @@
+{
+  "BASIC_WEARABLES": {
+    "Beige Farmer Potion": {
+      "coins": 3200,
+      "ingredients": {}
+    },
+    "Light Brown Farmer Potion": {
+      "coins": 3200,
+      "ingredients": {}
+    },
+    "Dark Brown Farmer Potion": {
+      "coins": 3200,
+      "ingredients": {}
+    },
+    "Goblin Potion": {
+      "coins": 16000,
+      "ingredients": {}
+    },
+    "Rancher Hair": {
+      "coins": 3200,
+      "ingredients": {}
+    },
+    "Basic Hair": {
+      "coins": 3200,
+      "ingredients": {}
+    },
+    "Buzz Cut": {
+      "coins": 4800,
+      "ingredients": {}
+    },
+    "Explorer Hair": {
+      "coins": 4800,
+      "ingredients": {}
+    },
+    "Red Farmer Shirt": {
+      "coins": 1600,
+      "ingredients": {}
+    },
+    "Blue Farmer Shirt": {
+      "coins": 1600,
+      "ingredients": {}
+    },
+    "Yellow Farmer Shirt": {
+      "coins": 1600,
+      "ingredients": {}
+    },
+    "Farmer Pants": {
+      "coins": 1600,
+      "ingredients": {}
+    },
+    "Farmer Overalls": {
+      "coins": 1600,
+      "ingredients": {}
+    },
+    "Lumberjack Overalls": {
+      "coins": 3200,
+      "ingredients": {}
+    },
+    "Birthday Hat": {
+      "coins": 8000,
+      "ingredients": {},
+      "disabled": true,
+      "hoursPlayed": 8760
+    },
+    "Double Harvest Cap": {
+      "coins": 16000,
+      "ingredients": {},
+      "disabled": true,
+      "hoursPlayed": 17520
+    }
+  },
+  "STYLIST_WEARABLES": {
+    "Beige Farmer Potion": {
+      "coins": 3200,
+      "ingredients": {}
+    },
+    "Light Brown Farmer Potion": {
+      "coins": 3200,
+      "ingredients": {}
+    },
+    "Dark Brown Farmer Potion": {
+      "coins": 3200,
+      "ingredients": {}
+    },
+    "Goblin Potion": {
+      "coins": 16000,
+      "ingredients": {}
+    },
+    "Rancher Hair": {
+      "coins": 3200,
+      "ingredients": {}
+    },
+    "Basic Hair": {
+      "coins": 3200,
+      "ingredients": {}
+    },
+    "Buzz Cut": {
+      "coins": 4800,
+      "ingredients": {}
+    },
+    "Explorer Hair": {
+      "coins": 4800,
+      "ingredients": {}
+    },
+    "Red Farmer Shirt": {
+      "coins": 1600,
+      "ingredients": {}
+    },
+    "Blue Farmer Shirt": {
+      "coins": 1600,
+      "ingredients": {}
+    },
+    "Yellow Farmer Shirt": {
+      "coins": 1600,
+      "ingredients": {}
+    },
+    "Farmer Pants": {
+      "coins": 1600,
+      "ingredients": {}
+    },
+    "Farmer Overalls": {
+      "coins": 1600,
+      "ingredients": {}
+    },
+    "Lumberjack Overalls": {
+      "coins": 3200,
+      "ingredients": {}
+    },
+    "Birthday Hat": {
+      "coins": 8000,
+      "ingredients": {},
+      "disabled": true,
+      "hoursPlayed": 8760
+    },
+    "Double Harvest Cap": {
+      "coins": 16000,
+      "ingredients": {},
+      "disabled": true,
+      "hoursPlayed": 17520
+    }
+  }
+}

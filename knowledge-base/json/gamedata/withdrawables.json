@@ -1,0 +1,4128 @@
+{
+  "CAN_WITHDRAW_AND_TRADE": {
+    "tradeAt": "2023-01-01",
+    "withdrawAt": "2023-01-01"
+  },
+  "WEARABLE_RELEASES": {
+    "New Years Crown": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Painter's Cap": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Festival of Colors Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Chef Apron": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Warrior Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Warrior Pants": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Black Farmer Boots": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Farmer Pitchfork": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Farmer Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Chef Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Warrior Helmet": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Ugly Christmas Sweater": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Elf Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Elf Potion": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Elf Suit": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Santa Beard": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Santa Suit": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Beehive Staff": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Bee Smoker": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Bee Wings": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Beekeeper Suit": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Crimstone Boots": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Crimstone Pants": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Gardening Overalls": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Crimstone Hammer": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Full Bloom Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Blue Blossom Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Explorer Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Explorer Shorts": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Explorer Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Rock Hammer": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Amber Amulet": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Desert Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Desert Camel Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Water Gourd": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Ankh Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Adventurer's Suit": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Adventurer's Torch": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pumpkin Head": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sunflower Shield": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Farm Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Fancy Top": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Brown Boots": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Brown Suspenders": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Fancy Pants": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Maiden Skirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Maiden Top": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Peasant Skirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "SFL T-Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Yellow Boots": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Parlour Hair": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Axe": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sword": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Blue Suspenders": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Forest Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Seashore Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Blondie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Brown Long Hair": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sun Spots": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "White Long Hair": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Cemetery Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Teal Mohawk": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Space Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Jail Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Golden Spatula": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Artist Scarf": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Bumpkin Art Competition Merch": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Project Dignity Hoodie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Developer Hoodie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Blacksmith Hair": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Hammer": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Bumpkin Boots": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Fire Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Red Long Hair": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Snowman Onesie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Reindeer Suit": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Shark Onesie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Christmas Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Fire Hair": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Luscious Hair": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Ancient War Hammer": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Ancient Goblin Sword": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Mountain View Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Skull Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Reindeer Antlers": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Santa Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pineapple Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "China Town Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Lion Dance Mask": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pirate General Coat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pirate Pants": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pirate Leather Polo": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Crab Claw": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pirate Scimitar": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Cupid Hair": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Cupid Dress": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Cupid Sandals": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Love Quiver": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "SFL Office Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Bumpkin Puppet": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Goblin Puppet": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Hawaiian Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Bear Onesie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Frog Onesie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Tiger Onesie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Beach Sarong": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sleeping Otter": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Tropical Sarong": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sequence Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sequence Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "St Patricks Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Bunny Onesie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Polkastarter Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Club Polo": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Dawn Breaker Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Dawn Lamp": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Fox Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Grave Diggers Shovel": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Infected Potion": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Mushroom Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Mushroom Shield": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Mushroom Shoes": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Mushroom Sweater": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Squid Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Summer Top": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sunburst Potion": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "White Turtle Neck": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Harry's Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Straw Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Witching Wardrobe": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Witch's Broom": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Infernal Bumpkin Potion": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Infernal Goblin Potion": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Imp Costume": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Ox Costume": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Infernal Horns": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Crumple Crown": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Crow Wings": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pale Potion": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Skull Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Parsnip Horns": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Whale Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pumpkin Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Kama": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Unicorn Horn": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Feather Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Valoria Wreath": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Earn Alliance Sombrero": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Fresh Catch Vest": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Fish Pro Vest": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Reel Fishing Vest": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Clown Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Abyssal Angler Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Crab Trap": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Seaside Tank Top": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Fishing Pants": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Fishing Spear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Flip Flops": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Wellies": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Skinning Knife": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Tackle Box": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Infernal Rod": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Koi Fish Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Normal Fish Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Stockeye Salmon Onesie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Tiki Armor": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Tiki Mask": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Tiki Pants": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Butterfly Wings": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "New Years Tiara": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Daisy Tee": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Propeller Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Blue Monarch Dress": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Orange Monarch Dress": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Blue Monarch Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Orange Monarch Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Queen Bee Crown": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Lucky Red Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Lucky Red Suit": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Chicken Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Love's Topper": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Valentine's Field Background": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Striped Red Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Striped Yellow Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Paw Shield": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pan": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Royal Robe": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Crown": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Soybean Onesie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pharaoh Headdress": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Scarab Wings": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Fossil Head": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sunflower Amulet": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Beetroot Amulet": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Parsnip": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Angel Wings": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Luna's Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Cattlegrim": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Ancient Rod": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Banana Onesie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Beekeeper Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Crimstone Amulet": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Hornet Mask": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Non La Hat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Olive Shield": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Olive Royalty Shirt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Oil Overalls": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Ancient Shovel": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Lemon Shield": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Green Amulet": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Devil Wings": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Eggplant Onesie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Infernal Pitchfork": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Corn Onesie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Banana Amulet": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Bee Suit": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Crimstone Armor": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Honeycomb Shield": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Flower Crown": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Oil Can": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Tofu Mask": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Camel Onesie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Dev Wrench": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Infernal Drill": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Grape Pants": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Carrot Amulet": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "2026 Tiara": {
+      "tradeAt": "2026-01-19T00:00:00Z",
+      "withdrawAt": "2026-01-19T00:00:00Z"
+    },
+    "Cowboy Hat": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Cowboy Shirt": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Cowboy Trouser": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Shepherd Staff": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Cowbell Necklace": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Infernal Bullwhip": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Chicken Suit": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Black Sheep Onesie": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Merino Jumper": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Cowboy Boots": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "White Sheep Onesie": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Cowgirl Skirt": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Dream Scarf": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Milk Apron": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Gingerbread Onesie": {
+      "tradeAt": "2025-01-01",
+      "withdrawAt": "2025-01-01"
+    },
+    "Candy Cane": {
+      "tradeAt": "2025-01-01",
+      "withdrawAt": "2025-01-01"
+    },
+    "Sickle": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Ladybug Suit": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Acorn Hat": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Crab Hat": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Sol & Luna": {
+      "tradeAt": "2025-04-08",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Locust King Onesie": {
+      "tradeAt": "2025-04-08",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Locust Onesie": {
+      "tradeAt": "2025-04-08",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Glacial Plume": {
+      "tradeAt": "2025-04-08",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Solflare Aegis": {
+      "tradeAt": "2025-04-08",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Blossom Ward": {
+      "tradeAt": "2025-04-08",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Autumn's Embrace": {
+      "tradeAt": "2025-04-08",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Frozen Heart": {
+      "tradeAt": "2025-04-08",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Love Heart Onesie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Flower Bouquet": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Carrot Pitchfork": {
+      "tradeAt": "2025-05-01",
+      "withdrawAt": "2025-05-01"
+    },
+    "Handheld Bunny": {
+      "tradeAt": "2025-05-01",
+      "withdrawAt": "2025-05-01"
+    },
+    "Bunny Pants": {
+      "tradeAt": "2025-05-01",
+      "withdrawAt": "2025-05-01"
+    },
+    "Bunny Mask": {
+      "tradeAt": "2025-05-01",
+      "withdrawAt": "2025-05-01"
+    },
+    "Easter Apron": {
+      "tradeAt": "2025-05-01",
+      "withdrawAt": "2025-05-01"
+    },
+    "Bloomwarden Suit": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Embersteel Suit": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Flower Mask": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Amberfall Suit": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Glacierguard Suit": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Broccoli Hat": {
+      "tradeAt": "2025-07-01T00:00:00Z",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Frost Sword": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Medic Apron": {
+      "tradeAt": "2025-07-01T00:00:00Z",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Obsidian Necklace": {
+      "tradeAt": "2025-07-01T00:00:00Z",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Red Pepper Onesie": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Love Charm Shirt": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Sky Island Background": {
+      "tradeAt": "2025-07-01T00:00:00Z",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Oracle Syringe": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Paint Splattered Hair": {
+      "tradeAt": "2025-07-08",
+      "withdrawAt": "2025-07-08"
+    },
+    "Paint Splattered Shirt": {
+      "tradeAt": "2025-07-08",
+      "withdrawAt": "2025-07-08"
+    },
+    "Paint Splattered Overalls": {
+      "tradeAt": "2025-07-08",
+      "withdrawAt": "2025-07-08"
+    },
+    "Paint Spray Can": {
+      "tradeAt": "2025-07-08",
+      "withdrawAt": "2025-07-08"
+    },
+    "Slime Hat": {
+      "tradeAt": "2025-07-08",
+      "withdrawAt": "2025-07-08"
+    },
+    "Slime Wings": {
+      "tradeAt": "2025-07-08",
+      "withdrawAt": "2025-07-08"
+    },
+    "Slime Aura": {
+      "tradeAt": "2025-07-08",
+      "withdrawAt": "2025-07-08"
+    },
+    "Coin Aura": {
+      "tradeAt": "2025-09-22",
+      "withdrawAt": "2025-09-22"
+    },
+    "Recycle Shirt": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Pickaxe Shark": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Garbage Bin Hat": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Turd Topper": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Architect Ruler": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Onion Leek": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Oil Gallon": {
+      "tradeAt": "2025-10-20T00:00:00Z",
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Lava Swimwear": {
+      "tradeAt": "2025-10-20T00:00:00Z",
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Wooly Dress": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Raccoon Onesie": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Rocket Onesie": {
+      "tradeAt": "2025-09-12",
+      "withdrawAt": "2025-09-12"
+    },
+    "Luna's Crescent": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Master Chef's Cleaver": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Training Whistle": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Pet Specialist Shirt": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Pet Specialist Pants": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Pet Specialist Hat": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Saw Fish": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Squirrel Onesie": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Walrus Onesie": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Crimstone Spikes Hair": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Paw Aura": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Victoria's Apron": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Beast Shoes": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Fish Hook Hat": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Fish Hook Vest": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Fish Hook Waders": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Corn Silk Hair": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Spa Hat": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Spa Robe": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Spa Slippers": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Bubble Aura": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Deep Sea Salt Cave Background": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Clam Shell Hat": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Shrimp Onesie": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Pistol Shrimp": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Swamp Lily Hat": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Swamp Armor": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Swamp Pants": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Moon Hair": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Surfer Hair": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Rice Shirt": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Alchemist Apron": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Salt Bottle Onesie": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Blue Rose Dress": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Fairy Sandals": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Moonseeker Potion": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Frizzy Bob Cut": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Two-toned Layered": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Halloween Deathscythe": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Moonseeker Hand Puppet": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Sweet Devil Horns": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Trick and Treat": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Jack O'Sweets": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Frank Onesie": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Research Uniform": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Sweet Devil Dress": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Underworld Stimpack": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Sweet Devil Wings": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Wisp Aura": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Diamond Snow Aura": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Comfy Xmas Sweater": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Comfy Xmas Pants": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Candy Halbred": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Xmas Top Hat": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Reindeer Mask": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Snowman Mask": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Cool Glasses": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Cookie Shield": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Holiday Feast Background": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Cozy Reindeer Onesie": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Neon Noiz Jacket": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "404 Chic Top": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Neon Noiz Pants": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "404 Chic Skirt": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Admin Fools Tools": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Neon Noiz Shoes": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "404 Chic Boots": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Aether Specs": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Faulty Barrier Background": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Cardboard Wings": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Glitch Aura": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Rainbow Wings": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Butterfly Aura": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Slime Wall Background": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Green Slime Hair": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Blue Slime Shirt": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Slime Splattered Shirt": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Yellow Slime Puppet": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Blue Jelly Shoes": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Sad Slime Slippers": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Sad Slime Hat": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Sad Slime Pants": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Red Jelly Pants": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    }
+  },
+  "INVENTORY_RELEASES": {
+    "Observatory": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Stellar Sunflower": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Potent Potato": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Radical Radish": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Ayam Cemani": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Fat Chicken": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Rich Chicken": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Speed Chicken": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "El Pollo Veloz": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Banana Chicken": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Crim Peckster": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Knight Chicken": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pharaoh Chicken": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Undead Rooster": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "War Skull": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "War Tombstone": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Grain Grinder": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Kernaldo": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Poppy": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Nana": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Soil Krabby": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Skill Shrimpy": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sunlit Citadel": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Baobab Tree": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Camel": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Australian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Belgian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Brazilian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Chinese Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Finnish Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "French Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "German Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Indonesian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Indian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Iranian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Italian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Japanese Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Moroccan Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Dutch Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Philippine Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Polish Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Portuguese Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Russian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Saudi Arabian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "South Korean Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Spanish Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sunflower Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Thai Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Turkish Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Ukrainian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "American Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Vietnamese Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Canadian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Singaporean Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "British Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sierra Leone Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Romanian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Rainbow Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Goblin Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pirate Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Algerian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Mexican Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Dominican Republic Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Argentinian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Lithuanian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Malaysian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Colombian Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Mushroom House": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Obie": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Purple Trail": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Maximus": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Peeled Potato": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Christmas Snow Globe": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Beta Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Cyborg Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Wood Nymph Wendy": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Squirrel Monkey": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Black Bearry": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Lady Bug": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Cabbage Boy": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Cabbage Girl": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Maneki Neko": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Heart Balloons": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Flamingo": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Blossom Tree": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Palm Tree": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Beach Ball": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Collectible Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pablo The Bunny": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Easter Bush": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Giant Carrot": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Hoot": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sir Goldensnout": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Freya Fox": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Queen Cornelia": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "White Crow": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Walrus": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Alba": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Knowledge Crab": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Anchor": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Rubber Ducky": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Kraken Head": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Kraken Tentacle": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Blossom Royale": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Humming Bird": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Hungry Caterpillar": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Queen Bee": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Turbo Sprout": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Soybliss": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Grape Granny": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Royal Throne": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Lily Egg": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Goblet": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Chicken Coop": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Easter Bunny": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Farm Cat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Farm Dog": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Gold Egg": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Rooster": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Tiki Totem": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sunflower Statue": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Potato Statue": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Christmas Tree": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Gnome": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sunflower Tombstone": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sunflower Rock": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Goblin Crown": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Fountain": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Woody the Beaver": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Apprentice Beaver": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Foreman Beaver": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Nyon Statue": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Homeless Tent": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Farmer Bath": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Mysterious Head": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Rock Golem": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Tunnel Mole": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Rocky the Mole": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Nugget": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Christmas Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Golden Bonsai": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Victoria Sisters": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Wicker Man": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Carrot Sword": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Golden Cauliflower": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Mysterious Parsnip": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Nancy": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Scarecrow": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Kuebiko": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Lunar Calendar": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Genie Lamp": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Foliant": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Iron Idol": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Heart of Davy Jones": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Karkinos": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Emerald Turtle": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Tin Turtle": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Golden Bear Head": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Parasaur Skull": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "T-Rex Skull": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sunflower Coin": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pirate Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Whale Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Dinosaur Bone": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Lifeguard Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Snorkel Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Turtle Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Chef Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Construction Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Angel Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Badass Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Bear Trap": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Brilliant Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Classy Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Farmer Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sunflower Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Rich Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Rainbow Artist Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Devil Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Jelly Lamp": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Paint Can": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Devotion Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Benevolence Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Generosity Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Splendor Flag": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Hungry Hare": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Community Egg": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Baby Panda": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Baozi": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Valentine Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Easter Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Genie Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Eggplant Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Dawn Flower": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sapo Docuras": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sapo Travessuras": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Bumpkin Nutcracker": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Grinx's Hammer": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "White Festive Fox": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Earn Alliance Banner": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Gaucho Rug": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Halloween Scarecrow": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Vampire Bear": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Luminous Lantern": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Radiance Lantern": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Aurora Lantern": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Ocean Lantern": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Solar Lantern": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Betty Lantern": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Bumpkin Lantern": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Goblin Lantern": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Lemon Shark": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Crimson Carp": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Battle Fish": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pharaoh Gnome": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Lemon Tea Bath": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Tomato Clown": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Pyramid": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Oasis": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Rice Panda": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Silver Squire": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Cluckapult": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Bullseye Board": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Hapy Jar": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Duamutef Jar": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Qebehsenuef Jar": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Imsety Jar": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Cannonball": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sarcophagus": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Clay Tablet": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Snake in Jar": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Reveling Lemon": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Anubis Jackal": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sundial": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sand Golem": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Cactus King": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Lemon Frog": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Scarab Beetle": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Tomato Bombard": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Desert Rose": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "King of Bears": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Miffy": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Mog": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Marty": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Morty": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Battlecry Drum": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Chess Rug": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Golden Gallant": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Golden Garrison": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Golden Guardian": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Novice Knight": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Regular Pawn": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Rookie Rook": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Silver Sentinel": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Silver Stallion": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Trainee Target": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Twister Rug": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Clementine": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Cobalt": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Dawn Umbrella Seat": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Eggplant Grill": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Giant Dawn Mushroom": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Shroom Glow": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Candles": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Haunted Stump": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Spooky Tree": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Observer": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Crow Rock": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Mini Corn Maze": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Beach Umbrella": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Hideaway Herman": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Lifeguard Ring": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Shifty Sheldon": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Tiki Torch": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Surfboard": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Paper Reed": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Rainbow": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Capybara": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Enchanted Rose": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Flower Fox": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Sunrise Bloom Rug": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Flower Rug": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Green Field Rug": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Flower Cart": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Tea Rug": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Fancy Rug": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Clock": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Vinny": {
+      "tradeAt": "2023-01-01",
+      "withdrawAt": "2023-01-01"
+    },
+    "Cerberus": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Witch's Cauldron": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Raveyard": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Haunted House": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Mimic Egg": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Haunted Tomb": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Guillotine": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Vampire Coffin": {
+      "tradeAt": "2025-11-06",
+      "withdrawAt": "2025-11-06"
+    },
+    "Moo-ver": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Swiss Whiskers": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Cluckulator": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "UFO": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Black Sheep": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Wagon": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Longhorn Cowfish": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Alien Chicken": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Mootant": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Toxic Tuft": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Chicory": {
+      "tradeAt": "2024-12-13",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Christmas Stocking": {
+      "tradeAt": "2024-12-28",
+      "withdrawAt": "2025-01-01"
+    },
+    "Golden Christmas Stocking": {
+      "tradeAt": "2024-12-28",
+      "withdrawAt": "2025-01-01"
+    },
+    "Cozy Fireplace": {
+      "tradeAt": "2024-12-28",
+      "withdrawAt": "2025-01-01"
+    },
+    "Christmas Rug": {
+      "tradeAt": "2024-12-28",
+      "withdrawAt": "2025-01-01"
+    },
+    "Christmas Candle": {
+      "tradeAt": "2024-12-28",
+      "withdrawAt": "2025-01-01"
+    },
+    "Santa Penguin": {
+      "tradeAt": "2024-12-28",
+      "withdrawAt": "2025-01-01"
+    },
+    "Penguin Pool": {
+      "tradeAt": "2024-12-28",
+      "withdrawAt": "2025-01-01"
+    },
+    "Snowman": {
+      "tradeAt": "2024-12-28",
+      "withdrawAt": "2025-01-01"
+    },
+    "Festive Toy Train": {
+      "tradeAt": "2024-12-28",
+      "withdrawAt": "2025-01-01"
+    },
+    "Golden Cow": {
+      "tradeAt": "2024-12-23",
+      "withdrawAt": "2025-01-01"
+    },
+    "Cow Scratcher": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Spinning Wheel": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Sleepy Rug": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Meteorite": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Mechanical Bull": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Crop Circle": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Sheaf of Plenty": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Bull Run\"].endDate"
+      }
+    },
+    "Kite": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Acorn House": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Spring Duckling": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Summer Duckling": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Winter Duckling": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Autumn Duckling": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Mama Duck": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Igloo": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Ugly Duckling": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Lake Rug": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Hammock": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Mammoth": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Cup of Chocolate": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Golden Sheep": {
+      "tradeAt": "2025-04-08",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Barn Blueprint": {
+      "tradeAt": "2025-04-08",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Goblin Emblem": {
+      "tradeAt": "2021-01-01"
+    },
+    "Sunflorian Emblem": {
+      "tradeAt": "2021-01-01"
+    },
+    "Bumpkin Emblem": {
+      "tradeAt": "2021-01-01"
+    },
+    "Nightshade Emblem": {
+      "tradeAt": "2021-01-01"
+    },
+    "Frozen Cow": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].startDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Frozen Sheep": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].startDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Summer Chicken": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].startDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Chamomile": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].startDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Jellyfish": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].startDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Winds of Change\"].endDate"
+      }
+    },
+    "Jin": {
+      "tradeAt": "2025-08-20T00:00:00Z",
+      "withdrawAt": "2025-08-20T00:00:00Z"
+    },
+    "Carrot House": {
+      "tradeAt": "2025-05-01T00:00:00Z",
+      "withdrawAt": "2025-05-01T00:00:00Z"
+    },
+    "Orange Bunny Lantern": {
+      "tradeAt": "2025-05-01T00:00:00Z",
+      "withdrawAt": "2025-05-01T00:00:00Z"
+    },
+    "White Bunny Lantern": {
+      "tradeAt": "2025-05-01T00:00:00Z",
+      "withdrawAt": "2025-05-01T00:00:00Z"
+    },
+    "Orange Tunnel Bunny": {
+      "tradeAt": "2025-05-01T00:00:00Z",
+      "withdrawAt": "2025-05-01T00:00:00Z"
+    },
+    "White Tunnel Bunny": {
+      "tradeAt": "2025-05-01T00:00:00Z",
+      "withdrawAt": "2025-05-01T00:00:00Z"
+    },
+    "Easter Basket": {
+      "tradeAt": "2025-05-01T00:00:00Z",
+      "withdrawAt": "2025-05-01T00:00:00Z"
+    },
+    "Pink Dolphin": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].startDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Love Chicken": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].startDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Dr Cow": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].startDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Nurse Sheep": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].startDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Lunalist": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].startDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Quarry": {
+      "tradeAt": "2025-07-01T00:00:00Z",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Obsidian Turtle": {
+      "tradeAt": "2025-07-01T00:00:00Z",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Winter Guardian": {
+      "tradeAt": "2025-07-01T00:00:00Z",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Summer Guardian": {
+      "tradeAt": "2025-07-01T00:00:00Z",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Spring Guardian": {
+      "tradeAt": "2025-07-01T00:00:00Z",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Autumn Guardian": {
+      "tradeAt": "2025-07-01T00:00:00Z",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Sky Pillar": {
+      "tradeAt": "2025-07-01T00:00:00Z",
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Flower-Scribed Statue": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Balloon Rug": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Giant Yam": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Heart Air Balloon": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Giant Zucchini": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Mini Floating Island": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Giant Kale": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      },
+      "withdrawAt": {
+        "$unparsed": "CHAPTERS[\"Great Bloom\"].endDate"
+      }
+    },
+    "Floating Toy": {
+      "tradeAt": "2025-07-08",
+      "withdrawAt": "2025-07-08"
+    },
+    "Paint Buckets": {
+      "tradeAt": "2025-07-08",
+      "withdrawAt": "2025-07-08"
+    },
+    "Rainbow Well": {
+      "tradeAt": "2025-07-08",
+      "withdrawAt": "2025-07-08"
+    },
+    "Rainbow Flower": {
+      "tradeAt": "2025-07-08",
+      "withdrawAt": "2025-07-08"
+    },
+    "Pony Toy": {
+      "tradeAt": "2025-07-08",
+      "withdrawAt": "2025-07-08"
+    },
+    "Red Slime Balloon": {
+      "tradeAt": "2025-07-08",
+      "withdrawAt": "2025-07-08"
+    },
+    "Blue Slime Balloon": {
+      "tradeAt": "2025-07-08",
+      "withdrawAt": "2025-07-08"
+    },
+    "Floor Mirror": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Long Rug": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Garbage Bin": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Wheelbarrow": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Snail King": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Reelmaster's Chair": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Rat King": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Fruit Tune Box": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Double Bed": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Teamwork Monument": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Giant Artichoke": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Rocket Statue": {
+      "tradeAt": "2025-10-20T00:00:00Z",
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Ant Queen": {
+      "tradeAt": "2025-10-20T00:00:00Z",
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Jurassic Droplet": {
+      "tradeAt": "2025-10-20T00:00:00Z",
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Giant Onion": {
+      "tradeAt": "2025-10-20T00:00:00Z",
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Giant Turnip": {
+      "tradeAt": "2025-10-20T00:00:00Z",
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Groovy Gramophone": {
+      "tradeAt": "2025-10-20T00:00:00Z",
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Wheat Whiskers": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Janitor Chicken": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Poseidon": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Venus Bumpkin Trap": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Baby Cow": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Baby Sheep": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Better Together\"].endDate"
+      },
+      "withdrawAt": "2025-12-03T00:00:00Z"
+    },
+    "Black Hole Flower": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Sleepy Chicken": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Astronaut Cow": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Astronaut Sheep": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Mermaid Cow": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Mermaid Sheep": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Squid Chicken": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Anemone Flower": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Speckled Kissing Fish": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Dark Eyed Kissing Fish": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Fisherman's Boat": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Sea Arch": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Crabs and Fish Rug": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Fish Flags": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Fish Drying Rack": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Yellow Submarine Trophy": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Oaken": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Meerkat": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Crimstone Clam": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Giant Isopod": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Nautilus": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Dino Egg Trophy": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Salt Lamp": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Ripped Salt Bag": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "World Map Rug": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Flamingo Chicken": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Salt Crystal Flower": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Deep Sea Slug": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Crystal Shrimp": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Spa Cow": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Spa Sheep": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Pufferfish": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Fat Crab": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Navigation Table": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Royal Crab Pot": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Crab House": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Speed Trap": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Crocodile": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Dumbo Octopus": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Astrolabe": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Otty the Otter": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Salt Rug": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Coat Rack": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Vibraphone": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Winged Vase": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Ascended Idol": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Salt Worker Gnome": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Ascended Wheel": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Lampshade": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Marble Head": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Ascended Chicken": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Ascended Cow": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Ascended Sheep": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "Ruins Flower": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Ascension Age\"].endDate"
+      },
+      "withdrawAt": "2026-11-30T00:00:00Z"
+    },
+    "CluckCoin": {
+      "tradeAt": "2025-01-01T00:00:00.000Z"
+    },
+    "Fish Kite": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Salt Awakening\"].endDate"
+      },
+      "withdrawAt": "2026-08-31T00:00:00Z"
+    },
+    "Diving Helmet": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Crabs and Traps\"].endDate"
+      },
+      "withdrawAt": "2026-06-04T00:00:00Z"
+    },
+    "Paw Prints Rug": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Pet Bed": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Pet Bowls": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Moon Fox Statue": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Giant Acorn": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Petnip Plant": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Pet Kennel": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Pet Toys": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Pet Playground": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Fish Bowl": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Giant Gold Bone": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Lunar Temple": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Magma Stone": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Super Star": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Squeaky Chicken": {
+      "tradeAt": {
+        "$unparsed": "CHAPTERS[\"Paw Prints\"].endDate"
+      },
+      "withdrawAt": "2026-03-04T00:00:00Z"
+    },
+    "Cornucopia": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Messy Bed": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Holiday Decorative Totem": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Red Holiday Ornament": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Green Holiday Ornament": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Gift Turtle": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Red Nose Reindeer": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Tuxedo Claus": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Winter Alpaca": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Penguin Surprise": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Frozen Meat": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Ho Ho oh oh…": {
+      "tradeAt": "2026-02-01",
+      "withdrawAt": "2026-02-01"
+    },
+    "Teeth Toy": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Fake Treasure": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Fake Mouse": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Pet Tree": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Definitely not a Flower": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Bumpkin Rug": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Goblin Rug": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Pet Rug": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Jester in a box": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "The Sunflower Man Statue": {
+      "tradeAt": "2026-04-17T00:00:00Z",
+      "withdrawAt": "2026-04-17T00:00:00Z"
+    },
+    "Blue Paint Bucket": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Green Paint Bucket": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Purple Paint Bucket": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Yellow Paint Bucket": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Color Wheel": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Dhol Drum": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Mimic Slime Ball": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Mimic Winged Slime Ball": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Pork Jelly": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Rainbow Pork Jelly": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Slime Totem": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Giant Donut": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Fool's Gold": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Golden Slime Trophy": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Silver Slime Trophy": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Bronze Slime Trophy": {
+      "tradeAt": "2026-08-20T00:00:00Z",
+      "withdrawAt": "2026-08-20T00:00:00Z"
+    },
+    "Stone Beetle": {
+      "tradeAt": "2026-03-09"
+    }
+  }
+}

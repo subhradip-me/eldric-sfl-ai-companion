@@ -1,0 +1,207 @@
+{
+  "FISH_MILESTONES": {
+    "Novice Angler": {
+      "task": "Catch each basic fish",
+      "percentageComplete": {
+        "$unparsed": "{\n      const caughtFish = FISH_BY_TYPE.basic.filter(\n        (name) => (farmActivity[`${name} Caught`] ?? 0) >= 1,\n      );\n\n      const required = FISH_BY_TYPE.basic.length;\n\n      return Math.min((caughtFish.length / required) * 100, 100);\n    }"
+      },
+      "reward": {
+        "Sunflower Rod": 1
+      }
+    },
+    "Advanced Angler": {
+      "task": "Catch each advanced fish",
+      "percentageComplete": {
+        "$unparsed": "{\n      const caughtFish = FISH_BY_TYPE.advanced.filter(\n        (name) => (farmActivity[`${name} Caught`] ?? 0) >= 1,\n      );\n\n      const required = FISH_BY_TYPE.advanced.length;\n\n      return Math.min((caughtFish.length / required) * 100, 100);\n    }"
+      },
+      "reward": {
+        "Fishing Hat": 1
+      }
+    },
+    "Expert Angler": {
+      "task": "Catch 300 fish",
+      "percentageComplete": {
+        "$unparsed": "{\n      const totalFishRequired = 300;\n\n      const totalFishCaught = getKeys(FISH).reduce(\n        (total, name) => total + (farmActivity[`${name} Caught`] ?? 0),\n        0,\n      );\n\n      return Math.min((totalFishCaught / totalFishRequired) * 100, 100);\n    }"
+      },
+      "reward": {
+        "Angler Waders": 1
+      }
+    },
+    "Fish Encyclopedia": {
+      "task": "Discover 30 species of fish",
+      "percentageComplete": {
+        "$unparsed": "{\n      const encyclopediaFish = getEncyclopediaFish();\n      const totalFishRequired = 30;\n\n      const totalFishCaught = encyclopediaFish.reduce(\n        (total, name) =>\n          total + Math.min(farmActivity[`${name} Caught`] ?? 0, 1),\n        0,\n      );\n\n      return Math.min((totalFishCaught / totalFishRequired) * 100, 100);\n    }"
+      },
+      "reward": {
+        "Bucket O' Worms": 1
+      }
+    },
+    "Master Angler": {
+      "task": "Catch 1500 fish",
+      "percentageComplete": {
+        "$unparsed": "{\n      const totalFishRequired = 1500;\n\n      const totalFishCaught = getKeys(FISH).reduce(\n        (total, name) => total + (farmActivity[`${name} Caught`] ?? 0),\n        0,\n      );\n\n      return Math.min((totalFishCaught / totalFishRequired) * 100, 100);\n    }"
+      },
+      "reward": {
+        "Trident": 1
+      }
+    },
+    "Marine Marvel Master": {
+      "task": "Catch each permanent Marine Marvel",
+      "percentageComplete": {
+        "$unparsed": "{\n      const nonSeasonalMarvels = FISH_BY_TYPE[\"marine marvel\"].filter(\n        (marvel) => !Object.keys(CHAPTER_FISH).includes(marvel),\n      );\n\n      const totalFishRequired = nonSeasonalMarvels.length;\n\n      const totalFishCaught = nonSeasonalMarvels.reduce(\n        (total, name) =>\n          total + Math.min(farmActivity[`${name} Caught`] ?? 0, 1),\n        0,\n      );\n\n      return Math.min((totalFishCaught / totalFishRequired) * 100, 100);\n    }"
+      },
+      "reward": {
+        "Luminous Anglerfish Topper": 1
+      }
+    },
+    "Deep Sea Diver": {
+      "task": "Catch 5 of every fish",
+      "percentageComplete": {
+        "$unparsed": "{\n      const encyclopediaFish = getEncyclopediaFish();\n\n      const fishComplete = encyclopediaFish.filter(\n        (name) => (farmActivity[`${name} Caught`] ?? 0) >= 5,\n        0,\n      );\n\n      return (fishComplete.length / encyclopediaFish.length) * 100;\n    }"
+      },
+      "reward": {
+        "Deep Sea Helm": 1
+      }
+    },
+    "Marine Biologist": {
+      "task": "Discover each basic, advanced, and expert fish",
+      "percentageComplete": {
+        "$unparsed": "{\n      const encyclopediaFish = getEncyclopediaFish();\n      const totalFishRequired = encyclopediaFish.length;\n\n      const totalFishCaught = encyclopediaFish.reduce(\n        (total, name) =>\n          total + Math.min(farmActivity[`${name} Caught`] ?? 0, 1),\n        0,\n      );\n\n      return Math.min((totalFishCaught / totalFishRequired) * 100, 100);\n    }"
+      },
+      "reward": {
+        "Radiant Dumbo": 1
+      }
+    }
+  },
+  "FLOWER_MILESTONES": {
+    "Sunpetal Savant": {
+      "task": "Discover 12 Sunpetal variants",
+      "reward": {},
+      "percentageComplete": {
+        "$unparsed": "{\n      const sunpetalFlowers = getKeys(FLOWERS).filter(\n        (name) => FLOWERS[name].seed === \"Sunpetal Seed\",\n      );\n\n      const uniqueFlowersDiscovered = sunpetalFlowers.reduce(\n        (total, name) =>\n          total + Math.min(farmActivity[`${name} Harvested`] ?? 0, 1),\n        0,\n      );\n\n      return Math.min((uniqueFlowersDiscovered / 12) * 100, 100);\n    }"
+      }
+    },
+    "Bloom Big Shot": {
+      "task": "Discover 12 Bloom variants",
+      "reward": {},
+      "percentageComplete": {
+        "$unparsed": "{\n      const sunpetalFlowers = getKeys(FLOWERS).filter(\n        (name) => FLOWERS[name].seed === \"Bloom Seed\",\n      );\n\n      const uniqueFlowersDiscovered = sunpetalFlowers.reduce(\n        (total, name) =>\n          total + Math.min(farmActivity[`${name} Harvested`] ?? 0, 1),\n        0,\n      );\n\n      return Math.min((uniqueFlowersDiscovered / 12) * 100, 100);\n    }"
+      }
+    },
+    "Lily Luminary": {
+      "task": "Discover 12 Lily variants",
+      "reward": {},
+      "percentageComplete": {
+        "$unparsed": "{\n      const sunpetalFlowers = getKeys(FLOWERS).filter(\n        (name) => FLOWERS[name].seed === \"Lily Seed\",\n      );\n\n      const uniqueFlowersDiscovered = sunpetalFlowers.reduce(\n        (total, name) =>\n          total + Math.min(farmActivity[`${name} Harvested`] ?? 0, 1),\n        0,\n      );\n\n      return Math.min((uniqueFlowersDiscovered / 12) * 100, 100);\n    }"
+      }
+    }
+  },
+  "MILESTONES": {
+    "Novice Angler": {
+      "task": "Catch each basic fish",
+      "percentageComplete": {
+        "$unparsed": "{\n      const caughtFish = FISH_BY_TYPE.basic.filter(\n        (name) => (farmActivity[`${name} Caught`] ?? 0) >= 1,\n      );\n\n      const required = FISH_BY_TYPE.basic.length;\n\n      return Math.min((caughtFish.length / required) * 100, 100);\n    }"
+      },
+      "reward": {
+        "Sunflower Rod": 1
+      }
+    },
+    "Advanced Angler": {
+      "task": "Catch each advanced fish",
+      "percentageComplete": {
+        "$unparsed": "{\n      const caughtFish = FISH_BY_TYPE.advanced.filter(\n        (name) => (farmActivity[`${name} Caught`] ?? 0) >= 1,\n      );\n\n      const required = FISH_BY_TYPE.advanced.length;\n\n      return Math.min((caughtFish.length / required) * 100, 100);\n    }"
+      },
+      "reward": {
+        "Fishing Hat": 1
+      }
+    },
+    "Expert Angler": {
+      "task": "Catch 300 fish",
+      "percentageComplete": {
+        "$unparsed": "{\n      const totalFishRequired = 300;\n\n      const totalFishCaught = getKeys(FISH).reduce(\n        (total, name) => total + (farmActivity[`${name} Caught`] ?? 0),\n        0,\n      );\n\n      return Math.min((totalFishCaught / totalFishRequired) * 100, 100);\n    }"
+      },
+      "reward": {
+        "Angler Waders": 1
+      }
+    },
+    "Fish Encyclopedia": {
+      "task": "Discover 30 species of fish",
+      "percentageComplete": {
+        "$unparsed": "{\n      const encyclopediaFish = getEncyclopediaFish();\n      const totalFishRequired = 30;\n\n      const totalFishCaught = encyclopediaFish.reduce(\n        (total, name) =>\n          total + Math.min(farmActivity[`${name} Caught`] ?? 0, 1),\n        0,\n      );\n\n      return Math.min((totalFishCaught / totalFishRequired) * 100, 100);\n    }"
+      },
+      "reward": {
+        "Bucket O' Worms": 1
+      }
+    },
+    "Master Angler": {
+      "task": "Catch 1500 fish",
+      "percentageComplete": {
+        "$unparsed": "{\n      const totalFishRequired = 1500;\n\n      const totalFishCaught = getKeys(FISH).reduce(\n        (total, name) => total + (farmActivity[`${name} Caught`] ?? 0),\n        0,\n      );\n\n      return Math.min((totalFishCaught / totalFishRequired) * 100, 100);\n    }"
+      },
+      "reward": {
+        "Trident": 1
+      }
+    },
+    "Marine Marvel Master": {
+      "task": "Catch each permanent Marine Marvel",
+      "percentageComplete": {
+        "$unparsed": "{\n      const nonSeasonalMarvels = FISH_BY_TYPE[\"marine marvel\"].filter(\n        (marvel) => !Object.keys(CHAPTER_FISH).includes(marvel),\n      );\n\n      const totalFishRequired = nonSeasonalMarvels.length;\n\n      const totalFishCaught = nonSeasonalMarvels.reduce(\n        (total, name) =>\n          total + Math.min(farmActivity[`${name} Caught`] ?? 0, 1),\n        0,\n      );\n\n      return Math.min((totalFishCaught / totalFishRequired) * 100, 100);\n    }"
+      },
+      "reward": {
+        "Luminous Anglerfish Topper": 1
+      }
+    },
+    "Deep Sea Diver": {
+      "task": "Catch 5 of every fish",
+      "percentageComplete": {
+        "$unparsed": "{\n      const encyclopediaFish = getEncyclopediaFish();\n\n      const fishComplete = encyclopediaFish.filter(\n        (name) => (farmActivity[`${name} Caught`] ?? 0) >= 5,\n        0,\n      );\n\n      return (fishComplete.length / encyclopediaFish.length) * 100;\n    }"
+      },
+      "reward": {
+        "Deep Sea Helm": 1
+      }
+    },
+    "Marine Biologist": {
+      "task": "Discover each basic, advanced, and expert fish",
+      "percentageComplete": {
+        "$unparsed": "{\n      const encyclopediaFish = getEncyclopediaFish();\n      const totalFishRequired = encyclopediaFish.length;\n\n      const totalFishCaught = encyclopediaFish.reduce(\n        (total, name) =>\n          total + Math.min(farmActivity[`${name} Caught`] ?? 0, 1),\n        0,\n      );\n\n      return Math.min((totalFishCaught / totalFishRequired) * 100, 100);\n    }"
+      },
+      "reward": {
+        "Radiant Dumbo": 1
+      }
+    },
+    "Sunpetal Savant": {
+      "task": "Discover 12 Sunpetal variants",
+      "reward": {},
+      "percentageComplete": {
+        "$unparsed": "{\n      const sunpetalFlowers = getKeys(FLOWERS).filter(\n        (name) => FLOWERS[name].seed === \"Sunpetal Seed\",\n      );\n\n      const uniqueFlowersDiscovered = sunpetalFlowers.reduce(\n        (total, name) =>\n          total + Math.min(farmActivity[`${name} Harvested`] ?? 0, 1),\n        0,\n      );\n\n      return Math.min((uniqueFlowersDiscovered / 12) * 100, 100);\n    }"
+      }
+    },
+    "Bloom Big Shot": {
+      "task": "Discover 12 Bloom variants",
+      "reward": {},
+      "percentageComplete": {
+        "$unparsed": "{\n      const sunpetalFlowers = getKeys(FLOWERS).filter(\n        (name) => FLOWERS[name].seed === \"Bloom Seed\",\n      );\n\n      const uniqueFlowersDiscovered = sunpetalFlowers.reduce(\n        (total, name) =>\n          total + Math.min(farmActivity[`${name} Harvested`] ?? 0, 1),\n        0,\n      );\n\n      return Math.min((uniqueFlowersDiscovered / 12) * 100, 100);\n    }"
+      }
+    },
+    "Lily Luminary": {
+      "task": "Discover 12 Lily variants",
+      "reward": {},
+      "percentageComplete": {
+        "$unparsed": "{\n      const sunpetalFlowers = getKeys(FLOWERS).filter(\n        (name) => FLOWERS[name].seed === \"Lily Seed\",\n      );\n\n      const uniqueFlowersDiscovered = sunpetalFlowers.reduce(\n        (total, name) =>\n          total + Math.min(farmActivity[`${name} Harvested`] ?? 0, 1),\n        0,\n      );\n\n      return Math.min((uniqueFlowersDiscovered / 12) * 100, 100);\n    }"
+      }
+    }
+  },
+  "MILESTONE_MESSAGES": {
+    "Novice Angler": "Congratulations, you've just reached the Novice Angler milestone! You're well on your way to becoming a fishing pro by catching each basic fish.",
+    "Advanced Angler": "Impressive, you've just reached the Advanced Angler milestone! You've mastered the art of catching each advanced fish. Keep it up!",
+    "Expert Angler": "Wow, you've just reached the Expert Angler milestone! You're a true fishing expert now! Catching 300 fish is no small feat.",
+    "Fish Encyclopedia": "Congratulations, you've just reached the Fish Encyclopedia milestone! You've become a true fish connoisseur! Discovering each basic, advanced, and expert fish is a remarkable achievement.",
+    "Master Angler": "Wow, you've just reached the Master Angler milestone! Catching 1500 fish is a testament to your fishing skills.",
+    "Marine Marvel Master": "Congratulations, you've just reached the Marine Marvel Master milestone! You're the undisputed champion of the seas! Catching each Marvel proves your fishing prowess like no other.",
+    "Deep Sea Diver": "Congratulations, you've just reached the Deep Sea Diver milestone! You have earnt the Deep Sea Helm - a mysterious Crown that attracts Marine Marvel map pieces to your hook.",
+    "Sunpetal Savant": "Congratulations, you've just reached the Sunpetal Savant milestone! You've discovered each Sunpetal variant. You're a true Sunpetal expert!",
+    "Bloom Big Shot": "Congratulations, you've just reached the Bloom Big Shot milestone! You've discovered each Bloom variant. You're a true Bloom expert!",
+    "Lily Luminary": "Congratulations, you've just reached the Lily Luminary milestone! You've discovered each Lily variant. You're a true Lily expert!",
+    "Marine Biologist": "Congratulations, you've just reached the Marine Biologist milestone! You've discovered 37 species of fish. You're a true Marine Biologist!"
+  }
+}

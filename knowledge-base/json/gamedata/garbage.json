@@ -1,0 +1,166 @@
+{
+  "GARBAGE": {
+    "Block Buck": {
+      "sellPrice": 0,
+      "gems": {
+        "$unresolvedIdentifier": "BB_TO_GEM_RATIO"
+      }
+    },
+    "Jack-o-lantern": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Love Letter": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Red Envelope": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "War Bond": {
+      "sellPrice": 0.1,
+      "gems": 0
+    },
+    "Blue Egg": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Green Egg": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Orange Egg": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Pink Egg": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Purple Egg": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Red Egg": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Yellow Egg": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Rapid Growth": {
+      "sellPrice": 160,
+      "gems": 0
+    },
+    "Tent": {
+      "sellPrice": 20,
+      "gems": 0
+    },
+    "$unparsed": "getObjectEntries(CHAPTER_TICKET_NAME).reduce(\n    (acc, [season, ticket]) => {\n      return {\n        ...acc,\n        ...(CHAPTERS[season].endDate.getTime() < Date.now()\n          ? {\n              [ticket]: {\n                sellPrice: 0.1,\n                gems: 0,\n              },\n            }\n          : {}),\n      };\n    },\n    {} as Record<ChapterTicket, Garbage>,\n  )",
+    "Chicken": {
+      "sellPrice": 200,
+      "gems": 0
+    },
+    "Hen House": {
+      "sellPrice": 800,
+      "gems": 0,
+      "limit": 1,
+      "items": {
+        "Wood": 200,
+        "Iron": 15,
+        "Gold": 15,
+        "Egg": 300
+      }
+    },
+    "Water Well": {
+      "sellPrice": 320,
+      "gems": 0,
+      "limit": 3,
+      "items": {
+        "Wood": 5,
+        "Stone": 5
+      }
+    },
+    "Basic Bear": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Basic Hair": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Community Coin": {
+      "sellPrice": 0,
+      "gems": 0,
+      "items": {
+        "Love Charm": 25
+      }
+    },
+    "Easter Token 2025": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Easter Ticket 2025": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Trash": {
+      "sellPrice": 3,
+      "gems": 0
+    },
+    "Dung": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Weed": {
+      "sellPrice": 5,
+      "gems": 0
+    },
+    "Anthill": {
+      "sellPrice": 50,
+      "gems": 0
+    },
+    "Rat": {
+      "sellPrice": 50,
+      "gems": 0
+    },
+    "Snail": {
+      "sellPrice": 50,
+      "gems": 0
+    },
+    "Halloween Token 2025": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Halloween Ticket 2025": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Holiday Token 2025": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Holiday Ticket 2025": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "April Fools Token 2026": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "April Fools Ticket 2026": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Colors Token 2026": {
+      "sellPrice": 1,
+      "gems": 0
+    },
+    "Colors Ticket 2026": {
+      "sellPrice": 1,
+      "gems": 0
+    }
+  }
+}

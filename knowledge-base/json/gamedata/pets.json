@@ -1,0 +1,393 @@
+{
+  "PET_HOUSE_CAPACITY": {
+    "1": {
+      "commonPets": 3,
+      "nftPets": 1
+    },
+    "2": {
+      "commonPets": 5,
+      "nftPets": 4
+    },
+    "3": {
+      "commonPets": 7,
+      "nftPets": 7
+    }
+  },
+  "PET_NFT_DIMENSIONS": {
+    "width": 2,
+    "height": 2
+  },
+  "PET_NFT_TYPES": [
+    "Ram",
+    "Dragon",
+    "Phoenix",
+    "Griffin",
+    "Warthog",
+    "Wolf",
+    "Bear"
+  ],
+  "PET_CATEGORY_NAMES": [
+    "Guardian",
+    "Hunter",
+    "Voyager",
+    "Beast",
+    "Moonkin",
+    "Snowkin",
+    "Forager"
+  ],
+  "PET_CATEGORIES": {
+    "Dog": {
+      "primary": "Guardian",
+      "secondary": "Hunter"
+    },
+    "Cat": {
+      "primary": "Hunter",
+      "secondary": "Moonkin"
+    },
+    "Owl": {
+      "primary": "Moonkin",
+      "secondary": "Forager"
+    },
+    "Horse": {
+      "primary": "Voyager",
+      "secondary": "Beast"
+    },
+    "Bull": {
+      "primary": "Beast",
+      "secondary": "Snowkin"
+    },
+    "Hamster": {
+      "primary": "Forager",
+      "secondary": "Guardian"
+    },
+    "Penguin": {
+      "primary": "Snowkin",
+      "secondary": "Voyager"
+    },
+    "Dragon": {
+      "primary": "Snowkin",
+      "secondary": "Guardian",
+      "tertiary": "Voyager"
+    },
+    "Ram": {
+      "primary": "Hunter",
+      "secondary": "Voyager",
+      "tertiary": "Moonkin"
+    },
+    "Phoenix": {
+      "primary": "Moonkin",
+      "secondary": "Beast",
+      "tertiary": "Guardian"
+    },
+    "Griffin": {
+      "primary": "Voyager",
+      "secondary": "Forager",
+      "tertiary": "Beast"
+    },
+    "Warthog": {
+      "primary": "Beast",
+      "secondary": "Snowkin",
+      "tertiary": "Hunter"
+    },
+    "Wolf": {
+      "primary": "Guardian",
+      "secondary": "Hunter",
+      "tertiary": "Forager"
+    },
+    "Bear": {
+      "primary": "Forager",
+      "secondary": "Moonkin",
+      "tertiary": "Snowkin"
+    }
+  },
+  "FETCHES_BY_CATEGORY": {
+    "Guardian": "Chewed Bone",
+    "Hunter": "Ribbon",
+    "Voyager": "Ruffroot",
+    "Beast": "Wild Grass",
+    "Moonkin": "Heart leaf",
+    "Snowkin": "Frost Pebble",
+    "Forager": "Dewberry"
+  },
+  "PET_TYPES": {
+    "Barkley": "Dog",
+    "Biscuit": "Dog",
+    "Cloudy": "Dog",
+    "Meowchi": "Cat",
+    "Butters": "Cat",
+    "Smokey": "Cat",
+    "Twizzle": "Owl",
+    "Flicker": "Owl",
+    "Pippin": "Owl",
+    "Burro": "Horse",
+    "Pinto": "Horse",
+    "Roan": "Horse",
+    "Stallion": "Horse",
+    "Mudhorn": "Bull",
+    "Bison": "Bull",
+    "Oxen": "Bull",
+    "Nibbles": "Hamster",
+    "Peanuts": "Hamster",
+    "Waddles": "Penguin",
+    "Pip": "Penguin",
+    "Skipper": "Penguin",
+    "Ramsey": "Ram"
+  },
+  "PET_RESOURCES": {
+    "Acorn": {
+      "energy": 100
+    },
+    "Ruffroot": {
+      "energy": 200
+    },
+    "Chewed Bone": {
+      "energy": 200
+    },
+    "Heart leaf": {
+      "energy": 200
+    },
+    "Frost Pebble": {
+      "energy": 200
+    },
+    "Wild Grass": {
+      "energy": 200
+    },
+    "Ribbon": {
+      "energy": 200
+    },
+    "Dewberry": {
+      "energy": 200
+    },
+    "Fossil Shell": {
+      "energy": 300
+    },
+    "Moonfur": {
+      "energy": 1000
+    }
+  },
+  "PET_SHRINES": {
+    "Boar Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15
+      },
+      "inventoryLimit": 1
+    },
+    "Hound Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 50
+      },
+      "inventoryLimit": 1
+    },
+    "Sparrow Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Wild Grass": 10,
+        "Ruffroot": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Fox Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Chewed Bone": 10,
+        "Ribbon": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Toucan Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Heart leaf": 10,
+        "Frost Pebble": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Collie Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Frost Pebble": 10,
+        "Chewed Bone": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Moth Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Frost Pebble": 10,
+        "Ribbon": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Badger Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Dewberry": 10,
+        "Heart leaf": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Mole Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Dewberry": 10,
+        "Ribbon": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Tortoise Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Wild Grass": 10,
+        "Chewed Bone": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Stag Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Heart leaf": 10,
+        "Wild Grass": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Bear Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Chewed Bone": 10,
+        "Ruffroot": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Bantam Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Ruffroot": 10,
+        "Dewberry": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Legendary Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Obsidian": 1,
+        "Moonfur": 10,
+        "Acorn": 15
+      },
+      "inventoryLimit": 1
+    },
+    "Trading Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Moonfur": 5,
+        "Obsidian": 3
+      },
+      "inventoryLimit": 1
+    }
+  },
+  "PET_REQUESTS": {
+    "easy": [
+      "Mashed Potato",
+      "Rhubarb Tart",
+      "Pumpkin Soup",
+      "Reindeer Carrot",
+      "Bumpkin Broth",
+      "Popcorn",
+      "Sunflower Crunch",
+      "Roast Veggies",
+      "Club Sandwich",
+      "Fruit Salad",
+      "Cheese",
+      "Quick Juice",
+      "Carrot Juice",
+      "Purple Smoothie"
+    ],
+    "medium": [
+      "Boiled Eggs",
+      "Cabbers n Mash",
+      "Fried Tofu",
+      "Kale Stew",
+      "Cauliflower Burger",
+      "Bumpkin Salad",
+      "Goblin's Treat",
+      "Pancakes",
+      "Bumpkin ganoush",
+      "Tofu Scramble",
+      "Sunflower Cake",
+      "Cornbread",
+      "Pumpkin Cake",
+      "Potato Cake",
+      "Apple Pie",
+      "Orange Cake",
+      "Carrot Cake",
+      "Fermented Carrots",
+      "Blueberry Jam",
+      "Sauerkraut",
+      "Fancy Fries",
+      "Orange Juice",
+      "Apple Juice",
+      "Power Smoothie",
+      "Bumpkin Detox",
+      "Sour Shake"
+    ],
+    "hard": [
+      "Kale Omelette",
+      "Rice Bun",
+      "Antipasto",
+      "Pizza Margherita",
+      "Bumpkin Roast",
+      "Goblin Brunch",
+      "Steamed Red Rice",
+      "Caprese Salad",
+      "Spaghetti al Limone",
+      "Cabbage Cake",
+      "Wheat Cake",
+      "Cauliflower Cake",
+      "Radish Cake",
+      "Beetroot Cake",
+      "Parsnip Cake",
+      "Eggplant Cake",
+      "Honey Cake",
+      "Lemon Cheesecake",
+      "Blue Cheese",
+      "Honey Cheddar",
+      "Banana Blast",
+      "Grape Juice",
+      "Slow Juice",
+      "The Lot"
+    ]
+  },
+  "PET_REQUEST_XP": {
+    "easy": 20,
+    "medium": 100,
+    "hard": 300
+  }
+}
