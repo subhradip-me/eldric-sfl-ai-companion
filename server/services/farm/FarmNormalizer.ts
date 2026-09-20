@@ -17,6 +17,7 @@ import type {
   FarmStructureState,
   ProductionState,
   AnimalState,
+  AnimalInstance,
   PetState,
   ProgressionState,
   DeliveryState,

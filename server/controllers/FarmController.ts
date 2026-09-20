@@ -40,7 +40,8 @@ export class FarmController {
         return;
       }
 
-      const { canonical, raw, stale } = await sunflowerClient.getFarm(farmId);
+      const force = req.query['force'] === 'true';
+      const { canonical, raw, stale } = await sunflowerClient.getFarm(farmId, force);
 
       // Phase 2: Loss-aware normalization & diagnostics
       const normResult = farmNormalizer.normalize(raw || canonical, {
@@ -69,9 +70,9 @@ export class FarmController {
         hotStore.setRaw(farmId, raw).catch(() => {});
       }
 
-      // Save snapshot asynchronously only if not a dev override or if running under dev user
+      // Save snapshot only if not a dev override or if running under dev user
       if (!isDevOverride || user?.username === 'dev') {
-        snapshotService.save(raw || canonical, userId).catch((err) =>
+        await snapshotService.save(raw || canonical, userId).catch((err) =>
           console.warn('Failed to save snapshot:', (err as Error).message)
         );
       }
@@ -84,6 +85,7 @@ export class FarmController {
         normResult.rawHash
       );
 
+      const L100 = 23073000;
       res.json({
         ...canonical,
         stale,
@@ -92,6 +94,7 @@ export class FarmController {
         normalized: normResult.normalizedState,
         rawHash: normResult.rawHash,
         diagnostics: normResult.diagnostics,
+        production: normResult.normalizedState.production,
         activeProduction: prodSummary.value,
         provenance: prodSummary.provenance,
         dashboard,
@@ -102,7 +105,7 @@ export class FarmController {
         },
       });
     } catch (error) {
-      console.error('Get farm error:', error);
+      console.error('Get farm data error:', error);
       res.status(500).json({ success: false, error: 'Failed to fetch farm data' });
     }
   }
@@ -153,23 +156,86 @@ export class FarmController {
     }
   }
 
-  /** GET /api/farm/activity — diff between the last two snapshots */
+  /** GET /api/farm/activity — diff between the last two snapshots, with live FLOWER valuation */
   async getActivity(req: Request, res: Response): Promise<void> {
     try {
       const { userId } = req as AuthReq;
       const snapshots = await snapshotService.getLatest(userId, 2);
 
+      // Always return structured data, even with insufficient snapshots
       if (snapshots.length < 2) {
-        res.json({ note: 'Need at least 2 snapshots. Refresh your farm data a couple of times after playing.' });
+        res.json({
+          success: true,
+          hasEnoughData: false,
+          note: 'Need at least 2 snapshots. Visit your farm tab to capture your first snapshot, then return after playing.',
+          observed: {},
+          inferred: {},
+          xpDelta: 0,
+          valuation: { perItem: {}, totalFlower: 0, pricesUsed: {} },
+        });
         return;
       }
 
-      // Snapshots are DESC; reverse for diffActivity (prev, curr)
-      const activity = activityService.diff(snapshots[1].data_json, snapshots[0].data_json);
-      res.json(activity);
+      // Snapshots are DESC; snapshots[1] = older, snapshots[0] = newer
+      const diff = activityService.diff(snapshots[1], snapshots[0]);
+
+      // Attach live FLOWER valuation
+      let prices: Record<string, number> = {};
+      try {
+        const market = await sunflowerClient.getPrices();
+        prices = market.prices ?? {};
+      } catch {
+        // Fall through — valuation will use zero prices
+      }
+
+      const valued = activityService.valuate(diff, prices);
+      res.json({ success: true, hasEnoughData: true, ...valued });
     } catch (error) {
       console.error('Get activity error:', error);
       res.status(500).json({ success: false, error: 'Failed to fetch activity data' });
+    }
+  }
+
+  /** GET /api/farm/activity/daily?days=7 — daily production summary with live FLOWER valuation */
+  async getDailyProduction(req: Request, res: Response): Promise<void> {
+    try {
+      const { userId } = req as AuthReq;
+      const days = Math.min(parseInt((req.query['days'] as string) || '7', 10) || 7, 30);
+
+      // Fetch enough snapshots to cover the requested window (up to 100)
+      const snapshots = await snapshotService.getLatest(userId, 100);
+
+      if (snapshots.length < 2) {
+        res.json({
+          success: true,
+          hasEnoughData: false,
+          note: 'Capture at least 2 farm snapshots to see daily production trends.',
+          days: [],
+          totals: { totalFlower: 0, totalXp: 0, topItems: [] },
+        });
+        return;
+      }
+
+      // Filter to the requested day window
+      const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
+      const inWindow = snapshots.filter((s) => Number(s.created_at) >= cutoff);
+      // Always include at least the 2 most recent to allow diffing
+      const toProcess = inWindow.length >= 2 ? inWindow : snapshots.slice(0, 2);
+
+      // Fetch live prices, fall back gracefully
+      let prices: Record<string, number> = {};
+      try {
+        const market = await sunflowerClient.getPrices();
+        prices = market.prices ?? {};
+      } catch {
+        // Zero prices — valuation will show 0 but structure is intact
+      }
+
+      const summary = activityService.dailySummary(toProcess, prices);
+      res.json({ success: true, hasEnoughData: true, ...summary });
+    } catch (error) {
+      console.error('Get daily production error:', error);
+      res.status(500).json({ success: false, error: 'Failed to fetch daily production data' });
     }
   }
 
@@ -198,7 +264,7 @@ export class FarmController {
         return;
       }
 
-      const [{ canonical, raw }, { prices }] = await Promise.all([
+      const [{ canonical, raw }, { prices, updatedAt: pricesUpdatedAt }] = await Promise.all([
         sunflowerClient.getFarm(farmId),
         sunflowerClient.getPrices().catch(() => ({ prices: {} as Record<string, number>, updatedAt: null, stale: false })),
       ]);
@@ -282,8 +348,7 @@ export class FarmController {
         byBuilding[r.building].push(r);
       }
 
-      const pricesUpdatedAt = await sunflowerClient.getPrices().catch(() => ({ updatedAt: null }));
-      res.json({ activeBuildings, byBuilding, totalRecipes: enriched.length, pricesUpdatedAt: pricesUpdatedAt.updatedAt ?? null });
+      res.json({ activeBuildings, byBuilding, totalRecipes: enriched.length, pricesUpdatedAt: pricesUpdatedAt ?? null });
     } catch (error) {
       console.error('Get recipes error:', error);
       res.status(500).json({ success: false, error: 'Failed to fetch recipe data' });

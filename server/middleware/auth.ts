@@ -1,4 +1,10 @@
 import jwt from 'jsonwebtoken';
+import type { Request, Response, NextFunction } from 'express';
+
+if (!process.env.JWT_SECRET && process.env.NODE_ENV === 'production') {
+  console.error('FATAL: JWT_SECRET environment variable is not set in production. Refusing to start.');
+  process.exit(1);
+}
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 
@@ -6,24 +12,25 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-producti
  * Middleware to authenticate requests using JWT
  * Requires a valid token in Authorization header
  */
-export function authenticateToken(req, res, next) {
+export function authenticateToken(req: Request & { userId?: number; username?: string }, res: Response, next: NextFunction): void {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
 
   if (!token) {
-    return res.status(401).json({ 
+    res.status(401).json({ 
       success: false,
       error: 'Access token required' 
     });
+    return;
   }
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET) as { userId: number; username: string };
     req.userId = decoded.userId;
     req.username = decoded.username;
     next();
   } catch (error) {
-    return res.status(403).json({ 
+    res.status(403).json({ 
       success: false,
       error: 'Invalid or expired token' 
     });
@@ -34,13 +41,13 @@ export function authenticateToken(req, res, next) {
  * Optional authentication middleware
  * Doesn't fail if no token, but sets userId if valid token exists
  */
-export function optionalAuth(req, res, next) {
+export function optionalAuth(req: Request & { userId?: number | null; username?: string }, res: Response, next: NextFunction): void {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
   if (token) {
     try {
-      const decoded = jwt.verify(token, JWT_SECRET);
+      const decoded = jwt.verify(token, JWT_SECRET) as { userId: number; username: string };
       req.userId = decoded.userId;
       req.username = decoded.username;
     } catch (error) {
@@ -55,12 +62,13 @@ export function optionalAuth(req, res, next) {
 /**
  * Middleware to require authentication (no optional)
  */
-export function requireAuth(req, res, next) {
+export function requireAuth(req: Request & { userId?: number | null }, res: Response, next: NextFunction): void {
   if (!req.userId) {
-    return res.status(401).json({ 
+    res.status(401).json({ 
       success: false,
       error: 'Authentication required' 
     });
+    return;
   }
   next();
 }

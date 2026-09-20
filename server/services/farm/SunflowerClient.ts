@@ -56,14 +56,19 @@ export class SunflowerClient {
     return res.json() as Promise<T>;
   }
 
-  private async cached<T>(key: string, ttl: number, fn: () => Promise<T>): Promise<T & { stale: boolean; cached: boolean }> {
+  private async cached<T>(
+    key: string,
+    ttl: number,
+    fn: () => Promise<T>,
+    force = false
+  ): Promise<T & { stale: boolean; cached: boolean }> {
     const hit = this.memCache[key];
-    if (hit && Date.now() - hit.at < ttl) {
+    if (!force && hit && Date.now() - hit.at < ttl) {
       return { ...(hit.data as T), stale: false, cached: true };
     }
 
     // In-flight dedup: return existing promise if already fetching
-    if (this.pending.has(key)) {
+    if (!force && this.pending.has(key)) {
       return this.pending.get(key) as Promise<T & { stale: boolean; cached: boolean }>;
     }
 
@@ -88,8 +93,8 @@ export class SunflowerClient {
     return promise as Promise<T & { stale: boolean; cached: boolean }>;
   }
 
-  /** Fetch canonical farm state for a given farm ID. Caches 5 min. */
-  getFarm(farmId?: string | null): Promise<RawFarmResponse & { stale: boolean; cached: boolean }> {
+  /** Fetch canonical farm state for a given farm ID. Caches 5 min unless force=true. */
+  getFarm(farmId?: string | null, force = false): Promise<RawFarmResponse & { stale: boolean; cached: boolean }> {
     const { SUNFLOWER_API_URL, SUNFLOWER_FARM_ID, SUNFLOWER_API_KEY } = process.env;
     const targetFarmId = farmId || SUNFLOWER_FARM_ID;
     if (!targetFarmId) throw new Error('No farm ID provided and SUNFLOWER_FARM_ID is not set');
@@ -103,7 +108,8 @@ export class SunflowerClient {
           SUNFLOWER_API_KEY ? { 'x-api-key': SUNFLOWER_API_KEY } : {}
         );
         return { canonical: farmNormalizer.toCanonical(raw), raw };
-      }
+      },
+      force
     ) as Promise<RawFarmResponse & { stale: boolean; cached: boolean }>;
   }
 

@@ -76,6 +76,7 @@ export async function init() {
   await pool.query(`
     ALTER TABLE snapshots     ADD COLUMN IF NOT EXISTS user_id INTEGER;
     ALTER TABLE chat_messages ADD COLUMN IF NOT EXISTS user_id INTEGER;
+    ALTER TABLE chat_messages ADD COLUMN IF NOT EXISTS embedding vector(384);
   `);
 
   // Add FK constraints idempotently (skip if constraint already exists)
@@ -140,11 +141,54 @@ export async function init() {
         ['dev', 'dev@sunflower-ai.internal', devHash, '346853928974080']
       );
       console.log('🛠️  Developer account seeded: username: dev / password: developer123 / farm: 346853928974080 (role: DEVELOPER, unlimited credits)');
-    } else {
+    } else if (process.env.NODE_ENV !== 'production') {
       await pool.query(`UPDATE users SET role = 'DEVELOPER', ai_credits = 999999 WHERE username = 'dev'`);
     }
-  } catch (seedErr) {
+  } catch (seedErr: any) {
     console.warn('⚠️  Could not seed dev account (will proceed):', seedErr.message);
+  }
+
+  // ── 10. Knowledge Base tables (unified for wiki + AST game data) ───────────
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS kb_documents (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        source TEXT NOT NULL DEFAULT 'sfl-wiki',
+        path TEXT NOT NULL UNIQUE,
+        url TEXT,
+        title TEXT,
+        description TEXT,
+        author_name TEXT,
+        wiki_updated_at TIMESTAMPTZ,
+        content_hash TEXT NOT NULL,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+
+      CREATE TABLE IF NOT EXISTS kb_chunks (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        document_id UUID NOT NULL REFERENCES kb_documents(id) ON DELETE CASCADE,
+        heading_path TEXT[] NOT NULL,
+        chunk_index INT NOT NULL DEFAULT 0,
+        category TEXT,
+        type TEXT,
+        entity TEXT,
+        content TEXT NOT NULL,
+        structured_data JSONB,
+        content_hash TEXT NOT NULL,
+        embedding vector(384),
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        UNIQUE (document_id, heading_path, chunk_index)
+      );
+
+      CREATE INDEX IF NOT EXISTS kb_chunks_embedding_idx ON kb_chunks USING hnsw (embedding vector_cosine_ops);
+      CREATE INDEX IF NOT EXISTS kb_chunks_category_idx ON kb_chunks (category);
+      CREATE INDEX IF NOT EXISTS kb_chunks_type_idx ON kb_chunks (type);
+      CREATE INDEX IF NOT EXISTS kb_chunks_entity_idx ON kb_chunks (entity);
+    `);
+  } catch (kbErr: any) {
+    console.warn('⚠️  Could not init knowledge base tables:', kbErr.message);
   }
 }
 

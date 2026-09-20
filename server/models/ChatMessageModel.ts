@@ -28,7 +28,7 @@ export class ChatMessageModel {
     const result = await pool.query(
       `SELECT id, session_id, role, content, created_at
        FROM chat_messages
-       WHERE session_id = $1 AND (user_id = $2 OR user_id IS NULL)
+       WHERE session_id = $1 AND user_id = $2
        ORDER BY created_at ASC`,
       [sessionId, userId]
     );
