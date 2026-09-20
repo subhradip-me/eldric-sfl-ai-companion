@@ -33,6 +33,9 @@ import {
   resolveEffectContext,
   evaluateDeliveries,
   evaluateCodexTasks,
+  levelFromXp,
+  xpRequiredForLevel,
+  calculateLevelProgress,
 } from '../../core/index.js';
 import { chatStoreService } from '../chat/index.js';
 import { ChatMessage } from '../../models/index.js';
@@ -55,9 +58,11 @@ import type {
 import recipesData from '../../data/recipes.json' with { type: 'json' };
 import itemsData from '../../data/items.json' with { type: 'json' };
 import modifiersData from '../../data/modifiers.json' with { type: 'json' };
-import expansionData from '../../data/expansion .json' with { type: 'json' };
+import expansionData from '../../data/expansion.json' with { type: 'json' };
 import skillCatalogue from '../../data/skills.json' with { type: 'json' };
 import { itemMetadataService } from '../metadata/index.js';
+import { knowledgeService } from '../knowledge/index.js';
+import { PipelineCoordinator } from './pipeline/index.js';
 
 const SYSTEM = `You are the Sunflower Land Farm AI Strategist.
 You are a disciplined explainer, communicator, and strategic guide.
@@ -144,7 +149,57 @@ ARCHITECTURAL RULES (Strictly Enforced):
      * NEVER EVER use imaginary placeholder examples like "Delivery 1 - Milk & Eggs", "Delivery 2 - Crops", or "Delivery 3 - Flower".
      * YOU MUST ALWAYS USE REAL EXAMPLES FROM THE PLAYER'S ACTUAL FARM STATE / ACTIVE CODEX:
        - If the user says "2" or a number: Map it to the actual active orders involving 2 items or order #2 (e.g., Corale's 2 Mahi Mahi for 578 Coins, Victoria's 2 Olive + 20 Wheat for 1,100 Coins, Peggy's 2 Banana Blast for 928 Coins, Raven's 2 Blue Clover for 6 Feathers, or Pharaoh's 2 Vases for 9 Feathers).
-       - If the user says "flower delivery": Detail active flower orders/bounties (e.g. previously completed Guria's 1 Purple Daffodil for 1.1 SFL, active Raven's 2 Blue Clover for 6 Feathers, and Poppy's Flower Bounties: Red Daffodil, Purple Balloon Flower, White Daffodil, White Clover, Blue Daffodil).`;
+       - If the user says "flower delivery": Detail active flower orders/bounties (e.g. previously completed Guria's 1 Purple Daffodil for 1.1 SFL, active Raven's 2 Blue Clover for 6 Feathers, and Poppy's Flower Bounties: Red Daffodil, Purple Balloon Flower, White Daffodil, White Clover, Blue Daffodil).
+10. MULTI-STEP REASONING PIPELINE (Always Follow):
+   PHASE 1 — GOAL DECOMPOSITION:
+   - Before calling any tool, mentally identify: (a) What is the user's actual goal? (b) What data do you need to answer? (c) Is there a hypothetical/what-if component?
+   - If the query is too vague to give a meaningful answer AND you need a preference to proceed (e.g. time vs FLOWER trade-off, what specific goal they want), ask ONE targeted question. Never ask follow-ups on clear queries.
+   - Example of CLEAR query (do NOT ask follow-up): "what should I cook today?" → call get_roadmap and answer.
+   - Example of VAGUE query (ASK follow-up): "help me plan" → "What would you like to focus on — maximizing XP, earning FLOWER, or completing a specific goal like reaching Level 70?"
+   PHASE 2 — TOOL EXECUTION WITH FALLBACK:
+   - Call tools in logical dependency order (get_farm_state first if you need inventory/level).
+   - If a tool returns an error or empty data: say so explicitly, explain what you can't determine, and still answer with what data you DO have. Never fabricate missing numbers.
+   - Use the injected recentActivity (inventory delta since last snapshot) and dailyProduction (7-day FLOWER valuation) in your reasoning — these are pre-computed for you.
+   PHASE 3 — SUFFICIENCY CHECK:
+   - If critical data is missing (tool failed, farm state unavailable): explicitly state what's missing and what the answer would look like once the data is available. Never hallucinate.
+   PHASE 4 — SYNTHESIS:
+   - Use delta data and production valuations in your answer when relevant (e.g. "your farm produced X FLOWER yesterday").
+   - Only add a suggested follow-up if your answer reveals an implicit trade-off the user may not have considered (e.g. you answered XP-focused but FLOWER path is significantly different).
+11. WHAT-IF SIMULATION:
+   - When user asks "what if I had X", "what if I cook Y", "if I build Z what would happen", or sets a production goal ("I want to earn 20 FLOWER today"):
+   * MUST call simulate_what_if with a goal and the hypothetical changes.
+   * Present results as a clear before/after comparison:
+     - Baseline: what the farm produces NOW
+     - Simulated: what the farm would produce WITH the hypothetical change
+     - Gap: how much closer (or further) the change takes them toward the goal
+   * If the goal is reachable, state the exact path. If not, show the shortfall and suggest alternatives.
+12. BUMPKIN LEVEL & XP PROGRESSION:
+   - When asked "how much xp i need to reach the next level", "how much xp i need for level 100", or any question about level progression or XP thresholds:
+     * MUST call get_level_requirements (specifying targetLevel if requested, e.g. targetLevel: 100) or use nextLevel in get_farm_state / injected context.
+     * Cite the exact authoritative figures:
+       1. Current Bumpkin Level and Current XP (e.g. Level 64 with 2,898,543.905 XP).
+       2. Target Level and official cumulative XP required (e.g. Level 65 requires 2,942,905 cumulative XP; Level 100 requires 24,083,905 cumulative XP).
+       3. Exact remaining XP shortfall: (target XP - current XP, e.g. 44,361.095 XP needed for Level 65; 21,185,361.095 XP needed for Level 100).
+       4. Progress percentage and intermediate milestones if target is far ahead.
+     * NEVER state that you do not have the XP-required table. The official levels catalog table (Levels 1 to 200) is fully available via get_level_requirements and get_farm_state.
+13. SKILLS & SKILL TREE PROGRESSION:
+   - When asked "what skill should I unlock next", "what skill to get", "recommend skills", "I want to unlock new skill", or any question about skills/skill trees:
+     * MUST call get_skills_tree (with category if specified, or goal: "XP" / "PRODUCTIVITY" / "FLOWER").
+     * NEVER claim that "all skills that are available at your current level are already unlocked" or that "there is nothing left to unlock". Sunflower Land has 11 distinct skill trees with ~80 skills; bumpkins specialize by allocating skill points into specific branches.
+     * Compare the player's currently active skills against the locked skills in get_skills_tree.
+     * Present a clear, structured breakdown of the best locked skills to target next based on the player's goals (Productivity, XP acceleration, or FLOWER economy).
+     * State the skill's Tier, exact effects (e.g. +1 yield, -10% cook time, +10% XP), and any drawbacks (e.g. Acre Farm vs Hectare Farm trade-offs).
+14. RECIPES & XP GAIN / PRODUCTIVITY BOOSTS:
+   - When asked "how to increase xp gain", "how to level up faster", "what should I cook for xp", or seeking ways to gain XP:
+     * MUST call get_roadmap (with objective: 'MAXIMIZE_XP' or 'REACH_LEVEL') or compute_recipe_cost.
+     * NEVER invent or hallucinate recipe XP numbers (e.g. NEVER say 1 XP for Pancakes).
+     * Sunflower Land recipes award substantial XP (e.g. Pancakes give 1,000 XP; Pizza Margherita gives 25,000 XP; Apple Pie gives 10,000 XP; Beetroot Tart gives 8,000 XP; Roast Veggies gives 340 XP).
+     * Provide realistic daily XP targets and realistic timeframes to reach the next level (e.g. 39,279 XP needed to reach Level 65 can be achieved in hours/days with active cooking, not 77 days!).
+15. KNOWLEDGE BASE & GAME RULES RETRIEVAL:
+   - When asked about game mechanics, item recipes, tools, crops, animal guides, building prerequisites, island expansions, or general game rules:
+     * MUST call search_knowledge with a concise query, entity name, or category.
+     * Use the retrieved authoritative AST facts (exact ingredient amounts, coin costs, sell prices) and wiki explanations to give 100% accurate, non-hallucinated answers.
+     * When citing recipes or requirements retrieved from search_knowledge, cite the exact numbers from the tool results.`;
 
 export interface ToolContext {
   sessionId?: string;
@@ -283,12 +338,25 @@ export class Orchestrator {
             snapshotVersion: version,
           });
 
+          const currentXp = Number(state.player.experience ?? 0);
+          const currentLevel = Number(state.player.level ?? levelFromXp(currentXp));
+          const nextLevel = currentLevel + 1;
+          const nextLevelXp = xpRequiredForLevel(nextLevel);
+          const nextLevelProgress = calculateLevelProgress(currentXp, nextLevel);
+          const remainingXp = Math.max(0, Math.round((nextLevelXp - currentXp) * 1000) / 1000);
+
           return {
             tool: 'get_farm_state',
             success: true,
             data: {
-              level: state.player.level,
-              xp: state.player.experience,
+              level: currentLevel,
+              xp: currentXp,
+              nextLevel: {
+                level: nextLevel,
+                requiredCumulativeXp: nextLevelXp,
+                remainingXp,
+                progressPercent: +(nextLevelProgress.progressFraction * 100).toFixed(2),
+              },
               flower: state.economy.flowerApprox,
               coins: state.economy.coins,
               island: {
@@ -350,7 +418,100 @@ export class Orchestrator {
       },
     },
 
-    // ── 2. get_roadmap (Phase 5 Strategic Planner) ─────────────────────────
+    // ── 2. get_level_requirements (Authoritative XP Progression) ─────────────
+    get_level_requirements: {
+      description: 'Authoritative Bumpkin cumulative XP requirements and progression metrics for any target level (e.g. next level, Level 65, Level 70, Level 75, Level 100, up to Level 200) based on official Sunflower Land level thresholds. Returns exact cumulative XP needed, shortfall from current player XP, progress percentage, and intermediate milestones.',
+      parameters: {
+        type: 'object',
+        properties: {
+          targetLevel: {
+            type: 'number',
+            description: 'Target Bumpkin level to query (e.g. 65, 70, 75, 100). If omitted, defaults to next level (currentLevel + 1).',
+          },
+        },
+      },
+      exec: async (args, context) => {
+        try {
+          const { state, staleness, version } = await this.getStoredFarmState(context.farmId, context.userId);
+          const currentXp = Number(state.player.experience ?? 0);
+          const currentLevel = Number(state.player.level ?? levelFromXp(currentXp));
+          const targetLevel = Number(args.targetLevel ?? (currentLevel + 1));
+
+          const targetRequiredXp = xpRequiredForLevel(targetLevel);
+          const remainingXp = Math.max(0, Math.round((targetRequiredXp - currentXp) * 1000) / 1000);
+          const progress = calculateLevelProgress(currentXp, targetLevel);
+
+          const nextLevel = currentLevel + 1;
+          const nextLevelXp = xpRequiredForLevel(nextLevel);
+          const nextLevelRemaining = Math.max(0, Math.round((nextLevelXp - currentXp) * 1000) / 1000);
+
+          // Intermediate milestones if targetLevel is multiple levels ahead
+          const milestones: Array<{ level: number; requiredCumulativeXp: number; remainingXp: number }> = [];
+          if (targetLevel > currentLevel + 1) {
+            const milestoneCandidates = [
+              currentLevel + 1,
+              Math.ceil((currentLevel + 1) / 5) * 5,
+              Math.ceil((currentLevel + 1) / 10) * 10,
+              65, 70, 75, 80, 85, 90, 95, 100,
+              targetLevel,
+            ].filter((lvl, idx, arr) => lvl > currentLevel && lvl <= targetLevel && arr.indexOf(lvl) === idx)
+             .sort((a, b) => a - b);
+
+            for (const ml of milestoneCandidates) {
+              const req = xpRequiredForLevel(ml);
+              milestones.push({
+                level: ml,
+                requiredCumulativeXp: req,
+                remainingXp: Math.max(0, Math.round((req - currentXp) * 1000) / 1000),
+              });
+            }
+          }
+
+          return {
+            tool: 'get_level_requirements',
+            success: true,
+            data: {
+              currentLevel,
+              currentXp,
+              targetLevel,
+              targetRequiredCumulativeXp: targetRequiredXp,
+              remainingXpToTarget: remainingXp,
+              overallProgressPercent: +(Math.min(100, (currentXp / targetRequiredXp) * 100)).toFixed(2),
+              levelBracketProgressPercent: +(progress.progressFraction * 100).toFixed(2),
+              nextLevel: {
+                level: nextLevel,
+                requiredCumulativeXp: nextLevelXp,
+                remainingXp: nextLevelRemaining,
+              },
+              milestones: milestones.length > 0 ? milestones : undefined,
+              summary: `Current: Level ${currentLevel} (${currentXp.toLocaleString()} XP). Target Level ${targetLevel} requires ${targetRequiredXp.toLocaleString()} cumulative XP. Remaining XP needed: ${remainingXp.toLocaleString()} XP.`,
+            },
+            epistemicTier: 'AUTHORITATIVE',
+            staleness,
+            provenance: {
+              farmId: context.farmId,
+              snapshotVersion: version,
+              calculationEngineVersion: '2.0.0',
+              gameDataVersion: '2026.09.11',
+              computedAt: Date.now(),
+            },
+          };
+        } catch (e) {
+          return {
+            tool: 'get_level_requirements',
+            success: false,
+            epistemicTier: 'AUTHORITATIVE',
+            error: {
+              code: 'INTERNAL_ERROR',
+              message: String((e as Error).message ?? e),
+              retryable: false,
+            },
+          };
+        }
+      },
+    },
+
+    // ── 3. get_roadmap (Phase 5 Strategic Planner) ─────────────────────────
     get_roadmap: {
       description: 'Deterministic hierarchical strategic roadmap for a goal, including multi-phase decomposition, daily objectives, resource reservations, seasonal urgency warnings, and provenance.',
       parameters: {
@@ -713,12 +874,14 @@ export class Orchestrator {
       parameters: {
         type: 'object',
         properties: {
-          recipe: { type: 'string', description: "Recipe name, e.g. 'Pizza Margherita' or 'Pancakes'" },
+          recipe: { type: 'string', description: "Recipe name, e.g. 'Pizza Margherita' or 'Pancakes' or 'Cheese'" },
+          quantity: { type: 'number', description: 'Quantity of recipe to produce/cook (default: 1)' },
         },
         required: ['recipe'],
       },
-      exec: async ({ recipe }, context) => {
+      exec: async ({ recipe, quantity = 1 }, context) => {
         try {
+          const qty = Math.max(1, Number(quantity) || 1);
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const r = (recipesData as Record<string, any>)[recipe];
           if (!r) {
@@ -758,31 +921,75 @@ export class Orchestrator {
             farmId: context.farmId,
           });
 
+          // Scale required ingredients by quantity
+          const baseIngredients: Record<string, number> = r.ingredients ?? {};
+          const scaledIngredients: Record<string, number> = {};
+          for (const [ing, count] of Object.entries(baseIngredients)) {
+            scaledIngredients[ing] = Number(count) * qty;
+          }
+
           const costResult = calculateCostBreakdown({
-            requiredResources: r.ingredients ?? {},
+            requiredResources: scaledIngredients,
             inventory: state.inventory.all,
             prices,
           });
 
           const ownsBuilding = r.building in state.structures.buildings;
           const boostsList = foodXpResult.value.boostBreakdown.map((b) => b.label).join(', ');
-          const xpFormatted = Number(foodXpResult.value.xpPerFood.toFixed(2));
+          const unitXp = Number(foodXpResult.value.xpPerFood.toFixed(2));
+          const totalXp = Number((unitXp * qty).toFixed(2));
           const mins = Math.floor(foodXpResult.value.minutes);
           const secs = Math.round((foodXpResult.value.minutes % 1) * 60);
           const timeFormatted = `${mins}m ${secs}s`;
+
+          // Ingredient details breakdown with live unit prices
+          const ingredientDetails: Array<{
+            item: string;
+            perUnit: number;
+            totalNeeded: number;
+            inStock: number;
+            toBuy: number;
+            unitPriceFlower: number | null;
+            totalCostFlower: number;
+          }> = [];
+
+          for (const [ing, needed] of Object.entries(scaledIngredients)) {
+            const inStock = state.inventory.all?.[ing] ?? 0;
+            const toBuy = Math.max(0, needed - inStock);
+            const unitPrice = getItemPrice(ing, prices);
+            const totalCost = unitPrice != null ? toBuy * unitPrice : 0;
+            ingredientDetails.push({
+              item: ing,
+              perUnit: baseIngredients[ing] ?? 0,
+              totalNeeded: needed,
+              inStock,
+              toBuy,
+              unitPriceFlower: unitPrice,
+              totalCostFlower: Number(totalCost.toFixed(4)),
+            });
+          }
 
           return {
             tool: 'compute_recipe_cost',
             success: true,
             data: {
               recipe,
+              quantity: qty,
+              baseOutput: (r.baseOutput ?? 1) * qty,
+              building: r.building,
               ownsBuilding,
               warning: ownsBuilding ? null : `⚠️ You do NOT own a ${r.building}! You cannot cook this recipe until you build one.`,
-              effective: foodXpResult.value,
+              effective: {
+                ...foodXpResult.value,
+                totalXpGained: totalXp,
+              },
               cost: costResult.value,
-              totalMinutes: foodXpResult.value.minutes,
+              baseIngredients,
+              scaledIngredients,
+              ingredientDetails,
+              totalMinutes: foodXpResult.value.minutes * qty,
               formattedTime: timeFormatted,
-              explanation: `Cooking yields ${xpFormatted} XP (base: ${r.baseXp} XP${boostsList ? `, active boosts: ${boostsList}` : ''}). Duration: ${timeFormatted} (base: ${r.baseCookMinutes}m). It COSTS ${costResult.value.flower} FLOWER in ingredient acquisition expenses (cooking awards XP, NOT FLOWER).`,
+              explanation: `Cooking ${qty > 1 ? `${qty}x ` : ''}${recipe} yields ${totalXp} XP (${unitXp} XP each, base: ${r.baseXp} XP${boostsList ? `, active boosts: ${boostsList}` : ''}). Duration: ${timeFormatted} per unit. Required ingredients: ${Object.entries(scaledIngredients).map(([i, n]) => `${n} ${i}`).join(', ')}. In-stock inventory covers part/all, remaining acquisition cost is ${costResult.value.flower.toFixed(4)} FLOWER (total valuation: ${costResult.value.totalFlower.toFixed(4)} FLOWER).`,
             },
             provenance: foodXpResult.provenance,
             epistemicTier: 'DERIVED',
@@ -1429,15 +1636,16 @@ export class Orchestrator {
           }
 
           // Fallback for non-animal produce (crops or standard resources)
+          const safeMarketPrice = marketPrice ?? 0;
           const data: BuyVsFarmResult = {
             item: targetItem,
             category: 'RESOURCE',
-            marketPriceFlower: Number(marketPrice.toFixed(4)),
-            unitProduceCostFlower: Number(marketPrice.toFixed(4)),
+            marketPriceFlower: Number(safeMarketPrice.toFixed(4)),
+            unitProduceCostFlower: Number(safeMarketPrice.toFixed(4)),
             costDifferenceFlower: 0,
             percentSavings: 0,
             recommendation: 'NEUTRAL',
-            summary: `Market price for ${targetItem} is ${marketPrice.toFixed(4)} FLOWER.`,
+            summary: `Market price for ${targetItem} is ${safeMarketPrice.toFixed(4)} FLOWER.`,
           };
 
           return {
@@ -1645,6 +1853,625 @@ export class Orchestrator {
         }
       },
     },
+
+    // ── simulate_what_if (Goal-oriented isolated simulation) ─────────────────
+    simulate_what_if: {
+      description: 'Goal-oriented, isolated what-if simulation. Applies hypothetical changes (add building, cook recipe, sell items, plant crops) to a CLONED farm state and projects whether a numeric goal (earn FLOWER, gain XP) becomes reachable. Zero side effects — does not modify the real farm state.',
+      parameters: {
+        type: 'object',
+        properties: {
+          goal: {
+            type: 'object',
+            description: 'The target the user wants to achieve.',
+            properties: {
+              type: { type: 'string', enum: ['EARN_FLOWER', 'GAIN_XP', 'PRODUCE_ITEM', 'COMPLETE_DELIVERY'], description: 'Goal type' },
+              target: { type: 'number', description: 'Numeric target (e.g. 20 for 20 FLOWER, 50000 for 50k XP)' },
+              item: { type: 'string', description: 'Item name for PRODUCE_ITEM goal' },
+              window: { type: 'string', enum: ['1d', '7d', '30d', 'session'], description: 'Time window for the goal', default: '1d' },
+            },
+            required: ['type'],
+          },
+          hypotheticals: {
+            type: 'array',
+            description: 'List of hypothetical changes to apply to a cloned farm state.',
+            items: {
+              type: 'object',
+              properties: {
+                type: { type: 'string', enum: ['add_building', 'remove_building', 'cook', 'sell', 'plant_crop', 'add_animal', 'add_item'], description: 'Action type' },
+                building: { type: 'string', description: 'Building name (for add_building/remove_building/cook)' },
+                recipe: { type: 'string', description: 'Recipe name (for cook)' },
+                item: { type: 'string', description: 'Item name (for sell/add_item/plant_crop)' },
+                quantity: { type: 'number', description: 'Quantity', default: 1 },
+              },
+              required: ['type'],
+            },
+          },
+        },
+        required: ['goal', 'hypotheticals'],
+      },
+      exec: async ({ goal, hypotheticals = [] }, context) => {
+        try {
+          const { state, version } = await this.getStoredFarmState(context.farmId, context.userId);
+          const { prices } = await sunflowerClient.getPrices().catch(() => ({ prices: {} as Record<string, number>, updatedAt: null, stale: true }));
+          const effectRes = resolveEffectContext(state, { now: Date.now(), season: state.temporal?.season, farmId: context.farmId });
+
+          // ── Build baseline projection ─────────────────────────────────────
+          // Baseline: what the farm can do RIGHT NOW without any changes
+          const baselineInventory = { ...state.inventory.all };
+          let baselineXp = state.player.experience;
+          let baselineFlower = state.economy.flowerApprox;
+
+          // Project active cooking/production earnings from current state
+          const activeProduction = state.production.active ?? [];
+          let baselineProductionFlower = 0;
+          for (const item of activeProduction) {
+            const price = prices[item.item] ?? 0;
+            baselineProductionFlower += price; // rough: 1 unit per active slot
+          }
+
+          // ── Apply hypotheticals to cloned state ───────────────────────────
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const simInventory: Record<string, number> = { ...baselineInventory };
+          let simXp = baselineXp;
+          let simFlower = baselineFlower;
+          let simProductionFlower = baselineProductionFlower;
+
+          const consequences: Array<{
+            hypothetical: string;
+            feasible: boolean;
+            blocker?: string;
+            xpGained?: number;
+            flowerImpact?: string;
+            ingredientsConsumed?: Record<string, number>;
+            impact: string;
+          }> = [];
+
+          const warnings: string[] = [];
+
+          for (const h of hypotheticals) {
+            const label = `${h.type}:${h.building ?? h.recipe ?? h.item ?? ''}${h.quantity ? ` x${h.quantity}` : ''}`;
+
+            if (h.type === 'cook' && h.recipe) {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const recipeDef = (recipesData as Record<string, any>)[h.recipe];
+              if (!recipeDef) {
+                consequences.push({ hypothetical: label, feasible: false, blocker: `Recipe '${h.recipe}' not found in catalog`, impact: 'N/A' });
+                continue;
+              }
+              const qty = h.quantity ?? 1;
+              const ingredients: Record<string, number> = {};
+              let canCook = true;
+              const blockers: string[] = [];
+
+              for (const [ing, baseAmt] of Object.entries(recipeDef.ingredients ?? {}) as [string, number][]) {
+                const need = baseAmt * qty;
+                ingredients[ing] = need;
+                if ((simInventory[ing] ?? 0) < need) {
+                  canCook = false;
+                  const short = need - (simInventory[ing] ?? 0);
+                  blockers.push(`${ing}: need ${need}, have ${simInventory[ing] ?? 0} (short ${+short.toFixed(2)})`);
+                }
+              }
+
+              if (canCook) {
+                // Deduct ingredients from sim inventory
+                for (const [ing, need] of Object.entries(ingredients)) {
+                  simInventory[ing] = (simInventory[ing] ?? 0) - need;
+                }
+                // Add produced food
+                simInventory[h.recipe] = (simInventory[h.recipe] ?? 0) + qty;
+
+                const foodXpResult = calculateFoodXp({
+                  recipeName: h.recipe,
+                  recipe: recipeDef,
+                  skills: state.player.skills,
+                  isVip: state.buffs.vip,
+                  buildingOil: 0,
+                  effectContext: effectRes.value,
+                  farmId: context.farmId,
+                });
+                const xpGained = foodXpResult.value.batchXp * qty;
+                simXp += xpGained;
+
+                const deliveryValue = +(qty * (prices[h.recipe] ?? 0)).toFixed(4);
+                consequences.push({
+                  hypothetical: label,
+                  feasible: true,
+                  xpGained: Math.round(xpGained),
+                  ingredientsConsumed: ingredients,
+                  flowerImpact: deliveryValue > 0 ? `+${deliveryValue} FLOWER (if sold/delivered)` : 'No direct FLOWER (XP gain only)',
+                  impact: `+${Math.round(xpGained).toLocaleString()} XP${deliveryValue > 0 ? `, +${deliveryValue} FLOWER potential` : ''}`,
+                });
+              } else {
+                warnings.push(`Cannot cook ${h.recipe}: ${blockers.join('; ')}`);
+                consequences.push({ hypothetical: label, feasible: false, blocker: blockers.join('; '), impact: 'Blocked — missing ingredients' });
+              }
+            } else if (h.type === 'add_building' && h.building) {
+              // Hypothetical: farm now has this building — estimate production uplift
+              const buildingProductionMap: Record<string, { flowerPerDay: number; description: string }> = {
+                Greenhouse: { flowerPerDay: 5.0, description: 'Rare crops worth ~5 FLOWER/day' },
+                'Hen House': { flowerPerDay: 0.5, description: 'Egg production ~0.5 FLOWER/day' },
+                Barn: { flowerPerDay: 2.0, description: 'Milk + Leather ~2 FLOWER/day' },
+                Deli: { flowerPerDay: 1.5, description: 'High-value cooking ~1.5 FLOWER/day' },
+                Bakery: { flowerPerDay: 1.0, description: 'Bread/cake production ~1 FLOWER/day' },
+              };
+              const prod = buildingProductionMap[h.building];
+              const window = goal.window === '7d' ? 7 : goal.window === '30d' ? 30 : 1;
+              const uplift = prod ? +(prod.flowerPerDay * window).toFixed(4) : 0;
+              simProductionFlower += uplift;
+              simFlower += uplift;
+
+              // Check if player can currently afford it (rough feasibility)
+              const alreadyHas = !!state.structures.buildings[h.building];
+              if (alreadyHas) {
+                consequences.push({ hypothetical: label, feasible: true, flowerImpact: `+${uplift} FLOWER/${goal.window ?? '1d'}`, impact: `Already owned — ${prod?.description ?? 'production boost'}` });
+              } else {
+                consequences.push({
+                  hypothetical: label,
+                  feasible: true, // hypothetically feasible — this is a what-if
+                  flowerImpact: `+${uplift} FLOWER/${goal.window ?? '1d'}`,
+                  impact: `Would add ${prod?.description ?? 'production boost'} (+${uplift} FLOWER)`,
+                });
+                if (!alreadyHas) warnings.push(`${h.building} not currently built on your farm (hypothetical scenario)`);
+              }
+            } else if (h.type === 'sell' && h.item) {
+              const qty = h.quantity ?? 1;
+              const price = prices[h.item] ?? 0;
+              const revenue = +(qty * price).toFixed(6);
+              const have = simInventory[h.item] ?? 0;
+              if (have >= qty) {
+                simInventory[h.item] = have - qty;
+                simFlower += revenue;
+                consequences.push({ hypothetical: label, feasible: true, flowerImpact: `+${revenue} FLOWER`, impact: `Sell ${qty}x ${h.item} → +${revenue} FLOWER` });
+              } else {
+                consequences.push({ hypothetical: label, feasible: false, blocker: `Have ${have} ${h.item}, need ${qty}`, impact: `Partial sell possible (${have}/${qty})` });
+                warnings.push(`Insufficient ${h.item} to sell ${qty} (have ${have})`);
+              }
+            } else if (h.type === 'add_item' && h.item) {
+              const qty = h.quantity ?? 1;
+              simInventory[h.item] = (simInventory[h.item] ?? 0) + qty;
+              consequences.push({ hypothetical: label, feasible: true, impact: `Added ${qty}x ${h.item} to simulation inventory` });
+            }
+          }
+
+          // ── Evaluate goal reachability ────────────────────────────────────
+          let goalReachable = false;
+          let goalCurrent = 0;
+          let goalTarget = goal.target ?? 0;
+          let goalUnit = '';
+
+          switch (goal.type) {
+            case 'EARN_FLOWER':
+              goalCurrent = simFlower + simProductionFlower;
+              goalTarget = goal.target ?? 0;
+              goalUnit = 'FLOWER';
+              goalReachable = goalCurrent >= goalTarget;
+              break;
+            case 'GAIN_XP':
+              goalCurrent = simXp;
+              goalTarget = goal.target ?? 0;
+              goalUnit = 'XP';
+              goalReachable = goalCurrent >= goalTarget;
+              break;
+            case 'PRODUCE_ITEM':
+              goalCurrent = simInventory[goal.item ?? ''] ?? 0;
+              goalTarget = goal.target ?? 1;
+              goalUnit = goal.item ?? 'units';
+              goalReachable = goalCurrent >= goalTarget;
+              break;
+            default:
+              goalReachable = false;
+          }
+
+          const gap = +(goalTarget - goalCurrent).toFixed(6);
+
+          return {
+            tool: 'simulate_what_if',
+            success: true,
+            data: {
+              goal: { ...goal, target: goalTarget },
+              baseline: {
+                flower: +baselineFlower.toFixed(6),
+                xp: Math.round(baselineXp),
+                productionFlower: +baselineProductionFlower.toFixed(6),
+                totalFlower: +(baselineFlower + baselineProductionFlower).toFixed(6),
+              },
+              simulated: {
+                flower: +simFlower.toFixed(6),
+                xp: Math.round(simXp),
+                productionFlower: +simProductionFlower.toFixed(6),
+                totalFlower: +(simFlower + simProductionFlower).toFixed(6),
+              },
+              goalReachable,
+              goalCurrent: +goalCurrent.toFixed(6),
+              goalTarget,
+              goalUnit,
+              gap: goalReachable ? 0 : +Math.abs(gap).toFixed(6),
+              surplus: goalReachable ? +Math.abs(gap).toFixed(6) : 0,
+              consequences,
+              warnings,
+              note: 'This is an isolated simulation. No real farm state was modified.',
+            },
+            epistemicTier: 'DERIVED',
+            provenance: {
+              farmId: context.farmId,
+              snapshotVersion: version,
+              calculationEngineVersion: '2.0.0',
+              gameDataVersion: '2026.09.11',
+              computedAt: Date.now(),
+            },
+          };
+        } catch (e) {
+          return {
+            tool: 'simulate_what_if',
+            success: false,
+            epistemicTier: 'DERIVED',
+            error: {
+              code: 'INTERNAL_ERROR',
+              message: String((e as Error).message ?? e),
+              retryable: false,
+            },
+          };
+        }
+      },
+    },
+
+    // ── 19. get_skills_tree (Authoritative Sunflower Land Skill Trees) ────────
+    get_skills_tree: {
+      description:
+        'Authoritative Sunflower Land skill trees catalog and player unlock status across all 11 branches (Crops, Trees, Fishing, Mining, Cooking, Animals, Compost, Aging, Fruit Patch, Greenhouse, Machinery). Compares player currently unlocked skills against available locked skills, detailing Tiers (1-3), effects, drawbacks, and targeted recommendations for XP gain, productivity, or FLOWER economy.',
+      parameters: {
+        type: 'object',
+        properties: {
+          category: {
+            type: 'string',
+            description:
+              'Optional branch filter: "Crops", "Trees", "Fishing", "Mining", "Cooking", "Animals", "Compost", "Aging", "Fruit Patch", "Greenhouse", "Machinery", or "ALL".',
+          },
+          goal: {
+            type: 'string',
+            enum: ['XP', 'PRODUCTIVITY', 'FLOWER', 'ALL'],
+            description:
+              'Optional strategic goal to prioritize recommendations: "XP" (leveling speed & food boosts), "PRODUCTIVITY" (harvest yields & cooldown speeds), or "FLOWER" (resource efficiency & cost reduction).',
+          },
+        },
+      },
+      exec: async (args, context) => {
+        try {
+          const { state, staleness, version } = await this.getStoredFarmState(context.farmId, context.userId);
+          const playerUnlockedSet = new Set(Object.keys(state.player.skills ?? {}));
+          const currentXp = Number(state.player.experience ?? 0);
+          const currentLevel = Number(state.player.level ?? levelFromXp(currentXp));
+
+          const categories = [
+            'Crops',
+            'Trees',
+            'Fishing',
+            'Mining',
+            'Cooking',
+            'Animals',
+            'Compost',
+            'Aging',
+            'Fruit Patch',
+            'Greenhouse',
+            'Machinery',
+          ];
+
+          const describeEffect = (e: any): string => {
+            if (!e) return '';
+            if (e.note) return e.note;
+            if (e.type === 'multiply') {
+              if (e.stat === 'growTime') {
+                const pct = Math.round((1 - (e.value ?? 1)) * 100);
+                return `${pct > 0 ? `-${pct}%` : `x${e.value}`} grow time (${e.scope ?? 'crops'})`;
+              }
+              if (e.stat === 'cookTime') {
+                const pct = Math.round((1 - (e.value ?? 1)) * 100);
+                return `${pct > 0 ? `-${pct}%` : `x${e.value}`} cook time (${e.scope ?? 'cooking'})`;
+              }
+              if (e.stat === 'coinReward' || e.stat === 'sellCoinRevenue') {
+                const pct = Math.round(((e.value ?? 1) - 1) * 100);
+                return `+${pct}% coin revenue (${e.scope ?? 'sales'})`;
+              }
+              if (e.scope === 'food_xp') {
+                const pct = Math.round(((e.value ?? 1) - 1) * 100);
+                return `+${pct}% Bumpkin XP from food`;
+              }
+              return `x${e.value} ${e.stat ?? ''} (${e.scope ?? ''})`.trim();
+            }
+            if (e.type === 'add') {
+              return `${e.value > 0 ? `+${e.value}` : e.value} ${e.stat ?? 'yield'} (${e.scope ?? ''})`.trim();
+            }
+            if (e.type === 'unlock') {
+              return `Unlocks feature: ${e.feature ?? e.scope ?? 'special'}`;
+            }
+            if (e.type === 'set') {
+              return `Sets ${e.stat ?? 'property'} to ${e.value ?? 1} (${e.scope ?? ''})`.trim();
+            }
+            if (e.type === 'stock_add') {
+              return `+${e.value} ${e.scope ?? 'stock'}`;
+            }
+            if (e.type === 'aoe') {
+              return `${e.tiles}x${e.tiles} AOE boost (${e.scope ?? ''})`;
+            }
+            if (e.type === 'chance') {
+              return `${((e.prob ?? 0) * 100).toFixed(2)}% chance for +${e.bonus_qty ?? 1} ${e.bonus_item ?? 'bonus'}`;
+            }
+            return `${e.type} ${e.scope ?? ''} ${e.stat ?? ''}`.trim();
+          };
+
+          const isXpEffect = (name: string, effs: any[]): boolean => {
+            const lower = name.toLowerCase();
+            if (lower.includes('nom') || lower.includes('feast') || lower.includes('chef') || lower.includes('gourmet') || lower.includes('banquet')) return true;
+            return effs.some((e) => e.scope?.includes('xp') || e.stat?.includes('xp') || e.scope === 'food_xp');
+          };
+
+          const isProdEffect = (effs: any[]): boolean => {
+            return effs.some((e) =>
+              ['growTime', 'cookTime', 'yield', 'speed', 'recovery', 'tapsRequired', 'instant', 'aoe', 'plots', 'queue'].some((k) =>
+                e.stat?.includes(k) || e.scope?.includes(k) || e.type === 'unlock' || e.type === 'aoe'
+              )
+            );
+          };
+
+          const isFlowerEffect = (effs: any[]): boolean => {
+            return effs.some((e) =>
+              ['coin', 'revenue', 'cost', 'discount', 'bale', 'oil', 'tax', 'stock_add'].some((k) =>
+                e.stat?.includes(k) || e.scope?.includes(k) || e.type === 'stock_add'
+              )
+            );
+          };
+
+          interface SkillSummaryItem {
+            name: string;
+            category: string;
+            tier: string;
+            unlocked: boolean;
+            effects: string[];
+            drawbacks: string[];
+            tags: string[];
+          }
+
+          const allSkills: SkillSummaryItem[] = [];
+          const playerUnlockedList: SkillSummaryItem[] = [];
+          const lockedByBranch: Record<string, SkillSummaryItem[]> = {};
+
+          for (const catName of categories) {
+            lockedByBranch[catName] = [];
+            const catData = (skillCatalogue as any)[catName] ?? {};
+            for (const tierName of ['Tier 1', 'Tier 2', 'Tier 3']) {
+              const tierData = catData[tierName] ?? {};
+              for (const [sName, sDef] of Object.entries(tierData as Record<string, any>)) {
+                const effs = sDef.effects ?? [];
+                const drawbacks = sDef.drawbacks ?? [];
+                const isUnlocked = playerUnlockedSet.has(sName);
+
+                const tags: string[] = [];
+                if (isXpEffect(sName, effs)) tags.push('XP');
+                if (isProdEffect(effs)) tags.push('PRODUCTIVITY');
+                if (isFlowerEffect(effs)) tags.push('FLOWER');
+                if (tags.length === 0) tags.push('PRODUCTIVITY');
+
+                const item: SkillSummaryItem = {
+                  name: sName,
+                  category: catName,
+                  tier: tierName,
+                  unlocked: isUnlocked,
+                  effects: effs.map(describeEffect),
+                  drawbacks: drawbacks.map(describeEffect),
+                  tags,
+                };
+
+                allSkills.push(item);
+                if (isUnlocked) {
+                  playerUnlockedList.push(item);
+                } else {
+                  lockedByBranch[catName].push(item);
+                }
+              }
+            }
+          }
+
+          // Generate targeted recommendations
+          const lockedList = allSkills.filter((s) => !s.unlocked);
+
+          const xpRecommendations = lockedList
+            .filter((s) => s.tags.includes('XP'))
+            .sort((a, b) => (a.tier === 'Tier 1' ? -1 : a.tier === 'Tier 2' ? 0 : 1))
+            .slice(0, 5);
+
+          const prodRecommendations = lockedList
+            .filter((s) => s.tags.includes('PRODUCTIVITY'))
+            .sort((a, b) => (a.tier === 'Tier 1' ? -1 : a.tier === 'Tier 2' ? 0 : 1))
+            .slice(0, 6);
+
+          const flowerRecommendations = lockedList
+            .filter((s) => s.tags.includes('FLOWER'))
+            .sort((a, b) => (a.tier === 'Tier 1' ? -1 : a.tier === 'Tier 2' ? 0 : 1))
+            .slice(0, 5);
+
+          // Apply optional category filter
+          const reqCategory = args.category && args.category !== 'ALL' ? args.category : null;
+          const filteredLocked = reqCategory
+            ? { [reqCategory]: lockedByBranch[reqCategory] ?? [] }
+            : lockedByBranch;
+
+          return {
+            tool: 'get_skills_tree',
+            success: true,
+            data: {
+              player: {
+                level: currentLevel,
+                xp: currentXp,
+                unlockedCount: playerUnlockedList.length,
+                unlockedSkills: playerUnlockedList.map((s) => ({
+                  name: s.name,
+                  category: s.category,
+                  tier: s.tier,
+                  effects: s.effects,
+                })),
+              },
+              catalogue: {
+                totalSkillsCount: allSkills.length,
+                lockedSkillsCount: lockedList.length,
+                branches: categories.map((c) => ({
+                  branch: c,
+                  unlockedCount: playerUnlockedList.filter((s) => s.category === c).length,
+                  lockedCount: (lockedByBranch[c] ?? []).length,
+                })),
+              },
+              topRecommendations: {
+                forXpGain: xpRecommendations.map((s) => ({
+                  name: s.name,
+                  category: s.category,
+                  tier: s.tier,
+                  effects: s.effects,
+                  drawbacks: s.drawbacks,
+                })),
+                forProductivity: prodRecommendations.map((s) => ({
+                  name: s.name,
+                  category: s.category,
+                  tier: s.tier,
+                  effects: s.effects,
+                  drawbacks: s.drawbacks,
+                })),
+                forFlowerEconomy: flowerRecommendations.map((s) => ({
+                  name: s.name,
+                  category: s.category,
+                  tier: s.tier,
+                  effects: s.effects,
+                  drawbacks: s.drawbacks,
+                })),
+              },
+              lockedSkillsByBranch: filteredLocked,
+            },
+            epistemicTier: 'AUTHORITATIVE',
+            staleness,
+            provenance: {
+              farmId: context.farmId,
+              snapshotVersion: version,
+              calculationEngineVersion: '2.0.0',
+              gameDataVersion: '2026.09.11',
+              computedAt: Date.now(),
+            },
+          };
+        } catch (e) {
+          return {
+            tool: 'get_skills_tree',
+            success: false,
+            epistemicTier: 'AUTHORITATIVE',
+            error: {
+              code: 'INTERNAL_ERROR',
+              message: String((e as Error).message ?? e),
+              retryable: false,
+            },
+          };
+        }
+      },
+    },
+
+    // ── 15. search_knowledge (Unified Knowledge Base: Wiki + AST Game Data) ───
+    search_knowledge: {
+      description:
+        'Search the authoritative Sunflower Land knowledge base for game rules, item recipes, tools, crops, animal mechanics, buildings, expansions, island requirements, and guides. Combines AST game data (exact recipes/costs) and wiki documentation.',
+      parameters: {
+        type: 'object',
+        properties: {
+          query: {
+            type: 'string',
+            description: 'Search query, question, or keywords (e.g. "Iron Pickaxe recipe", "chicken feeder machine", "volcano island requirement").',
+          },
+          entity: {
+            type: 'string',
+            description: 'Optional exact name of the item, crop, tool, or building to look up (e.g. "Iron Pickaxe", "Pumpkin Soup", "Barn").',
+          },
+          category: {
+            type: 'string',
+            description: 'Optional category filter: "game-data", "mechanics", "beginners", "crops", etc.',
+          },
+        },
+        required: ['query'],
+      },
+      exec: async (params, _context) => {
+        try {
+          const query = String(params.query || '').trim();
+          const entity = params.entity ? String(params.entity).trim() : undefined;
+          const category = params.category ? String(params.category).trim() : undefined;
+
+          // 1. Direct entity lookup if entity specified or query is a short item name
+          let entityResults: any[] = [];
+          const candidateEntity = entity || (query.split(' ').length <= 3 ? query : undefined);
+          if (candidateEntity) {
+            entityResults = await knowledgeService.lookupEntity(candidateEntity, 3);
+          }
+
+          // 2. Hybrid vector semantic search
+          const vectorResults = await knowledgeService.search({
+            query,
+            entity,
+            category,
+            limit: 5,
+            minSimilarity: 0.2,
+          });
+
+          // 3. Deduplicate results by chunk ID
+          const seenIds = new Set<string>();
+          const combined: any[] = [];
+
+          for (const item of [...entityResults, ...vectorResults]) {
+            if (!seenIds.has(item.id)) {
+              seenIds.add(item.id);
+              combined.push({
+                source: item.source,
+                category: item.category,
+                type: item.type,
+                entity: item.entity,
+                headingPath: item.headingPath,
+                content: item.content,
+                structuredData: item.structuredData,
+                similarity: item.similarity ? Math.round(item.similarity * 100) / 100 : undefined,
+              });
+            }
+          }
+
+          if (combined.length === 0) {
+            return {
+              tool: 'search_knowledge',
+              success: true,
+              data: {
+                query,
+                found: false,
+                message: `No specific knowledge base entries found matching "${query}".`,
+              },
+              epistemicTier: 'AUTHORITATIVE',
+            };
+          }
+
+          return {
+            tool: 'search_knowledge',
+            success: true,
+            data: {
+              query,
+              found: true,
+              count: combined.length,
+              results: combined,
+            },
+            epistemicTier: 'AUTHORITATIVE',
+          };
+        } catch (e) {
+          return {
+            tool: 'search_knowledge',
+            success: false,
+            epistemicTier: 'AUTHORITATIVE',
+            error: {
+              code: 'INTERNAL_ERROR',
+              message: String((e as Error).message ?? e),
+              retryable: false,
+            },
+          };
+        }
+      },
+    },
   };
 
   private readonly toolDefs = Object.entries(this.tools).map(([name, t]) => ({
@@ -1706,7 +2533,11 @@ export class Orchestrator {
   }
 
   /**
-   * Run the agentic loop with bounded execution, deduplication, and schema validation.
+   * Run the agentic loop with 4-phase reasoning pipeline:
+   * Phase 1: Goal Decomposition + context injection
+   * Phase 2: Tool execution with fallback tracking
+   * Phase 3: Sufficiency check
+   * Phase 4: Synthesis with conditional follow-up
    */
   async runAgent(
     message: string,
@@ -1719,6 +2550,7 @@ export class Orchestrator {
     const steps: AIChatStep[] = [];
     const collectedWarnings: string[] = [];
     let latestProvenance: CalculationProvenance | undefined;
+    const failedTools: string[] = [];
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const seen = new Map<string, any>();
@@ -1732,174 +2564,133 @@ export class Orchestrator {
       }
     }
 
+    // ── Phase 1: Inject daily production context ──────────────────────────────
+    // Pre-compute daily production summary and recent activity delta to give the
+    // LLM rich context without burning tool calls on every message.
+    let productionContextBlock = '';
+    try {
+      const [snapshots, marketData] = await Promise.all([
+        snapshotService.getLatest(userId, 30).catch(() => []),
+        sunflowerClient.getPrices().catch(() => ({ prices: {} as Record<string, number>, updatedAt: null, stale: true })),
+      ]);
+
+      let playerContextLine = '';
+      if (snapshots.length >= 1) {
+        const raw = snapshots[0].data_json;
+        const unpacked = activityService.unpack(raw);
+        const curExp = Number(unpacked.xp ?? 0);
+        if (curExp > 0 || unpacked.level > 0) {
+          const curLvl = unpacked.level || levelFromXp(curExp);
+          const nextLvl = curLvl + 1;
+          const nextXp = xpRequiredForLevel(nextLvl);
+          const remXp = Math.max(0, Math.round((nextXp - curExp) * 1000) / 1000);
+          playerContextLine = `Bumpkin Status: Level ${curLvl} (${curExp.toLocaleString()} XP) | Next Level (${nextLvl}) requires ${nextXp.toLocaleString()} cumulative XP (${remXp.toLocaleString()} XP needed).`;
+        }
+      }
+
+      const contextLines: string[] = ['--- INJECTED FARM CONTEXT (pre-computed, no tool call needed) ---'];
+      if (playerContextLine) contextLines.push(playerContextLine);
+
+      if (snapshots.length >= 2) {
+        const prices = marketData.prices ?? {};
+
+        // Recent activity delta (last 2 snapshots)
+        const recentDiff = activityService.diff(snapshots[1].data_json, snapshots[0].data_json);
+        const recentValued = activityService.valuate(recentDiff, prices);
+        const topGains = Object.entries(recentValued.inferred)
+          .filter(([, v]) => v > 0)
+          .sort(([, a], [, b]) => b - a)
+          .slice(0, 5)
+          .map(([item, qty]) => `${item}: +${qty}`);
+        const topSpentInferred = Object.entries(recentValued.inferred)
+          .filter(([, v]) => v < 0)
+          .sort(([, a], [, b]) => a - b)
+          .slice(0, 5)
+          .map(([item, qty]) => `${item}: ${qty}`);
+
+        // Daily summary (last 7 days)
+        const summary = activityService.dailySummary(snapshots, prices);
+        const recentDays = summary.days.slice(-3);
+        const dailyLines = recentDays.map(
+          (d) => `  ${d.date}: Produced +${d.producedFlower.toFixed(4)} FLOWER, Spent -${d.spentFlower.toFixed(4)} FLOWER (Net: ${d.netFlower >= 0 ? '+' : ''}${d.netFlower.toFixed(4)}), +${Math.round(d.xpGained).toLocaleString()} XP`
+        );
+
+        contextLines.push(
+          `Recent Activity (since last snapshot): XP +${Math.round(recentValued.xpDelta).toLocaleString()}`,
+          topGains.length > 0 ? `  Gains: ${topGains.join(', ')}` : '  No inventory gains detected.',
+          topSpentInferred.length > 0 ? `  Spent/Inputs: ${topSpentInferred.join(', ')}` : '',
+          `  Produced: +${recentValued.valuation.producedFlower.toFixed(4)} FLOWER | Spent: -${recentValued.valuation.spentFlower.toFixed(4)} FLOWER | Net: ${recentValued.valuation.netFlower >= 0 ? '+' : ''}${recentValued.valuation.netFlower.toFixed(4)} FLOWER`,
+          '',
+          `Daily Economics (last ${recentDays.length} days):`,
+          ...dailyLines,
+          `  Period Totals: Produced +${summary.totals.totalProducedFlower.toFixed(4)} FLOWER | Spent -${summary.totals.totalSpentFlower.toFixed(4)} FLOWER | Net ${summary.totals.netFlower >= 0 ? '+' : ''}${summary.totals.netFlower.toFixed(4)} FLOWER (+${Math.round(summary.totals.totalXp).toLocaleString()} XP)`,
+          summary.totals.topProduced.length > 0
+            ? `  Top produced items (by Flower valuation): ${summary.totals.topProduced.slice(0, 3).map((i) => `${i.item} (+${i.flower.toFixed(4)} FLOWER)`).join(', ')}`
+            : '',
+          summary.totals.topSpent.length > 0
+            ? `  Top spent items (by Flower valuation): ${summary.totals.topSpent.slice(0, 3).map((i) => `${i.item} (-${i.flower.toFixed(4)} FLOWER)`).join(', ')}`
+            : ''
+        );
+      }
+      contextLines.push('--- END INJECTED CONTEXT ---');
+      if (contextLines.length > 2) {
+        productionContextBlock = contextLines.filter(Boolean).join('\n');
+      }
+    } catch {
+      // Non-critical: proceed without injected context
+    }
+
     const historyRaw = (prior ?? [])
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .filter((m: any) => m && m.content && String(m.content).trim() && m.content !== message)
+      .map((m: any) => ({
+        role: (m.role === 'assistant' || m.role === 'ai') ? 'assistant' : 'user',
+        content: String(m.content ?? m.text ?? '').trim(),
+      }))
+      .filter((m) => m.content.length > 0 && m.content !== message)
       .slice(-16);
 
     const sanitizedHistory: Array<{ role: string; content: string }> = [];
     let lastRole = 'system';
     for (const m of historyRaw) {
-      const role = m.role === 'assistant' || m.role === 'ai' ? 'assistant' : 'user';
-      const content = String(m.content).trim();
-      if (!content) continue;
-      if (role !== lastRole) {
-        sanitizedHistory.push({ role, content });
-        lastRole = role;
+      if (m.role !== lastRole) {
+        sanitizedHistory.push({ role: m.role, content: m.content });
+        lastRole = m.role;
       } else if (sanitizedHistory.length > 0) {
-        sanitizedHistory[sanitizedHistory.length - 1].content += '\n\n' + content;
+        sanitizedHistory[sanitizedHistory.length - 1].content += '\n\n' + m.content;
       }
     }
     if (sanitizedHistory.length > 0 && sanitizedHistory[sanitizedHistory.length - 1].role === 'user') {
       sanitizedHistory.pop();
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const messages: any[] = [
-      { role: 'system', content: SYSTEM },
-      ...sanitizedHistory,
-      { role: 'user', content: message },
-    ];
-
-    const MAX_TOOL_CALLS = 10;
-    let actualToolExecutions = 0;
-    const repeatedToolCounts = new Map<string, number>();
-
-    const context: ToolContext = { sessionId, userId, farmId, userGoal: message };
-
-    for (let round = 0; round < 6; round++) {
-      if (actualToolExecutions >= MAX_TOOL_CALLS) {
-        break;
-      }
-
-      const j = await this.groq(messages);
-
-      if (j._toolError) {
-        messages.push({
-          role: 'user',
-          content: 'Your last tool call had invalid JSON arguments. Try again or answer directly with the data you have.',
-        });
-        continue;
-      }
-
-      const m = j.choices?.[0]?.message ?? {};
-      messages.push({ role: 'assistant', content: typeof m.content === 'string' ? m.content : '', tool_calls: m.tool_calls });
-
-      if (!m.tool_calls?.length) {
-        const answer = this.textOf(m);
-        if (answer) {
-          return {
-            success: true,
-            answer,
-            steps,
-            warnings: collectedWarnings.length > 0 ? collectedWarnings : undefined,
-            provenance: latestProvenance,
-          };
-        }
-        messages.push({
-          role: 'user',
-          content: 'Answer the question now using the tool results obtained.',
-        });
-        continue;
-      }
-
-      for (const tc of m.tool_calls) {
-        if (actualToolExecutions >= MAX_TOOL_CALLS) {
-          break;
-        }
-
-        const name = tc.function?.name;
-        const parsedArgs = this.safeParseArgs(tc.function?.arguments);
-        const canonicalArgs = stableStringify(parsedArgs);
-        const key = `${name}:${canonicalArgs}`;
-
-        const repeatCount = (repeatedToolCounts.get(key) ?? 0) + 1;
-        repeatedToolCounts.set(key, repeatCount);
-
-        let result: AIToolResult<unknown>;
-
-        if (repeatCount > 2 && seen.has(key)) {
-          result = {
-            tool: name,
-            success: true,
-            data: seen.get(key).data,
-            warnings: ['Duplicate call deduplicated.'],
-          };
-          steps.push({ tool: name, ok: true, cached: true });
-        } else {
-          actualToolExecutions++;
-          try {
-            const tool = this.tools[name];
-            if (!tool) {
-              result = {
-                tool: name,
-                success: false,
-                error: {
-                  code: 'TOOL_NOT_FOUND',
-                  message: `Unknown tool '${name}'.`,
-                  retryable: false,
-                },
-              };
-              steps.push({ tool: name, ok: false });
-            } else {
-              result = await tool.exec(parsedArgs, context);
-              steps.push({ tool: name, ok: result.success, epistemicTier: result.epistemicTier });
-            }
-          } catch (e: unknown) {
-            result = {
-              tool: name,
-              success: false,
-              error: {
-                code: 'INTERNAL_ERROR',
-                message: String((e as Error)?.message ?? e),
-                retryable: false,
-              },
-            };
-            steps.push({ tool: name, ok: false });
-          }
-          seen.set(key, result);
-        }
-
-        if (result.warnings && result.warnings.length > 0) {
-          collectedWarnings.push(...result.warnings);
-        }
-        if (result.provenance) {
-          latestProvenance = result.provenance;
-        }
-
-        let payload = JSON.stringify(result);
-        const MAX_TOOL_PAYLOAD_BYTES = 32000;
-        if (payload.length > MAX_TOOL_PAYLOAD_BYTES) {
-          console.error(`⚠️ Tool ${name} result payload exceeded budget (${payload.length} bytes > ${MAX_TOOL_PAYLOAD_BYTES} bytes)`);
-          payload = JSON.stringify({
-            tool: name,
-            success: false,
-            error: {
-              code: 'PAYLOAD_TOO_LARGE',
-              message: `Tool result exceeded maximum payload budget (${payload.length} bytes > ${MAX_TOOL_PAYLOAD_BYTES} bytes). Summarized data must be requested.`,
-              retryable: false,
-            },
-          });
-        }
-        messages.push({ role: 'tool', tool_call_id: tc.id, content: payload });
-      }
-    }
-
-    messages.push({
-      role: 'user',
-      content: 'STOP gathering data. Using ONLY the tool results above, give your final answer now. Do not guess any missing figures.',
-    });
-    const finalCall = await this.groq(messages, 'none');
-    const answer = this.textOf(finalCall.choices?.[0]?.message) || '⚠️ Could not complete your request.';
+    // Execute through the 4-Stage AI Pipeline (Planner -> Orchestrator -> Deterministic Validator -> Explainer)
+    const pipelineRes = await PipelineCoordinator.execute(
+      message,
+      {
+        sessionId,
+        userId,
+        farmId,
+        userGoal: message,
+        productionContextBlock,
+      },
+      this.tools,
+      sanitizedHistory,
+      () => this.getStoredFarmState(farmId, userId)
+    );
 
     return {
-      success: true,
-      answer,
-      steps,
-      warnings: collectedWarnings.length > 0 ? collectedWarnings : undefined,
-      provenance: latestProvenance,
+      success: pipelineRes.success,
+      answer: pipelineRes.answer,
+      steps: pipelineRes.steps.map((s) => ({
+        tool: s.tool ?? s.stage,
+        ok: s.ok,
+        epistemicTier: s.epistemicTier,
+      })),
+      warnings: pipelineRes.warnings,
+      provenance: pipelineRes.provenance,
     };
   }
+
 }
 
 export const orchestrator = new Orchestrator();
