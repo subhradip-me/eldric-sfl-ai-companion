@@ -8,7 +8,9 @@
  * to save latency and guarantee the correct tools are invoked.
  */
 
-import type { ExecutionPlan, PipelineIntent, ValidationCriteria, ToolCallSpec, PipelineContext } from './types.js';
+import type { ExecutionPlan, PipelineIntent, ValidationCriteria, ToolCallSpec, PipelineContext, ToolCatalog } from './types.js';
+import { LlmPlanner } from './LlmPlanner.js';
+import { PlanGuardrail } from './PlanGuardrail.js';
 import recipesData from '../../../data/recipes.json' with { type: 'json' };
 
 const ALL_GAME_RECIPES = Object.keys(recipesData as Record<string, unknown>).filter(
@@ -27,6 +29,22 @@ const KNOWN_RECIPES = Array.from(
     'Cheese', 'Fancy Fries', "Goblin's Treat",
   ])
 );
+
+// Common shorthand / informal names players type, mapped to the canonical recipe key.
+// Matched as whole words BEFORE the strict full-name pass so "pizza" resolves to
+// "Pizza Margherita", "cheesecake" to "Lemon Cheesecake", etc.
+const RECIPE_ALIASES: Record<string, string> = {
+  pizza: 'Pizza Margherita',
+  margherita: 'Pizza Margherita',
+  cheesecake: 'Lemon Cheesecake',
+  'lemon cheesecake': 'Lemon Cheesecake',
+  'club sandwich': 'Club Sandwich',
+  sandwich: 'Club Sandwich',
+  'boiled egg': 'Boiled Eggs',
+  'mashed potato': 'Mashed Potato',
+  smoothie: 'Power Smoothie',
+  'apple pie': 'Apple Pie',
+};
 
 const KNOWN_ANIMAL_PRODUCE: Record<string, string> = {
   milk: 'Milk',
@@ -53,14 +71,107 @@ const KNOWN_ENTITIES = [
 export class Planner {
   /**
    * Plan execution steps and typed criteria for a user message.
+   *
+   * Primary path: LLM classifier (LlmPlanner) → deterministic guardrail (PlanGuardrail).
+   * The LLM is advisory; the guardrail is authoritative. On any failure — no provider
+   * configured, timeout, unparseable JSON, or a plan the guardrail can't salvage — we
+   * degrade to deterministicPlan() (today's keyword routing). Worst case is today's
+   * behavior; planning never hard-fails.
    */
   public static async plan(
+    message: string,
+    context: PipelineContext,
+    priorHistory: Array<{ role: string; content: string }> = [],
+    catalog?: ToolCatalog
+  ): Promise<ExecutionPlan> {
+    const text = message.trim();
+
+    if (catalog && Object.keys(catalog).length > 0) {
+      try {
+        const classified = await LlmPlanner.classify(text, catalog, priorHistory);
+        if (classified) {
+          const guarded = PlanGuardrail.validate(classified, catalog, text);
+          if (guarded) return guarded;
+        }
+      } catch {
+        // Fall through to deterministic routing on any classifier/guardrail error.
+      }
+    }
+
+    return this.deterministicPlan(text, context, priorHistory);
+  }
+
+  /**
+   * Deterministic keyword routing — the resilient fallback path. Fast-paths
+   * unambiguous patterns to the correct tools with zero LLM cost. This is the
+   * behavior the pipeline degrades to when the LLM planner is unavailable.
+   */
+  public static async deterministicPlan(
     message: string,
     context: PipelineContext,
     priorHistory: Array<{ role: string; content: string }> = []
   ): Promise<ExecutionPlan> {
     const text = message.trim();
     const lower = text.toLowerCase();
+
+    // ── 0. Market Prices & Sell Advice ──────────────────────────────────────
+    // These intents have no branch in the legacy routing and used to fall through
+    // to GENERAL_QUERY → search_knowledge (stale KB), which caused the market-price
+    // miss and the "sell a Crimstone Rock" hallucination. Route them explicitly.
+    const mentionsSell =
+      /\bsell\b/.test(lower) ||
+      lower.includes('what to sell') ||
+      lower.includes('what should i sell') ||
+      lower.includes('raise flower') ||
+      lower.includes('fill the flower gap') ||
+      lower.includes('flower gap') ||
+      lower.includes('cover the flower') ||
+      lower.includes('offload');
+
+    const mentionsMarket =
+      lower.includes('p2p') ||
+      lower.includes('market price') ||
+      lower.includes('market prices') ||
+      lower.includes('check the market') ||
+      lower.includes('current prices') ||
+      lower.includes('live prices') ||
+      lower.includes('price check') ||
+      (lower.includes('market') && (lower.includes('check') || lower.includes('price') || lower.includes('rate')));
+
+    if (mentionsSell) {
+      const gapMatch = lower.match(/(\d+(?:\.\d+)?)\s*(?:flower|sfl)\b/);
+      const gapFlower = gapMatch ? parseFloat(gapMatch[1]) : undefined;
+      return {
+        userGoal: text,
+        intent: 'SELL_ADVICE',
+        criteria: { checkBoosters: true },
+        plannedTools: [
+          { name: 'resolve_sell_plan', args: gapFlower != null ? { gapFlower } : {} },
+          { name: 'get_market_prices', args: {} },
+          { name: 'get_farm_state', args: {} },
+        ],
+        synthesisDirectives: [
+          'Only present sell suggestions from resolve_sell_plan output. Placed resource nodes (Rocks, Trees) are NOT sellable, and a daily-production FLOWER valuation is an accounting figure, not a sell price.',
+        ],
+        planSource: 'DETERMINISTIC',
+      };
+    }
+
+    if (mentionsMarket) {
+      return {
+        userGoal: text,
+        intent: 'MARKET_PRICES',
+        criteria: { checkBoosters: true },
+        plannedTools: [
+          { name: 'get_market_prices', args: {} },
+          { name: 'get_farm_state', args: {} },
+        ],
+        synthesisDirectives: [
+          'Cite live P2P prices from get_market_prices; never quote knowledge-base base values as current prices.',
+        ],
+        planSource: 'DETERMINISTIC',
+      };
+    }
 
     // Context coreference: extract recipe and quantity from prior user messages
     let contextRecipe: string | null = null;
@@ -119,11 +230,23 @@ export class Planner {
       lower.includes('boost') ||
       lower.includes('yield');
 
-    if (targetRecipe && (isXpOrBuffQuery || isCostOrCraftQuery || lower.includes('recipe') || lower.includes('dish') || targetRecipe.toLowerCase() === 'cheese')) {
+    // Route to recipe-cost whenever a known recipe is explicitly named (even in a
+    // bare follow-up like "what about Lemon cheesecake"), or when cost/xp keywords
+    // apply to an inherited recipe. This keeps recipe answers on the deterministic
+    // compute_recipe_cost path instead of degrading to a KB search (which hallucinated).
+    if (targetRecipe && (mentionedRecipes.length > 0 || isXpOrBuffQuery || isCostOrCraftQuery || lower.includes('recipe') || lower.includes('dish') || targetRecipe.toLowerCase() === 'cheese')) {
       const explicitQty = this.extractQuantity(text, targetRecipe);
+      // Only inherit a prior quantity when it belongs to THIS recipe — i.e. the
+      // recipe was carried over from context (no fresh recipe named), or the named
+      // recipe matches the context recipe. Otherwise a leftover "5 cheese" would
+      // wrongly turn "cost of Pizza Margherita" into 5 pizzas.
+      const sameAsContextRecipe =
+        !!contextRecipe && contextRecipe.toLowerCase() === targetRecipe.toLowerCase();
+      const canInheritQty = mentionedRecipes.length === 0 || sameAsContextRecipe;
+      const inheritedQty = canInheritQty && contextQuantity && contextQuantity > 1 ? contextQuantity : null;
       const targetQty = (explicitQty && explicitQty > 1)
         ? explicitQty
-        : (contextQuantity && contextQuantity > 1 ? contextQuantity : (explicitQty ?? 1));
+        : (inheritedQty ?? (explicitQty ?? 1));
 
       const recipesToPlan = mentionedRecipes.length > 0 ? mentionedRecipes : [targetRecipe];
       const plannedTools: ToolCallSpec[] = recipesToPlan.map((rec) => ({
@@ -351,6 +474,7 @@ export class Planner {
       plannedTools: [
         { name: 'search_knowledge', args: { query: text } },
         { name: 'get_farm_state', args: {} },
+        { name: 'get_active_effects', args: {} },
       ],
     };
   }
@@ -416,6 +540,21 @@ export class Planner {
       if (regex.test(lower)) {
         if (!matches.includes(recipe)) {
           matches.push(recipe);
+        }
+      }
+    }
+
+    // Resolve informal / shorthand names (e.g. "pizza" → "Pizza Margherita") that
+    // the strict full-name pass above would miss. Longest alias first so
+    // "lemon cheesecake" wins over "cheesecake".
+    const sortedAliases = Object.keys(RECIPE_ALIASES).sort((a, b) => b.length - a.length);
+    for (const alias of sortedAliases) {
+      const escaped = alias.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+      const regex = new RegExp(`\\b${escaped}\\b`, 'i');
+      if (regex.test(lower)) {
+        const canonical = RECIPE_ALIASES[alias];
+        if (!matches.includes(canonical)) {
+          matches.push(canonical);
         }
       }
     }

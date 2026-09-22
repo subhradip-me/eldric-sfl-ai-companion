@@ -6,6 +6,8 @@
 export * from './types.js';
 export { MathHelper } from './MathHelper.js';
 export { Planner } from './Planner.js';
+export { LlmPlanner } from './LlmPlanner.js';
+export { PlanGuardrail } from './PlanGuardrail.js';
 export { DeterministicValidator } from './DeterministicValidator.js';
 export { Explainer } from './Explainer.js';
 export { PipelineCoordinator } from './PipelineCoordinator.js';

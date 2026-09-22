@@ -20,7 +20,6 @@ import { extractFarmHistoryDelta } from '../farm/historyContextExtractors.js';
 import { extractPlannerContext } from '../farm/plannerContextExtractors.js';
 import {
   calculateFoodXp,
-  calculateCostBreakdown,
   getItemPrice,
   calculateAnimalProduceCost,
   getFarmAnimalSetupStatus,
@@ -53,11 +52,15 @@ import type {
   CalculationProvenance,
   MarketPrice,
   BuyVsFarmResult,
+  SellPlanResult,
+  SellCandidate,
+  SellExclusion,
 } from '../../domain/index.js';
 
 import recipesData from '../../data/recipes.json' with { type: 'json' };
 import itemsData from '../../data/items.json' with { type: 'json' };
 import modifiersData from '../../data/modifiers.json' with { type: 'json' };
+import { recipeService } from '../cooking/RecipeService.js';
 import expansionData from '../../data/expansion.json' with { type: 'json' };
 import skillCatalogue from '../../data/skills.json' with { type: 'json' };
 import { itemMetadataService } from '../metadata/index.js';
@@ -920,29 +923,35 @@ export class Orchestrator {
             effectContext: effectRes.value,
             farmId: context.farmId,
           });
+          const eff = foodXpResult.value;
 
-          // Scale required ingredients by quantity
-          const baseIngredients: Record<string, number> = r.ingredients ?? {};
-          const scaledIngredients: Record<string, number> = {};
-          for (const [ing, count] of Object.entries(baseIngredients)) {
-            scaledIngredients[ing] = Number(count) * qty;
-          }
+          // Account-specific ingredient multiplier (e.g. Double Nom = 2x ingredients & output).
+          // This is the SAME deterministic core the dashboard uses, so chat numbers match it.
+          const ingredientMultiplier = eff.ingredientMultiplier ?? 1;
+          const recipesMap = recipesData as unknown as Parameters<typeof recipeService.expand>[1];
+          const itemsMap = itemsData as unknown as Parameters<typeof recipeService.cost>[2];
 
-          const costResult = calculateCostBreakdown({
-            requiredResources: scaledIngredients,
-            inventory: state.inventory.all,
-            prices,
-          });
+          // Expand the recipe into fundamental base resources, recursing through
+          // intermediate craftables (e.g. Cheese -> 3 Milk) so every row is priceable.
+          // Per-batch amounts have the skill multiplier baked in; totals scale by quantity.
+          const perBatch = recipeService.expand(recipe, recipesMap, 0, ingredientMultiplier).base;
+          const totalBase = recipeService.expand(recipe, recipesMap, 0, ingredientMultiplier * qty).base;
+          const costResult = recipeService.cost(totalBase, prices, itemsMap, state.inventory.all ?? {});
 
           const ownsBuilding = r.building in state.structures.buildings;
-          const boostsList = foodXpResult.value.boostBreakdown.map((b) => b.label).join(', ');
-          const unitXp = Number(foodXpResult.value.xpPerFood.toFixed(2));
-          const totalXp = Number((unitXp * qty).toFixed(2));
-          const mins = Math.floor(foodXpResult.value.minutes);
-          const secs = Math.round((foodXpResult.value.minutes % 1) * 60);
+          const boostsList = eff.boostBreakdown.map((b) => b.label).join(', ');
+
+          // XP is awarded per food produced; a single cook yields `output` food (skill-boosted),
+          // so per-cook XP is batchXp. Totals scale by the number of cooks (quantity).
+          const unitXp = Number(eff.xpPerFood.toFixed(2));       // XP per single food item
+          const batchXp = Number(eff.batchXp.toFixed(2));         // XP per cook (output * xpPerFood)
+          const totalXp = Number((batchXp * qty).toFixed(2));     // XP across all requested cooks
+          const outputPerCook = eff.output ?? 1;
+          const mins = Math.floor(eff.minutes);
+          const secs = Math.round((eff.minutes % 1) * 60);
           const timeFormatted = `${mins}m ${secs}s`;
 
-          // Ingredient details breakdown with live unit prices
+          // Base-resource breakdown with live unit prices (matches the dashboard buy list).
           const ingredientDetails: Array<{
             item: string;
             perUnit: number;
@@ -953,20 +962,32 @@ export class Orchestrator {
             totalCostFlower: number;
           }> = [];
 
-          for (const [ing, needed] of Object.entries(scaledIngredients)) {
+          for (const [ing, needed] of Object.entries(totalBase)) {
             const inStock = state.inventory.all?.[ing] ?? 0;
             const toBuy = Math.max(0, needed - inStock);
-            const unitPrice = getItemPrice(ing, prices);
+            const unitPrice = recipeService.getItemPrice(ing, prices);
             const totalCost = unitPrice != null ? toBuy * unitPrice : 0;
             ingredientDetails.push({
               item: ing,
-              perUnit: baseIngredients[ing] ?? 0,
-              totalNeeded: needed,
+              perUnit: Number((perBatch[ing] ?? needed / qty).toFixed(4)),
+              totalNeeded: Number(needed.toFixed(4)),
               inStock,
-              toBuy,
+              toBuy: Number(toBuy.toFixed(4)),
               unitPriceFlower: unitPrice,
               totalCostFlower: Number(totalCost.toFixed(4)),
             });
+          }
+
+          // Intermediate production steps (e.g. produce Cheese from Milk) surfaced explicitly.
+          const intermediateSteps: string[] = [];
+          for (const [ing, baseQty] of Object.entries(r.ingredients ?? {})) {
+            const sub = recipesData as Record<string, { ingredients?: Record<string, number>; building?: string }>;
+            if (sub[ing]?.ingredients) {
+              const count = Number(baseQty) * ingredientMultiplier * qty;
+              const subBase = recipeService.expand(ing, recipesMap, 0, count).base;
+              const subList = Object.entries(subBase).map(([k, v]) => `${Number(v.toFixed(2))} ${k}`).join(', ');
+              intermediateSteps.push(`Produce ${Number(count.toFixed(2))} ${ing} (needs ${subList}) at the ${sub[ing]?.building ?? 'building'}`);
+            }
           }
 
           return {
@@ -975,21 +996,26 @@ export class Orchestrator {
             data: {
               recipe,
               quantity: qty,
-              baseOutput: (r.baseOutput ?? 1) * qty,
+              baseOutput: outputPerCook * qty,
+              outputPerCook,
+              ingredientMultiplier,
               building: r.building,
               ownsBuilding,
               warning: ownsBuilding ? null : `⚠️ You do NOT own a ${r.building}! You cannot cook this recipe until you build one.`,
               effective: {
-                ...foodXpResult.value,
+                ...eff,
+                baseXp: r.baseXp,
                 totalXpGained: totalXp,
+                batchXp,
               },
-              cost: costResult.value,
-              baseIngredients,
-              scaledIngredients,
+              cost: { ...costResult, flower: Number(costResult.flower.toFixed(4)), totalFlower: Number(costResult.totalFlower.toFixed(4)) },
+              baseIngredients: r.ingredients ?? {},
+              scaledIngredients: totalBase,
               ingredientDetails,
-              totalMinutes: foodXpResult.value.minutes * qty,
+              intermediateSteps,
+              totalMinutes: eff.minutes * qty,
               formattedTime: timeFormatted,
-              explanation: `Cooking ${qty > 1 ? `${qty}x ` : ''}${recipe} yields ${totalXp} XP (${unitXp} XP each, base: ${r.baseXp} XP${boostsList ? `, active boosts: ${boostsList}` : ''}). Duration: ${timeFormatted} per unit. Required ingredients: ${Object.entries(scaledIngredients).map(([i, n]) => `${n} ${i}`).join(', ')}. In-stock inventory covers part/all, remaining acquisition cost is ${costResult.value.flower.toFixed(4)} FLOWER (total valuation: ${costResult.value.totalFlower.toFixed(4)} FLOWER).`,
+              explanation: `Cooking ${qty > 1 ? `${qty} cooks of ` : ''}${recipe} yields ${totalXp} XP total (${batchXp} XP per cook = ${outputPerCook} food x ${unitXp} XP each, base ${r.baseXp} XP${boostsList ? `; active boosts: ${boostsList}` : ''}). Duration: ${timeFormatted} per cook. Base resources required (skill multiplier x${ingredientMultiplier} applied): ${Object.entries(totalBase).map(([i, n]) => `${Number(n.toFixed(2))} ${i}`).join(', ')}${intermediateSteps.length > 0 ? `. Intermediate steps: ${intermediateSteps.join('; ')}` : ''}. Remaining market acquisition cost is ${costResult.flower.toFixed(4)} FLOWER (total valuation: ${costResult.totalFlower.toFixed(4)} FLOWER).`,
             },
             provenance: foodXpResult.provenance,
             epistemicTier: 'DERIVED',
@@ -2360,6 +2386,198 @@ export class Orchestrator {
             tool: 'get_skills_tree',
             success: false,
             epistemicTier: 'AUTHORITATIVE',
+            error: {
+              code: 'INTERNAL_ERROR',
+              message: String((e as Error).message ?? e),
+              retryable: false,
+            },
+          };
+        }
+      },
+    },
+
+    // ── 20. resolve_sell_plan (Deterministic Sell-Plan Resolver) ─────────────
+    resolve_sell_plan: {
+      description:
+        'Deterministic "what should I sell" resolver. Ranks the player\'s SELLABLE inventory by live P2P value and computes which items to sell (and how many) to raise a target FLOWER gap. Placed resource nodes (Rocks, Trees) and untradable resources (e.g. Crimstone) are NEVER candidates. Hard reserves (recipe ingredients via the resource ledger) and soft player preferences (preserve[]) are excluded with a reason. Every figure traces to live prices + inventory — no number is invented.',
+      parameters: {
+        type: 'object',
+        properties: {
+          gapFlower: {
+            type: 'number',
+            description: 'Target FLOWER amount to raise by selling. Omit or 0 for an open-ended "what can I sell" ranking.',
+          },
+          preserve: {
+            type: 'array',
+            items: { type: 'string' },
+            description: 'Soft player preference — item names to keep and never sell (e.g. ["Crimstone", "Gold"]).',
+          },
+          reserveForGoal: {
+            type: 'string',
+            description: 'Optional recipe goal whose ingredients must be reserved, e.g. "Pizza Margherita x10". Ingredients are expanded to base resources and excluded from selling.',
+          },
+        },
+      },
+      exec: async ({ gapFlower, preserve = [], reserveForGoal }, context) => {
+        try {
+          const [{ state, version }, { prices }] = await Promise.all([
+            this.getStoredFarmState(context.farmId, context.userId),
+            sunflowerClient.getPrices(),
+          ]);
+
+          const gap = Math.max(0, Number(gapFlower) || 0);
+          const preserveSet = new Set(
+            (Array.isArray(preserve) ? preserve : []).map((p) => String(p).toLowerCase())
+          );
+
+          // Soft goal: expand a named recipe into base ingredients and treat them as
+          // reserved (so we never suggest selling what the player wants to cook).
+          const tomorrowRequirements: Record<string, number> = {};
+          if (typeof reserveForGoal === 'string' && reserveForGoal.trim()) {
+            const qtyMatch = reserveForGoal.match(/x?\s*(\d+)\s*$/i);
+            const goalQty = qtyMatch ? Math.max(1, parseInt(qtyMatch[1], 10)) : 1;
+            const goalName = reserveForGoal.replace(/x?\s*\d+\s*$/i, '').trim();
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const recipesMap = recipesData as unknown as Parameters<typeof recipeService.expand>[1];
+            const recipeKey = Object.keys(recipesData as Record<string, unknown>).find(
+              (k) => !k.startsWith('_') && k.toLowerCase() === goalName.toLowerCase()
+            );
+            if (recipeKey) {
+              try {
+                const base = recipeService.expand(recipeKey, recipesMap, 0, goalQty).base;
+                for (const [ing, amt] of Object.entries(base)) {
+                  tomorrowRequirements[ing] = (tomorrowRequirements[ing] ?? 0) + Number(amt);
+                }
+              } catch {
+                // Non-fatal: unresolved recipe simply reserves nothing.
+              }
+            }
+          }
+
+          // Hard reserves come from the deterministic resource ledger.
+          const ledger = buildResourceLedger({ state, tomorrowRequirements });
+
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const items = itemsData as Record<string, { tradable?: boolean; purpose?: string }>;
+          const inventory = state.inventory.all ?? {};
+
+          const rankable: SellCandidate[] = [];
+          const excluded: SellExclusion[] = [];
+
+          for (const [item, rawQty] of Object.entries(inventory)) {
+            const qty = Number(rawQty) || 0;
+            if (qty <= 0) continue;
+
+            const meta = items[item];
+
+            // 1. Sellability — must be tradable in the authoritative catalog.
+            //    Placed nodes (Crimstone Rock, Tree, Stone Rock) and untradable
+            //    resources (Crimstone) are tradable:false and are excluded here.
+            if (!meta || meta.tradable !== true) {
+              excluded.push({
+                item,
+                reason: 'NOT_SELLABLE',
+                detail: `${meta?.purpose ?? 'Item'} — not sellable on the P2P market`,
+              });
+              continue;
+            }
+
+            // 2. Must have a live market price.
+            const unitPrice = getItemPrice(item, prices);
+            if (unitPrice == null || unitPrice <= 0) {
+              excluded.push({ item, reason: 'NO_MARKET_PRICE', detail: 'No active P2P market price' });
+              continue;
+            }
+
+            // 3. Soft preserve (explicit player preference).
+            if (preserveSet.has(item.toLowerCase())) {
+              excluded.push({ item, reason: 'PRESERVED_BY_REQUEST', detail: 'You asked to keep this item' });
+              continue;
+            }
+
+            // 4. Hard reserves from the ledger reduce the sellable quantity.
+            const commitment = ledger[item];
+            const reserved = commitment ? commitment.reservedForTomorrow + commitment.phaseReserve : 0;
+            const sellable = Math.max(0, qty - reserved);
+            if (sellable <= 0) {
+              excluded.push({
+                item,
+                reason: 'RESERVED_FOR_RECIPE',
+                detail: `All ${qty} reserved for upcoming recipe/goal needs`,
+              });
+              continue;
+            }
+
+            rankable.push({
+              item,
+              qtyToSell: sellable,
+              unitPriceFlower: Number(unitPrice.toFixed(6)),
+              totalFlower: Number((sellable * unitPrice).toFixed(6)),
+            });
+          }
+
+          // Rank by total liquidation value (highest first), tie-break by unit price.
+          rankable.sort(
+            (a, b) => b.totalFlower - a.totalFlower || b.unitPriceFlower - a.unitPriceFlower
+          );
+
+          // Fill the gap greedily from the ranked list. gap=0 → full ranked list.
+          const candidates: SellCandidate[] = [];
+          let proceeds = 0;
+          if (gap > 0) {
+            for (const c of rankable) {
+              if (proceeds >= gap) break;
+              const remaining = gap - proceeds;
+              const unitsNeeded = Math.ceil(remaining / c.unitPriceFlower);
+              const qtyToSell = Math.min(c.qtyToSell, unitsNeeded);
+              const totalFlower = Number((qtyToSell * c.unitPriceFlower).toFixed(6));
+              candidates.push({ item: c.item, qtyToSell, unitPriceFlower: c.unitPriceFlower, totalFlower });
+              proceeds += totalFlower;
+            }
+          } else {
+            candidates.push(...rankable);
+            proceeds = rankable.reduce((s, c) => s + c.totalFlower, 0);
+          }
+          proceeds = Number(proceeds.toFixed(6));
+
+          const gapFilled = gap > 0 ? proceeds >= gap - 1e-9 : candidates.length > 0;
+          const shortfallFlower = gap > 0 ? Number(Math.max(0, gap - proceeds).toFixed(6)) : 0;
+
+          const soldList = candidates.map((c) => `${c.qtyToSell}x ${c.item}`).join(', ');
+          const summary = gap > 0
+            ? gapFilled
+              ? `Selling ${soldList} raises ${proceeds.toFixed(4)} FLOWER, covering the ${gap} FLOWER gap.`
+              : `Your sellable inventory raises at most ${proceeds.toFixed(4)} FLOWER — short ${shortfallFlower.toFixed(4)} FLOWER of the ${gap} FLOWER goal.`
+            : `You have ${candidates.length} sellable item type(s) worth ${proceeds.toFixed(4)} FLOWER total at live P2P prices.`;
+
+          const data: SellPlanResult = {
+            gapFlower: gap,
+            candidates,
+            excluded,
+            gapFilled,
+            proceedsFlower: proceeds,
+            shortfallFlower,
+            summary,
+          };
+
+          return {
+            tool: 'resolve_sell_plan',
+            success: true,
+            data,
+            epistemicTier: 'DERIVED',
+            provenance: {
+              farmId: context.farmId,
+              snapshotVersion: version,
+              calculationEngineVersion: '2.0.0',
+              gameDataVersion: '2026.09.13',
+              computedAt: Date.now(),
+            },
+          };
+        } catch (e) {
+          return {
+            tool: 'resolve_sell_plan',
+            success: false,
+            epistemicTier: 'DERIVED',
             error: {
               code: 'INTERNAL_ERROR',
               message: String((e as Error).message ?? e),

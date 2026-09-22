@@ -3,4 +3,5 @@
  */
 export { EmbeddingService, embeddingService } from './EmbeddingService.js';
 export { GroqClient, groqClient } from './GroqClient.js';
+export { ClaudeClient, claudeClient } from './ClaudeClient.js';
 export { Orchestrator, orchestrator, runAgent } from './Orchestrator.js';

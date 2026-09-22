@@ -82,6 +82,14 @@ export class DeterministicValidator {
       return this.synthesizeLevelResults(levelResult.data, farmState);
     }
 
+    // F. Sell-Plan Resolver (what to sell to raise FLOWER)
+    const sellPlanResult = toolResults.find(
+      (r) => r.tool === 'resolve_sell_plan' && r.success && r.data
+    );
+    if (sellPlanResult) {
+      return this.synthesizeSellPlanResults(sellPlanResult.data);
+    }
+
     // ── 3. Entity Validation (Recipe, Tool, Building, Item) ─────────────────
     if (criteria.requiredEntity) {
       return this.validateEntityRequirements(
@@ -163,6 +171,9 @@ export class DeterministicValidator {
     const allBuffs: any[] = [];
     const allRows: ResourceDiffRow[] = [];
     const sections: string[] = [];
+    // Standalone ingredient breakdown tables (one per recipe) so the Explainer can
+    // guarantee the full ingredient + market-price list always reaches the user.
+    const ingredientTables: string[] = [];
 
     // Check if any recipe result has cost, quantity > 1, or ingredient details
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -248,6 +259,22 @@ export class DeterministicValidator {
         sections.push('### Required Ingredients & Market Acquisition Cost');
         sections.push(ingLines.join('\n'));
 
+        // Intermediate production steps (e.g. produce Cheese from Milk).
+        const intermediateSteps: string[] = Array.isArray(data.intermediateSteps) ? data.intermediateSteps : [];
+        if (intermediateSteps.length > 0) {
+          sections.push('');
+          sections.push('**Intermediate steps:** ' + intermediateSteps.map((s: string) => `${s}`).join('; ') + '.');
+        }
+
+        // Capture the ingredient breakdown separately for guaranteed rendering.
+        const ingHeading = recipeResults.length > 1
+          ? `### ${qty > 1 ? `${qty}x ` : ''}${recipeName} — Ingredients & Market Cost`
+          : '### Required Ingredients & Market Acquisition Cost';
+        const intermediateNote = intermediateSteps.length > 0
+          ? `\n\n_Intermediate steps: ${intermediateSteps.join('; ')}._`
+          : '';
+        ingredientTables.push(`${ingHeading}\n${ingLines.join('\n')}\n\n**Total FLOWER to buy missing ingredients: ${totalFlowerCost.toFixed(4)} FLOWER**${intermediateNote}`);
+
         // Detailed summary item
         const ingSummary = data.ingredientDetails.map((i: any) => `${i.totalNeeded} ${i.item} (${i.perUnit} per unit)`).join(', ');
         const missingDetails = data.ingredientDetails.filter((i: any) => i.toBuy > 0);
@@ -301,6 +328,7 @@ export class DeterministicValidator {
         canAfford,
         rows: allRows,
         markdownTable,
+        ingredientTable: ingredientTables.length > 0 ? ingredientTables.join('\n\n') : undefined,
         summaryText,
         activeBuffs: allBuffs,
         buffsImpactText: allBuffs.length > 0 ? `Active Boosters: ${allBuffs.map((b) => b.description).join(', ')}` : 'No active boosts applied.',
@@ -498,6 +526,78 @@ export class DeterministicValidator {
         summaryText: xpRemaining === 0
           ? `You have reached Level ${targetLevel}!`
           : `You are Level ${currentLevel} with ${MathHelper.formatNumber(currentXp)} XP. You need **${MathHelper.formatNumber(xpRemaining)} more XP** to reach Level ${targetLevel}.`,
+        activeBuffs: [],
+      },
+    };
+  }
+
+  /**
+   * Synthesize the deterministic sell plan into a ranked table + exclusions.
+   * Every figure here originates from resolve_sell_plan (live prices + inventory);
+   * the Explainer must cite these exact numbers and never propose an excluded item.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private static synthesizeSellPlanResults(data: any): ValidationReport {
+    if (!data) return { status: 'VALID', missingKeys: [] };
+
+    const candidates: any[] = Array.isArray(data.candidates) ? data.candidates : [];
+    const excluded: any[] = Array.isArray(data.excluded) ? data.excluded : [];
+    const gap = Number(data.gapFlower ?? 0);
+    const proceeds = Number(data.proceedsFlower ?? 0);
+    const shortfall = Number(data.shortfallFlower ?? 0);
+    const gapFilled = Boolean(data.gapFilled);
+
+    const sections: string[] = [];
+
+    if (candidates.length > 0) {
+      const rows = [
+        '| Item | Qty to Sell | Unit Price (FLOWER) | Total (FLOWER) |',
+        '| :--- | :--- | :--- | :--- |',
+      ];
+      for (const c of candidates) {
+        rows.push(
+          `| **${c.item}** | ${c.qtyToSell} | ${Number(c.unitPriceFlower ?? 0).toFixed(4)} | **${Number(c.totalFlower ?? 0).toFixed(4)}** |`
+        );
+      }
+      rows.push(`| | | **Total** | **${proceeds.toFixed(4)}** |`);
+      sections.push('### Recommended Sell Plan (live P2P prices)');
+      sections.push(rows.join('\n'));
+    } else {
+      sections.push('_No sellable inventory available to raise FLOWER._');
+    }
+
+    if (excluded.length > 0) {
+      const exRows = [
+        '',
+        '### Excluded (not offered for sale)',
+        '| Item | Reason |',
+        '| :--- | :--- |',
+      ];
+      // Cap to keep the table readable; the tool result carries the full list.
+      for (const e of excluded.slice(0, 12)) {
+        exRows.push(`| **${e.item}** | ${e.detail ?? e.reason} |`);
+      }
+      if (excluded.length > 12) exRows.push(`| … | ${excluded.length - 12} more excluded |`);
+      sections.push(exRows.join('\n'));
+    }
+
+    let summaryText = String(data.summary ?? '');
+    if (!summaryText) {
+      summaryText = gap > 0
+        ? gapFilled
+          ? `Selling the ranked items raises ${proceeds.toFixed(4)} FLOWER, covering the ${gap} FLOWER gap.`
+          : `Sellable inventory raises at most ${proceeds.toFixed(4)} FLOWER — short ${shortfall.toFixed(4)} FLOWER.`
+        : `Sellable inventory is worth ${proceeds.toFixed(4)} FLOWER at live prices.`;
+    }
+
+    return {
+      status: 'VALID',
+      missingKeys: gap > 0 && !gapFilled ? [`flower:${shortfall}`] : [],
+      synthesis: {
+        canAfford: gapFilled,
+        rows: [],
+        markdownTable: sections.join('\n'),
+        summaryText,
         activeBuffs: [],
       },
     };

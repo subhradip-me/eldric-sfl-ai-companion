@@ -4,13 +4,14 @@
  * 1. Planner (Goal decomposition & criteria extraction)
  * 2. Orchestrator (Deterministic tool execution)
  * 3. Validator (Pure TypeScript diff checking & booster evaluation)
- * 4. Explainer (Dr. Bumpkin persona synthesis using pre-computed math)
+ * 4. Explainer (Jester persona synthesis using pre-computed math)
  */
 
 import type {
   PipelineContext,
   PipelineStep,
   PipelineExecutionResult,
+  ToolCatalog,
 } from './types.js';
 import { Planner } from './Planner.js';
 import { DeterministicValidator } from './DeterministicValidator.js';
@@ -19,6 +20,10 @@ import type { AIToolResult, CalculationProvenance, NormalizedFarmState } from '.
 
 export interface ToolExecutorMap {
   [name: string]: {
+    /** Optional catalog metadata used by the LLM planner + guardrail. */
+    description?: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    parameters?: any;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     exec: (params: any, context: any) => Promise<AIToolResult<any>>;
   };
@@ -43,11 +48,16 @@ export class PipelineCoordinator {
     let toolCallsCount = 0;
 
     // ── STAGE 1: PLANNER ───────────────────────────────────────────────────
-    const plan = await Planner.plan(message, context, priorHistory);
+    const plan = await Planner.plan(
+      message,
+      context,
+      priorHistory,
+      tools as unknown as ToolCatalog
+    );
     steps.push({
       stage: 'PLANNER',
       ok: true,
-      details: `Intent: ${plan.intent} | Entity: ${plan.criteria.requiredEntity ?? 'none'}`,
+      details: `Intent: ${plan.intent} (${plan.planSource ?? 'DETERMINISTIC'}) | Entity: ${plan.criteria.requiredEntity ?? 'none'}`,
     });
 
     // ── STAGE 2: ORCHESTRATOR (Tool Execution) ─────────────────────────────
@@ -178,7 +188,8 @@ export class PipelineCoordinator {
       toolResults,
       validationReport,
       context,
-      priorHistory
+      priorHistory,
+      plan.synthesisDirectives
     );
 
     steps.push({

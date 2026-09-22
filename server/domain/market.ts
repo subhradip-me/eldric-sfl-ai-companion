@@ -91,3 +91,36 @@ export interface BuyVsFarmResult {
   summary: string;
 }
 
+/** A single ranked sell candidate produced by resolve_sell_plan. */
+export interface SellCandidate {
+  item: string;
+  qtyToSell: number;
+  unitPriceFlower: number;
+  totalFlower: number;
+}
+
+/** An inventory item excluded from selling, with a machine-readable reason. */
+export interface SellExclusion {
+  item: string;
+  reason:
+    | 'NOT_SELLABLE'          // placed node / untradable item (e.g. Crimstone Rock)
+    | 'RESERVED_FOR_RECIPE'   // hard reserve from the resource ledger
+    | 'PRESERVED_BY_REQUEST'  // soft preference the player asked to keep
+    | 'NO_MARKET_PRICE';      // tradable but currently unpriced on the P2P market
+  detail: string;
+}
+
+/**
+ * Deterministic sell-plan result. Every figure traces to live prices + inventory;
+ * no number originates in the LLM. See design §4.3.
+ */
+export interface SellPlanResult {
+  gapFlower: number;
+  candidates: SellCandidate[];
+  excluded: SellExclusion[];
+  gapFilled: boolean;
+  proceedsFlower: number;         // sum of candidate totalFlower
+  shortfallFlower: number;        // > 0 if inventory can't cover the gap
+  summary: string;
+}
+
