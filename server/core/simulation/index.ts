@@ -8,3 +8,4 @@ export * from './forwardModel.js';
 export * from './search.js';
 export * from './candidates.js';
 export * from './calibration.js';
+export * from './policy.js';
