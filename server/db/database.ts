@@ -47,6 +47,15 @@ pool.on('error', (err) => {
   console.error('⚠️  Idle DB client error (will reconnect):', err.message);
 });
 
+// Whether the pgvector extension + the `embedding vector(384)` columns are
+// actually available on the connected database. Set during init(). When false,
+// the app still works fully — it just skips embeddings and semantic recall
+// instead of crashing every chat write on a missing `embedding` column.
+let vectorEnabled = false;
+export function isVectorEnabled(): boolean {
+  return vectorEnabled;
+}
+
 export async function init() {
   // ── 1. Users table (must exist before FK references below) ──────────────────
   await pool.query(`
@@ -81,9 +90,17 @@ export async function init() {
   `);
 
   // ── 3. pgvector extension (optional — catch so it doesn't abort chain) ───────
-  await pool.query(`CREATE EXTENSION IF NOT EXISTS vector;`).catch(() => {
+  //    vectorEnabled gates every `vector(384)` column + similarity query below.
+  //    If the extension can't be created (not on the DB's allow-list, no perms),
+  //    we degrade to a fully working app with semantic recall disabled rather
+  //    than aborting init and leaving chat_messages without its embedding column.
+  try {
+    await pool.query(`CREATE EXTENSION IF NOT EXISTS vector;`);
+    vectorEnabled = true;
+  } catch {
+    vectorEnabled = false;
     console.warn("⚠️  pgvector not available — semantic recall disabled");
-  });
+  }
 
   // ── 4. Chat messages table (basic columns only — no user_id index yet) ───────
   await pool.query(`
@@ -105,8 +122,26 @@ export async function init() {
   await pool.query(`
     ALTER TABLE snapshots     ADD COLUMN IF NOT EXISTS user_id INTEGER;
     ALTER TABLE chat_messages ADD COLUMN IF NOT EXISTS user_id INTEGER;
-    ALTER TABLE chat_messages ADD COLUMN IF NOT EXISTS embedding vector(384);
   `);
+
+  // The embedding column needs the `vector` type, so it is guarded separately.
+  // Bundling it with the user_id migrations above would abort the whole query
+  // (and thus init) whenever pgvector is unavailable — which is exactly what left
+  // chat_messages without its embedding column and made every chat write throw
+  // `column "embedding" of relation "chat_messages" does not exist`.
+  if (vectorEnabled) {
+    try {
+      await pool.query(
+        `ALTER TABLE chat_messages ADD COLUMN IF NOT EXISTS embedding vector(384);`,
+      );
+    } catch (embErr: any) {
+      vectorEnabled = false;
+      console.warn(
+        "⚠️  Could not add chat_messages.embedding column — semantic recall disabled:",
+        embErr.message,
+      );
+    }
+  }
 
   // Add FK constraints idempotently (skip if constraint already exists)
   await pool.query(`
