@@ -27,6 +27,11 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
 
+# Local embedding model (@xenova/transformers) cache — must be writable by the
+# non-root `node` user, so point it at /tmp instead of the root-owned node_modules
+# (the source of `EACCES: mkdir '/app/node_modules/@xenova/.../.cache'`).
+ENV TRANSFORMERS_CACHE=/tmp/xenova-cache
+
 # Install root dependencies
 COPY package*.json ./
 RUN npm install --omit=dev --no-audit && npm cache clean --force

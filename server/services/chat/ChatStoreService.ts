@@ -3,7 +3,7 @@
  * User-scoped: all queries filter by user_id.
  */
 import type { SaveMessageInput, ChatMessageRecord, SessionSummary, SimilarMessage } from '../../types/index.js';
-import { pool } from '../../db/database.js';
+import { pool, isVectorEnabled } from '../../db/database.js';
 import { embeddingService } from '../ai/EmbeddingService.js';
 
 export class ChatStoreService {
@@ -15,21 +15,29 @@ export class ChatStoreService {
       return;
     }
 
-    // 1. Immediate synchronous insert to guarantee conversational continuity with zero latency
+    // 1. Immediate synchronous insert to guarantee conversational continuity with zero latency.
+    //    The embedding column only exists when pgvector is available, so include it in the
+    //    INSERT only then — otherwise omit it (stored NULL) so persistence works everywhere.
+    const vectorReady = isVectorEnabled();
     let msgId: number | null = null;
     try {
-      const res = await pool.query(
-        'INSERT INTO chat_messages (session_id, role, content, embedding, user_id, created_at) VALUES ($1,$2,$3,$4,$5,$6) RETURNING id',
-        [sessionId, role, content, embedding, userId, Date.now()]
-      );
+      const res = vectorReady
+        ? await pool.query(
+            'INSERT INTO chat_messages (session_id, role, content, embedding, user_id, created_at) VALUES ($1,$2,$3,$4,$5,$6) RETURNING id',
+            [sessionId, role, content, embedding, userId, Date.now()]
+          )
+        : await pool.query(
+            'INSERT INTO chat_messages (session_id, role, content, user_id, created_at) VALUES ($1,$2,$3,$4,$5) RETURNING id',
+            [sessionId, role, content, userId, Date.now()]
+          );
       msgId = res.rows[0]?.id;
     } catch (err) {
       console.warn('Failed to insert chat message:', (err as Error).message);
       return;
     }
 
-    // 2. Compute vector embedding asynchronously in background — never delays message persistence
-    if (msgId && !embedding) {
+    // 2. Compute vector embedding asynchronously in background — never delays message persistence.
+    if (vectorReady && msgId && !embedding) {
       embeddingService
         .embed(content)
         .then(async (rawVec) => {
@@ -52,24 +60,29 @@ export class ChatStoreService {
     userId: number,
     k = 4
   ): Promise<SimilarMessage[]> {
-    if (!userId) return [];
-    const vec = embeddingService.toVec(await embeddingService.embed(text));
-    const r = await pool.query(
-      `SELECT role, content, session_id, 1 - (embedding <=> $1) AS score
-       FROM chat_messages
-       WHERE embedding IS NOT NULL
-         AND session_id <> $2
-         AND user_id = $3
-       ORDER BY embedding <=> $1 LIMIT $4`,
-      [vec, currentSessionId, userId, k]
-    );
-    return r.rows
-      .filter((x) => (x.score as number) > 0.45)
-      .map(({ role, content, score }: { role: string; content: string; score: number }) => ({
-        role,
-        content: (content as string).slice(0, 500),
-        score: +score.toFixed(2),
-      }));
+    if (!userId || !isVectorEnabled()) return [];
+    try {
+      const vec = embeddingService.toVec(await embeddingService.embed(text));
+      const r = await pool.query(
+        `SELECT role, content, session_id, 1 - (embedding <=> $1) AS score
+         FROM chat_messages
+         WHERE embedding IS NOT NULL
+           AND session_id <> $2
+           AND user_id = $3
+         ORDER BY embedding <=> $1 LIMIT $4`,
+        [vec, currentSessionId, userId, k]
+      );
+      return r.rows
+        .filter((x) => (x.score as number) > 0.45)
+        .map(({ role, content, score }: { role: string; content: string; score: number }) => ({
+          role,
+          content: (content as string).slice(0, 500),
+          score: +score.toFixed(2),
+        }));
+    } catch {
+      // Semantic recall is best-effort: model-load or pgvector errors return no matches.
+      return [];
+    }
   }
 
   /** List sessions for a user, ordered by most recent activity. */

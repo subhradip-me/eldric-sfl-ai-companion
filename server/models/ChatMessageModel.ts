@@ -1,7 +1,7 @@
 /**
  * ChatMessageModel — database operations for the chat_messages table.
  */
-import { pool } from '../db/database.js';
+import { pool, isVectorEnabled } from '../db/database.js';
 import type { ChatMessageRecord, SessionSummary } from '../types/index.js';
 
 export class ChatMessageModel {
@@ -14,12 +14,21 @@ export class ChatMessageModel {
     embedding?: string | null;
   }): Promise<ChatMessageRecord> {
     const { sessionId, role, content, userId, embedding = null } = data;
-    const result = await pool.query(
-      `INSERT INTO chat_messages (session_id, role, content, embedding, user_id, created_at)
-       VALUES ($1, $2, $3, $4, $5, $6)
-       RETURNING *`,
-      [sessionId, role, content, embedding, userId, Date.now()]
-    );
+    // Include the embedding column only when pgvector is available; otherwise the
+    // column doesn't exist and referencing it would throw on every insert.
+    const result = isVectorEnabled()
+      ? await pool.query(
+          `INSERT INTO chat_messages (session_id, role, content, embedding, user_id, created_at)
+           VALUES ($1, $2, $3, $4, $5, $6)
+           RETURNING *`,
+          [sessionId, role, content, embedding, userId, Date.now()]
+        )
+      : await pool.query(
+          `INSERT INTO chat_messages (session_id, role, content, user_id, created_at)
+           VALUES ($1, $2, $3, $4, $5)
+           RETURNING *`,
+          [sessionId, role, content, userId, Date.now()]
+        );
     return result.rows[0] as ChatMessageRecord;
   }
 
