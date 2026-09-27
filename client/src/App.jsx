@@ -5396,6 +5396,35 @@ export default function App() {
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  // Navigate to a page and close the mobile nav drawer (Discord-style: tapping an item dismisses it)
+  const navTo = useCallback((id) => {
+    setTab(id);
+    setMobileNavOpen(false);
+  }, []);
+
+  // Edge-swipe gestures for the mobile nav drawer: swipe right from the left edge opens, swipe left closes
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+  const onNavTouchStart = (e) => {
+    const t = e.touches[0];
+    touchStartX.current = t.clientX;
+    touchStartY.current = t.clientY;
+  };
+  const onNavTouchEnd = (e) => {
+    if (touchStartX.current == null) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchStartX.current;
+    const dy = t.clientY - touchStartY.current;
+    // Horizontal swipe that clearly beats vertical scroll intent
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      if (dx > 0 && touchStartX.current < 32 && !mobileNavOpen) setMobileNavOpen(true);
+      else if (dx < 0 && mobileNavOpen) setMobileNavOpen(false);
+    }
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
 
   const { theme, toggleTheme } = useTheme();
   const { user, loading, isAuthenticated, logout, setAiCredits } = useAuth();
@@ -5525,6 +5554,7 @@ export default function App() {
         e.preventDefault();
         setCopilotOpen((prev) => !prev);
       }
+      if (e.key === 'Escape') setMobileNavOpen(false);
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
@@ -5549,20 +5579,40 @@ export default function App() {
   const currentPage = PAGES.find((p) => p.id === tab) || (tab === "Recipes" ? PAGES.find((p) => p.id === "Cooking") : PAGES[0]);
 
   return (
-    <div className="h-screen flex flex-col bg-[var(--canvas-bg)] text-[var(--text-primary)] select-none overflow-hidden">
+    <div
+      className="h-screen flex flex-col bg-[var(--canvas-bg)] text-[var(--text-primary)] select-none overflow-hidden"
+      onTouchStart={onNavTouchStart}
+      onTouchEnd={onNavTouchEnd}
+    >
 
       {/* ─── Top Obsidian Window / Tab Header ─────────────────────────────── */}
       <header className="h-10 shrink-0 bg-[#f1f0ea] dark:bg-[#161616] border-b border-black/10 dark:border-white/10 flex items-center justify-between px-2.5 sm:px-3 text-xs z-30">
         <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto no-scrollbar min-w-0 flex-1 mr-2">
+          {/* Mobile: Hamburger opens the Discord-style nav drawer */}
+          <button
+            onClick={() => setMobileNavOpen(true)}
+            className="md:hidden shrink-0 w-8 h-8 -ml-1 rounded-lg flex items-center justify-center hover:bg-black/10 dark:hover:bg-white/10 text-lg text-[#37352f] dark:text-white"
+            title="Open navigation"
+            aria-label="Open navigation"
+          >
+            ☰
+          </button>
+
+          {/* Mobile: Current page icon + title (replaces the tab strip) */}
+          <div className="md:hidden flex items-center gap-1.5 min-w-0">
+            <PageIcon icon={currentPage.icon} alt={currentPage.title} className="w-4 h-4 shrink-0" />
+            <span className="truncate font-semibold text-[#1a1a1a] dark:text-white text-sm">{currentPage.title}</span>
+          </div>
+
           {/* Obsidian Window Traffic Dots (Desktop) */}
-          <div className="hidden sm:flex items-center gap-1.5 mr-1 shrink-0">
+          <div className="hidden md:flex items-center gap-1.5 mr-1 shrink-0">
             <span className="w-2.5 h-2.5 rounded-full bg-red-500/60 inline-block"></span>
             <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60 inline-block"></span>
             <span className="w-2.5 h-2.5 rounded-full bg-green-500/60 inline-block"></span>
           </div>
 
-          {/* Obsidian Document Tabs */}
-          <div className="flex items-center">
+          {/* Obsidian Document Tabs (Desktop only) */}
+          <div className="hidden md:flex items-center">
             {PAGES.map((p) => (
               <button
                 key={p.id}
@@ -5661,6 +5711,23 @@ export default function App() {
       {/* ─── Main Workspace Body (Ribbon + Sidebar + Canvas + Copilot) ─────── */}
       <div className="flex-1 flex min-h-0 overflow-hidden relative">
 
+        {/* Mobile nav drawer backdrop (dim + tap-to-close) */}
+        {mobileNavOpen && (
+          <div
+            className="md:hidden fixed inset-0 bg-black/50 z-40"
+            onClick={() => setMobileNavOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+
+        {/* Nav drawer: icon rail + sidebar. Inline flex on desktop (md:contents), slide-in
+            fixed drawer on mobile (Discord [server rail | channel list] shape). */}
+        <div
+          className={`flex z-50 shadow-2xl md:shadow-none transition-transform duration-200 ease-out max-md:fixed max-md:inset-y-0 max-md:left-0 md:contents ${
+            mobileNavOpen ? "translate-x-0" : "max-md:-translate-x-full"
+          }`}
+        >
+
         {/* 1. Left Tool Ribbon (Discord style on mobile, Obsidian style on desktop) */}
         <div className="w-12 shrink-0 bg-[#ebe9e4] dark:bg-[#141414] border-r border-black/10 dark:border-white/10 flex flex-col items-center py-2.5 md:py-3 justify-between z-20 select-none">
           <div className="flex flex-col items-center gap-1.5 md:gap-2 w-full">
@@ -5675,7 +5742,7 @@ export default function App() {
 
             {/* Mobile: Discord Server Brand Home Icon (No expandability on mobile) */}
             <button
-              onClick={() => setTab("Dashboard")}
+              onClick={() => navTo("Dashboard")}
               className="flex md:hidden w-8 h-8 rounded-2xl items-center justify-center transition-all bg-black/5 dark:bg-white/5 hover:bg-amber-500/20 text-[#37352f] dark:text-white"
               title="Overview"
             >
@@ -5691,7 +5758,7 @@ export default function App() {
               {PAGES.map((p, idx) => (
                 <button
                   key={p.id}
-                  onClick={() => setTab(p.id)}
+                  onClick={() => navTo(p.id)}
                   className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm transition-all ${idx >= 4 ? "flex md:hidden" : "flex"
                     } ${tab === p.id ? "bg-amber-500/20 text-amber-500 font-bold border border-amber-500/30" : "hover:bg-black/5 dark:hover:bg-white/5 opacity-60 hover:opacity-100"}`}
                   title={p.title}
@@ -5788,9 +5855,9 @@ export default function App() {
           </div>
         </div>
 
-        {/* 2. Notion Workspace Sidebar (Collapsible Document Tree - DESKTOP ONLY) */}
-        {sidebarOpen && (
-          <aside className="hidden md:flex w-60 shrink-0 bg-[#f7f6f3] dark:bg-[#202020] border-r border-black/10 dark:border-white/10 flex-col justify-between select-none">
+        {/* 2. Notion Workspace Sidebar (Collapsible Document Tree — desktop inline / mobile drawer) */}
+        {(sidebarOpen || mobileNavOpen) && (
+          <aside className="flex w-60 shrink-0 bg-[#f7f6f3] dark:bg-[#202020] border-r border-black/10 dark:border-white/10 flex-col justify-between select-none">
             <div className="p-3 flex flex-col min-h-0 overflow-y-auto">
               {/* Workspace Switcher Header */}
               <div className="relative mb-3">
@@ -5885,7 +5952,7 @@ export default function App() {
                         {items.map((p) => (
                           <button
                             key={p.id}
-                            onClick={() => setTab(p.id)}
+                            onClick={() => navTo(p.id)}
                             className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg transition-colors text-left ${tab === p.id || (tab === "Recipes" && p.id === "Cooking") ? "bg-black/10 dark:bg-white/10 font-semibold text-[#1a1a1a] dark:text-white" : "text-[#787774] dark:text-[#999] hover:bg-black/5 dark:hover:bg-white/5 hover:text-[#1a1a1a] dark:hover:text-white"}`}
                           >
                             <span className="flex items-center gap-2 truncate">
@@ -5923,10 +5990,12 @@ export default function App() {
             </div>
           </aside>
         )}
+        {/* end nav drawer wrapper (rail + sidebar) */}
+        </div>
 
         {/* 3. Center Canvas (Notion Page Document View) */}
         <main className="flex-1 min-w-0 overflow-y-auto bg-[var(--canvas-bg)]">
-          <div className="max-w-4xl mx-auto px-3.5 py-6 pb-28 sm:px-6 sm:py-8 sm:pb-8 md:px-6 md:py-8 md:pb-8">
+          <div className="max-w-4xl mx-auto px-3.5 py-6 pb-24 sm:px-6 sm:py-8 sm:pb-24 md:px-6 md:py-8 md:pb-8">
 
             {/* Notion Breadcrumbs */}
             <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-[#888] font-mono mb-3 sm:mb-4">
@@ -6011,11 +6080,11 @@ export default function App() {
         />
       </div>
 
-      {/* Floating Antigravity Launcher Button (Bottom-Right) */}
+      {/* Floating Antigravity Launcher Button (Desktop only — mobile uses the bottom quick-bar) */}
       {!copilotOpen && (
         <button
           onClick={() => setCopilotOpen(true)}
-          className="fixed bottom-8 right-3 sm:bottom-9 sm:right-6 md:bottom-9 md:right-6 z-40 flex items-center gap-1.5 md:gap-2 px-2.5 py-1.5 md:px-3.5 md:py-2 rounded-full bg-white dark:bg-[#18181b] border border-black/15 dark:border-amber-500/40 hover:border-amber-500 text-[#1a1a1a] dark:text-white shadow-xl shadow-black/15 dark:shadow-black/60 hover:scale-105 transition-all group select-none"
+          className="hidden md:flex fixed md:bottom-9 md:right-6 z-40 items-center gap-1.5 md:gap-2 px-2.5 py-1.5 md:px-3.5 md:py-2 rounded-full bg-white dark:bg-[#18181b] border border-black/15 dark:border-amber-500/40 hover:border-amber-500 text-[#1a1a1a] dark:text-white shadow-xl shadow-black/15 dark:shadow-black/60 hover:scale-105 transition-all group select-none"
           title="Open the Jester (Ctrl+J)"
         >
           <span className="text-amber-500 dark:text-amber-400 text-xs md:text-sm group-hover:rotate-12 transition-transform">✨</span>
@@ -6025,8 +6094,42 @@ export default function App() {
         </button>
       )}
 
-      {/* ─── Bottom Obsidian Status Bar ───────────────────────────────────── */}
-      <footer className="h-6 shrink-0 bg-[#ebe9e4] dark:bg-[#121212] border-t border-black/10 dark:border-white/10 px-2.5 sm:px-3 flex items-center justify-between text-[11px] font-mono text-[#787774] dark:text-[#777] z-30 select-none">
+      {/* ─── Mobile Bottom Quick-Bar (Discord-style tab bar) ──────────────── */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 h-14 bg-[#f1f0ea]/95 dark:bg-[#161616]/95 backdrop-blur border-t border-black/10 dark:border-white/10 flex items-stretch justify-around px-1 select-none">
+        {[
+          { id: "Dashboard", title: "Overview", icon: "/bumpkin-chibi (2).webp" },
+          { id: "Planner", title: "Planner", icon: "/bumpkin-chibi (4).webp" },
+          { id: "Market", title: "Market", icon: "/npc-hammerin-harry-chibi.webp" },
+        ].map((item) => (
+          <button
+            key={item.id}
+            onClick={() => navTo(item.id)}
+            className={`flex-1 flex flex-col items-center justify-center gap-0.5 text-[10px] font-medium transition-colors ${tab === item.id ? "text-amber-500" : "text-[#787774] dark:text-[#999]"}`}
+          >
+            <PageIcon icon={item.icon} alt={item.title} className="w-5 h-5" />
+            <span>{item.title}</span>
+          </button>
+        ))}
+        {/* Jester (opens the copilot) */}
+        <button
+          onClick={() => setCopilotOpen(true)}
+          className={`flex-1 flex flex-col items-center justify-center gap-0.5 text-[10px] font-medium transition-colors ${copilotOpen ? "text-amber-500" : "text-[#787774] dark:text-[#999]"}`}
+        >
+          <img src="/bumpkin-chibi.webp" alt="Jester" className="w-5 h-5 object-contain [image-rendering:pixelated]" />
+          <span>Jester</span>
+        </button>
+        {/* Menu (opens the nav drawer) */}
+        <button
+          onClick={() => setMobileNavOpen(true)}
+          className={`flex-1 flex flex-col items-center justify-center gap-0.5 text-[10px] font-medium transition-colors ${mobileNavOpen ? "text-amber-500" : "text-[#787774] dark:text-[#999]"}`}
+        >
+          <span className="text-lg leading-none">☰</span>
+          <span>Menu</span>
+        </button>
+      </nav>
+
+      {/* ─── Bottom Obsidian Status Bar (Desktop only) ────────────────────── */}
+      <footer className="hidden md:flex h-6 shrink-0 bg-[#ebe9e4] dark:bg-[#121212] border-t border-black/10 dark:border-white/10 px-2.5 sm:px-3 items-center justify-between text-[11px] font-mono text-[#787774] dark:text-[#777] z-30 select-none">
         <div className="flex items-center gap-2 sm:gap-3 truncate">
           <span className="flex items-center gap-1.5">
             <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${farm?.stale ? "bg-amber-400" : "bg-emerald-400"}`}></span>
