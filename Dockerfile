@@ -36,9 +36,11 @@ ENV TRANSFORMERS_CACHE=/tmp/xenova-cache
 COPY package*.json ./
 RUN npm install --omit=dev --no-audit && npm cache clean --force
 
-# Copy server code, game metadata, and configuration
+# Copy server code, game metadata, and configuration.
+# Game metadata is the root-level metadata.ts module (server/data/*.json is copied
+# with server/ above). There is no top-level metadata/ directory in the repo — a
+# stray `COPY metadata/ ./metadata/` here broke the build with `"/metadata": not found`.
 COPY server/ ./server/
-COPY metadata/ ./metadata/
 COPY metadata.ts ./
 COPY tsconfig.json ./
 
