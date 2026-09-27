@@ -102,30 +102,37 @@ async function connectWithRetry(maxAttempts = 10, baseDelayMs = 2000) {
   }
 }
 
+// Bind the HTTP port IMMEDIATELY, before the database is ready. The platform
+// (Render/Docker) scans for an open port on boot and SIGTERMs the container if it
+// sees none within its window — which is what produced the repeated
+// "No open ports detected, continuing to scan..." → SIGTERM while connectWithRetry
+// blocked startup. /health and the static SPA don't need the DB, so they serve
+// right away; DB-backed routes come online once init() finishes in the background.
+const server = app.listen(port, () => {
+  console.log(`🌻 Sunflower AI server running on port ${port}`);
+  console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔗 Health check: http://localhost:${port}/health`);
+});
+
+// Initialize the database in the background with retry (handles slow-starting
+// managed databases) — never blocks the port binding above.
 connectWithRetry()
   .then(() => {
     console.log('✅ Database initialized');
-    app.listen(port, () => {
-      console.log(`🌻 Sunflower AI server running on port ${port}`);
-      console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
-      console.log(`🔗 Health check: http://localhost:${port}/api/health`);
-    });
   })
   .catch((error) => {
     console.warn('⚠️  Database unavailable (some features disabled):', error.message);
-    // Start server anyway - some features will work without DB
-    app.listen(port, () => {
-      console.log(`🌻 Sunflower AI server running on port ${port} (limited mode)`);
-    });
   });
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
   console.log('SIGTERM signal received: closing server');
-  process.exit(0);
+  server.close(() => process.exit(0));
+  setTimeout(() => process.exit(0), 5000).unref();
 });
 
 process.on('SIGINT', () => {
   console.log('SIGINT signal received: closing server');
-  process.exit(0);
+  server.close(() => process.exit(0));
+  setTimeout(() => process.exit(0), 5000).unref();
 });
