@@ -16,7 +16,7 @@ The primary objective of Sunflower AI is to solve the multi-variable mathematica
         ▼                                ▼                                ▼
 ┌──────────────────────┐      ┌──────────────────────┐      ┌──────────────────────────┐
 │   Cooking Planner    │      │  Market & Inventory  │      │   Dr. Bumpkin Copilot    │
-│  XP/FLOWER & XP/Hour │      │ Real-time P2P orders │      │ Multi-turn Tool Loop (15)│
+│  XP/FLOWER & XP/Hour │      │ Real-time P2P orders │      │ Plan→Act→Validate→Explain│
 │  Building pipelines  │      │ Valuation & Deficits │      │ RAG + Live Farm State    │
 └──────────────────────┘      └──────────────────────┘      └──────────────────────────┘
         │                                │                                │
@@ -82,8 +82,13 @@ Sunflower AI dynamically models:
 - **Developer Bypass & Real-Time UI Counter**: Developers have 999,999 credits and bypass deduction. The client UI displays real-time remaining credits in the workspace header and chat modal.
 
 ### 2.7 Autonomous AI Copilot ("Dr. Bumpkin")
-- Conversational farm strategist powered by **Groq Cloud LLMs** (`llama-3.3-70b-versatile`).
-- Operates on a **PLAN → ACT → CHECK → FIX** agentic loop with **15 specialized deterministic tools**:
+- Conversational farm strategist powered by **Groq Cloud LLMs** (`llama-3.3-70b-versatile`), with a fully deterministic offline fallback when no API key is present.
+- Runs a **four-stage deterministic pipeline** (`server/services/ai/pipeline/`) coordinated by `PipelineCoordinator.execute()`, realizing a **PLAN → ACT → CHECK → FIX** flow:
+  1. **Planner** (PLAN) — deterministically decides which tools to invoke for the player's intent (the LLM no longer selects tools mid-conversation).
+  2. **Orchestrator** (ACT) — executes the planned tools against live farm state, capped at 8 total tool calls.
+  3. **DeterministicValidator** (CHECK) — verifies tool results against the canonical `NormalizedFarmState` (coins at `economy.coins`, stock at `inventory.all`), precomputes a synthesis, and emits a `ValidationReport` with an actionable `critique`; on an `INVALID` report it can trigger one targeted retry (FIX).
+  4. **Explainer** — makes the single Groq call to render the Dr. Bumpkin persona answer strictly from the validated synthesis (falling back to a fully deterministic render when no API key is present), so the natural-language reply can only speak to numbers the validator confirmed.
+- The pipeline draws on a suite of **19 specialized deterministic tools**, including a `search_knowledge` tool that queries the pgvector-backed `knowledge-base/` corpus (see §2.8):
   1. `get_farm_state`: Complete normalized inventory, level, XP, currencies, buildings, skills from durable snapshots or hot cache.
   2. `get_roadmap`: Hierarchical multi-phase tactical roadmap with daily objectives and resource commitments.
   3. `check_action_permission`: Authoritative discretionary balance and hard reserve constraint validator.
@@ -99,7 +104,16 @@ Sunflower AI dynamically models:
   13. `evaluate_buy_vs_farm`: Feed vs market ROI breakdown for animal produce (Milk, Eggs, Wool).
   14. `get_deliveries`: Evaluates NPC delivery orders sorted by profit, Coins, SFL, and `readyNow` status.
   15. `get_codex_chores_and_bounties`: Evaluates Weekly Chores and Poppy Mega Bounties with live progress.
+  16. `get_level_requirements`: Authoritative cumulative XP requirements and progression metrics for any target Bumpkin level (shortfall, progress %, intermediate milestones).
+  17. `simulate_what_if`: Goal-oriented what-if simulation on a *cloned* farm state (add building, cook, sell, plant) with zero side effects.
+  18. `get_skills_tree`: Skill-tree catalog and player unlock status across all 11 branches, with tiered effects and targeted recommendations.
+  19. `search_knowledge`: Semantic + entity retrieval over the embedded `knowledge-base/` corpus (wiki lore and extracted game catalogs) via `KnowledgeService`, graceful-degrading to no extra context when the vector store is unreachable.
 - **Anti-Hallucination Real-Examples Disambiguation (Rule 9)**: When player intent is ambiguous, Dr. Bumpkin is strictly forbidden from using fake system placeholders (e.g. `"Delivery 1 - Milk & Eggs"`). It MUST always cite real, active orders and chores directly from the player's Codex board with NPC names, exact ingredients, and actual rewards.
+
+### 2.8 Knowledge Base Corpus & Vector Retrieval
+- **Consolidated corpus (`knowledge-base/`)**: All static reference data lives under one top-level folder split by file type — `json/rules/` (hand-authored rules & taxonomies), `json/gamedata/` (extracted game catalogs), `json/wiki-dump.jsonl` (wiki crawl source), and `md/` (`GAME_RULES.md` plus 105 wiki pages with category hierarchy preserved). This is distinct from `server/data/*.json`, which the server imports directly at build time as the authoritative source for deterministic calculations.
+- **Ingestion (`sfl-kb-ingest/`)**: The `kb:ingest-wiki` and `kb:ingest-gamedata` npm scripts chunk and embed the corpus into the `kb_documents` / `kb_chunks` tables using local ONNX embeddings, keyed by content hash so unchanged content is skipped.
+- **Retrieval (`KnowledgeService.ts`)**: `search()` (cosine-similarity semantic search), `lookupEntity()` (targeted entity resolution), and `getStats()` (corpus coverage) back the `search_knowledge` tool. Every DB-touching method graceful-degrades to safe empty defaults when Postgres is unreachable, so a KB outage degrades to "no extra context" rather than a failed request.
 
 ---
 
@@ -148,8 +162,16 @@ sunflower-ai/
 │   │   └── effectEngine/             # Collectible boosts, wearables, timed buffs
 │   ├── services/                     # Modular business services
 │   │   ├── ai/                       # AI Agent & Reasoning
-│   │   │   ├── Orchestrator.ts       # PLAN-ACT-CHECK-FIX 15-tool agent loop
+│   │   │   ├── pipeline/             # Four-stage deterministic pipeline (Plan→Act→Validate→Explain)
+│   │   │   │   ├── PipelineCoordinator.ts # Static execute() coordinating all 4 stages
+│   │   │   │   ├── Planner.ts        # Deterministically selects tools for intent
+│   │   │   │   ├── DeterministicValidator.ts # Verifies results vs NormalizedFarmState
+│   │   │   │   ├── MathHelper.ts     # Centralized validation arithmetic
+│   │   │   │   └── Explainer.ts      # Dr. Bumpkin persona (single Groq call) + fallback
+│   │   │   ├── Orchestrator.ts       # 19-tool registry + runAgent() pipeline entry
 │   │   │   └── GroqClient.ts         # Groq LLM API wrapper
+│   │   ├── knowledge/                # Vector retrieval over knowledge-base/
+│   │   │   └── KnowledgeService.ts   # search / lookupEntity / getStats (pgvector)
 │   │   ├── cooking/                  # Cooking, Economics & XP
 │   │   │   ├── PlannerService.ts     # Building optimizer & milestone calculator
 │   │   │   ├── RecipeService.ts      # Ingredient tree expander & market cost
@@ -175,16 +197,28 @@ sunflower-ai/
 │   │   ├── auth.ts                   # JWT verification & farm ID guard
 │   │   └── ipGate.ts                 # 1-Account-Per-IP registration gate
 │   ├── db/                           # Database connection & schema
-│   │   ├── database.js               # pg.Pool connection, auto-migrations & retry logic
+│   │   ├── database.ts               # pg.Pool connection, auto-migrations (incl. kb tables) & retry logic
 │   │   └── schema.sql                # DDL with pgvector extension
-│   ├── data/                         # Static game configuration
+│   ├── data/                         # Static game configuration (authoritative build-time imports)
 │   │   ├── recipes.json              # Full cooking recipe definitions
 │   │   ├── items.json                # Item metadata & tradability flags
 │   │   ├── skills.json               # Skill tree catalogue & tiers
 │   │   ├── modifiers.json            # Collectible & custom boost overrides
 │   │   ├── levels.json               # Bumpkin XP level requirements table
-│   │   └── expansion.json            # Land plot, island requirements & costs
+│   │   ├── expansion.json            # Land plot, island requirements & costs
+│   │   ├── gameMetadata.json         # Static game metadata lookup
+│   │   ├── fish_market_recipes.json  # Fishing/market recipe definitions
+│   │   └── aging_shed_recipes.json   # Aging shed recipe definitions
 │   └── index.ts                      # Server bootstrap & route mounting
+├── knowledge-base/                   # Consolidated retrieval corpus (ingested into pgvector)
+│   ├── json/
+│   │   ├── rules/                    # Hand-authored rules & taxonomies
+│   │   ├── gamedata/                 # Extracted game catalogs (39 files)
+│   │   └── wiki-dump.jsonl           # Wiki crawl source
+│   └── md/
+│       ├── GAME_RULES.md             # Canonical rules reference
+│       └── wiki/                     # 105 wiki pages, category hierarchy preserved
+├── sfl-kb-ingest/                    # KB ingestion scripts (chunk + embed corpus)
 ├── Dockerfile                        # Multi-stage production container build
 ├── docker-compose.yml                # Node.js + PostgreSQL 16 + Redis 7 stack
 ├── docs/                             # In-depth technical documentation
@@ -208,7 +242,7 @@ sequenceDiagram
     participant SFL as SunflowerClient (TTL Cache)
     participant CoreDeliv as DeliveriesEngine
     participant UserMdl as UserModel (PostgreSQL)
-    participant AI as Orchestrator (15 Tools)
+    participant AI as AI Pipeline (Plan→Act→Validate→Explain)
     participant Groq as Groq Cloud LLM
 
     Player->>UI: Open Sunflower AI Command Center
@@ -224,13 +258,13 @@ sequenceDiagram
     ChatCtrl->>UserMdl: deductAiCredit(userId, 1) [Atomic SQL]
     UserMdl-->>ChatCtrl: { ai_credits: 49, ai_credits_used: 1 }
     ChatCtrl->>AI: runAgent(message, sessionId, userId, farmId)
-    loop Agentic Tool Execution Loop (up to 8 rounds)
-        AI->>Groq: Prompt with history + 15 tool definitions
-        Groq-->>AI: Call tool: get_deliveries(category: 'all')
+    Note over AI: Stage 1 (PLAN) — Planner deterministically selects tools for the intent
+    loop Stage 2 (ACT) — Orchestrator Tool Execution (≤ 8 calls, no LLM)
         AI->>CoreDeliv: evaluateDeliveries(canonical, prices)
         CoreDeliv-->>AI: Deliveries evaluation (Corale readyNow, Victoria top coin, Pharaoh 9 Feathers)
-        AI->>Groq: Tool result payload (Authoritative Provenance)
     end
+    Note over AI: Stage 3 (CHECK) — DeterministicValidator verifies vs NormalizedFarmState + precomputes synthesis (1 targeted retry on INVALID = FIX)
+    AI->>Groq: Stage 4 — Explainer: single call with validated synthesis + persona
     Groq-->>AI: Final tactical advice with real order citations
     AI-->>ChatCtrl: Answer + Execution Steps
     ChatCtrl-->>UI: 200 OK { answer, steps, creditsRemaining: 49 }
@@ -242,4 +276,4 @@ sequenceDiagram
 2. **Ingestion & Caching**: Requests hit `FarmController.ts`. The controller queries `SunflowerClient.ts`, which checks its 5-minute memory cache, Redis hot cache, and atomic disk cache before calling the external SFL Community API. In-flight duplicate requests for the same farm are merged into a single Promise.
 3. **Normalization**: Raw SFL blockchain JSON is parsed by `FarmNormalizer.ts` into a strictly typed `CanonicalFarmState`, resolving bumpkin levels, liquid currency balances, item inventory counts, building busy timers, skills, and quest deliveries.
 4. **Deterministic Calculation Engines**: Specialized engines under `server/core/` (`economyEngine/deliveries.ts`, `productionEngine/`, `effectEngine/`) calculate exact recipe economics, animal feed vs market trade-offs, and Codex delivery rewards with VIP Shiny Feather bonuses.
-5. **Atomic Credit & Agentic Copilot**: When the player chats with Dr. Bumpkin, `ChatController.ts` atomically reserves 1 credit via `UserModel.ts`. Then `Orchestrator.ts` executes an iterative loop calling up to 15 deterministic tools via Groq LLM, enforcing real-example citations and delivering grounded advice without hallucination.
+5. **Atomic Credit & Deterministic AI Pipeline**: When the player chats with Dr. Bumpkin, `ChatController.ts` atomically reserves 1 credit via `UserModel.ts`. Then `orchestrator.runAgent()` assembles farm context and delegates to `PipelineCoordinator.execute()`, which runs the four stages — Planner deterministically selects tools, `Orchestrator.ts` executes them against live state (≤ 8 calls, no LLM), `DeterministicValidator.ts` verifies the results against the canonical farm state and precomputes a synthesis, and `Explainer.ts` makes the single Groq call to render the grounded answer (falling back to a fully deterministic render when no key is present). Real-example citations are enforced so advice never hallucinates.

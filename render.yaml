@@ -1,0 +1,78 @@
+# ==============================================================================
+# render.yaml — Render Blueprint for Sunflower AI
+# ==============================================================================
+# Provisions the Docker web service + managed Postgres (pgvector) + Key Value
+# (Redis) and WIRES DATABASE_URL / REDIS_URL automatically, so the app never
+# falls back to 127.0.0.1:5432 (the ECONNREFUSED you saw in the deploy logs).
+#
+# Deploy: Render Dashboard → New → Blueprint → select this repo.
+# Spec:   https://render.com/docs/blueprint-spec
+#
+# NOTE: `plan` slugs and the keyvalue spec change over time — if the Blueprint
+# fails to validate, open the linked docs and adjust the `plan:` values / the
+# keyvalue block to match Render's current names. The env-var WIRING below is
+# the part that actually fixes the bug.
+# ==============================================================================
+
+databases:
+  - name: sunflower-db
+    plan: basic-256mb          # or `free` (expires ~30 days) — confirm in dashboard
+    databaseName: sunflower
+    user: sfl
+    postgresMajorVersion: "16"
+
+services:
+  # ---- Redis / Key Value (optional; app degrades to in-memory without it) ----
+  - type: keyvalue
+    name: sunflower-redis
+    plan: free                 # confirm current keyvalue plan slug in dashboard
+    ipAllowList: []            # [] = reachable only from your Render private network
+    maxmemoryPolicy: noeviction
+
+  # ---- Docker web service ----------------------------------------------------
+  - type: web
+    name: eldric-sfl-ai-companion
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter              # `free` spins down when idle; `starter` stays warm
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "3000"
+
+      # ↓↓↓ THE FIX: injected from the managed services above, never localhost ↓↓↓
+      - key: DATABASE_URL      # Internal connection string of sunflower-db
+        fromDatabase:
+          name: sunflower-db
+          property: connectionString
+      - key: REDIS_URL         # Internal connection string of sunflower-redis
+        fromService:
+          type: keyvalue
+          name: sunflower-redis
+          property: connectionString
+
+      # Generated once and kept stable across deploys
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ACCESS_TOKEN_TTL
+        value: 15m
+      - key: REFRESH_TOKEN_TTL
+        value: 30d
+      - key: INITIAL_AI_CREDITS
+        value: "50"
+
+      # Background planner — OFF by default
+      - key: PLANNING_SCHEDULER_ENABLED
+        value: "false"
+
+      # ---- Secrets: sync:false keeps them out of git; set values in dashboard ----
+      - key: GROQ_API_KEY
+        sync: false
+      - key: CLAUDE_API_KEY
+        sync: false
+      - key: CLAUDE_BASE_URL
+        sync: false
+      - key: SUNFLOWER_API_KEY
+        sync: false

@@ -23,7 +23,7 @@ graph TD
         MainApp --> Market["4. Market: Track Inventory FLOWER Value & Deficits"]
         MainApp --> Activity["5. Activity: Review Snapshot Observed vs Inferred Deltas"]
         MainApp --> Quests["6. Quests: Check Island Deliveries & Animal Bounties"]
-        MainApp --> Copilot["7. Dr. Bumpkin: Multi-turn Agent Tool Execution Loop"]
+        MainApp --> Copilot["7. Dr. Bumpkin: Four-Stage AI Pipeline (Plan→Act→Validate→Explain)"]
     end
 ```
 
@@ -160,12 +160,12 @@ export class ActivityService {
   - *"What is my current bottleneck?"*
   - *"How much FLOWER to Level 100?"*
   - *"How do I unlock Volcano Island?"*
-- **Agentic Tool Execution Flow**:
-  1. User prompt sent to `POST /api/chat/message`.
-  2. `Orchestrator.ts` parses intent and invokes tools (e.g., `get_farm_state`, `get_planner`, `compute_recipe_cost`).
-  3. Building ownership verification ensures recipes are flagged if the player does not own the building.
-  4. Deduplication cache ensures fast responses, with `force: true` available when fresh live data is required.
-  5. Groq LLM returns formatted Markdown with bold metrics and actionable bullet points.
+- **Four-Stage AI Pipeline Flow** (Plan → Act → Validate → Explain, via `PipelineCoordinator.execute()`):
+  1. User prompt sent to `POST /api/chat/message`; `orchestrator.runAgent()` assembles farm context.
+  2. **Planner** deterministically selects which of the 19 tools to run for the intent (e.g., `get_farm_state`, `get_roadmap`, `compute_recipe_cost`, `search_knowledge`) — the LLM no longer chooses tools.
+  3. **Orchestrator** executes the planned tools against live state (≤ 8 calls). Building ownership verification flags recipes when the player lacks the building; `force: true` bypasses the tool-level dedup cache when fresh live data is required.
+  4. **DeterministicValidator** verifies the results against the canonical `NormalizedFarmState` and precomputes a synthesis; an `INVALID` report can trigger one targeted retry.
+  5. **Explainer** makes the single Groq call, returning formatted Markdown with bold metrics grounded strictly in the validated synthesis (or a deterministic fallback when no key is present).
 
 ---
 

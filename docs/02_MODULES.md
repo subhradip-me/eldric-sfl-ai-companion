@@ -574,8 +574,10 @@ export class SnapshotService {
 
 #### 3. AI Agent Domain (`server/services/ai/`)
 
+The AI domain is organized as a **four-stage deterministic pipeline** (`server/services/ai/pipeline/`) wrapping the tool-execution Orchestrator, plus a pgvector-backed `KnowledgeService`. The flow is **Planner → Orchestrator → DeterministicValidator → Explainer**, coordinated by `PipelineCoordinator.execute()`.
+
 ##### `Orchestrator.ts`
-Autonomous agent running a multi-turn tool execution loop using Groq Cloud LLM. Features deduplication bypass via `force: true`, building ownership verification, and 15 deterministic tools:
+Autonomous agent running a multi-turn tool execution loop using Groq Cloud LLM. Features deduplication bypass via `force: true`, building ownership verification, and a suite of deterministic tools (including `search_knowledge`):
 
 ```typescript
 // server/services/ai/Orchestrator.ts - Tool Execution Engine
@@ -649,6 +651,49 @@ export class Orchestrator {
   async runAgent(message: string, sessionId: string, userId: number, farmId: string, priorMessages = []) {
     // 8-round iterative loop with tool execution, dedup bypass, and fallback recovery
   }
+}
+```
+
+##### Pipeline Stages (`server/services/ai/pipeline/`)
+The Orchestrator is one stage of a deterministic pipeline that guarantees the final answer is grounded in verified tool output:
+
+- **`PipelineCoordinator.ts`** — `execute()` runs the four stages in order and threads the `ValidationReport` through to the Explainer.
+- **`Planner.ts`** — interprets the user's intent and selects which deterministic tools to invoke.
+- **`DeterministicValidator.ts`** — validates tool results against the authoritative `NormalizedFarmState` (coins at `economy.coins`, stock at `inventory.all`, level at `player.level`), precomputes a synthesis, and returns a `ValidationReport` (`VALID` / `INVALID`) with a `critique` when data is missing or a requirement fails. Arithmetic lives in `MathHelper.ts`; shared shapes in `types.ts`.
+- **`Explainer.ts`** — renders the Dr. Bumpkin persona answer from the validated synthesis. `deterministicFallback` renders directly from the synthesis when no LLM key is present, and surfaces the validator's `critique` on `INVALID` reports rather than a generic error message.
+
+```typescript
+// server/services/ai/pipeline/PipelineCoordinator.ts (shape) — static, tools injected
+export class PipelineCoordinator {
+  private static readonly MAX_TOTAL_TOOL_CALLS = 8;
+
+  static async execute(
+    message: string,
+    context: PipelineContext,
+    tools: ToolExecutorMap,
+    priorHistory: Array<{ role: string; content: string }> = [],
+    farmStateSupplier?: () => Promise<{ state: NormalizedFarmState } | null>,
+  ): Promise<PipelineExecutionResult> {
+    const plan = await Planner.plan(message, context, priorHistory);         // 1. PLAN (deterministic)
+    const toolResults = [];                                                  // 2. ACT — execute plan.plannedTools
+    for (const spec of plan.plannedTools) { /* tools[spec.name].exec(...), ≤ MAX_TOTAL_TOOL_CALLS */ }
+    let report = DeterministicValidator.validate(plan.criteria, toolResults, farmState, context); // 3. CHECK
+    // one targeted retry on report.targetTool when INVALID (FIX), then re-validate
+    const answer = await Explainer.explain(message, toolResults, report, context, priorHistory);   // 4. EXPLAIN (single Groq call)
+    return { success: true, answer, steps, warnings, provenance };
+  }
+}
+```
+
+##### `KnowledgeService.ts` (`server/services/knowledge/`)
+pgvector-backed retrieval over the ingested `knowledge-base/` corpus (see `docs/07_DATA_FLOW.md`). Backs the `search_knowledge` tool. Every DB-touching method graceful-degrades to safe empty defaults when Postgres is unreachable:
+
+```typescript
+// server/services/knowledge/KnowledgeService.ts (public surface)
+export class KnowledgeService {
+  async search(options: SearchKnowledgeOptions): Promise<KnowledgeChunkResult[]>   // cosine similarity over kb_chunks
+  async lookupEntity(entityName: string, limit = 5): Promise<KnowledgeChunkResult[]> // targeted entity resolution
+  async getStats(): Promise<{ totalChunks: number; documentsBySource: unknown[]; topCategories: unknown[] }>
 }
 ```
 

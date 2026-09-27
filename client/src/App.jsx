@@ -1352,7 +1352,7 @@ function Planner({ plan, farm, market, onOpenChat }) {
                   onClick={() => onOpenChat(`What if I build a Greenhouse? How can I reach my goal of ${target} FLOWER per day?`)}
                   className="text-[11px] font-mono text-amber-500 hover:text-amber-400 hover:underline flex items-center gap-1"
                 >
-                  Ask Dr. Bumpkin ↗
+                  Ask the Jester ↗
                 </button>
               )}
             </div>
@@ -4987,7 +4987,7 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
             <div className="flex items-center gap-2">
               <span className="text-amber-500 font-bold">✨</span>
               <span className="font-semibold text-[#1a1a1a] dark:text-white font-display text-xs">
-                Dr. Bumpkin
+                Jester
               </span>
               <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-amber-500/15 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/30 dark:border-amber-500/20 font-medium">
                 Gemini
@@ -5059,7 +5059,7 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
             /* Antigravity Welcome Screen */
             <div className="h-full flex flex-col items-center justify-center text-center max-w-lg mx-auto py-8">
               <div className="w-16 h-16 rounded-2xl bg-white dark:bg-[#242429] border border-amber-500/40 dark:border-amber-500/30 flex items-center justify-center text-3xl mb-4 shadow-xl shadow-amber-500/10 select-none">
-                <img src="https://animations.sunflower-land.com/animated_webp/0_v1_32_1_5_185_46_22_240_395_0_228_0_0_0_0_0_266/idle-small" alt="Dr. Bumpkin" className="w-10 h-10" />
+                <img src="https://animations.sunflower-land.com/animated_webp/0_v1_32_1_5_185_46_22_240_395_0_228_0_0_0_0_0_266/idle-small" alt="Jester" className="w-10 h-10" />
               </div>
               <h2 className="text-xl font-bold font-display text-[#1a1a1a] dark:text-white mb-1.5">
                 How can I help you?
@@ -5124,7 +5124,7 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
                 ) : (
                   <div key={i} className="flex items-start gap-3">
                     <div className="w-12 h-12 rounded-xl flex items-center justify-center text-sm shrink-0 select-none">
-                      <img src="/bumpkin-chibi.webp" alt="Dr. Bumpkin" className="w-12 h-12 object-contain [image-rendering:pixelated]" />
+                      <img src="/bumpkin-chibi (1).webp" alt="Jester" className="w-12 h-12 object-contain [image-rendering:pixelated]" />
                     </div>
                     <div className="flex-1 min-w-0 space-y-2">
                       {m.steps?.length > 0 && (
@@ -5154,7 +5154,7 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
               {busy && (
                 <div className="flex items-center gap-2.5 text-xs text-[#666] dark:text-[#888] font-mono p-3 bg-black/5 dark:bg-white/5 rounded-xl border border-black/5 dark:border-white/5 max-w-sm">
                   <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-                  <span>Dr. Bumpkin is thinking...</span>
+                  <span>The Jester is thinking...</span>
                 </div>
               )}
               <div ref={endRef} className="h-px" />
@@ -5185,7 +5185,7 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
               value={input}
               disabled={!isDev && currentCredits <= 0}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={!isDev && currentCredits <= 0 ? "AI credits exhausted (0 remaining)..." : "Ask Dr. Bumpkin (e.g. What should I cook?)..."}
+              placeholder={!isDev && currentCredits <= 0 ? "AI credits exhausted (0 remaining)..." : "Ask the Jester (e.g. What should I cook?)..."}
               className="flex-1 bg-transparent px-3 py-2 text-xs text-[#1a1a1a] dark:text-white placeholder-[#888] dark:placeholder-[#777] outline-none font-sans disabled:opacity-50"
             />
             <button
@@ -5618,7 +5618,7 @@ export default function App() {
             🔄
           </button>
 
-          {/* AI Credits Badge (Click opens Dr. Bumpkin) */}
+          {/* AI Credits Badge (Click opens the Jester) */}
           <button
             onClick={() => setCopilotOpen(true)}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono border transition-all shrink-0 cursor-pointer shadow-xs hover:scale-105 select-none ${
@@ -5640,10 +5640,10 @@ export default function App() {
           <button
             onClick={() => setCopilotOpen(!copilotOpen)}
             className={`flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium border transition-all shrink-0 ${copilotOpen ? "bg-amber-500 text-slate-950 font-bold border-amber-400" : "bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 hover:border-amber-500/40 text-amber-600 dark:text-amber-400"}`}
-            title="Toggle Dr. Bumpkin (Ctrl+J)"
+            title="Toggle the Jester (Ctrl+J)"
           >
-            <img src="/bumpkin-chibi.webp" alt="Dr. Bumpkin" className="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain [image-rendering:pixelated] shrink-0" />
-            <span className="hidden md:inline">Dr. Bumpkin</span>
+            <img src="/bumpkin-chibi.webp" alt="Jester" className="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain [image-rendering:pixelated] shrink-0" />
+            <span className="hidden md:inline">Jester</span>
             <span className="text-[10px] opacity-60 font-mono hidden sm:inline">⌘J</span>
           </button>
 
@@ -5703,13 +5703,13 @@ export default function App() {
           </div>
 
           <div className="flex flex-col items-center gap-1.5 md:gap-2 w-full relative">
-            {/* Dr. Bumpkin Copilot Toggle */}
+            {/* Jester Copilot Toggle */}
             <button
               onClick={() => setCopilotOpen(!copilotOpen)}
               className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm transition-all ${copilotOpen ? "bg-amber-500 text-slate-950 font-bold" : "hover:bg-black/5 dark:hover:bg-white/5 text-amber-500"}`}
-              title="Dr. Bumpkin"
+              title="Jester"
             >
-              <img src="/bumpkin-chibi.webp" alt="Dr. Bumpkin" className="w-6 h-6 object-contain [image-rendering:pixelated] shrink-0" />
+              <img src="/bumpkin-chibi.webp" alt="Jester" className="w-6 h-6 object-contain [image-rendering:pixelated] shrink-0" />
             </button>
             <div className="w-6 h-px bg-black/10 dark:bg-white/10 my-0.5 md:my-1" />
 
@@ -6016,10 +6016,10 @@ export default function App() {
         <button
           onClick={() => setCopilotOpen(true)}
           className="fixed bottom-8 right-3 sm:bottom-9 sm:right-6 md:bottom-9 md:right-6 z-40 flex items-center gap-1.5 md:gap-2 px-2.5 py-1.5 md:px-3.5 md:py-2 rounded-full bg-white dark:bg-[#18181b] border border-black/15 dark:border-amber-500/40 hover:border-amber-500 text-[#1a1a1a] dark:text-white shadow-xl shadow-black/15 dark:shadow-black/60 hover:scale-105 transition-all group select-none"
-          title="Open Dr. Bumpkin (Ctrl+J)"
+          title="Open the Jester (Ctrl+J)"
         >
           <span className="text-amber-500 dark:text-amber-400 text-xs md:text-sm group-hover:rotate-12 transition-transform">✨</span>
-          <span className="text-[11px] md:text-xs font-semibold font-display">Ask Dr. Bumpkin</span>
+          <span className="text-[11px] md:text-xs font-semibold font-display">Ask the Jester</span>
           <span className="hidden sm:inline-block text-[10px] font-mono text-[#666] dark:text-[#aaa] bg-black/5 dark:bg-white/10 px-1.5 py-0.5 rounded">⌘J</span>
           <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></span>
         </button>
@@ -6045,7 +6045,7 @@ export default function App() {
           <button
             onClick={() => setCopilotOpen(true)}
             className="flex items-center gap-1 hover:text-amber-500 transition-colors cursor-pointer select-none"
-            title="AI Copilot Balance (Click to open Dr. Bumpkin)"
+            title="AI Copilot Balance (Click to open the Jester)"
           >
             <span className="text-amber-500">⚡</span>
             <span>Credits:</span>

@@ -38,7 +38,7 @@ This playbook provides actionable diagnostic steps and remediation procedures fo
    ```bash
    npm run setup
    ```
-   Verifies that tables (`users`, `snapshots`, `chat_messages`) and the vector extension are created.
+   Table creation and the `vector` extension are provisioned idempotently on server startup by `database.ts init()` — including `users`, `snapshots`, `chat_messages` (with `embedding vector(384)`), and the knowledge-base tables `kb_documents` / `kb_chunks` (HNSW cosine index `kb_chunks_embedding_idx`). A `⚠️ Could not init knowledge base tables` warning in the logs indicates the KB migration failed.
 
 ---
 
@@ -95,33 +95,44 @@ This playbook provides actionable diagnostic steps and remediation procedures fo
 
 ---
 
-## 4. Groq Tool-Use Malformed JSON & Failure Recovery
+## 4. AI Pipeline: Empty / Fallback Answers & Groq Outages
+
+> **Architecture note**: The model no longer selects tools. `Planner` picks tools deterministically, `Orchestrator` executes them, `DeterministicValidator` verifies the results, and only `Explainer` makes a single Groq call. The old model-driven `tool_calls` JSON-recovery loop no longer exists, so malformed-tool-call errors are not a failure mode.
 
 ### Symptoms
-- Server logs output:
-  `[groq] tool_use_failed — model emitted malformed tool-call JSON, will retry`
-- LLM agent falls back to answering without calling remaining tools.
+- Dr. Bumpkin replies with a terse `⚠️ …` critique instead of a full answer.
+- Answers arrive but read like a plain deterministic summary (no persona flourish).
 
-### Root Causes
-- Upstream open-source LLM occasionally outputs invalid JSON escape sequences in tool arguments.
-
-### Diagnostic & Remediation Steps
-1. **Automatic Agent Recovery**: `Orchestrator.ts` tracks consecutive tool errors. If one occurs, it feeds a recovery prompt back to the model:
-   ```typescript
-   if (j._toolError) {
-     messages.push({
-       role: 'user',
-       content: 'Your last tool call had invalid JSON arguments. Try again with valid JSON, or answer directly.',
-     });
-   }
-   ```
-2. **Test Model Connectivity**: Verify your Groq API key and rate limits:
+### Root Causes & Remediation
+1. **`GROQ_API_KEY` missing or Groq unreachable** → `Explainer` falls back to `deterministicFallback`, rendering directly from the validator's synthesis. This is a *graceful* degrade, not a crash. Verify connectivity:
    ```bash
    curl -X POST https://api.groq.com/openai/v1/chat/completions \
      -H "Authorization: Bearer $GROQ_API_KEY" \
      -H "Content-Type: application/json" \
      -d '{"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": "ping"}]}'
    ```
+2. **`ValidationReport.status === 'INVALID'`** → the answer is the validator's `critique` (e.g. *"Authoritative game data for 'Iron Pickaxe' was not found"*). This means a required entity or farm-state field was missing, not that the LLM failed. Check that the relevant tool returned data and that farm state resolved (see §2/§3 below). The coordinator already attempts one targeted retry on `targetTool`.
+3. **Farm state unavailable (upstream 429 / offline)** → the validator emits `DATA_UNAVAILABLE`; the answer explains what could not be determined rather than fabricating numbers.
+
+## 4.1 Knowledge Base (`search_knowledge`) Returns Nothing
+
+### Symptoms
+- `search_knowledge` tool steps show `ok: true` but with empty results; answers lack wiki/game-data grounding.
+
+### Root Causes & Remediation
+1. **Postgres unreachable** → `KnowledgeService.search/lookupEntity/getStats` graceful-degrade to empty defaults (`[]` / `0`) inside try/catch. The request still succeeds with "no extra context". Confirm the DB is up.
+2. **Corpus not ingested** → the `kb_documents` / `kb_chunks` tables are empty. Run the ingest scripts:
+   ```bash
+   npm run kb:ingest        # both wiki + gamedata
+   # or individually:
+   npm run kb:ingest-wiki
+   npm run kb:ingest-gamedata
+   ```
+   Then verify coverage via `KnowledgeService.getStats()` (`totalChunks` should be non-zero) or:
+   ```sql
+   SELECT count(*) FROM kb_chunks;  -- expect > 0
+   ```
+3. **Missing HNSW index** → cosine search is slow but not wrong. `database.ts init()` creates `kb_chunks_embedding_idx` automatically on startup; a warning `⚠️ Could not init knowledge base tables` in server logs indicates the migration failed (check the `vector` extension is installed).
 
 ---
 
@@ -134,10 +145,12 @@ npx tsc --noEmit
 ```
 
 ### Run Server Unit Tests
-Execute the unit test suite via `tsx`:
+Execute the full suite (23 `node:test` suites under `server/tests/`) via `tsx`:
 ```bash
 npm test
-# or directly:
-npx tsx --test server/tests/xpEngine.test.js
+# or a single suite directly, e.g. the pipeline or validator coverage:
+npx tsx --test server/tests/pipeline.test.ts
+npx tsx --test server/tests/validatorFarmState.test.ts
+npx tsx --test server/tests/knowledge.test.ts
 ```
-All 8 unit tests validating skill boosts, batch yield multipliers, and intermediate craft expansions should pass with 0 failures.
+Suites cover the four-stage pipeline (`pipeline.test.ts`), deterministic validation against a real `NormalizedFarmState` (`validator.test.ts`, `validatorFarmState.test.ts`), validation arithmetic (`mathHelper.test.ts`), the Explainer's critique-surfacing fallback (`explainerFallback.test.ts`), knowledge retrieval (`knowledge.test.ts`), plus the core calculation, effect, delivery, session, and security engines.

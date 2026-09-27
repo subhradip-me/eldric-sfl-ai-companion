@@ -1,14 +1,43 @@
 import pg from "pg";
 import bcrypt from "bcryptjs";
 
+/**
+ * Decide the pg SSL setting from the environment.
+ *
+ *  - Local dev, docker-compose, and Render *Internal* database URLs → no SSL.
+ *    Render's private network is plain TCP, and disabling SSL here also fixes
+ *    ECONNRESET on Docker Desktop for Windows.
+ *  - Render *External* URLs (host ends in `.render.com`) or an explicit
+ *    `sslmode=require` in the URL → TLS with relaxed cert verification
+ *    (Render terminates its public database endpoint with its own CA).
+ *  - `DATABASE_SSL=true|false` forces the choice and overrides auto-detection.
+ */
+export function resolvePgSsl(
+  databaseUrl: string = process.env.DATABASE_URL ?? "",
+  override: string | undefined = process.env.DATABASE_SSL,
+): false | { rejectUnauthorized: boolean } {
+  if (override === "true") return { rejectUnauthorized: false };
+  if (override === "false") return false;
+  if (/\.render\.com/i.test(databaseUrl) || /[?&]sslmode=require/i.test(databaseUrl)) {
+    return { rejectUnauthorized: false };
+  }
+  return false;
+}
+
+if (!process.env.DATABASE_URL) {
+  console.warn(
+    "⚠️  DATABASE_URL is not set — pg will fall back to 127.0.0.1:5432 and fail on Render. " +
+      "Set DATABASE_URL to your database's Internal connection string.",
+  );
+}
+
 export const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   max: 10,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 5000,
   allowExitOnIdle: false,
-  // Fixes ECONNRESET on Docker Desktop for Windows
-  ssl: false,
+  ssl: resolvePgSsl(),
   keepAlive: true,
   keepAliveInitialDelayMillis: 10000,
 });
@@ -189,6 +218,33 @@ export async function init() {
     `);
   } catch (kbErr: any) {
     console.warn('⚠️  Could not init knowledge base tables:', kbErr.message);
+  }
+
+  // ── 11. Strategy plans audit (append-only trail of every committed background plan) ──
+  //    Sits alongside the hot (Redis, 7-day TTL) policy cache; strategyPlanAuditStore writes here.
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS strategy_plans (
+        id SERIAL PRIMARY KEY,
+        farm_id TEXT NOT NULL,
+        goal_id TEXT NOT NULL DEFAULT 'DEFAULT',
+        user_id INTEGER,
+        status TEXT NOT NULL,
+        objective TEXT NOT NULL,
+        horizon_days INTEGER NOT NULL,
+        computed_at BIGINT NOT NULL,
+        plan_changed_at BIGINT NOT NULL,
+        projected JSONB NOT NULL,
+        plan JSONB NOT NULL,
+        counterfactuals JSONB NOT NULL,
+        calibration JSONB NOT NULL,
+        provenance JSONB NOT NULL,
+        recorded_at BIGINT NOT NULL
+      );
+      CREATE INDEX IF NOT EXISTS idx_strategy_plans_farm_goal ON strategy_plans(farm_id, goal_id, computed_at DESC);
+    `);
+  } catch (spErr: any) {
+    console.warn('⚠️  Could not init strategy_plans table:', spErr.message);
   }
 }
 

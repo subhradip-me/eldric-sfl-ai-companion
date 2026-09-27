@@ -13,7 +13,7 @@ This document details key architectural decisions, design trade-offs, and techni
   - `models/` for PostgreSQL database queries.
   - `services/` for business logic (XP engine, planner, AI orchestrator).
   - `routes/` for declarative endpoint declarations.
-- **Consequences**: Clear separation of concerns, simplified unit testing (`xpEngine.test.js`), and isolated failure domains.
+- **Consequences**: Clear separation of concerns, simplified unit testing (`server/tests/*.test.ts` run via `tsx --test`), and isolated failure domains.
 
 ---
 
@@ -33,9 +33,9 @@ This document details key architectural decisions, design trade-offs, and techni
 
 - **Status**: Accepted & Implemented
 - **Context**: The Sunflower Land Community API enforces strict rate limits. Concurrent user navigation or rapid page refreshing can easily trigger HTTP 429 errors.
-- **Decision**: Implement a tiered caching system in `server/services/sunflower.js`:
+- **Decision**: Implement a tiered caching system in `server/services/farm/SunflowerClient.ts`:
   1. **In-Memory Cache**: 5-minute TTL for farm states, 10-minute TTL for market orderbooks.
-  2. **Atomic Disk Persistence**: Serializes memory cache to `data/.cache/api-cache.json` so cache persists across server reboots.
+  2. **Atomic Disk Persistence**: Serializes memory cache to `server/data/.cache/api-cache.json` so cache persists across server reboots.
   3. **In-Flight Deduplication**: Tracks ongoing network requests in a `pending = new Map()`. If multiple requests for Farm `#29411` arrive simultaneously, all await the same Promise.
   4. **Stale-While-Revalidate Fallback**: If external API calls fail or return 429, the system returns stale cached data with `stale: true` rather than throwing errors.
 - **Consequences**: Vastly reduced external network overhead, near-zero 429 errors, and instantaneous responses for cached entities.
@@ -96,13 +96,61 @@ This document details key architectural decisions, design trade-offs, and techni
 - **Context**: Dr. Bumpkin previously operated as a one-shot prompt-engineering assistant with static context injection. When players asked complex, multi-step questions ("What is my bottleneck and how much FLOWER will Sauerkraut take?"), the model often hallucinated out-of-date numbers or generic advice.
 - **Decision**:
   1. Implement a **PLAN → ACT → CHECK → FIX** agentic loop in `Orchestrator.ts` powered by Groq Cloud (`llama-3.3-70b-versatile`).
-  2. Equip the agent with 12 deterministic tools (`get_farm_state`, `get_planner`, `compute_recipe_cost`, `get_expansion_guide`, etc.).
+  2. Equip the agent with deterministic tools (`get_farm_state`, `get_roadmap`, `compute_recipe_cost`, `get_expansion_details`, `search_knowledge`, etc.).
   3. Enforce **building ownership validation** inside `compute_recipe_cost` so the agent warns the player when evaluating recipes for unowned buildings.
   4. Implement an in-turn tool execution deduplication cache to prevent redundant tool invocations, but allow `force: true` to bypass the cache when refreshed data is requested.
 - **Consequences**:
   - 100% grounded answers verified against live farm data.
   - Zero hallucinated recipe ingredients or prices.
   - Rapid recovery from malformed model tool arguments without session crashes.
+
+---
+
+## ADR 10: Four-Stage Deterministic AI Pipeline (Plan → Act → Validate → Explain)
+
+- **Status**: Accepted & Implemented
+- **Context**: The bare agentic loop (ADR 8) could still let the LLM narrate numbers that its own tool calls never actually returned — e.g. answering a craft-feasibility question when the authoritative game data was missing from the tool results. We needed a hard guarantee that the natural-language answer is grounded in verified deterministic output, not model improvisation.
+- **Decision**: Split the agent into an explicit four-stage pipeline under `server/services/ai/pipeline/`, coordinated by `PipelineCoordinator.execute()`:
+  1. **Planner** (`Planner.ts`) — decides which deterministic tools to invoke for the user's intent.
+  2. **Orchestrator** (`Orchestrator.ts`) — executes the tools against live farm state (the PLAN → ACT loop from ADR 8).
+  3. **DeterministicValidator** (`DeterministicValidator.ts`) — checks tool results against the authoritative `NormalizedFarmState` (coins at `economy.coins`, stock at `inventory.all`), precomputes a synthesis, and emits a `ValidationReport` with a `critique` when data is missing or a requirement fails. `MathHelper.ts` centralizes the arithmetic.
+  4. **Explainer** (`Explainer.ts`) — renders the Dr. Bumpkin persona answer from the validated synthesis. When the LLM key is absent or errors, `deterministicFallback` renders directly from the synthesis, and surfaces the validator's `critique` on `INVALID` reports rather than a generic error.
+- **Consequences**:
+  - The Explainer can only speak to what the validator confirmed — no ungrounded numbers.
+  - The pipeline runs fully offline (deterministic fallback) with no LLM key.
+  - Validation reads the canonical farm-state shape, so feasibility checks (craft/cook/build) are correct regardless of the raw payload variant.
+
+---
+
+## ADR 11: Consolidated `knowledge-base/` Corpus, Distinct from Live Runtime Data
+
+- **Status**: Accepted & Implemented
+- **Context**: Reference data was scattered across `metadata/` (hand-authored rules), a game-data extractor's `output/` (catalogs), and a crawled wiki `output/`, with duplicates and an accidental double-nested layout. Meanwhile the server imports a *separate* set of JSON at build time. Conflating the two risked breaking the live server during any reorganization.
+- **Decision**: Consolidate all static reference data into a single top-level `knowledge-base/` folder split by file type, and keep it strictly separate from runtime imports:
+  - `knowledge-base/json/rules/` — 11 hand-authored rule/taxonomy files.
+  - `knowledge-base/json/gamedata/` — 39 extracted game catalogs.
+  - `knowledge-base/json/wiki-dump.jsonl` — wiki crawl source.
+  - `knowledge-base/md/GAME_RULES.md` + `md/wiki/` — 105 wiki pages, category hierarchy preserved.
+  - `server/data/*.json` (recipes, items, modifiers, levels, skills, expansion, gameMetadata) remain the **authoritative build-time imports** for deterministic calculations and are never moved.
+- **Consequences**:
+  - `knowledge-base/` is the retrieval corpus (ingested into pgvector, see ADR 12); it is never imported by runtime code.
+  - Reorganization is non-breaking — no live import paths change.
+  - Ingestion scripts (`sfl-kb-ingest/`) read the consolidated paths via the `kb:ingest-wiki` / `kb:ingest-gamedata` npm scripts.
+
+---
+
+## ADR 12: Unified Knowledge Base (`kb_documents` / `kb_chunks`) with Graceful Degradation
+
+- **Status**: Accepted & Implemented
+- **Context**: Grounding natural-language answers in wiki lore and extracted game catalogs required a searchable store beyond the runtime JSON imports. It also had to survive a missing or unreachable database without crashing the request path.
+- **Decision**:
+  1. Add `kb_documents` and `kb_chunks` tables in `server/db/database.ts`, with an **HNSW cosine index** (`kb_chunks_embedding_idx`) plus `category` / `type` / `entity` indexes. `chat_messages` also gained an `embedding vector(384)` column.
+  2. Expose retrieval through `server/services/knowledge/KnowledgeService.ts`: `search()` (semantic cosine search), `lookupEntity()` (targeted entity resolution for the `search_knowledge` tool), and `getStats()` (corpus coverage).
+  3. Make **every DB-touching method graceful-degrade** to safe empty defaults inside try/catch, so an offline Postgres yields empty results instead of an exception.
+- **Consequences**:
+  - The `search_knowledge` tool augments deterministic answers with wiki/game-data context.
+  - A KB or DB outage degrades to "no extra context" rather than a failed request.
+  - Reuses the same pgvector infrastructure as chat memory (ADR 2) and the local ONNX embeddings (ADR 6).
 
 ---
 

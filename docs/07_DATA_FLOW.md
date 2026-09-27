@@ -21,14 +21,18 @@ graph TD
     
     API -->|REST JSON| UI[React Client: Obsidian + Notion UI]
     
-    subgraph AgentLoop["Autonomous AI Pipeline (Orchestrator.ts)"]
-        UserQ[User Chat Prompt] --> Agent[PLAN-ACT-CHECK-FIX Agent Loop]
-        Agent --> Tools[12 Deterministic Tools]
+    subgraph AgentLoop["Four-Stage AI Pipeline (PipelineCoordinator.execute)"]
+        UserQ[User Chat Prompt] --> Planner[Stage 1: Planner - deterministic tool selection]
+        Planner --> Orch[Stage 2: Orchestrator - execute 19 tools, no LLM]
+        Orch --> Tools[Deterministic Tools]
         Tools --> Norm
         Tools --> Plan
         Tools --> Rec
         Tools --> ChatStore[ChatStoreService.ts: pgvector Cosine Search]
-        Agent --> Groq[Groq Cloud LLM Inference]
+        Tools --> Know[KnowledgeService.ts: knowledge-base RAG]
+        Orch --> Validator[Stage 3: DeterministicValidator - verify vs NormalizedFarmState + synthesis]
+        Validator --> Explainer[Stage 4: Explainer - single Groq call from synthesis]
+        Explainer --> Groq[Groq Cloud LLM Inference]
         Groq --> FinalAns[Grounded Strategy Answer]
     end
 ```
@@ -214,13 +218,12 @@ $$\text{Total Milestone FLOWER} = \text{Batches to L100} \times \text{Flower Cos
 
 ---
 
-### 2.7 AI Agentic Orchestration (`Orchestrator.ts`)
-Operates a dynamic multi-round tool-calling loop:
-1. Sanitizes conversational history ensuring alternating user/assistant turns.
-2. Injects system instructions with strict game rules (FLOWER denomination, building checks, island progression).
-3. Invokes deterministic tools to fetch fresh state.
-4. If tool call JSON is malformed, prompts model to recover without crashing.
-5. Returns grounded, bold markdown summaries.
+### 2.7 AI Pipeline Orchestration (`server/services/ai/pipeline/`)
+`orchestrator.runAgent()` assembles pre-computed farm context, then delegates to the static `PipelineCoordinator.execute()`, which runs four deterministic stages (PLAN → ACT → CHECK → FIX):
+1. **Planner** deterministically selects which of the 19 tools to invoke for the intent — the LLM no longer chooses tools.
+2. **Orchestrator** executes the planned tools against live farm state (capped at 8 total tool calls, no LLM), sanitizing conversational history to alternating turns.
+3. **DeterministicValidator** verifies tool results against the canonical `NormalizedFarmState`, precomputes a synthesis via `MathHelper`, and emits a `ValidationReport`; an `INVALID` report can trigger one targeted retry (FIX).
+4. **Explainer** makes the single Groq call, injecting strict game rules and the validated synthesis to return grounded, bold markdown; with no API key it uses `deterministicFallback`, surfacing the validator's `critique` on `INVALID`.
 
 ---
 
