@@ -7,7 +7,11 @@
     "start": "tsx server/index.ts",
     "dev": "tsx watch server/index.ts",
     "test": "tsx --test \"server/tests/*.test.ts\" \"server/tests/*.test.js\"",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "kb:init": "node sfl-kb-ingest/sfl-kb-ingest/scripts/init-db.js",
+    "kb:ingest-wiki": "node sfl-kb-ingest/sfl-kb-ingest/scripts/ingest.js knowledge-base/json/wiki-dump.jsonl",
+    "kb:ingest-gamedata": "node sfl-kb-ingest/sfl-kb-ingest/scripts/ingest-gamedata.js knowledge-base/json/gamedata",
+    "kb:ingest": "npm run kb:ingest-wiki && npm run kb:ingest-gamedata"
   },
   "dependencies": {
     "@types/ioredis": "^4.28.10",
@@ -33,6 +37,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.14.0",
     "@types/pg": "^8.11.6",
+    "madge": "^8.0.0",
     "typescript": "^5.4.5"
   }
 }

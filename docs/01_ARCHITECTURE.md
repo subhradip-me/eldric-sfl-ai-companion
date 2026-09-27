@@ -50,8 +50,14 @@ graph TB
             Plan["PlannerService.ts"]
         end
         subgraph AIDomain["ai/"]
-            Orch["Orchestrator.ts (15-Tool Agent Loop)"]
+            Coord["PipelineCoordinator.ts (Plan→Act→Validate→Explain)"]
+            Orch["Orchestrator.ts (Tool Execution Loop)"]
+            Validator["DeterministicValidator.ts"]
+            Explainer["Explainer.ts (Dr. Bumpkin)"]
             GroqClient["GroqClient.ts"]
+        end
+        subgraph KnowledgeDomain["knowledge/"]
+            KnowSvc["KnowledgeService.ts (pgvector RAG)"]
         end
         subgraph AuthDomain["auth/"]
             AuthSvc["AuthService.ts (IP Gate & Sessions)"]
@@ -97,16 +103,22 @@ graph TB
     FC --> Act
     FC --> DelivEng
     CC --> UserMdl
-    CC --> Orch
+    CC --> Coord
 
     SFL --> SFL_API
     SFL --> Redis
+    Coord --> Orch
+    Coord --> Validator
+    Coord --> Explainer
+    Explainer --> Groq
     Orch --> Groq
     Orch --> ChatStore
+    Orch --> KnowSvc
     Orch --> DelivEng
     Orch --> CostEng
     Orch --> ProdEng
     Orch --> EffectEng
+    KnowSvc --> PGV
     ChatStore --> PGV
     Snap --> PG
     UserMdl --> PG
@@ -349,7 +361,15 @@ export class PlannerService {
 - `effectEngine/resolution.ts`: Resolves placed collectibles, equipped wearables, and seasonal conditions into an authoritative `EffectContext`.
 
 #### 4. AI Agent Domain (`server/services/ai/`)
-- `Orchestrator.ts`: Autonomous agent loop implementing **PLAN → ACT → CHECK → FIX** across up to 8 conversational rounds. It calls **15 specialized deterministic tools**:
+The conversational entry point is `orchestrator.runAgent()` (called from `ChatController`), which assembles pre-computed farm context and then delegates to a **four-stage deterministic pipeline** under `pipeline/`, coordinated by `PipelineCoordinator.execute()`:
+This realizes the **PLAN → ACT → CHECK → FIX** contract:
+- **Stage 1 (PLAN) — `Planner.ts`**: Deterministically selects which tools to invoke for the player's intent. The LLM no longer selects tools mid-conversation.
+- **Stage 2 (ACT) — `Orchestrator.ts`**: Executes the planned tools against live farm state, capped at 8 total tool calls (`MAX_TOTAL_TOOL_CALLS`), with `force: true` tool-level dedup bypass.
+- **Stage 3 (CHECK) — `DeterministicValidator.ts`**: Verifies tool results against the canonical `NormalizedFarmState` (coins at `economy.coins`, stock at `inventory.all`), precomputes a synthesis via `MathHelper.ts`, and emits a `ValidationReport` with an actionable `critique` when data is missing or a requirement fails. On an `INVALID` report it can trigger a single targeted retry pass (FIX).
+- **Stage 4 — `Explainer.ts`**: Makes the single Groq call to render the Dr. Bumpkin persona answer strictly from the validated synthesis; when no key is present it uses `deterministicFallback`, which surfaces the validator's `critique` on `INVALID` reports rather than a generic error.
+- `KnowledgeService.ts` (`server/services/knowledge/`): pgvector retrieval over the `knowledge-base/` corpus backing the `search_knowledge` tool — `search()`, `lookupEntity()`, `getStats()`, all graceful-degrading when Postgres is unreachable.
+
+The pipeline draws on a suite of **19 specialized deterministic tools**:
   1. `get_farm_state`: Normalized inventory, level, XP, currencies, buildings, skills from snapshots or hot store.
   2. `get_roadmap`: Multi-phase tactical roadmap with daily objectives and resource commitments.
   3. `check_action_permission`: Discretionary balance and hard reserve constraint validator.
@@ -365,6 +385,10 @@ export class PlannerService {
   13. `evaluate_buy_vs_farm`: Feed vs market ROI breakdown for animal produce (Milk, Eggs, Wool).
   14. `get_deliveries`: Evaluates NPC delivery orders sorted by profit, Coins, SFL, and `readyNow` status.
   15. `get_codex_chores_and_bounties`: Evaluates Weekly Chores and Poppy Mega Bounties with live progress.
+  16. `get_level_requirements`: Cumulative XP requirements and progression metrics for any target Bumpkin level.
+  17. `simulate_what_if`: Goal-oriented what-if simulation on a cloned farm state (add building, cook, sell, plant) with zero side effects.
+  18. `get_skills_tree`: Skill-tree catalog and player unlock status across all 11 branches with tiered effects.
+  19. `search_knowledge`: Semantic + entity retrieval over the embedded `knowledge-base/` corpus (wiki lore, extracted game catalogs) via `KnowledgeService`.
 - **Anti-Hallucination Real-Examples Disambiguation (Rule 9)**: When player intent is ambiguous, Dr. Bumpkin is strictly forbidden from using fake system placeholders (e.g. `"Delivery 1 - Milk & Eggs"`). It MUST always cite real, active orders and chores directly from the player's Codex board with NPC names, exact ingredients, and actual rewards.
 - Supports tool-level deduplication bypass with `force: true`.
 
@@ -376,8 +400,9 @@ PostgreSQL 16 provides transactional ACID persistence and vector similarity sear
   - `users`: ID, username, email, `password_hash`, `farm_id`, `registration_ip`, `role`, `ai_credits`, `ai_credits_used`.
   - `active_sessions`: Strict concurrent session tracking with `(user_id, device_type)` unique constraint and SHA-256 hashed refresh tokens.
   - `snapshots`: Time-series farm states indexed by `(user_id, created_at DESC)`.
-- **Vector Search Table**:
-  - `chat_messages`: Vector embeddings (`vector(384)`) generated by `@xenova/transformers`, queried using cosine distance (`<=>` operator).
+- **Vector Search Tables**:
+  - `chat_messages`: Conversational memory with `embedding vector(384)` generated by `@xenova/transformers`, queried using cosine distance (`<=>` operator).
+  - `kb_documents` / `kb_chunks`: The embedded `knowledge-base/` corpus (wiki lore + extracted game catalogs). `kb_chunks` carries a `vector(384)` embedding with an **HNSW cosine index** (`kb_chunks_embedding_idx`) plus `category` / `type` / `entity` indexes, queried by `KnowledgeService`.
 - **Redis 7 Hot Store**:
   - In-memory monotonic farm state projection caching canonical and raw blockchain states for rapid agent reads.
   - Includes transparent in-memory fallback (`MemoryHotStore`) for hermetic local test runs and offline development.
@@ -410,7 +435,8 @@ Client (Browser / Mobile)                 Server (Express API)                 D
        │                                         │     WHERE id = $1 AND              │
        │                                         │     ai_credits >= 1 RETURNING ... ─►│
        │                                         │◄─── [Credit Reserved] ─────────────┤
-       │                                         │ [Run 15-Tool Agent Loop]           │
+       │                                         │ [Run 4-Stage AI Pipeline:          │
+       │                                         │  Plan→Act→Validate→Explain]        │
        │                                         │ (If AI error -> Auto-Refund +1)    │
        │◄─── 200 OK + Answer & Credits ──────────┤                                    │
 ```

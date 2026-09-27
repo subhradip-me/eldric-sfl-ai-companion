@@ -1,0 +1,165 @@
+{
+  "PET_SHOP_ITEMS": {
+    "Pet Egg": {
+      "description": "A pet egg",
+      "coins": 150000,
+      "ingredients": {},
+      "limit": 1
+    },
+    "Boar Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15
+      },
+      "inventoryLimit": 1
+    },
+    "Hound Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 50
+      },
+      "inventoryLimit": 1
+    },
+    "Sparrow Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Wild Grass": 10,
+        "Ruffroot": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Fox Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Chewed Bone": 10,
+        "Ribbon": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Toucan Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Heart leaf": 10,
+        "Frost Pebble": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Collie Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Frost Pebble": 10,
+        "Chewed Bone": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Moth Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Frost Pebble": 10,
+        "Ribbon": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Badger Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Dewberry": 10,
+        "Heart leaf": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Mole Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Dewberry": 10,
+        "Ribbon": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Tortoise Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Wild Grass": 10,
+        "Chewed Bone": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Stag Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Heart leaf": 10,
+        "Wild Grass": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Bear Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Chewed Bone": 10,
+        "Ruffroot": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Bantam Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Ruffroot": 10,
+        "Dewberry": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Legendary Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Obsidian": 1,
+        "Moonfur": 10,
+        "Acorn": 15
+      },
+      "inventoryLimit": 1
+    },
+    "Trading Shrine": {
+      "description": "",
+      "coins": 0,
+      "ingredients": {
+        "Acorn": 15,
+        "Moonfur": 5,
+        "Obsidian": 3
+      },
+      "inventoryLimit": 1
+    },
+    "Obsidian Shrine": {
+      "description": "A shrine to the Obsidian God",
+      "ingredients": {
+        "Obsidian": 1,
+        "Moonfur": 3,
+        "Acorn": 15
+      },
+      "inventoryLimit": 1
+    }
+  }
+}

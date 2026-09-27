@@ -156,12 +156,12 @@ export class RedisHotStore implements IRedisHotStore {
 
       const results = await pipeline.exec();
       if (!results || results.some(([err]) => err !== null)) {
-        return { committed: true }; // Fallback mirror committed
+        return { committed: false, reason: 'PIPELINE_ERROR: one or more Redis commands failed; in-memory fallback committed' };
       }
 
       return { committed: true };
     } catch {
-      return { committed: true }; // Fallback mirror committed
+      return { committed: false, reason: 'REDIS_ERROR: exception during pipeline; in-memory fallback committed' };
     }
   }
 

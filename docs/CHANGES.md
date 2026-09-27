@@ -1,5 +1,40 @@
 # 📝 Sunflower AI Engineering Changelog
 
+## 🚀 Branch: `feature/knowledge-base` — KB Corpus Consolidation & AI Pipeline Fixes (2026-09-21)
+
+### 🎯 Objective
+Introduce a pgvector-backed knowledge base for natural-language grounding, consolidate all scattered reference data into a single organized corpus, and fix three defects in the deterministic AI pipeline uncovered through testing.
+
+---
+
+### 1. Knowledge Base Corpus Consolidation (`knowledge-base/`)
+Unified previously scattered reference data (`metadata/`, the game-data extractor output, and the crawled wiki) into one folder split by file type:
+- **`knowledge-base/json/rules/`** — 11 hand-authored rule & taxonomy files (moved from `metadata/`).
+- **`knowledge-base/json/gamedata/`** — 39 extracted game catalogs (moved from the extractor output dir).
+- **`knowledge-base/json/wiki-dump.jsonl`** — wiki crawl source (moved from `output/`).
+- **`knowledge-base/md/`** — `GAME_RULES.md` plus 105 wiki pages under `md/wiki/` with category hierarchy preserved.
+- **Path references updated**: `package.json` `kb:ingest-wiki` / `kb:ingest-gamedata` scripts and `sfl-kb-ingest` test fixture now point at `knowledge-base/`.
+- **Cleanup**: removed the emptied `metadata/` and `output/` directories, deleted the 0-byte `sample_farm_snapshot.json`, and removed a byte-identical orphan `expansion.json`.
+- **`server/data/` untouched** — those `*.json` are live build-time imports and remain the authoritative source for deterministic calculations.
+
+### 2. Knowledge Retrieval Service (`server/services/knowledge/KnowledgeService.ts`)
+- `search()`, `lookupEntity()`, and `getStats()` query the embedded corpus over pgvector cosine similarity.
+- All three methods graceful-degrade to safe empty defaults when Postgres is unreachable (fixes a `getStats()` crash under `ECONNREFUSED`).
+
+### 3. AI Pipeline Bug Fixes
+- **Farm-state field mismatch (P0)**: `DeterministicValidator.validateEntityRequirements` read `farmState.inventory` / `farmState.player.coins` instead of the canonical `inventory.all` / `economy.coins`, silently failing every craft/cook/build feasibility check. Fixed field access with a regression test (`validatorFarmState.test.ts`) built through the real `FarmNormalizer`.
+- **Stray-space import bug**: `Orchestrator.ts` imported `'../../data/expansion .json'` (note the space). Renamed the file to `expansion.json` and corrected the import.
+- **Explainer discarded critique**: `Explainer.deterministicFallback` returned a generic message on `INVALID` reports, ignoring `validationReport.critique`. Now surfaces the actionable critique (e.g. *"Authoritative game data for 'Iron Pickaxe' was not found"*).
+
+### 4. Security
+- Added private-key patterns (`github-actions-key`, `*.pem`, `id_rsa*`, `*_key`) to `.gitignore` — an OpenSSH private key was present in the working tree and is now excluded from version control.
+
+### 5. Verification
+- `orchestrator.test.ts` 16/16, new `explainerFallback.test.ts` 3/3, `validatorFarmState.test.ts` 3/3 passing.
+- `tsc --noEmit`: no new type errors introduced by the reorganization.
+
+---
+
 ## 🚀 Release: `v1.2.0` — Codex Deliveries Engine, Security Gates & Containerization (2026-09-13 / 2026-09-14)
 
 ### 🎯 Objective

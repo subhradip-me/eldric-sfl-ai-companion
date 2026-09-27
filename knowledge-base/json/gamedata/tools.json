@@ -1,0 +1,173 @@
+{
+  "WORKBENCH_TOOLS": {
+    "Axe": {
+      "name": "Axe",
+      "description": "Used to chop wood",
+      "price": 20,
+      "ingredients": {},
+      "stock": 200,
+      "type": "land"
+    },
+    "Pickaxe": {
+      "name": "Pickaxe",
+      "description": "Used to mine stone",
+      "price": 20,
+      "ingredients": {
+        "Wood": 3
+      },
+      "stock": 60,
+      "type": "land"
+    },
+    "Stone Pickaxe": {
+      "name": "Stone Pickaxe",
+      "description": "Used to mine iron",
+      "price": 20,
+      "ingredients": {
+        "Wood": 3,
+        "Stone": 5
+      },
+      "stock": 20,
+      "type": "land"
+    },
+    "Iron Pickaxe": {
+      "name": "Iron Pickaxe",
+      "description": "Used to mine gold",
+      "price": 80,
+      "ingredients": {
+        "Wood": 3,
+        "Iron": 5
+      },
+      "stock": 5,
+      "type": "land"
+    },
+    "Gold Pickaxe": {
+      "name": "Gold Pickaxe",
+      "description": "Used to mine crimstone and sunstone",
+      "price": 100,
+      "ingredients": {
+        "Wood": 3,
+        "Gold": 3
+      },
+      "stock": 5,
+      "type": "land"
+    },
+    "Rod": {
+      "name": "Rod",
+      "description": "Used to catch fish",
+      "price": 20,
+      "ingredients": {
+        "Wood": 3,
+        "Stone": 1
+      },
+      "stock": 50,
+      "type": "water"
+    },
+    "Oil Drill": {
+      "name": "Oil Drill",
+      "description": "Drill for oil",
+      "price": 100,
+      "ingredients": {
+        "$unparsed": "{\n      // Inline clamp (equivalent to getSkillLevel) to avoid importing\n      // bumpkinSkills here, which would create a\n      // tools -> bumpkinSkills -> images -> tools require cycle.\n      const oilRigLevel = Math.max(\n        0,\n        Math.min(\n          Math.floor(skill?.[\"Oil Rig\"] ?? 0),\n          OIL_DRILL_WOOL_BY_RANK.length,\n        ),\n      );\n      if (oilRigLevel) {\n        return {\n          Wood: new Decimal(20),\n          Iron: new Decimal(9),\n          Wool: new Decimal(OIL_DRILL_WOOL_BY_RANK[oilRigLevel - 1]),\n        };\n      }\n\n      return {\n        Wood: new Decimal(20),\n        Iron: new Decimal(9),\n        Leather: new Decimal(10),\n      };\n    }"
+      },
+      "requiredIsland": "desert",
+      "stock": 5,
+      "type": "land"
+    },
+    "Pest Net": {
+      "name": "Pest Net",
+      "description": "Used to catch pests on your friends' farms",
+      "price": 50,
+      "ingredients": {
+        "Wool": 2
+      },
+      "stock": 10,
+      "disabled": true,
+      "type": "land"
+    },
+    "Crab Pot": {
+      "name": "Crab Pot",
+      "description": "A water trap for catching marine creatures",
+      "price": 250,
+      "ingredients": {
+        "Feather": 5,
+        "Wool": 3
+      },
+      "stock": 15,
+      "requiredLevel": {
+        "$unparsed": "WATER_TRAP[\"Crab Pot\"].requiredBumpkinLevel"
+      },
+      "type": "water"
+    },
+    "Mariner Pot": {
+      "name": "Mariner Pot",
+      "description": "An advanced water trap for catching marine creatures",
+      "price": 500,
+      "ingredients": {
+        "Feather": 10,
+        "Merino Wool": 10
+      },
+      "stock": 10,
+      "requiredLevel": {
+        "$unparsed": "WATER_TRAP[\"Mariner Pot\"].requiredBumpkinLevel"
+      },
+      "type": "water"
+    },
+    "Salt Rake": {
+      "name": "Salt Rake",
+      "description": "Used to harvest salt from salt nodes",
+      "price": 20,
+      "ingredients": {
+        "Wood": 3
+      },
+      "stock": 50,
+      "type": "water"
+    }
+  },
+  "TREASURE_TOOLS": {
+    "Sand Shovel": {
+      "name": "Sand Shovel",
+      "description": "Used for digging treasure",
+      "price": 20,
+      "ingredients": {
+        "Wood": 2,
+        "Stone": 1
+      },
+      "type": "land"
+    },
+    "Sand Drill": {
+      "name": "Sand Drill",
+      "description": "Drill deep for uncommon or rare treasure",
+      "price": 40,
+      "ingredients": {
+        "Oil": 1,
+        "Crimstone": 1,
+        "Wood": 3,
+        "Leather": 1
+      },
+      "type": "land"
+    }
+  },
+  "LOVE_ANIMAL_TOOLS": {
+    "Petting Hand": {
+      "name": "Petting Hand",
+      "description": "Pets animals. Use this to show affection to your animals.",
+      "price": 0,
+      "ingredients": {},
+      "type": "animal"
+    },
+    "Brush": {
+      "name": "Brush",
+      "description": "Animal Brush. Use this to show affection to your animals.",
+      "price": 2000,
+      "ingredients": {},
+      "type": "animal"
+    },
+    "Music Box": {
+      "name": "Music Box",
+      "description": "Plays music to animals. Use this to show affection to your animals.",
+      "price": 50000,
+      "ingredients": {},
+      "type": "animal"
+    }
+  }
+}

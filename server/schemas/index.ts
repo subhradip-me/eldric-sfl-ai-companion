@@ -10,3 +10,4 @@ export * from './calendarSchema.js';
 export * from './historySchema.js';
 export * from './roadmapSchema.js';
 export * from './aiSchema.js';
+export * from './strategySchema.js';

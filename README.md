@@ -54,7 +54,7 @@ cd client && npm install && npm run dev   # http://localhost:5173
 npm test
 ```
 
-## Dr. Bumpkin AI Copilot (15 Specialized Tools)
+## Jester AI Copilot (15 Specialized Tools)
 
 Operates on an agentic loop powered by Groq (`llama-3.3-70b-versatile`):
 1. `get_farm_state`: Snapshot-first normalized farm inventory, level, currencies, buildings, skills, and data freshness.
@@ -73,7 +73,7 @@ Operates on an agentic loop powered by Groq (`llama-3.3-70b-versatile`):
 14. `get_market_prices`: Live P2P market prices in FLOWER.
 15. `recall_memory`: Semantic vector search across past chat sessions using `pgvector`.
 
-> **Anti-Hallucination Disambiguation Rule**: Dr. Bumpkin is strictly prohibited from inventing fake "system examples" like `"Delivery 1 - Milk & Eggs"`. When clarifying brief or numbered prompts (e.g. "2" or "flower delivery"), the AI always cites real active orders and tasks from the player's Codex.
+> **Anti-Hallucination Disambiguation Rule**: The Jester is strictly prohibited from inventing fake "system examples" like `"Delivery 1 - Milk & Eggs"`. When clarifying brief or numbered prompts (e.g. "2" or "flower delivery"), the AI always cites real active orders and tasks from the player's Codex.
 
 ## Key Endpoints
 

@@ -1,0 +1,577 @@
+[
+  {
+    "file": "achievements.ts",
+    "catalogs": [
+      "ACHIEVEMENTS"
+    ],
+    "unparsedPct": "20.3"
+  },
+  {
+    "file": "animals.ts",
+    "catalogs": [
+      "ANIMALS",
+      "ANIMAL_LEVELS",
+      "ANIMAL_FOODS",
+      "ANIMAL_FOOD_EXPERIENCE",
+      "ANIMAL_RESOURCE_DROP"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "banners.ts",
+    "catalogs": [
+      "BANNERS"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "beans.ts",
+    "catalogs": [
+      "BEANS",
+      "EXOTIC_CROPS"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "buildings.ts",
+    "catalogs": [
+      "UPGRADABLES",
+      "BUILDINGS",
+      "BUILDINGS_DIMENSIONS",
+      "FOOD_PROCESSING_BUILDINGS"
+    ],
+    "unparsedPct": "3.8"
+  },
+  {
+    "file": "bumpkinSkills.ts",
+    "catalogs": [
+      "UPGRADE_POINTS_BY_TIER",
+      "getSkillUpgradeCost",
+      "AOE_RANKS",
+      "BUMPKIN_SKILL_TREE",
+      "CHAPTER_CROP_WEEK_NOTICE_SKILLS"
+    ],
+    "unparsedPct": "15.8"
+  },
+  {
+    "file": "chapters.ts",
+    "catalogs": [
+      "CHAPTER_ORDER",
+      "CHAPTERS",
+      "CHAPTER_BANNERS",
+      "CHAPTER_TICKET_NAME",
+      "CHAPTER_RAFFLE_TICKET_NAME",
+      "CHAPTER_ARTEFACT_NAME",
+      "CHAPTER_MARVEL_FISH",
+      "CHAPTER_BANNER_IMAGES"
+    ],
+    "unparsedPct": "18.8"
+  },
+  {
+    "file": "chests.ts",
+    "catalogs": [
+      "BASIC_REWARDS",
+      "RARE_REWARDS",
+      "LUXURY_REWARDS",
+      "BUD_BOX_REWARDS",
+      "GIFT_GIVER_REWARDS",
+      "PIRATE_CHEST_REWARDS",
+      "BASIC_DESERT_STREAK",
+      "ADVANCED_DESERT_STREAK",
+      "EXPERT_DESERT_STREAK",
+      "MANEKI_NEKO_REWARDS",
+      "FESTIVE_TREE_REWARDS"
+    ],
+    "unparsedPct": "5.6"
+  },
+  {
+    "file": "collectibles.ts",
+    "catalogs": [
+      "PLACEABLE_LOCATIONS",
+      "HELIOS_BLACKSMITH_ITEMS",
+      "ARTEFACT_SHOP_KEYS",
+      "TREASURE_COLLECTIBLE_ITEM",
+      "POTION_HOUSE_ITEMS",
+      "POTION_HOUSE_EXOTIC_CROPS"
+    ],
+    "unparsedPct": "3.7"
+  },
+  {
+    "file": "craftables.ts",
+    "catalogs": [
+      "FOODS",
+      "CAKES",
+      "TOOLS",
+      "SHOVELS",
+      "QUEST_ITEMS",
+      "SALESMAN_ITEMS",
+      "WAR_TENT_ITEMS",
+      "MOM_EVENT_ITEMS",
+      "WAR_BANNERS",
+      "BLACKSMITH_ITEMS",
+      "MARKET_ITEMS",
+      "BARN_ITEMS",
+      "ANIMALS",
+      "COLLECTIBLES_DIMENSIONS",
+      "ANIMAL_DIMENSIONS"
+    ],
+    "unparsedPct": "4.4"
+  },
+  {
+    "file": "crops.ts",
+    "catalogs": [
+      "GREENHOUSE_CROPS",
+      "GREENHOUSE_SEEDS",
+      "CROPS",
+      "CROP_SEEDS",
+      "ALL_PRODUCE"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "crustaceans.ts",
+    "catalogs": [
+      "CRUSTACEANS",
+      "CRUSTACEANS_DESCRIPTIONS",
+      "MARINER_POT_CHUMS",
+      "CRAB_POT_CHUMS",
+      "CRUSTACEAN_CHUM_AMOUNTS",
+      "WATER_TRAP_ANIMATIONS",
+      "CRUSTACEANS_LOOKUP",
+      "WATER_TRAP",
+      "TRAP_POSITIONS",
+      "TRAP_DOCK_OFFSET"
+    ],
+    "unparsedPct": "2.5"
+  },
+  {
+    "file": "decorations.ts",
+    "catalogs": [
+      "LETTER_TILES",
+      "DECORATION_DIMENSIONS",
+      "HOME_LANDSCAPING_DECORATIONS",
+      "LANDSCAPING_DECORATIONS",
+      "POTION_HOUSE_DECORATIONS",
+      "DECORATIONS"
+    ],
+    "unparsedPct": "0.5"
+  },
+  {
+    "file": "desert.ts",
+    "catalogs": [
+      "CHAPTER_ARTEFACT"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "expansions.ts",
+    "catalogs": [
+      "LAND_4_LAYOUT",
+      "LAND_5_LAYOUT",
+      "LAND_6_LAYOUT",
+      "LAND_7_LAYOUT",
+      "LAND_8_LAYOUT",
+      "LAND_9_LAYOUT",
+      "SPRING_LAND_5_LAYOUT",
+      "SPRING_LAND_6_LAYOUT",
+      "SPRING_LAND_7_LAYOUT",
+      "SPRING_LAND_8_LAYOUT",
+      "SPRING_LAND_9_LAYOUT",
+      "SPRING_LAND_10_LAYOUT",
+      "SPRING_LAND_11_LAYOUT",
+      "SPRING_LAND_12_LAYOUT",
+      "SPRING_LAND_13_LAYOUT",
+      "SPRING_LAND_14_LAYOUT",
+      "SPRING_LAND_15_LAYOUT",
+      "SPRING_LAND_16_LAYOUT",
+      "SPRING_LAYOUTS",
+      "DESERT_LAND_5_LAYOUT",
+      "DESERT_LAND_6_LAYOUT",
+      "DESERT_LAND_7_LAYOUT",
+      "DESERT_LAND_8_LAYOUT",
+      "DESERT_LAND_9_LAYOUT",
+      "DESERT_LAND_10_LAYOUT",
+      "DESERT_LAND_11_LAYOUT",
+      "DESERT_LAND_12_LAYOUT",
+      "DESERT_LAND_13_LAYOUT",
+      "DESERT_LAND_14_LAYOUT",
+      "DESERT_LAND_15_LAYOUT",
+      "DESERT_LAND_16_LAYOUT",
+      "DESERT_LAND_17_LAYOUT",
+      "DESERT_LAND_18_LAYOUT",
+      "DESERT_LAND_19_LAYOUT",
+      "DESERT_LAND_20_LAYOUT",
+      "DESERT_LAND_21_LAYOUT",
+      "DESERT_LAND_22_LAYOUT",
+      "DESERT_LAND_23_LAYOUT",
+      "DESERT_LAND_24_LAYOUT",
+      "DESERT_LAND_25_LAYOUT",
+      "DESERT_LAYOUTS",
+      "VOLCANO_LAND_6_LAYOUT",
+      "VOLCANO_LAND_7_LAYOUT",
+      "VOLCANO_LAND_8_LAYOUT",
+      "VOLCANO_LAND_9_LAYOUT",
+      "VOLCANO_LAND_10_LAYOUT",
+      "VOLCANO_LAND_11_LAYOUT",
+      "VOLCANO_LAND_12_LAYOUT",
+      "VOLCANO_LAND_13_LAYOUT",
+      "VOLCANO_LAND_14_LAYOUT",
+      "VOLCANO_LAND_15_LAYOUT",
+      "VOLCANO_LAND_16_LAYOUT",
+      "VOLCANO_LAND_17_LAYOUT",
+      "VOLCANO_LAND_18_LAYOUT",
+      "VOLCANO_LAND_19_LAYOUT",
+      "VOLCANO_LAND_20_LAYOUT",
+      "VOLCANO_LAND_21_LAYOUT",
+      "VOLCANO_LAND_22_LAYOUT",
+      "VOLCANO_LAND_23_LAYOUT",
+      "VOLCANO_LAND_24_LAYOUT",
+      "VOLCANO_LAND_25_LAYOUT",
+      "VOLCANO_LAND_26_LAYOUT",
+      "VOLCANO_LAND_27_LAYOUT",
+      "VOLCANO_LAND_28_LAYOUT",
+      "VOLCANO_LAND_29_LAYOUT",
+      "VOLCANO_LAND_30_LAYOUT",
+      "VOLCANO_LAYOUTS",
+      "BASIC_BASE_NODES",
+      "SPRING_BASE_NODES",
+      "DESERT_BASE_NODES",
+      "VOLCANO_BASE_NODES",
+      "TOTAL_EXPANSION_NODES",
+      "LAND_4_REQUIREMENTS",
+      "LAND_5_REQUIREMENTS",
+      "LAND_6_REQUIREMENTS",
+      "LAND_7_REQUIREMENTS",
+      "LAND_8_REQUIREMENTS",
+      "LAND_9_REQUIREMENTS",
+      "LAND_10_REQUIREMENTS",
+      "LAND_11_REQUIREMENTS",
+      "LAND_12_REQUIREMENTS",
+      "LAND_13_REQUIREMENTS",
+      "LAND_14_REQUIREMENTS",
+      "LAND_15_REQUIREMENTS",
+      "LAND_16_REQUIREMENTS",
+      "LAND_17_REQUIREMENTS",
+      "LAND_18_REQUIREMENTS",
+      "LAND_19_REQUIREMENTS",
+      "LAND_20_REQUIREMENTS",
+      "LAND_21_REQUIREMENTS",
+      "LAND_22_REQUIREMENTS",
+      "LAND_23_REQUIREMENTS",
+      "SPRING_LAND_5_REQUIREMENTS",
+      "SPRING_LAND_6_REQUIREMENTS",
+      "SPRING_LAND_7_REQUIREMENTS",
+      "SPRING_LAND_8_REQUIREMENTS",
+      "SPRING_LAND_9_REQUIREMENTS",
+      "SPRING_LAND_10_REQUIREMENTS",
+      "SPRING_LAND_11_REQUIREMENTS",
+      "SPRING_LAND_12_REQUIREMENTS",
+      "SPRING_LAND_13_REQUIREMENTS",
+      "SPRING_LAND_14_REQUIREMENTS",
+      "SPRING_LAND_15_REQUIREMENTS",
+      "SPRING_LAND_16_REQUIREMENTS",
+      "SPRING_LAND_17_REQUIREMENTS",
+      "SPRING_LAND_18_REQUIREMENTS",
+      "SPRING_LAND_19_REQUIREMENTS",
+      "SPRING_LAND_20_REQUIREMENTS",
+      "DESERT_LAND_5_REQUIREMENTS",
+      "DESERT_LAND_6_REQUIREMENTS",
+      "DESERT_LAND_7_REQUIREMENTS",
+      "DESERT_LAND_8_REQUIREMENTS",
+      "DESERT_LAND_9_REQUIREMENTS",
+      "DESERT_LAND_10_REQUIREMENTS",
+      "DESERT_LAND_11_REQUIREMENTS",
+      "DESERT_LAND_12_REQUIREMENTS",
+      "DESERT_LAND_13_REQUIREMENTS",
+      "DESERT_LAND_14_REQUIREMENTS",
+      "DESERT_LAND_15_REQUIREMENTS",
+      "DESERT_LAND_16_REQUIREMENTS",
+      "DESERT_LAND_17_REQUIREMENTS",
+      "DESERT_LAND_18_REQUIREMENTS",
+      "DESERT_LAND_19_REQUIREMENTS",
+      "DESERT_LAND_20_REQUIREMENTS",
+      "DESERT_LAND_21_REQUIREMENTS",
+      "DESERT_LAND_22_REQUIREMENTS",
+      "DESERT_LAND_23_REQUIREMENTS",
+      "DESERT_LAND_24_REQUIREMENTS",
+      "DESERT_LAND_25_REQUIREMENTS",
+      "VOLCANO_LAND_6_REQUIREMENTS",
+      "VOLCANO_LAND_7_REQUIREMENTS",
+      "VOLCANO_LAND_8_REQUIREMENTS",
+      "VOLCANO_LAND_9_REQUIREMENTS",
+      "VOLCANO_LAND_10_REQUIREMENTS",
+      "VOLCANO_LAND_11_REQUIREMENTS",
+      "VOLCANO_LAND_12_REQUIREMENTS",
+      "VOLCANO_LAND_13_REQUIREMENTS",
+      "VOLCANO_LAND_14_REQUIREMENTS",
+      "VOLCANO_LAND_15_REQUIREMENTS",
+      "VOLCANO_LAND_16_REQUIREMENTS",
+      "VOLCANO_LAND_17_REQUIREMENTS",
+      "VOLCANO_LAND_18_REQUIREMENTS",
+      "VOLCANO_LAND_19_REQUIREMENTS",
+      "VOLCANO_LAND_20_REQUIREMENTS",
+      "VOLCANO_LAND_21_REQUIREMENTS",
+      "VOLCANO_LAND_22_REQUIREMENTS",
+      "VOLCANO_LAND_23_REQUIREMENTS",
+      "VOLCANO_LAND_24_REQUIREMENTS",
+      "VOLCANO_LAND_25_REQUIREMENTS",
+      "VOLCANO_LAND_26_REQUIREMENTS",
+      "VOLCANO_LAND_27_REQUIREMENTS",
+      "VOLCANO_LAND_28_REQUIREMENTS",
+      "VOLCANO_LAND_29_REQUIREMENTS",
+      "VOLCANO_LAND_30_REQUIREMENTS",
+      "EXPANSION_REQUIREMENTS"
+    ],
+    "unparsedPct": "2.9"
+  },
+  {
+    "file": "factionShop.ts",
+    "catalogs": [
+      "BUMPKIN_FACTION_ITEMS",
+      "GOBLIN_FACTION_ITEMS",
+      "SUNFLORIAN_FACTION_ITEMS",
+      "NIGHTSHADE_FACTION_ITEMS",
+      "FACTION_SHOP_KEYS",
+      "FACTION_SHOP_ITEMS"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "fishing.ts",
+    "catalogs": [
+      "PURCHASEABLE_BAIT",
+      "CHUM_AMOUNTS",
+      "CHUM_DETAILS",
+      "CHAPTER_FISH",
+      "FISH",
+      "FISH_DIFFICULTY",
+      "MAP_PUZZLE_DIFFICULTY",
+      "GUARANTEED_BAIT",
+      "GUARANTEED_CATCH_BY_BAIT",
+      "BAIT",
+      "CHAPTER_MAP_PIECE_TRIGGERS",
+      "MAP_PIECE_CHAPTERS",
+      "MAP_PIECE_MARVELS"
+    ],
+    "unparsedPct": "0.2"
+  },
+  {
+    "file": "flowers.ts",
+    "catalogs": [
+      "FLOWER_SEEDS",
+      "SET_1_FLOWER_CROSS_BREED_AMOUNTS",
+      "SET_2_FLOWER_CROSS_BREED_AMOUNTS",
+      "FLOWER_CROSS_BREED_AMOUNTS",
+      "FLOWER_CROSS_BREED_DETAILS",
+      "SUNPETAL_FLOWERS",
+      "BLOOM_FLOWERS",
+      "LILY_FLOWERS",
+      "EDELWEISS_FLOWERS",
+      "GLADIOLUS_FLOWERS",
+      "LAVENDER_FLOWERS",
+      "CLOVER_FLOWERS",
+      "FLOWERS"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "fruits.ts",
+    "catalogs": [
+      "FULL_MOON_FRUITS",
+      "PATCH_FRUIT_SEEDS",
+      "PATCH_FRUIT",
+      "GREENHOUSE_FRUIT_SEEDS",
+      "GREENHOUSE_FRUIT"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "garbage.ts",
+    "catalogs": [
+      "GARBAGE"
+    ],
+    "unparsedPct": "1.2"
+  },
+  {
+    "file": "gifts.ts",
+    "catalogs": [
+      "BUMPKIN_FLOWER_BONUSES",
+      "DEFAULT_FLOWER_POINTS",
+      "BUMPKIN_GIFTS"
+    ],
+    "unparsedPct": "0.9"
+  },
+  {
+    "file": "megastore.ts",
+    "catalogs": [
+      "EMPTY_SEASONAL_STORE",
+      "PHARAOH_ITEMS",
+      "RARE_PHARAOH_ITEMS",
+      "EPIC_PHARAOH_ITEMS",
+      "BULL_RUN_ITEMS",
+      "RARE_BULL_RUN_ITEMS",
+      "EPIC_BULL_RUN_ITEMS",
+      "MEGA_BULL_RUN_ITEMS",
+      "WINDS_OF_CHANGE_ITEMS",
+      "RARE_WINDS_OF_CHANGE_ITEMS",
+      "EPIC_WINDS_OF_CHANGE_ITEMS",
+      "MEGA_WINDS_OF_CHANGE_ITEMS",
+      "GREAT_BLOOM_ITEMS",
+      "BETTER_TOGETHER_ITEMS",
+      "PAW_PRINTS_ITEMS",
+      "CRABS_AND_TRAPS_ITEMS",
+      "SALT_AWAKENING_ITEMS",
+      "ASCENSION_AGE_ITEMS",
+      "MEGASTORE"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "milestones.ts",
+    "catalogs": [
+      "FISH_MILESTONES",
+      "FLOWER_MILESTONES",
+      "MILESTONES",
+      "MILESTONE_MESSAGES"
+    ],
+    "unparsedPct": "31.0"
+  },
+  {
+    "file": "monuments.ts",
+    "catalogs": [
+      "MEGASTORE_MONUMENTS",
+      "HELP_LIMIT_MONUMENTS",
+      "MONUMENTS",
+      "WORKBENCH_MONUMENTS",
+      "REQUIRED_CHEERS",
+      "REWARD_ITEMS",
+      "RAFFLE_REWARDS"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "oilDrill.ts",
+    "catalogs": [
+      "OIL_DRILL_WOOL_BY_RANK"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "petShop.ts",
+    "catalogs": [
+      "PET_SHOP_ITEMS"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "pets.ts",
+    "catalogs": [
+      "PET_HOUSE_CAPACITY",
+      "PET_NFT_DIMENSIONS",
+      "PET_NFT_TYPES",
+      "PET_CATEGORY_NAMES",
+      "PET_CATEGORIES",
+      "FETCHES_BY_CATEGORY",
+      "PET_TYPES",
+      "PET_RESOURCES",
+      "PET_SHRINES",
+      "PET_REQUESTS",
+      "PET_REQUEST_XP"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "quests.ts",
+    "catalogs": [
+      "QUESTS",
+      "BUMPKIN_QUEST_IDS"
+    ],
+    "unparsedPct": "25.9"
+  },
+  {
+    "file": "resources.ts",
+    "catalogs": [
+      "COMMODITIES",
+      "ANIMAL_RESOURCES",
+      "RESOURCES",
+      "ADVANCED_RESOURCES",
+      "RESOURCE_STATE_ACCESSORS",
+      "RESOURCES_UPGRADES_TO",
+      "BASIC_RESOURCES",
+      "RESOURCE_MULTIPLIER",
+      "UPGRADEABLE_RESOURCE_FAMILIES",
+      "RESOURCE_DIMENSIONS",
+      "MUSHROOM_DIMENSIONS"
+    ],
+    "unparsedPct": "9.8"
+  },
+  {
+    "file": "rewardBoxes.ts",
+    "catalogs": [
+      "REWARD_BOXES"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "saltSculpture.ts",
+    "catalogs": [
+      "SALT_SCULPTURE_UPGRADES",
+      "SALT_SCULPTURE_BUFFS"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "seeds.ts",
+    "catalogs": [
+      "SEASONAL_SEEDS"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "skills.ts",
+    "catalogs": [
+      "LEGACY_BADGE_TREE"
+    ],
+    "unparsedPct": "19.8"
+  },
+  {
+    "file": "spiceRackProducts.ts",
+    "catalogs": [
+      "SPICE_RACK_PRODUCTS"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "stylist.ts",
+    "catalogs": [
+      "BASIC_WEARABLES",
+      "STYLIST_WEARABLES"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "tools.ts",
+    "catalogs": [
+      "WORKBENCH_TOOLS",
+      "TREASURE_TOOLS",
+      "LOVE_ANIMAL_TOOLS"
+    ],
+    "unparsedPct": "3.0"
+  },
+  {
+    "file": "treasure.ts",
+    "catalogs": [
+      "SELLABLE_TREASURES"
+    ],
+    "unparsedPct": "0.0"
+  },
+  {
+    "file": "withdrawables.ts",
+    "catalogs": [
+      "CAN_WITHDRAW_AND_TRADE",
+      "WEARABLE_RELEASES",
+      "INVENTORY_RELEASES"
+    ],
+    "unparsedPct": "16.2"
+  }
+]

@@ -5,3 +5,4 @@
 
 export * from './redisHotStore.js';
 export * from './snapshotStore.js';
+export * from './strategyPolicyStore.js';

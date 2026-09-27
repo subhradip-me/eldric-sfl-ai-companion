@@ -1,0 +1,1652 @@
+{
+  "LETTER_TILES": {
+    "Letter A Tile": {},
+    "Letter B Tile": {},
+    "Letter C Tile": {},
+    "Letter D Tile": {},
+    "Letter E Tile": {},
+    "Letter F Tile": {},
+    "Letter G Tile": {},
+    "Letter H Tile": {},
+    "Letter I Tile": {},
+    "Letter J Tile": {},
+    "Letter K Tile": {},
+    "Letter L Tile": {},
+    "Letter M Tile": {},
+    "Letter N Tile": {},
+    "Letter O Tile": {},
+    "Letter P Tile": {},
+    "Letter Q Tile": {},
+    "Letter R Tile": {},
+    "Letter S Tile": {},
+    "Letter T Tile": {},
+    "Letter U Tile": {},
+    "Letter V Tile": {},
+    "Letter W Tile": {},
+    "Letter X Tile": {},
+    "Letter Y Tile": {},
+    "Letter Z Tile": {}
+  },
+  "DECORATION_DIMENSIONS": {
+    "Salt Rug": {
+      "width": 3,
+      "height": 2
+    },
+    "Ascended Idol": {
+      "width": 3,
+      "height": 2
+    },
+    "Ascended Wheel": {
+      "width": 2,
+      "height": 2
+    },
+    "Astrolabe": {
+      "width": 2,
+      "height": 2
+    },
+    "Coat Rack": {
+      "width": 1,
+      "height": 2
+    },
+    "Lampshade": {
+      "width": 1,
+      "height": 1
+    },
+    "Marble Head": {
+      "width": 1,
+      "height": 2
+    },
+    "Otty the Otter": {
+      "width": 1,
+      "height": 1
+    },
+    "Salt Worker Gnome": {
+      "width": 1,
+      "height": 1
+    },
+    "Shards Turtle": {
+      "width": 1,
+      "height": 2
+    },
+    "Vibraphone": {
+      "width": 2,
+      "height": 2
+    },
+    "Winged Vase": {
+      "width": 1,
+      "height": 1
+    },
+    "Diving Helmet": {
+      "width": 1,
+      "height": 2
+    },
+    "Jelly Lamp": {
+      "width": 2,
+      "height": 2
+    },
+    "Magic Bean": {
+      "width": 2,
+      "height": 2
+    },
+    "$unparsed": "(getKeys(DECORATION_TEMPLATES) as TemplateDecorationName[]).reduce(\n    (acc, name) => ({\n      ...acc,\n      [name]: DECORATION_TEMPLATES[name].dimensions,\n    }),\n    {} as Record<TemplateDecorationName, Dimensions>,\n  )",
+    "Paint Can": {
+      "width": 2,
+      "height": 1
+    },
+    "Benevolence Flag": {
+      "width": 1,
+      "height": 1
+    },
+    "Devotion Flag": {
+      "width": 1,
+      "height": 1
+    },
+    "Generosity Flag": {
+      "width": 1,
+      "height": 1
+    },
+    "Splendor Flag": {
+      "width": 1,
+      "height": 1
+    },
+    "Gaucho Rug": {
+      "width": 3,
+      "height": 2
+    },
+    "Battlecry Drum": {
+      "width": 2,
+      "height": 2
+    },
+    "Golden Gallant": {
+      "width": 1,
+      "height": 1
+    },
+    "Golden Guardian": {
+      "width": 1,
+      "height": 1
+    },
+    "Rookie Rook": {
+      "width": 1,
+      "height": 1
+    },
+    "Silver Sentinel": {
+      "width": 1,
+      "height": 1
+    },
+    "Silver Stallion": {
+      "width": 1,
+      "height": 1
+    },
+    "Hungry Hare": {
+      "width": 2,
+      "height": 2
+    },
+    "Community Egg": {
+      "width": 1,
+      "height": 1
+    },
+    "Baozi": {
+      "width": 1,
+      "height": 1
+    },
+    "Baby Panda": {
+      "width": 1,
+      "height": 1
+    },
+    "Earn Alliance Banner": {
+      "width": 1,
+      "height": 2
+    },
+    "Blossombeard": {
+      "width": 1,
+      "height": 1
+    },
+    "Desert Gnome": {
+      "width": 1,
+      "height": 1
+    },
+    "Volcano Gnome": {
+      "width": 1,
+      "height": 1
+    },
+    "Wardrobe": {
+      "height": 1,
+      "width": 1
+    },
+    "White Festive Fox": {
+      "height": 2,
+      "width": 2
+    },
+    "Rug": {
+      "height": 3,
+      "width": 3
+    },
+    "Grinx's Hammer": {
+      "height": 1,
+      "width": 1
+    },
+    "Sapo Docuras": {
+      "height": 1,
+      "width": 1
+    },
+    "Sapo Travessuras": {
+      "height": 1,
+      "width": 1
+    },
+    "Dawn Flower": {
+      "height": 1,
+      "width": 1
+    },
+    "White Tulips": {
+      "height": 1,
+      "width": 1
+    },
+    "Potted Sunflower": {
+      "height": 1,
+      "width": 1
+    },
+    "Potted Potato": {
+      "height": 1,
+      "width": 1
+    },
+    "Potted Pumpkin": {
+      "height": 1,
+      "width": 1
+    },
+    "Cactus": {
+      "height": 1,
+      "width": 1
+    },
+    "Chef Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Construction Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Angel Bear": {
+      "height": 1,
+      "width": 2
+    },
+    "Badass Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Bear Trap": {
+      "height": 1,
+      "width": 1
+    },
+    "Brilliant Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Classy Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Farmer Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Sunflower Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Rich Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Rainbow Artist Bear": {
+      "width": 1,
+      "height": 1
+    },
+    "Devil Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Abandoned Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Turtle Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "T-Rex Skull": {
+      "height": 1,
+      "width": 2
+    },
+    "Sunflower Coin": {
+      "height": 1,
+      "width": 2
+    },
+    "Foliant": {
+      "height": 1,
+      "width": 2
+    },
+    "Skeleton King Staff": {
+      "height": 1,
+      "width": 2
+    },
+    "Lifeguard Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Snorkel Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Whale Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Pirate Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Goblin Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Galleon": {
+      "height": 1,
+      "width": 2
+    },
+    "Dinosaur Bone": {
+      "height": 1,
+      "width": 2
+    },
+    "Human Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Tiki Totem": {
+      "height": 1,
+      "width": 1
+    },
+    "Lunar Calendar": {
+      "height": 1,
+      "width": 1
+    },
+    "Valentine Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Easter Bear": {
+      "height": 1,
+      "width": 1
+    },
+    "Easter Bush": {
+      "height": 1,
+      "width": 2
+    },
+    "Giant Carrot": {
+      "height": 3,
+      "width": 2
+    },
+    "Dirt Path": {
+      "width": 1,
+      "height": 1
+    },
+    "Bush": {
+      "width": 2,
+      "height": 1
+    },
+    "Eggplant Bear": {
+      "width": 1,
+      "height": 1
+    },
+    "Field Maple": {
+      "width": 2,
+      "height": 2
+    },
+    "Red Maple": {
+      "width": 2,
+      "height": 2
+    },
+    "Golden Maple": {
+      "width": 2,
+      "height": 2
+    },
+    "Fence": {
+      "width": 1,
+      "height": 1
+    },
+    "Stone Fence": {
+      "width": 1,
+      "height": 1
+    },
+    "Shrub": {
+      "width": 1,
+      "height": 1
+    },
+    "Pine Tree": {
+      "width": 1,
+      "height": 2
+    },
+    "Bonnie's Tombstone": {
+      "width": 1,
+      "height": 1
+    },
+    "Chestnut Fungi Stool": {
+      "width": 1,
+      "height": 1
+    },
+    "Crimson Cap": {
+      "width": 2,
+      "height": 2
+    },
+    "Dawn Umbrella Seat": {
+      "width": 1,
+      "height": 1
+    },
+    "Eggplant Grill": {
+      "width": 1,
+      "height": 1
+    },
+    "Giant Dawn Mushroom": {
+      "width": 2,
+      "height": 2
+    },
+    "Grubnash's Tombstone": {
+      "width": 1,
+      "height": 1
+    },
+    "Mahogany Cap": {
+      "width": 2,
+      "height": 2
+    },
+    "Toadstool Seat": {
+      "width": 1,
+      "height": 1
+    },
+    "Clementine": {
+      "width": 1,
+      "height": 1
+    },
+    "Cobalt": {
+      "width": 1,
+      "height": 1
+    },
+    "Shroom Glow": {
+      "width": 2,
+      "height": 2
+    },
+    "Genie Lamp": {
+      "width": 2,
+      "height": 1
+    },
+    "Genie Bear": {
+      "width": 1,
+      "height": 1
+    },
+    "Candles": {
+      "width": 1,
+      "height": 1
+    },
+    "Haunted Stump": {
+      "width": 1,
+      "height": 1
+    },
+    "Spooky Tree": {
+      "width": 1,
+      "height": 2
+    },
+    "Mini Corn Maze": {
+      "width": 1,
+      "height": 1
+    },
+    "Observer": {
+      "width": 1,
+      "height": 1
+    },
+    "Crow Rock": {
+      "width": 2,
+      "height": 2
+    },
+    "Giant Cabbage": {
+      "width": 2,
+      "height": 2
+    },
+    "Giant Potato": {
+      "width": 1,
+      "height": 2
+    },
+    "Giant Pumpkin": {
+      "width": 2,
+      "height": 2
+    },
+    "Town Sign": {
+      "width": 2,
+      "height": 1
+    },
+    "Lifeguard Ring": {
+      "width": 1,
+      "height": 1
+    },
+    "Surfboard": {
+      "width": 1,
+      "height": 2
+    },
+    "Hideaway Herman": {
+      "width": 1,
+      "height": 1
+    },
+    "Shifty Sheldon": {
+      "width": 1,
+      "height": 1
+    },
+    "Tiki Torch": {
+      "width": 1,
+      "height": 1
+    },
+    "Beach Umbrella": {
+      "width": 2,
+      "height": 2
+    },
+    "Time Warp Totem": {
+      "height": 1,
+      "width": 1
+    },
+    "Bumpkin Nutcracker": {
+      "height": 1,
+      "width": 1
+    },
+    "Festive Tree": {
+      "height": 2,
+      "width": 2
+    },
+    "Paper Reed": {
+      "height": 2,
+      "width": 1
+    },
+    "Wagon": {
+      "height": 1,
+      "width": 1
+    },
+    "Halloween Scarecrow": {
+      "width": 1,
+      "height": 1
+    },
+    "Vampire Bear": {
+      "width": 1,
+      "height": 1
+    },
+    "Super Totem": {
+      "width": 1,
+      "height": 1
+    },
+    "Christmas Stocking": {
+      "width": 1,
+      "height": 1
+    },
+    "Golden Christmas Stocking": {
+      "width": 1,
+      "height": 1
+    },
+    "Cozy Fireplace": {
+      "width": 2,
+      "height": 1
+    },
+    "Christmas Rug": {
+      "width": 3,
+      "height": 2
+    },
+    "Christmas Candle": {
+      "width": 1,
+      "height": 1
+    },
+    "Santa Penguin": {
+      "width": 1,
+      "height": 1
+    },
+    "Penguin Pool": {
+      "width": 2,
+      "height": 2
+    },
+    "Snowman": {
+      "width": 1,
+      "height": 1
+    },
+    "Festive Toy Train": {
+      "width": 2,
+      "height": 2
+    },
+    "Golden Cow": {
+      "width": 2,
+      "height": 2
+    },
+    "Mama Duck": {
+      "width": 1,
+      "height": 1
+    },
+    "Summer Duckling": {
+      "width": 1,
+      "height": 1
+    },
+    "Autumn Duckling": {
+      "width": 1,
+      "height": 1
+    },
+    "Winter Duckling": {
+      "width": 1,
+      "height": 1
+    },
+    "Jin": {
+      "width": 2,
+      "height": 2
+    },
+    "Floral Arch": {
+      "width": 3,
+      "height": 1
+    },
+    "Flower Coin": {
+      "width": 2,
+      "height": 2
+    },
+    "Flower Statue": {
+      "width": 2,
+      "height": 3
+    },
+    "Heartstruck Tree": {
+      "width": 2,
+      "height": 2
+    },
+    "Mermaid Fountain": {
+      "width": 2,
+      "height": 2
+    },
+    "Mysterious Entrance": {
+      "width": 3,
+      "height": 3
+    },
+    "Streamer's Statue": {
+      "width": 1,
+      "height": 1
+    },
+    "Moon Fox Statue": {
+      "width": 2,
+      "height": 3
+    },
+    "Cetus": {
+      "width": 3,
+      "height": 2
+    },
+    "Goldcrest Mosaic Rug": {
+      "width": 4,
+      "height": 4
+    },
+    "Sandy Mosaic Rug": {
+      "width": 4,
+      "height": 4
+    },
+    "Twilight Rug": {
+      "width": 4,
+      "height": 4
+    },
+    "Orchard Rug": {
+      "width": 4,
+      "height": 4
+    },
+    "Carrot Rug": {
+      "width": 4,
+      "height": 4
+    },
+    "Beetroot Rug": {
+      "width": 4,
+      "height": 4
+    },
+    "Harlequin Rug": {
+      "width": 4,
+      "height": 4
+    },
+    "Large Rug": {
+      "width": 4,
+      "height": 4
+    },
+    "Paw Prints Rug": {
+      "width": 3,
+      "height": 3
+    },
+    "Golden Fence": {
+      "width": 1,
+      "height": 1
+    },
+    "Golden Stone Fence": {
+      "width": 1,
+      "height": 1
+    },
+    "Golden Pine Tree": {
+      "width": 1,
+      "height": 2
+    },
+    "Golden Tree": {
+      "width": 2,
+      "height": 2
+    },
+    "Golden Bush": {
+      "width": 2,
+      "height": 1
+    },
+    "Black Tile": {
+      "width": 1,
+      "height": 1
+    },
+    "Blue Tile": {
+      "width": 1,
+      "height": 1
+    },
+    "Green Tile": {
+      "width": 1,
+      "height": 1
+    },
+    "Purple Tile": {
+      "width": 1,
+      "height": 1
+    },
+    "Red Tile": {
+      "width": 1,
+      "height": 1
+    },
+    "Yellow Tile": {
+      "width": 1,
+      "height": 1
+    },
+    "Carrot House": {
+      "width": 2,
+      "height": 4
+    },
+    "Orange Bunny Lantern": {
+      "width": 1,
+      "height": 2
+    },
+    "White Bunny Lantern": {
+      "width": 1,
+      "height": 2
+    },
+    "Orange Tunnel Bunny": {
+      "width": 1,
+      "height": 1
+    },
+    "White Tunnel Bunny": {
+      "width": 1,
+      "height": 1
+    },
+    "Easter Basket": {
+      "width": 2,
+      "height": 2
+    },
+    "Paint Buckets": {
+      "width": 1,
+      "height": 2
+    },
+    "Rainbow Well": {
+      "width": 2,
+      "height": 2
+    },
+    "Floating Toy": {
+      "width": 1,
+      "height": 2
+    },
+    "Rainbow Flower": {
+      "width": 2,
+      "height": 2
+    },
+    "Pony Toy": {
+      "width": 1,
+      "height": 1
+    },
+    "Giant Acorn": {
+      "width": 2,
+      "height": 1
+    },
+    "Pet Bowls": {
+      "width": 2,
+      "height": 1
+    },
+    "Squeaky Chicken": {
+      "width": 1,
+      "height": 1
+    },
+    "Pet Bed": {
+      "width": 2,
+      "height": 1
+    },
+    "Red Slime Balloon": {
+      "width": 1,
+      "height": 2
+    },
+    "Blue Slime Balloon": {
+      "width": 1,
+      "height": 2
+    },
+    "Wheat Whiskers": {
+      "width": 1,
+      "height": 1
+    },
+    "Giant Orange": {
+      "width": 2,
+      "height": 1
+    },
+    "Giant Apple": {
+      "width": 2,
+      "height": 1
+    },
+    "Giant Banana": {
+      "width": 2,
+      "height": 1
+    },
+    "Cerberus": {
+      "width": 2,
+      "height": 2
+    },
+    "Witch's Cauldron": {
+      "width": 2,
+      "height": 2
+    },
+    "Raveyard": {
+      "width": 1,
+      "height": 2
+    },
+    "Haunted House": {
+      "width": 6,
+      "height": 5
+    },
+    "Mimic Egg": {
+      "width": 1,
+      "height": 2
+    },
+    "Haunted Tomb": {
+      "width": 1,
+      "height": 2
+    },
+    "Guillotine": {
+      "width": 2,
+      "height": 2
+    },
+    "Vampire Coffin": {
+      "width": 2,
+      "height": 2
+    },
+    "Holiday Decorative Totem": {
+      "width": 1,
+      "height": 2
+    },
+    "Red Holiday Ornament": {
+      "width": 2,
+      "height": 2
+    },
+    "Green Holiday Ornament": {
+      "width": 2,
+      "height": 2
+    },
+    "Gift Turtle": {
+      "width": 2,
+      "height": 2
+    },
+    "Red Nose Reindeer": {
+      "width": 2,
+      "height": 2
+    },
+    "Tuxedo Claus": {
+      "width": 2,
+      "height": 3
+    },
+    "Winter Alpaca": {
+      "width": 2,
+      "height": 2
+    },
+    "Penguin Surprise": {
+      "width": 3,
+      "height": 2
+    },
+    "Frozen Meat": {
+      "width": 1,
+      "height": 1
+    },
+    "Ho Ho oh oh…": {
+      "width": 2,
+      "height": 2
+    },
+    "Teeth Toy": {
+      "width": 2,
+      "height": 1
+    },
+    "Fake Treasure": {
+      "width": 2,
+      "height": 2
+    },
+    "Fake Mouse": {
+      "width": 1,
+      "height": 1
+    },
+    "Pet Tree": {
+      "width": 1,
+      "height": 2
+    },
+    "Definitely not a Flower": {
+      "width": 1,
+      "height": 2
+    },
+    "Bumpkin Rug": {
+      "width": 2,
+      "height": 2
+    },
+    "Goblin Rug": {
+      "width": 2,
+      "height": 2
+    },
+    "Pet Rug": {
+      "width": 2,
+      "height": 2
+    },
+    "Jester in a box": {
+      "width": 2,
+      "height": 2
+    },
+    "The Sunflower Man Statue": {
+      "width": 2,
+      "height": 2
+    },
+    "Big Table": {
+      "width": 3,
+      "height": 3
+    },
+    "Crate": {
+      "width": 1,
+      "height": 1
+    },
+    "Empty Pot": {
+      "width": 2,
+      "height": 1
+    },
+    "High Table": {
+      "width": 1,
+      "height": 2
+    },
+    "Large Podium": {
+      "width": 3,
+      "height": 3
+    },
+    "Long Table": {
+      "width": 2,
+      "height": 1
+    },
+    "Royal Podium": {
+      "width": 2,
+      "height": 2
+    },
+    "Square Table": {
+      "width": 2,
+      "height": 2
+    },
+    "Stool": {
+      "width": 1,
+      "height": 1
+    },
+    "Blue Paint Bucket": {
+      "width": 1,
+      "height": 2
+    },
+    "Green Paint Bucket": {
+      "width": 1,
+      "height": 2
+    },
+    "Purple Paint Bucket": {
+      "width": 1,
+      "height": 2
+    },
+    "Yellow Paint Bucket": {
+      "width": 1,
+      "height": 2
+    },
+    "Color Wheel": {
+      "width": 2,
+      "height": 2
+    },
+    "Dhol Drum": {
+      "width": 2,
+      "height": 2
+    },
+    "Mimic Slime Ball": {
+      "width": 1,
+      "height": 1
+    },
+    "Mimic Winged Slime Ball": {
+      "width": 1,
+      "height": 1
+    },
+    "Pork Jelly": {
+      "width": 1,
+      "height": 1
+    },
+    "Rainbow Pork Jelly": {
+      "width": 1,
+      "height": 1
+    },
+    "Slime Totem": {
+      "width": 2,
+      "height": 2
+    },
+    "Giant Donut": {
+      "width": 2,
+      "height": 2
+    },
+    "Fool's Gold": {
+      "width": 2,
+      "height": 2
+    },
+    "Golden Slime Trophy": {
+      "width": 1,
+      "height": 2
+    },
+    "Silver Slime Trophy": {
+      "width": 1,
+      "height": 2
+    },
+    "Bronze Slime Trophy": {
+      "width": 1,
+      "height": 2
+    }
+  },
+  "HOME_LANDSCAPING_DECORATIONS": [
+    "Big Table",
+    "Crate",
+    "Empty Pot",
+    "High Table",
+    "Large Podium",
+    "Long Table",
+    "Royal Podium",
+    "Square Table",
+    "Stool"
+  ],
+  "LANDSCAPING_DECORATIONS": {
+    "Dirt Path": {
+      "name": "Dirt Path",
+      "description": "Keep your farmer boots clean with a well trodden path.",
+      "coins": 200,
+      "ingredients": {}
+    },
+    "Bush": {
+      "name": "Bush",
+      "description": "What's lurking in the bushes?",
+      "coins": 400,
+      "ingredients": {
+        "Wood": 5
+      }
+    },
+    "Fence": {
+      "name": "Fence",
+      "description": "Add a touch of rustic charm to your farm.",
+      "coins": 40,
+      "ingredients": {
+        "Wood": 5
+      }
+    },
+    "Stone Fence": {
+      "name": "Stone Fence",
+      "description": "Embrace the timeless elegance of a stone fence.",
+      "coins": 80,
+      "ingredients": {
+        "Stone": 5
+      }
+    },
+    "Pine Tree": {
+      "name": "Pine Tree",
+      "description": "Standing tall and mighty, a needle-clad dream.",
+      "coins": 200,
+      "ingredients": {
+        "Wood": 7
+      }
+    },
+    "Shrub": {
+      "name": "Shrub",
+      "description": "Enhance your in-game landscaping with a beautiful shrub",
+      "coins": 200,
+      "ingredients": {
+        "Wood": 3
+      }
+    },
+    "Field Maple": {
+      "name": "Field Maple",
+      "description": "A petite charmer that spreads its leaves like a delicate green canopy.",
+      "coins": 200,
+      "ingredients": {
+        "Wood": 20
+      }
+    },
+    "Red Maple": {
+      "name": "Red Maple",
+      "description": "Fiery foliage and a heart full of autumnal warmth.",
+      "coins": 200,
+      "ingredients": {
+        "Wood": 3,
+        "Gem": {
+          "$unparsed": "new Decimal(1 * BB_TO_GEM_RATIO)"
+        }
+      }
+    },
+    "Golden Maple": {
+      "name": "Golden Maple",
+      "description": "Radiating brilliance with its shimmering golden leaves.",
+      "coins": 200,
+      "ingredients": {
+        "Wood": 3,
+        "Gem": {
+          "$unparsed": "new Decimal(1 * BB_TO_GEM_RATIO)"
+        }
+      }
+    },
+    "Crimson Cap": {
+      "name": "Crimson Cap",
+      "description": "A towering and vibrant mushroom, the Crimson Cap Giant Mushroom will bring life to your farm.",
+      "coins": 16000,
+      "ingredients": {
+        "Wild Mushroom": 20
+      }
+    },
+    "Toadstool Seat": {
+      "name": "Toadstool Seat",
+      "description": "Sit back and relax on the whimsical Toadstool Mushroom Seat.",
+      "coins": 0,
+      "ingredients": {
+        "Wild Mushroom": 5
+      }
+    },
+    "Chestnut Fungi Stool": {
+      "name": "Chestnut Fungi Stool",
+      "description": "The Chestnut Fungi Stool is a sturdy and rustic addition to any farm.",
+      "coins": 1600,
+      "ingredients": {
+        "Toadstool Seat": 1,
+        "Wood": 10
+      }
+    },
+    "Mahogany Cap": {
+      "name": "Mahogany Cap",
+      "description": "Add a touch of sophistication with the Mahogany Cap Giant Mushroom.",
+      "coins": 1600,
+      "ingredients": {
+        "Crimson Cap": 1,
+        "Wood": 100
+      }
+    },
+    "Black Tile": {
+      "name": "Black Tile",
+      "ingredients": {
+        "Sand": 1,
+        "Sea Cucumber": 1,
+        "Eggplant": 1
+      },
+      "description": ""
+    },
+    "Blue Tile": {
+      "name": "Blue Tile",
+      "ingredients": {
+        "Sand": 1,
+        "Cockle Shell": 1,
+        "Blueberry": 1
+      },
+      "description": ""
+    },
+    "Green Tile": {
+      "name": "Green Tile",
+      "ingredients": {
+        "Sand": 1,
+        "Seaweed": 1,
+        "Kale": 1
+      },
+      "description": ""
+    },
+    "Purple Tile": {
+      "name": "Purple Tile",
+      "ingredients": {
+        "Sand": 1,
+        "Clam Shell": 1,
+        "Beetroot": 1
+      },
+      "description": ""
+    },
+    "Red Tile": {
+      "name": "Red Tile",
+      "ingredients": {
+        "Sand": 1,
+        "Wooden Compass": 1,
+        "Apple": 1
+      },
+      "description": ""
+    },
+    "Yellow Tile": {
+      "name": "Yellow Tile",
+      "ingredients": {
+        "Sand": 1,
+        "Starfish": 1,
+        "Sunflower": 5
+      },
+      "description": ""
+    },
+    "White Tulips": {
+      "name": "White Tulips",
+      "coins": 80,
+      "ingredients": {},
+      "description": "Keep the smell of goblins away."
+    },
+    "Potted Sunflower": {
+      "name": "Potted Sunflower",
+      "description": "Brighten up your land.",
+      "coins": 80,
+      "ingredients": {
+        "Sunflower": 100
+      }
+    },
+    "Potted Potato": {
+      "name": "Potted Potato",
+      "description": "Potato blood runs through your Bumpkin.",
+      "coins": 200,
+      "ingredients": {
+        "Potato": 200
+      }
+    },
+    "Potted Pumpkin": {
+      "name": "Potted Pumpkin",
+      "description": "Pumpkins for Bumpkins",
+      "coins": 800,
+      "ingredients": {
+        "Pumpkin": 200
+      }
+    },
+    "Cactus": {
+      "name": "Cactus",
+      "description": "Saves water and makes your farm look stunning!",
+      "coins": 80,
+      "ingredients": {}
+    },
+    "Bonnie's Tombstone": {
+      "name": "Bonnie's Tombstone",
+      "description": "A spooky addition to any farm, Bonnie's Human Tombstone will send shivers down your spine.",
+      "coins": 0,
+      "ingredients": {
+        "Stone": 10
+      }
+    },
+    "Grubnash's Tombstone": {
+      "name": "Grubnash's Tombstone",
+      "description": "Add some mischievous charm with Grubnash's Goblin Tombstone.",
+      "coins": 0,
+      "ingredients": {
+        "Stone": 20,
+        "Iron": 10
+      }
+    },
+    "Town Sign": {
+      "name": "Town Sign",
+      "description": "Show your farm ID with pride!",
+      "coins": 10000,
+      "ingredients": {
+        "Wood": 100
+      }
+    },
+    "Big Table": {
+      "name": "Big Table",
+      "description": "A sturdy table with plenty of room for gatherings.",
+      "coins": 2000,
+      "ingredients": {}
+    },
+    "Crate": {
+      "name": "Crate",
+      "description": "A simple wooden crate. Useful for storage or as a seat.",
+      "coins": 500,
+      "ingredients": {}
+    },
+    "Empty Pot": {
+      "name": "Empty Pot",
+      "description": "A clay pot waiting to be filled with something.",
+      "coins": 500,
+      "ingredients": {}
+    },
+    "High Table": {
+      "name": "High Table",
+      "description": "A tall table for standing around.",
+      "coins": 1000,
+      "ingredients": {}
+    },
+    "Large Podium": {
+      "name": "Large Podium",
+      "description": "An impressive podium for important announcements.",
+      "coins": 2000,
+      "ingredients": {}
+    },
+    "Long Table": {
+      "name": "Long Table",
+      "description": "A long table perfect for feasts.",
+      "coins": 1000,
+      "ingredients": {}
+    },
+    "Royal Podium": {
+      "name": "Royal Podium",
+      "description": "A regal podium fit for a monarch.",
+      "coins": 2500,
+      "ingredients": {}
+    },
+    "Square Table": {
+      "name": "Square Table",
+      "description": "A square table, neat and symmetrical.",
+      "coins": 1000,
+      "ingredients": {}
+    },
+    "Stool": {
+      "name": "Stool",
+      "description": "A simple stool to sit on.",
+      "coins": 500,
+      "ingredients": {}
+    }
+  },
+  "POTION_HOUSE_DECORATIONS": {
+    "Magic Bean": {
+      "name": "Magic Bean",
+      "description": "What will grow?",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 2000
+      }
+    },
+    "Giant Potato": {
+      "name": "Giant Potato",
+      "description": "A giant potato.",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 500
+      }
+    },
+    "Giant Pumpkin": {
+      "name": "Giant Pumpkin",
+      "description": "A giant pumpkin.",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 750
+      }
+    },
+    "Giant Cabbage": {
+      "name": "Giant Cabbage",
+      "description": "A giant cabbage.",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 1000
+      }
+    }
+  },
+  "DECORATIONS": {
+    "Dirt Path": {
+      "name": "Dirt Path",
+      "description": "Keep your farmer boots clean with a well trodden path.",
+      "coins": 200,
+      "ingredients": {}
+    },
+    "Bush": {
+      "name": "Bush",
+      "description": "What's lurking in the bushes?",
+      "coins": 400,
+      "ingredients": {
+        "Wood": 5
+      }
+    },
+    "Fence": {
+      "name": "Fence",
+      "description": "Add a touch of rustic charm to your farm.",
+      "coins": 40,
+      "ingredients": {
+        "Wood": 5
+      }
+    },
+    "Stone Fence": {
+      "name": "Stone Fence",
+      "description": "Embrace the timeless elegance of a stone fence.",
+      "coins": 80,
+      "ingredients": {
+        "Stone": 5
+      }
+    },
+    "Pine Tree": {
+      "name": "Pine Tree",
+      "description": "Standing tall and mighty, a needle-clad dream.",
+      "coins": 200,
+      "ingredients": {
+        "Wood": 7
+      }
+    },
+    "Shrub": {
+      "name": "Shrub",
+      "description": "Enhance your in-game landscaping with a beautiful shrub",
+      "coins": 200,
+      "ingredients": {
+        "Wood": 3
+      }
+    },
+    "Field Maple": {
+      "name": "Field Maple",
+      "description": "A petite charmer that spreads its leaves like a delicate green canopy.",
+      "coins": 200,
+      "ingredients": {
+        "Wood": 20
+      }
+    },
+    "Red Maple": {
+      "name": "Red Maple",
+      "description": "Fiery foliage and a heart full of autumnal warmth.",
+      "coins": 200,
+      "ingredients": {
+        "Wood": 3,
+        "Gem": {
+          "$unparsed": "new Decimal(1 * BB_TO_GEM_RATIO)"
+        }
+      }
+    },
+    "Golden Maple": {
+      "name": "Golden Maple",
+      "description": "Radiating brilliance with its shimmering golden leaves.",
+      "coins": 200,
+      "ingredients": {
+        "Wood": 3,
+        "Gem": {
+          "$unparsed": "new Decimal(1 * BB_TO_GEM_RATIO)"
+        }
+      }
+    },
+    "Crimson Cap": {
+      "name": "Crimson Cap",
+      "description": "A towering and vibrant mushroom, the Crimson Cap Giant Mushroom will bring life to your farm.",
+      "coins": 16000,
+      "ingredients": {
+        "Wild Mushroom": 20
+      }
+    },
+    "Toadstool Seat": {
+      "name": "Toadstool Seat",
+      "description": "Sit back and relax on the whimsical Toadstool Mushroom Seat.",
+      "coins": 0,
+      "ingredients": {
+        "Wild Mushroom": 5
+      }
+    },
+    "Chestnut Fungi Stool": {
+      "name": "Chestnut Fungi Stool",
+      "description": "The Chestnut Fungi Stool is a sturdy and rustic addition to any farm.",
+      "coins": 1600,
+      "ingredients": {
+        "Toadstool Seat": 1,
+        "Wood": 10
+      }
+    },
+    "Mahogany Cap": {
+      "name": "Mahogany Cap",
+      "description": "Add a touch of sophistication with the Mahogany Cap Giant Mushroom.",
+      "coins": 1600,
+      "ingredients": {
+        "Crimson Cap": 1,
+        "Wood": 100
+      }
+    },
+    "Black Tile": {
+      "name": "Black Tile",
+      "ingredients": {
+        "Sand": 1,
+        "Sea Cucumber": 1,
+        "Eggplant": 1
+      },
+      "description": ""
+    },
+    "Blue Tile": {
+      "name": "Blue Tile",
+      "ingredients": {
+        "Sand": 1,
+        "Cockle Shell": 1,
+        "Blueberry": 1
+      },
+      "description": ""
+    },
+    "Green Tile": {
+      "name": "Green Tile",
+      "ingredients": {
+        "Sand": 1,
+        "Seaweed": 1,
+        "Kale": 1
+      },
+      "description": ""
+    },
+    "Purple Tile": {
+      "name": "Purple Tile",
+      "ingredients": {
+        "Sand": 1,
+        "Clam Shell": 1,
+        "Beetroot": 1
+      },
+      "description": ""
+    },
+    "Red Tile": {
+      "name": "Red Tile",
+      "ingredients": {
+        "Sand": 1,
+        "Wooden Compass": 1,
+        "Apple": 1
+      },
+      "description": ""
+    },
+    "Yellow Tile": {
+      "name": "Yellow Tile",
+      "ingredients": {
+        "Sand": 1,
+        "Starfish": 1,
+        "Sunflower": 5
+      },
+      "description": ""
+    },
+    "White Tulips": {
+      "name": "White Tulips",
+      "coins": 80,
+      "ingredients": {},
+      "description": "Keep the smell of goblins away."
+    },
+    "Potted Sunflower": {
+      "name": "Potted Sunflower",
+      "description": "Brighten up your land.",
+      "coins": 80,
+      "ingredients": {
+        "Sunflower": 100
+      }
+    },
+    "Potted Potato": {
+      "name": "Potted Potato",
+      "description": "Potato blood runs through your Bumpkin.",
+      "coins": 200,
+      "ingredients": {
+        "Potato": 200
+      }
+    },
+    "Potted Pumpkin": {
+      "name": "Potted Pumpkin",
+      "description": "Pumpkins for Bumpkins",
+      "coins": 800,
+      "ingredients": {
+        "Pumpkin": 200
+      }
+    },
+    "Cactus": {
+      "name": "Cactus",
+      "description": "Saves water and makes your farm look stunning!",
+      "coins": 80,
+      "ingredients": {}
+    },
+    "Bonnie's Tombstone": {
+      "name": "Bonnie's Tombstone",
+      "description": "A spooky addition to any farm, Bonnie's Human Tombstone will send shivers down your spine.",
+      "coins": 0,
+      "ingredients": {
+        "Stone": 10
+      }
+    },
+    "Grubnash's Tombstone": {
+      "name": "Grubnash's Tombstone",
+      "description": "Add some mischievous charm with Grubnash's Goblin Tombstone.",
+      "coins": 0,
+      "ingredients": {
+        "Stone": 20,
+        "Iron": 10
+      }
+    },
+    "Town Sign": {
+      "name": "Town Sign",
+      "description": "Show your farm ID with pride!",
+      "coins": 10000,
+      "ingredients": {
+        "Wood": 100
+      }
+    },
+    "Big Table": {
+      "name": "Big Table",
+      "description": "A sturdy table with plenty of room for gatherings.",
+      "coins": 2000,
+      "ingredients": {}
+    },
+    "Crate": {
+      "name": "Crate",
+      "description": "A simple wooden crate. Useful for storage or as a seat.",
+      "coins": 500,
+      "ingredients": {}
+    },
+    "Empty Pot": {
+      "name": "Empty Pot",
+      "description": "A clay pot waiting to be filled with something.",
+      "coins": 500,
+      "ingredients": {}
+    },
+    "High Table": {
+      "name": "High Table",
+      "description": "A tall table for standing around.",
+      "coins": 1000,
+      "ingredients": {}
+    },
+    "Large Podium": {
+      "name": "Large Podium",
+      "description": "An impressive podium for important announcements.",
+      "coins": 2000,
+      "ingredients": {}
+    },
+    "Long Table": {
+      "name": "Long Table",
+      "description": "A long table perfect for feasts.",
+      "coins": 1000,
+      "ingredients": {}
+    },
+    "Royal Podium": {
+      "name": "Royal Podium",
+      "description": "A regal podium fit for a monarch.",
+      "coins": 2500,
+      "ingredients": {}
+    },
+    "Square Table": {
+      "name": "Square Table",
+      "description": "A square table, neat and symmetrical.",
+      "coins": 1000,
+      "ingredients": {}
+    },
+    "Stool": {
+      "name": "Stool",
+      "description": "A simple stool to sit on.",
+      "coins": 500,
+      "ingredients": {}
+    },
+    "Magic Bean": {
+      "name": "Magic Bean",
+      "description": "What will grow?",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 2000
+      }
+    },
+    "Giant Potato": {
+      "name": "Giant Potato",
+      "description": "A giant potato.",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 500
+      }
+    },
+    "Giant Pumpkin": {
+      "name": "Giant Pumpkin",
+      "description": "A giant pumpkin.",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 750
+      }
+    },
+    "Giant Cabbage": {
+      "name": "Giant Cabbage",
+      "description": "A giant cabbage.",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 1000
+      }
+    }
+  }
+}

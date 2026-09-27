@@ -1,0 +1,50 @@
+{
+  "SALT_SCULPTURE_UPGRADES": {
+    "2": {
+      "coins": 0,
+      "ingredients": {
+        "Refined Salt": 45,
+        "Capsule Bait": 10
+      }
+    },
+    "3": {
+      "coins": 500,
+      "ingredients": {
+        "Refined Salt": 60,
+        "Capsule Bait": 10,
+        "Umbrella Bait": 10
+      }
+    },
+    "4": {
+      "coins": 1000,
+      "ingredients": {
+        "Refined Salt": 70,
+        "Greenhouse Glow": 5,
+        "Greenhouse Goodie": 5
+      }
+    },
+    "5": {
+      "coins": 1500,
+      "ingredients": {
+        "Refined Salt": 85,
+        "Sproutroot Surprise": 10,
+        "Turbofruit Mix": 10
+      }
+    },
+    "6": {
+      "coins": 2000,
+      "ingredients": {
+        "Refined Salt": 100,
+        "Crimson Baitfish": 10
+      }
+    }
+  },
+  "SALT_SCULPTURE_BUFFS": {
+    "1": "x0.95 salt charge replenishment time",
+    "2": "+4% Prime Aging chance",
+    "3": "+1 max salt harvest cap per node",
+    "4": "x0.9 salt rake coin cost",
+    "5": "x0.95 Aging Rack Time",
+    "6": "+1 max salt harvest cap per node"
+  }
+}

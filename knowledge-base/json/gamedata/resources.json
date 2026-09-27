@@ -1,0 +1,433 @@
+{
+  "COMMODITIES": {
+    "Wood": {
+      "description": "Used to craft items"
+    },
+    "Stone": {
+      "description": "Used to craft items"
+    },
+    "Iron": {
+      "description": "Used to craft items"
+    },
+    "Gold": {
+      "description": "Used to craft items"
+    },
+    "Crimstone": {
+      "description": "Used to craft items"
+    },
+    "Diamond": {
+      "description": "Used to craft items"
+    },
+    "Egg": {
+      "description": "Used to craft items"
+    },
+    "Chicken": {
+      "description": "Used to lay eggs"
+    },
+    "Honey": {
+      "description": "Used to sweeten your cooking"
+    },
+    "Wild Mushroom": {
+      "description": "Used to cook basic recipes"
+    },
+    "Magic Mushroom": {
+      "description": "Used to cook advanced recipes"
+    },
+    "Sunstone": {
+      "description": "Used to craft items"
+    },
+    "Oil": {
+      "description": "Used to craft items"
+    },
+    "Obsidian": {
+      "description": "Used to craft items"
+    },
+    "Salt": {
+      "description": "Used to age and ferment resources"
+    },
+    "Refined Salt": {
+      "description": "Processed salt for pickling and advanced recipes"
+    },
+    "Ascension Shard": {
+      "description": "Used to upgrade skills"
+    },
+    "Mud": {
+      "description": "Rich, sticky mud"
+    }
+  },
+  "ANIMAL_RESOURCES": {
+    "Egg": {
+      "description": ""
+    },
+    "Leather": {
+      "description": ""
+    },
+    "Wool": {
+      "description": ""
+    },
+    "Merino Wool": {
+      "description": ""
+    },
+    "Feather": {
+      "description": ""
+    },
+    "Milk": {
+      "description": ""
+    },
+    "Rawhide": {
+      "description": ""
+    },
+    "Truffle": {
+      "description": ""
+    }
+  },
+  "RESOURCES": {
+    "Crop Plot": "Plant crops",
+    "Fruit Patch": "Plant fruit",
+    "Gold Rock": "Mine gold",
+    "Pure Gold Rock": "Mine gold",
+    "Prime Gold Rock": "Mine gold",
+    "Iron Rock": "Mine iron",
+    "Refined Iron Rock": "Mine iron",
+    "Tempered Iron Rock": "Mine iron",
+    "Stone Rock": "Mine stone",
+    "Fused Stone Rock": "Mine fused stone",
+    "Reinforced Stone Rock": "Mine reinforced stone",
+    "Crimstone Rock": "Mine crimstone",
+    "Boulder": "Mine rare minerals",
+    "Tree": "Chop Wood",
+    "Ancient Tree": "Chop Wood",
+    "Sacred Tree": "Chop Wood",
+    "Beehive": "Collect honey",
+    "Flower Bed": "Plant flowers",
+    "Sunstone Rock": "Mine sunstone",
+    "Oil Reserve": "Drill oil",
+    "Lava Pit": "Craft obsidian",
+    "Ascension Crystal": "Upgrade skills"
+  },
+  "ADVANCED_RESOURCES": {
+    "Ancient Tree": {
+      "name": "Ancient Tree",
+      "description": "Chop Wood",
+      "tier": 2,
+      "ingredients": {
+        "Obsidian": 3,
+        "Tree": 4
+      },
+      "price": 25000,
+      "preRequires": {
+        "tier": 1,
+        "count": 4
+      }
+    },
+    "Sacred Tree": {
+      "name": "Sacred Tree",
+      "description": "Chop Wood",
+      "tier": 3,
+      "ingredients": {
+        "Obsidian": 5,
+        "Ancient Tree": 4
+      },
+      "price": 50000,
+      "preRequires": {
+        "tier": 2,
+        "count": 4
+      }
+    },
+    "Fused Stone Rock": {
+      "name": "Fused Stone",
+      "description": "Mine fused stone",
+      "tier": 2,
+      "ingredients": {
+        "Stone Rock": 4,
+        "Obsidian": 5
+      },
+      "price": 50000,
+      "preRequires": {
+        "tier": 1,
+        "count": 4
+      }
+    },
+    "Reinforced Stone Rock": {
+      "name": "Reinforced Stone",
+      "description": "Mine reinforced stone",
+      "tier": 3,
+      "ingredients": {
+        "Fused Stone Rock": 4,
+        "Obsidian": 10
+      },
+      "price": 100000,
+      "preRequires": {
+        "tier": 2,
+        "count": 4
+      }
+    },
+    "Refined Iron Rock": {
+      "name": "Refined Iron",
+      "description": "Mine iron",
+      "tier": 2,
+      "ingredients": {
+        "Iron Rock": 4,
+        "Obsidian": 10
+      },
+      "price": 100000,
+      "preRequires": {
+        "tier": 1,
+        "count": 4
+      }
+    },
+    "Tempered Iron Rock": {
+      "name": "Tempered Iron",
+      "description": "Mine iron",
+      "tier": 3,
+      "ingredients": {
+        "Refined Iron Rock": 4,
+        "Obsidian": 15
+      },
+      "price": 200000,
+      "preRequires": {
+        "tier": 2,
+        "count": 4
+      }
+    },
+    "Pure Gold Rock": {
+      "name": "Pure Gold",
+      "description": "Mine gold",
+      "tier": 2,
+      "ingredients": {
+        "Gold Rock": 4,
+        "Obsidian": 15
+      },
+      "price": 200000,
+      "preRequires": {
+        "tier": 1,
+        "count": 4
+      }
+    },
+    "Prime Gold Rock": {
+      "name": "Prime Gold",
+      "description": "Mine gold",
+      "tier": 3,
+      "ingredients": {
+        "Pure Gold Rock": 4,
+        "Obsidian": 20
+      },
+      "price": 350000,
+      "preRequires": {
+        "tier": 2,
+        "count": 4
+      }
+    }
+  },
+  "RESOURCE_STATE_ACCESSORS": {
+    "Crop Plot": {
+      "$unparsed": "game.crops"
+    },
+    "Tree": {
+      "$unparsed": "game.trees"
+    },
+    "Stone Rock": {
+      "$unparsed": "game.stones"
+    },
+    "Iron Rock": {
+      "$unparsed": "game.iron"
+    },
+    "Gold Rock": {
+      "$unparsed": "game.gold"
+    },
+    "Crimstone Rock": {
+      "$unparsed": "game.crimstones"
+    },
+    "Beehive": {
+      "$unparsed": "game.beehives"
+    },
+    "Fruit Patch": {
+      "$unparsed": "game.fruitPatches"
+    },
+    "Flower Bed": {
+      "$unparsed": "game.flowers.flowerBeds"
+    },
+    "Sunstone Rock": {
+      "$unparsed": "game.sunstones"
+    },
+    "Oil Reserve": {
+      "$unparsed": "game.oilReserves"
+    },
+    "Lava Pit": {
+      "$unparsed": "game.lavaPits"
+    },
+    "Fused Stone Rock": {
+      "$unparsed": "game.stones"
+    },
+    "Reinforced Stone Rock": {
+      "$unparsed": "game.stones"
+    },
+    "Ancient Tree": {
+      "$unparsed": "game.trees"
+    },
+    "Sacred Tree": {
+      "$unparsed": "game.trees"
+    },
+    "Refined Iron Rock": {
+      "$unparsed": "game.iron"
+    },
+    "Tempered Iron Rock": {
+      "$unparsed": "game.iron"
+    },
+    "Pure Gold Rock": {
+      "$unparsed": "game.gold"
+    },
+    "Prime Gold Rock": {
+      "$unparsed": "game.gold"
+    },
+    "Ascension Crystal": {
+      "$unparsed": "game.ascensionCrystals"
+    }
+  },
+  "RESOURCES_UPGRADES_TO": {
+    "Tree": "Ancient Tree",
+    "Ancient Tree": "Sacred Tree",
+    "Stone Rock": "Fused Stone Rock",
+    "Fused Stone Rock": "Reinforced Stone Rock",
+    "Iron Rock": "Refined Iron Rock",
+    "Refined Iron Rock": "Tempered Iron Rock",
+    "Gold Rock": "Pure Gold Rock",
+    "Pure Gold Rock": "Prime Gold Rock"
+  },
+  "BASIC_RESOURCES": [
+    "Stone Rock",
+    "Iron Rock",
+    "Gold Rock",
+    "Tree"
+  ],
+  "RESOURCE_MULTIPLIER": {
+    "Stone Rock": 1,
+    "Fused Stone Rock": 4,
+    "Reinforced Stone Rock": 16,
+    "Tree": 1,
+    "Ancient Tree": 4,
+    "Sacred Tree": 16,
+    "Iron Rock": 1,
+    "Refined Iron Rock": 4,
+    "Tempered Iron Rock": 16,
+    "Gold Rock": 1,
+    "Pure Gold Rock": 4,
+    "Prime Gold Rock": 16
+  },
+  "UPGRADEABLE_RESOURCE_FAMILIES": {
+    "Tree": [
+      "Tree",
+      "Ancient Tree",
+      "Sacred Tree"
+    ],
+    "Stone Rock": [
+      "Stone Rock",
+      "Fused Stone Rock",
+      "Reinforced Stone Rock"
+    ],
+    "Iron Rock": [
+      "Iron Rock",
+      "Refined Iron Rock",
+      "Tempered Iron Rock"
+    ],
+    "Gold Rock": [
+      "Gold Rock",
+      "Pure Gold Rock",
+      "Prime Gold Rock"
+    ]
+  },
+  "RESOURCE_DIMENSIONS": {
+    "Crop Plot": {
+      "width": 1,
+      "height": 1
+    },
+    "Gold Rock": {
+      "width": 1,
+      "height": 1
+    },
+    "Iron Rock": {
+      "width": 1,
+      "height": 1
+    },
+    "Stone Rock": {
+      "width": 1,
+      "height": 1
+    },
+    "Crimstone Rock": {
+      "width": 2,
+      "height": 2
+    },
+    "Tree": {
+      "width": 2,
+      "height": 2
+    },
+    "Fruit Patch": {
+      "width": 2,
+      "height": 2
+    },
+    "Boulder": {
+      "width": 2,
+      "height": 2
+    },
+    "Beehive": {
+      "width": 1,
+      "height": 1
+    },
+    "Flower Bed": {
+      "width": 3,
+      "height": 1
+    },
+    "Sunstone Rock": {
+      "width": 2,
+      "height": 2
+    },
+    "Oil Reserve": {
+      "width": 2,
+      "height": 2
+    },
+    "Lava Pit": {
+      "width": 2,
+      "height": 2
+    },
+    "Fused Stone Rock": {
+      "width": 1,
+      "height": 1
+    },
+    "Reinforced Stone Rock": {
+      "width": 1,
+      "height": 1
+    },
+    "Ancient Tree": {
+      "width": 2,
+      "height": 2
+    },
+    "Sacred Tree": {
+      "width": 2,
+      "height": 2
+    },
+    "Refined Iron Rock": {
+      "width": 1,
+      "height": 1
+    },
+    "Tempered Iron Rock": {
+      "width": 1,
+      "height": 1
+    },
+    "Pure Gold Rock": {
+      "width": 1,
+      "height": 1
+    },
+    "Prime Gold Rock": {
+      "width": 1,
+      "height": 1
+    },
+    "Ascension Crystal": {
+      "width": 2,
+      "height": 2
+    }
+  },
+  "MUSHROOM_DIMENSIONS": {
+    "width": 1,
+    "height": 1
+  }
+}

@@ -1,0 +1,1225 @@
+{
+  "PURCHASEABLE_BAIT": {
+    "Fishing Lure": {
+      "purchaseOptions": {
+        "Gem": {
+          "ingredients": {
+            "Gem": 10
+          }
+        },
+        "Feather": {
+          "ingredients": {
+            "Feather": 100
+          }
+        }
+      },
+      "description": "Great for catching rare fish ! ",
+      "name": "Fishing Lure"
+    }
+  },
+  "CHUM_AMOUNTS": {
+    "Gold": 1,
+    "Wild Mushroom": 1,
+    "Honey": 1,
+    "Iron": 5,
+    "Stone": 5,
+    "Egg": 5,
+    "Sunflower": 50,
+    "Potato": 20,
+    "Yam": 20,
+    "Rhubarb": 20,
+    "Pumpkin": 20,
+    "Carrot": 10,
+    "Cabbage": 10,
+    "Broccoli": 10,
+    "Pepper": 10,
+    "Beetroot": 10,
+    "Onion": 5,
+    "Cauliflower": 5,
+    "Parsnip": 5,
+    "Eggplant": 5,
+    "Corn": 5,
+    "Radish": 5,
+    "Turnip": 5,
+    "Wheat": 5,
+    "Kale": 5,
+    "Barley": 3,
+    "Artichoke": 3,
+    "Blueberry": 3,
+    "Orange": 3,
+    "Apple": 3,
+    "Banana": 3,
+    "Seaweed": 1,
+    "Crab": 2,
+    "Anchovy": 1,
+    "Red Snapper": 1,
+    "Tuna": 1,
+    "Squid": 1,
+    "Wood": 5,
+    "Red Pansy": 1,
+    "Fat Chicken": 3,
+    "Rich Chicken": 3,
+    "Speed Chicken": 3,
+    "Horse Mackerel": 1,
+    "Sunfish": 1,
+    "Zebra Turkeyfish": 1,
+    "Zucchini": 20,
+    "Weed": 3,
+    "Acorn": 3
+  },
+  "CHUM_DETAILS": {
+    "Gold": "The shimmering gold can be seen 100 miles away",
+    "Iron": "A shimmering sparkle, can be seen at all angles during Dusk",
+    "Stone": "Maybe throwing a few stones will attract some fish",
+    "Egg": "Hmmm, not sure what fish would like eggs...",
+    "Sunflower": "A sunny, vibrant lure for curious fish.",
+    "Potato": "Potatoes make for an unusual fishy feast.",
+    "Pumpkin": "Fish might be intrigued by the orange glow of pumpkins.",
+    "Carrot": "Best used with Earthworms to catch Anchovies!",
+    "Cabbage": "A leafy temptation for underwater herbivores.",
+    "Beetroot": "Beets, the undersea delight for the bold fish.",
+    "Cauliflower": "Fish may find the florets oddly enticing.",
+    "Parsnip": "An earthy, rooty lure for curious fish.",
+    "Eggplant": "Eggplants: the aquatic adventure for the daring fish.",
+    "Corn": "Corn on the cob - an odd but intriguing treat.",
+    "Radish": "Radishes, the buried treasure for aquatics.",
+    "Wheat": "Wheat, a grainy delight for underwater foragers.",
+    "Kale": "A leafy green surprise for the inquisitive fish.",
+    "Barley": "",
+    "Blueberry": "Often confused by blue fish as potential mates.",
+    "Orange": "Oranges, the citrusy curiosity for sea creatures.",
+    "Apple": "Apples - a crunchy enigma beneath the waves.",
+    "Banana": "Lighter than water!",
+    "Seaweed": "A taste of the ocean in a leafy underwater snack.",
+    "Crab": "A tantalizing morsel for a curious undersea fish.",
+    "Anchovy": "Anchovies, mysteriously alluring to the outlaws of the sea.",
+    "Red Snapper": "A mystery hidden within the depths of the ocean.",
+    "Tuna": "What is big enough to eat a tuna?",
+    "Squid": "Awaken a ray with its favorite treat!",
+    "Wood": "Wood. An interesting choice....",
+    "Red Pansy": "Fiery allure for elusive fish.",
+    "Fat Chicken": "The original white meat that the largest of quarry cannot resist.",
+    "Rich Chicken": "Delicacy for the bright-bellied terror of the screen.",
+    "Speed Chicken": "Fast food dessert for sharp-teeth hunters.",
+    "Horse Mackerel": "Only for the biggest appetites",
+    "Sunfish": "Perfect for a full moon...",
+    "Zebra Turkeyfish": "Marvelous delicacy for rare appetites.",
+    "Wild Mushroom": "Hmm, this is guaranteed to get me something!",
+    "Honey": "A sweet toothed snapper will love this!",
+    "Rhubarb": "Goes well with Earthworms!",
+    "Yam": "A perfect pair with a Grub.",
+    "Broccoli": "Even fish don't like Brocolli!",
+    "Pepper": "A spicy treat for the curious fish.",
+    "Artichoke": "A tasty treat to strengthen the bones.",
+    "Onion": "Tangy!",
+    "Turnip": "Rumoured to attract big fish",
+    "Zucchini": "Crunchy and green, irresistible to snooping sea critters.",
+    "Weed": "Special chum that attracts the god of the sea",
+    "Acorn": "The super chum!",
+    "Heart leaf": "A delicate leaf said to attract gentle pond dwellers.",
+    "Ribbon": "Shimmering ribbon that lures in the fanciest of fish.",
+    "Wild Grass": "Unruly underwater grass perfect for hiding hungry lurkers.",
+    "Frost Pebble": "A frosty pebble adored by coldwater catch.",
+    "Grape": "Juicy and sweet, enticing schools of playful fish.",
+    "Rice": "Tiny grains that gather swarms of nibbling minnows.",
+    "Crimstone": "Rare red stone that intrigues mysterious deep-sea dwellers.",
+    "Moonfur": "Silky lunar fur: a lure for night-loving fish.",
+    "Fish Stick": "A savory snack guaranteed to make any fish bite.",
+    "Fish Oil": "Slick and aromatic, drawing in oily-finned feeders.",
+    "Crab Stick": "Crab-flavored delight irresistible to clawed companions.",
+    "Chewed Bone": "Chewed bone: a gnawed curiosity for carnivorous fish.",
+    "Ruffroot": "Earthy root snatched by bottom-dwelling creatures.",
+    "Dewberry": "Bright berry bursting with flavor for adventurous fish.",
+    "Duskberry": "Dusky berry that appears mystical to twilight swimmers.",
+    "Lunara": "Moonlit blossom luring rare and magical marine life."
+  },
+  "CHAPTER_FISH": {
+    "Crimson Carp": {
+      "baits": [
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Battle Fish": {
+      "baits": [
+        "Earthworm",
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Lemon Shark": {
+      "baits": [
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Longhorn Cowfish": {
+      "baits": [
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Jellyfish": {
+      "baits": [
+        "Grub",
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Pink Dolphin": {
+      "baits": [
+        "Grub",
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Poseidon": {
+      "baits": [
+        "Grub",
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Super Star": {
+      "baits": [
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Giant Isopod": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Nautilus": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Dollocaris": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Deep Sea Pig": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Deep Sea Slug": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Crystal Shrimp": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Crocodile": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Dumbo Octopus": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Seahorse Dad": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    }
+  },
+  "FISH": {
+    "Anchovy": {
+      "baits": [
+        "Earthworm"
+      ],
+      "type": "basic",
+      "likes": [
+        "Carrot",
+        "Egg"
+      ],
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn",
+        "winter"
+      ]
+    },
+    "Butterflyfish": {
+      "baits": [
+        "Earthworm"
+      ],
+      "type": "basic",
+      "likes": [
+        "Sunflower"
+      ],
+      "seasons": [
+        "summer",
+        "autumn"
+      ]
+    },
+    "Blowfish": {
+      "baits": [
+        "Earthworm"
+      ],
+      "type": "basic",
+      "likes": [
+        "Yam"
+      ],
+      "seasons": [
+        "winter"
+      ]
+    },
+    "Clownfish": {
+      "baits": [
+        "Earthworm"
+      ],
+      "type": "basic",
+      "likes": [
+        "Cabbage"
+      ],
+      "seasons": [
+        "summer",
+        "winter"
+      ]
+    },
+    "Sea Bass": {
+      "baits": [
+        "Earthworm"
+      ],
+      "type": "basic",
+      "likes": [
+        "Anchovy"
+      ],
+      "seasons": [
+        "spring",
+        "autumn"
+      ]
+    },
+    "Sea Horse": {
+      "baits": [
+        "Earthworm"
+      ],
+      "type": "basic",
+      "likes": [
+        "Seaweed"
+      ],
+      "seasons": [
+        "spring",
+        "summer"
+      ]
+    },
+    "Horse Mackerel": {
+      "baits": [
+        "Earthworm"
+      ],
+      "type": "basic",
+      "likes": [
+        "Blueberry"
+      ],
+      "seasons": [
+        "summer",
+        "winter"
+      ]
+    },
+    "Halibut": {
+      "baits": [
+        "Earthworm"
+      ],
+      "type": "basic",
+      "likes": [
+        "Anchovy"
+      ],
+      "seasons": [
+        "spring",
+        "autumn"
+      ]
+    },
+    "Squid": {
+      "baits": [
+        "Earthworm"
+      ],
+      "type": "basic",
+      "likes": [
+        "Eggplant",
+        "Onion"
+      ],
+      "seasons": [
+        "spring",
+        "winter"
+      ]
+    },
+    "Porgy": {
+      "baits": [
+        "Earthworm"
+      ],
+      "type": "basic",
+      "likes": [
+        "Yam"
+      ],
+      "seasons": [
+        "spring"
+      ]
+    },
+    "Muskellunge": {
+      "baits": [
+        "Earthworm"
+      ],
+      "type": "basic",
+      "likes": [
+        "Turnip"
+      ],
+      "seasons": [
+        "autumn"
+      ]
+    },
+    "Red Snapper": {
+      "baits": [
+        "Grub",
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "advanced",
+      "likes": [
+        "Apple",
+        "Honey"
+      ],
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn",
+        "winter"
+      ]
+    },
+    "Moray Eel": {
+      "baits": [
+        "Earthworm",
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "advanced",
+      "likes": [
+        "Gold"
+      ],
+      "seasons": [
+        "summer",
+        "autumn"
+      ]
+    },
+    "Olive Flounder": {
+      "baits": [
+        "Earthworm",
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "advanced",
+      "likes": [
+        "Rhubarb"
+      ],
+      "seasons": [
+        "spring",
+        "autumn"
+      ]
+    },
+    "Napoleanfish": {
+      "baits": [
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "advanced",
+      "likes": [
+        "Carrot"
+      ],
+      "seasons": [
+        "summer",
+        "autumn"
+      ]
+    },
+    "Surgeonfish": {
+      "baits": [
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "advanced",
+      "likes": [
+        "Orange"
+      ],
+      "seasons": [
+        "summer",
+        "autumn"
+      ]
+    },
+    "Angelfish": {
+      "baits": [
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "advanced",
+      "likes": [
+        "Banana"
+      ],
+      "seasons": [
+        "summer",
+        "winter"
+      ]
+    },
+    "Zebra Turkeyfish": {
+      "baits": [
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "advanced",
+      "likes": [
+        "Beetroot",
+        "Rhubarb"
+      ],
+      "seasons": [
+        "spring",
+        "summer"
+      ]
+    },
+    "Ray": {
+      "baits": [
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "advanced",
+      "likes": [
+        "Squid"
+      ],
+      "seasons": [
+        "spring",
+        "summer"
+      ]
+    },
+    "Hammerhead shark": {
+      "baits": [
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "advanced",
+      "likes": [
+        "Iron"
+      ],
+      "seasons": [
+        "summer",
+        "autumn"
+      ]
+    },
+    "Barred Knifejaw": {
+      "baits": [
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "advanced",
+      "likes": [
+        "Anchovy"
+      ],
+      "seasons": [
+        "spring",
+        "summer"
+      ]
+    },
+    "Walleye": {
+      "baits": [
+        "Grub"
+      ],
+      "type": "advanced",
+      "likes": [
+        "Broccoli"
+      ],
+      "seasons": [
+        "winter"
+      ]
+    },
+    "Rock Blackfish": {
+      "baits": [
+        "Grub"
+      ],
+      "type": "advanced",
+      "likes": [
+        "Onion"
+      ],
+      "seasons": [
+        "autumn"
+      ]
+    },
+    "Tilapia": {
+      "baits": [
+        "Grub"
+      ],
+      "type": "advanced",
+      "likes": [
+        "Zucchini"
+      ],
+      "seasons": [
+        "summer"
+      ]
+    },
+    "Tuna": {
+      "baits": [
+        "Grub",
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "expert",
+      "likes": [
+        "Orange",
+        "Wild Mushroom"
+      ],
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn",
+        "winter"
+      ]
+    },
+    "Mahi Mahi": {
+      "baits": [
+        "Grub",
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "expert",
+      "likes": [
+        "Corn"
+      ],
+      "seasons": [
+        "summer",
+        "autumn"
+      ]
+    },
+    "Blue Marlin": {
+      "baits": [
+        "Grub",
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "expert",
+      "likes": [
+        "Wheat"
+      ],
+      "seasons": [
+        "summer",
+        "winter"
+      ]
+    },
+    "Oarfish": {
+      "baits": [
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "expert",
+      "likes": [
+        "Kale"
+      ],
+      "seasons": [
+        "spring",
+        "winter"
+      ]
+    },
+    "Football fish": {
+      "baits": [
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "expert",
+      "likes": [
+        "Sunflower"
+      ],
+      "seasons": [
+        "winter"
+      ]
+    },
+    "Sunfish": {
+      "baits": [
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "expert",
+      "likes": [
+        "Anchovy"
+      ],
+      "seasons": [
+        "summer",
+        "autumn"
+      ]
+    },
+    "Coelacanth": {
+      "baits": [
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "expert",
+      "likes": [
+        "Cabbage"
+      ],
+      "seasons": [
+        "spring",
+        "winter"
+      ]
+    },
+    "Parrotfish": {
+      "baits": [
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "expert",
+      "likes": [
+        "Seaweed"
+      ],
+      "seasons": [
+        "spring",
+        "summer"
+      ]
+    },
+    "Whale Shark": {
+      "baits": [
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "expert",
+      "likes": [
+        "Crab",
+        "Fat Chicken"
+      ],
+      "seasons": [
+        "summer",
+        "winter"
+      ]
+    },
+    "Saw Shark": {
+      "baits": [
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "expert",
+      "likes": [
+        "Red Snapper",
+        "Speed Chicken"
+      ],
+      "seasons": [
+        "spring",
+        "summer"
+      ]
+    },
+    "White Shark": {
+      "baits": [
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "expert",
+      "likes": [
+        "Tuna",
+        "Rich Chicken"
+      ],
+      "seasons": [
+        "summer",
+        "winter"
+      ]
+    },
+    "Cobia": {
+      "baits": [
+        "Red Wiggler"
+      ],
+      "type": "expert",
+      "likes": [
+        "Broccoli"
+      ],
+      "seasons": [
+        "summer"
+      ]
+    },
+    "Trout": {
+      "baits": [
+        "Red Wiggler"
+      ],
+      "type": "expert",
+      "likes": [
+        "Pepper"
+      ],
+      "seasons": [
+        "winter"
+      ]
+    },
+    "Weakfish": {
+      "baits": [
+        "Red Wiggler"
+      ],
+      "type": "expert",
+      "likes": [
+        "Artichoke"
+      ],
+      "seasons": [
+        "spring"
+      ]
+    },
+    "Twilight Anglerfish": {
+      "baits": [
+        "Red Wiggler",
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "marine marvel",
+      "likes": [
+        "Sunfish"
+      ],
+      "seasons": [
+        "winter",
+        "spring",
+        "summer",
+        "autumn"
+      ]
+    },
+    "Starlight Tuna": {
+      "baits": [
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "marine marvel",
+      "likes": [
+        "Horse Mackerel",
+        "Zebra Turkeyfish"
+      ],
+      "seasons": [
+        "winter",
+        "spring",
+        "summer",
+        "autumn"
+      ]
+    },
+    "Radiant Ray": {
+      "baits": [
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "marine marvel",
+      "likes": [
+        "Iron"
+      ],
+      "seasons": [
+        "winter",
+        "spring",
+        "summer",
+        "autumn"
+      ]
+    },
+    "Phantom Barracuda": {
+      "baits": [
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "marine marvel",
+      "likes": [
+        "Squid"
+      ],
+      "seasons": [
+        "winter",
+        "spring",
+        "summer",
+        "autumn"
+      ]
+    },
+    "Gilded Swordfish": {
+      "baits": [
+        "Earthworm",
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "marine marvel",
+      "likes": [
+        "Gold"
+      ],
+      "seasons": [
+        "winter",
+        "spring",
+        "summer",
+        "autumn"
+      ]
+    },
+    "Crimson Carp": {
+      "baits": [
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Battle Fish": {
+      "baits": [
+        "Earthworm",
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Lemon Shark": {
+      "baits": [
+        "Grub",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Longhorn Cowfish": {
+      "baits": [
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Jellyfish": {
+      "baits": [
+        "Grub",
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Pink Dolphin": {
+      "baits": [
+        "Grub",
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Poseidon": {
+      "baits": [
+        "Grub",
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Super Star": {
+      "baits": [
+        "Red Wiggler",
+        "Fishing Lure"
+      ],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Giant Isopod": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Nautilus": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Dollocaris": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Deep Sea Pig": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Deep Sea Slug": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Crystal Shrimp": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Crocodile": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Dumbo Octopus": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    },
+    "Seahorse Dad": {
+      "baits": [],
+      "type": "chapter",
+      "likes": [],
+      "seasons": []
+    }
+  },
+  "FISH_DIFFICULTY": {
+    "Horse Mackerel": 1,
+    "Squid": 1,
+    "Zebra Turkeyfish": 1,
+    "Ray": 1,
+    "Hammerhead shark": 2,
+    "Sunfish": 2,
+    "Coelacanth": 2,
+    "Barred Knifejaw": 3,
+    "Whale Shark": 3,
+    "Gilded Swordfish": 3,
+    "Saw Shark": 4,
+    "White Shark": 4,
+    "Radiant Ray": 4,
+    "Phantom Barracuda": 4,
+    "Starlight Tuna": 5,
+    "Twilight Anglerfish": 5,
+    "Pink Dolphin": 5
+  },
+  "MAP_PUZZLE_DIFFICULTY": {
+    "Starlight Tuna": 2,
+    "Twilight Anglerfish": 3,
+    "Radiant Ray": 3,
+    "Phantom Barracuda": 4,
+    "Gilded Swordfish": 4,
+    "Crimson Carp": 3,
+    "Battle Fish": 3,
+    "Lemon Shark": 3,
+    "Longhorn Cowfish": 3,
+    "Jellyfish": 3,
+    "Pink Dolphin": 3,
+    "Poseidon": 3,
+    "Super Star": 4,
+    "Giant Isopod": 2,
+    "Nautilus": 4,
+    "Dollocaris": 5,
+    "Deep Sea Pig": 3,
+    "Deep Sea Slug": 4,
+    "Crystal Shrimp": 3,
+    "Crocodile": 3,
+    "Dumbo Octopus": 3,
+    "Seahorse Dad": 4
+  },
+  "GUARANTEED_BAIT": [
+    "Fish Flake",
+    "Fish Stick",
+    "Fish Oil",
+    "Crab Stick"
+  ],
+  "GUARANTEED_CATCH_BY_BAIT": {
+    "Fish Flake": [
+      "Anchovy",
+      "Butterflyfish",
+      "Halibut",
+      "Blowfish",
+      "Porgy",
+      "Clownfish",
+      "Sea Bass",
+      "Sea Horse",
+      "Muskellunge",
+      "Horse Mackerel",
+      "Squid",
+      "Moray Eel",
+      "Olive Flounder",
+      "Tilapia",
+      "Napoleanfish",
+      "Surgeonfish",
+      "Zebra Turkeyfish",
+      "Walleye",
+      "Angelfish",
+      "Ray"
+    ],
+    "Fish Stick": [
+      "Rock Blackfish",
+      "Hammerhead shark",
+      "Tuna",
+      "Mahi Mahi",
+      "Blue Marlin",
+      "Weakfish",
+      "Oarfish",
+      "Football fish",
+      "Sunfish",
+      "Cobia"
+    ],
+    "Fish Oil": [
+      "Barred Knifejaw",
+      "Trout",
+      "Coelacanth",
+      "Saw Shark"
+    ],
+    "Crab Stick": [
+      "Barred Knifejaw",
+      "Whale Shark",
+      "White Shark",
+      "Parrotfish"
+    ]
+  },
+  "BAIT": {
+    "Earthworm": true,
+    "Grub": true,
+    "Red Wiggler": true,
+    "Fishing Lure": true,
+    "Fish Flake": true,
+    "Fish Stick": true,
+    "Fish Oil": true,
+    "Crab Stick": true,
+    "Capsule Bait": true,
+    "Umbrella Bait": true,
+    "Crimson Baitfish": true
+  },
+  "CHAPTER_MAP_PIECE_TRIGGERS": {
+    "Paw Prints": {
+      "Red Snapper": {
+        "marvel": "Super Star",
+        "odds": 0.01
+      },
+      "Whale Shark": {
+        "marvel": "Super Star",
+        "odds": 0.1
+      }
+    },
+    "Crabs and Traps": {
+      "Anchovy": {
+        "marvel": "Giant Isopod",
+        "odds": 0.008
+      },
+      "Oarfish": {
+        "marvel": "Giant Isopod",
+        "odds": 0.03
+      },
+      "Sea Horse": {
+        "marvel": "Nautilus",
+        "odds": 0.01
+      },
+      "Tuna": {
+        "marvel": "Nautilus",
+        "odds": 0.002
+      },
+      "Sunfish": {
+        "marvel": "Dollocaris",
+        "odds": 0.005
+      },
+      "Football fish": {
+        "marvel": "Dollocaris",
+        "odds": 0.005
+      }
+    },
+    "Salt Awakening": {
+      "Tuna": {
+        "marvel": "Crystal Shrimp",
+        "odds": 0.008
+      },
+      "Sea Bass": {
+        "marvel": "Crystal Shrimp",
+        "odds": 0.03
+      },
+      "Surgeonfish": {
+        "marvel": "Deep Sea Slug",
+        "odds": 0.001
+      },
+      "Barred Knifejaw": {
+        "marvel": "Deep Sea Slug",
+        "odds": 0.01
+      },
+      "Sunfish": {
+        "marvel": "Deep Sea Pig",
+        "odds": 0.005
+      },
+      "Coelacanth": {
+        "marvel": "Deep Sea Pig",
+        "odds": 0.005
+      }
+    },
+    "Ascension Age": {
+      "Red Snapper": {
+        "marvel": "Crocodile",
+        "odds": 0.005
+      },
+      "Moray Eel": {
+        "marvel": "Crocodile",
+        "odds": 0.015
+      },
+      "Olive Flounder": {
+        "marvel": "Dumbo Octopus",
+        "odds": 0.005
+      },
+      "Napoleanfish": {
+        "marvel": "Dumbo Octopus",
+        "odds": 0.005
+      },
+      "Angelfish": {
+        "marvel": "Seahorse Dad",
+        "odds": 0.001
+      },
+      "Porgy": {
+        "marvel": "Seahorse Dad",
+        "odds": 0.01
+      }
+    }
+  },
+  "MAP_PIECE_CHAPTERS": {
+    "Super Star": "Paw Prints",
+    "Giant Isopod": "Crabs and Traps",
+    "Nautilus": "Crabs and Traps",
+    "Dollocaris": "Crabs and Traps",
+    "Deep Sea Pig": "Salt Awakening",
+    "Deep Sea Slug": "Salt Awakening",
+    "Crystal Shrimp": "Salt Awakening",
+    "Crocodile": "Ascension Age",
+    "Dumbo Octopus": "Ascension Age",
+    "Seahorse Dad": "Ascension Age"
+  },
+  "MAP_PIECE_MARVELS": [
+    {
+      "$unparsed": "...new Set(\n    [\n      ...Object.values(BASE_MAP_PIECE_TRIGGERS),\n      ...Object.values(CHAPTER_MAP_PIECE_TRIGGERS).flatMap((t) =>\n        Object.values(t ?? {}),\n      ),\n    ].map((t) => t.marvel),\n  )"
+    }
+  ]
+}

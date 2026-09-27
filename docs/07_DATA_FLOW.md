@@ -21,14 +21,18 @@ graph TD
     
     API -->|REST JSON| UI[React Client: Obsidian + Notion UI]
     
-    subgraph AgentLoop["Autonomous AI Pipeline (Orchestrator.ts)"]
-        UserQ[User Chat Prompt] --> Agent[PLAN-ACT-CHECK-FIX Agent Loop]
-        Agent --> Tools[12 Deterministic Tools]
+    subgraph AgentLoop["Four-Stage AI Pipeline (PipelineCoordinator.execute)"]
+        UserQ[User Chat Prompt] --> Planner[Stage 1: Planner - deterministic tool selection]
+        Planner --> Orch[Stage 2: Orchestrator - execute 19 tools, no LLM]
+        Orch --> Tools[Deterministic Tools]
         Tools --> Norm
         Tools --> Plan
         Tools --> Rec
         Tools --> ChatStore[ChatStoreService.ts: pgvector Cosine Search]
-        Agent --> Groq[Groq Cloud LLM Inference]
+        Tools --> Know[KnowledgeService.ts: knowledge-base RAG]
+        Orch --> Validator[Stage 3: DeterministicValidator - verify vs NormalizedFarmState + synthesis]
+        Validator --> Explainer[Stage 4: Explainer - single Groq call from synthesis]
+        Explainer --> Groq[Groq Cloud LLM Inference]
         Groq --> FinalAns[Grounded Strategy Answer]
     end
 ```
@@ -214,11 +218,43 @@ $$\text{Total Milestone FLOWER} = \text{Batches to L100} \times \text{Flower Cos
 
 ---
 
-### 2.7 AI Agentic Orchestration (`Orchestrator.ts`)
-Operates a dynamic multi-round tool-calling loop:
-1. Sanitizes conversational history ensuring alternating user/assistant turns.
-2. Injects system instructions with strict game rules (FLOWER denomination, building checks, island progression).
-3. Invokes deterministic tools to fetch fresh state.
-4. If tool call JSON is malformed, prompts model to recover without crashing.
-5. Returns grounded, bold markdown summaries.
-ns.
+### 2.7 AI Pipeline Orchestration (`server/services/ai/pipeline/`)
+`orchestrator.runAgent()` assembles pre-computed farm context, then delegates to the static `PipelineCoordinator.execute()`, which runs four deterministic stages (PLAN → ACT → CHECK → FIX):
+1. **Planner** deterministically selects which of the 19 tools to invoke for the intent — the LLM no longer chooses tools.
+2. **Orchestrator** executes the planned tools against live farm state (capped at 8 total tool calls, no LLM), sanitizing conversational history to alternating turns.
+3. **DeterministicValidator** verifies tool results against the canonical `NormalizedFarmState`, precomputes a synthesis via `MathHelper`, and emits a `ValidationReport`; an `INVALID` report can trigger one targeted retry (FIX).
+4. **Explainer** makes the single Groq call, injecting strict game rules and the validated synthesis to return grounded, bold markdown; with no API key it uses `deterministicFallback`, surfacing the validator's `critique` on `INVALID`.
+
+---
+
+## 3. Knowledge Base Corpus & Ingestion (`knowledge-base/`)
+
+All static reference data lives under a single consolidated `knowledge-base/` folder, split by file type. This is the corpus that feeds the pgvector-backed retrieval layer (`server/services/knowledge/KnowledgeService.ts`), distinct from the live runtime catalogs the server imports directly from `server/data/`.
+
+```
+knowledge-base/
+├── json/
+│   ├── rules/            # Hand-authored game rules & taxonomies (cooking, animals, effects, pets, market stock…)
+│   ├── gamedata/         # Extracted game catalogs (crops, tools, buildings, craftables, seeds…) — 39 files
+│   └── wiki-dump.jsonl   # Crawled wiki pages, one JSON record per line (wiki ingest source)
+└── md/
+    ├── GAME_RULES.md     # Canonical rules reference
+    └── wiki/             # 105 wiki pages, category subfolders preserved (mechanics/, npcs/, factions/, lore/…)
+```
+
+### 3.1 Ingestion Scripts (`sfl-kb-ingest/`)
+Two Node scripts embed the corpus into Postgres (`kb_documents` / `kb_chunks`) using local ONNX embeddings, keyed by `content_hash` so unchanged content is skipped:
+
+| npm script | Source | Purpose |
+|---|---|---|
+| `npm run kb:ingest-wiki` | `knowledge-base/json/wiki-dump.jsonl` | Chunks & embeds wiki pages |
+| `npm run kb:ingest-gamedata` | `knowledge-base/json/gamedata/` | Chunks & embeds extracted game catalogs |
+| `npm run kb:ingest` | both of the above | Full corpus ingest |
+
+### 3.2 Retrieval at Query Time (`KnowledgeService.ts`)
+The AI pipeline queries the embedded corpus through three methods, each graceful-degrading to safe defaults when Postgres is unreachable:
+- `search(options)` — cosine-similarity semantic search over `kb_chunks`.
+- `lookupEntity(entityName, limit)` — targeted entity resolution for the `search_knowledge` tool.
+- `getStats()` — corpus coverage counts (chunks, documents by source, top categories).
+
+> **Runtime vs. corpus distinction**: `server/data/*.json` are imported directly by the server at build time (recipes, items, modifiers, levels, skills, expansion, gameMetadata) and are the authoritative source for deterministic calculations. `knowledge-base/` is the retrieval corpus for natural-language grounding — it is never imported by runtime code, only ingested into the vector store.

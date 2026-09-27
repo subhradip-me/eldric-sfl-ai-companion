@@ -5,15 +5,24 @@ import crypto from 'node:crypto';
 import type { CanonicalFarmState, SnapshotRecord } from '../../types/index.js';
 import { pool } from '../../db/database.js';
 
+import { activityService } from './ActivityService.js';
+
 export class SnapshotService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private hash(c: any): string {
-    const xp = c?.bumpkin?.xp ?? c?.bumpkin?.experience ?? c?.farm?.bumpkin?.experience ?? 0;
-    const farmAct = c?.farmActivity ?? c?.farm?.farmActivity ?? {};
-    const inv = c?.inventory ?? c?.farm?.inventory ?? {};
+    const unpacked = activityService.unpack(c);
+    const sortedInv = Object.keys(unpacked.inventory)
+      .sort()
+      .map((k) => `${k}:${unpacked.inventory[k]}`)
+      .join(',');
+    const sortedAct = Object.keys(unpacked.farmActivity)
+      .sort()
+      .map((k) => `${k}:${unpacked.farmActivity[k]}`)
+      .join(',');
+
     return crypto
       .createHash('sha1')
-      .update(JSON.stringify([xp, farmAct, inv]))
+      .update(`${unpacked.xp}|${sortedAct}|${sortedInv}`)
       .digest('hex');
   }
 
@@ -28,8 +37,8 @@ export class SnapshotService {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const c = payload as any;
-    const h = this.hash(c);
+    const unpacked = activityService.unpack(payload);
+    const h = this.hash(payload);
     const last = await pool.query(
       'SELECT state_hash FROM snapshots WHERE user_id = $1 ORDER BY created_at DESC LIMIT 1',
       [userId]
@@ -39,18 +48,14 @@ export class SnapshotService {
       return { saved: false, reason: 'unchanged' };
     }
 
-    const xp = c?.bumpkin?.xp ?? c?.bumpkin?.experience ?? c?.farm?.bumpkin?.experience ?? 0;
-    const flower = c?.currencies?.flower ?? c?.farm?.balance ?? c?.balance ?? '0';
-    const coins = c?.currencies?.coins ?? c?.farm?.coins ?? c?.coins ?? 0;
-
     await pool.query(
       'INSERT INTO snapshots (user_id, created_at, xp, flower, coins, state_hash, data_json) VALUES ($1,$2,$3,$4,$5,$6,$7)',
       [
         userId,
         Date.now(),
-        xp,
-        flower,
-        coins,
+        unpacked.xp,
+        String(unpacked.flower),
+        unpacked.coins,
         h,
         payload,
       ]

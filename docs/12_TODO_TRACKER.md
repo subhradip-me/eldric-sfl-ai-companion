@@ -32,7 +32,7 @@ This tracker details prioritized backlog items, verification tasks, and architec
 ## 3. Conversational AI & Copilot Upgrades
 
 ### 3.1 Streaming Chat Responses (SSE)
-- **Current State**: Dr. Bumpkin returns the full AI response in a single JSON payload upon completion of the agentic loop.
+- **Current State**: Dr. Bumpkin returns the full AI response in a single JSON payload once the four-stage pipeline completes.
 - **Target**: Implement **Server-Sent Events (SSE)** streaming (`res.writeHead(200, { 'Content-Type': 'text/event-stream' })`), rendering tokens and tool status pills in real-time within the `AntigravityChatModal`.
 
 ### 3.2 Autonomous Auto-Snapshot Trigger
@@ -70,11 +70,14 @@ This tracker details prioritized backlog items, verification tasks, and architec
 - [x] Pure deterministic Effect Engine (`resolution.ts`) evaluating placed collectibles, equipped wearables, and timed buffs.
 - [x] Pure deterministic Animal Economics Engine (`cost.ts`) for Milk, Eggs, and Wool comparing feed cost vs market purchases without hardcoded prices.
 - [x] Pure deterministic Codex Deliveries & Tasks Engine (`deliveries.ts`) with Coin/SFL ROI sorting, VIP Shiny Feather scaling, Weekly Chore delta tracking, and Poppy Mega Bounty board evaluation.
-- [x] Autonomous Agentic Tool Loop in `Orchestrator.ts` expanded to 15 deterministic tools with Groq Cloud LLM.
+- [x] Autonomous agent tool registry in `Orchestrator.ts` expanded to 19 deterministic tools (incl. `get_level_requirements`, `simulate_what_if`, `get_skills_tree`, `search_knowledge`).
+- [x] Four-stage deterministic AI pipeline (`server/services/ai/pipeline/`): `PipelineCoordinator.execute()` coordinating Planner → Orchestrator → DeterministicValidator → Explainer, so the LLM explains the validated synthesis rather than selecting tools or fabricating numbers. Runs fully offline via `deterministicFallback` when no Groq key is present.
+- [x] Consolidated `knowledge-base/` retrieval corpus (`json/rules/`, `json/gamedata/`, `wiki-dump.jsonl`, `md/wiki/`) ingested into pgvector via `sfl-kb-ingest` (`kb:ingest-wiki` / `kb:ingest-gamedata`), kept distinct from live `server/data/` build-time imports.
+- [x] Unified `kb_documents` / `kb_chunks` tables with HNSW cosine index and `KnowledgeService` (`search` / `lookupEntity` / `getStats`) backing the `search_knowledge` tool, all graceful-degrading when Postgres is unreachable.
 - [x] Strict Anti-Hallucination Real-Examples Disambiguation Rule (Rule 9: forbid fake system placeholders; always quote real player orders).
 - [x] Sybil-resistant 1-Account-Per-IP registration gate (`registration_ip` with developer exemption).
 - [x] Dual-device concurrent session management (1 Desktop + 1 Mobile cap via `active_sessions`, SHA-256 hashed refresh tokens, 409 conflict handshake, and force-disconnect).
 - [x] Atomic AI Credit quota and rollback ledger (`ai_credits`, `ai_credits_used`, atomic PostgreSQL reservation, automated failure refund, and live UI balance counter).
 - [x] Multi-stage production containerization with `Dockerfile` and `docker-compose.yml` (Node.js 20, PostgreSQL 16 + pgvector, Redis 7).
-- [x] Comprehensive test suite with 186/186 unit tests passing (`npm test`).
+- [x] Comprehensive automated test suite across 23 `node:test` suites (`npm test`), including dedicated pipeline, validator, `MathHelper`, Explainer-fallback, real-normalizer validator, and knowledge-service coverage.
 

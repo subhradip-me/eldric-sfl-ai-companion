@@ -7,6 +7,7 @@ erDiagram
     USERS ||--o{ SNAPSHOTS : "owns"
     USERS ||--o{ CHAT_MESSAGES : "creates"
     USERS ||--o{ ACTIVE_SESSIONS : "authenticates"
+    KB_DOCUMENTS ||--o{ KB_CHUNKS : "chunked into"
 
     USERS {
         int id PK
@@ -51,6 +52,34 @@ erDiagram
         vector_384 embedding
         int user_id FK
         bigint created_at
+    }
+
+    KB_DOCUMENTS {
+        uuid id PK
+        string source
+        string path UK
+        string url
+        string title
+        string content_hash
+        timestamptz wiki_updated_at
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    KB_CHUNKS {
+        uuid id PK
+        uuid document_id FK
+        string_array heading_path
+        int chunk_index
+        string category
+        string type
+        string entity
+        text content
+        jsonb structured_data
+        string content_hash
+        vector_384 embedding
+        timestamptz created_at
+        timestamptz updated_at
     }
 ```
 
@@ -122,6 +151,45 @@ Stores assistant conversation logs and vector embeddings for semantic search.
 | `created_at` | `BIGINT` | `NOT NULL` | Epoch milliseconds when sent |
 
 **Indexes**: `idx_chat_session`, `idx_chat_user_session (user_id, session_id, created_at)`.
+
+### 2.5 `kb_documents`
+One row per ingested knowledge-base source document (a wiki page or an extracted game-data catalog), created by the `sfl-kb-ingest` scripts. Keyed by `content_hash` so unchanged documents are skipped on re-ingest.
+
+| Column | Type | Constraints | Description |
+|---|---|---|---|
+| `id` | `UUID` | `PRIMARY KEY DEFAULT gen_random_uuid()` | Unique document identifier |
+| `source` | `TEXT` | `NOT NULL DEFAULT 'sfl-wiki'` | Corpus origin (`sfl-wiki`, game data, etc.) |
+| `path` | `TEXT` | `UNIQUE NOT NULL` | Source-relative document path |
+| `url` | `TEXT` | `NULLABLE` | Canonical wiki URL (if applicable) |
+| `title` | `TEXT` | `NULLABLE` | Document title |
+| `description` | `TEXT` | `NULLABLE` | Short description / summary |
+| `author_name` | `TEXT` | `NULLABLE` | Wiki author attribution |
+| `wiki_updated_at` | `TIMESTAMPTZ` | `NULLABLE` | Upstream last-modified time |
+| `content_hash` | `TEXT` | `NOT NULL` | Hash of source content (idempotent re-ingest) |
+| `created_at` | `TIMESTAMPTZ` | `NOT NULL DEFAULT now()` | Row creation timestamp |
+| `updated_at` | `TIMESTAMPTZ` | `NOT NULL DEFAULT now()` | Last update timestamp |
+
+### 2.6 `kb_chunks`
+Chunked, embedded segments of each `kb_documents` row — the vector-searchable unit queried by `KnowledgeService`.
+
+| Column | Type | Constraints | Description |
+|---|---|---|---|
+| `id` | `UUID` | `PRIMARY KEY DEFAULT gen_random_uuid()` | Unique chunk identifier |
+| `document_id` | `UUID` | `REFERENCES kb_documents(id) ON DELETE CASCADE` | Parent document |
+| `heading_path` | `TEXT[]` | `NOT NULL` | Heading breadcrumb within the document |
+| `chunk_index` | `INT` | `NOT NULL DEFAULT 0` | Ordinal position within the document |
+| `category` | `TEXT` | `NULLABLE` | Semantic category (indexed) |
+| `type` | `TEXT` | `NULLABLE` | Entity/content type (indexed) |
+| `entity` | `TEXT` | `NULLABLE` | Named entity the chunk resolves (indexed) |
+| `content` | `TEXT` | `NOT NULL` | Chunk text |
+| `structured_data` | `JSONB` | `NULLABLE` | Structured payload for game-data chunks |
+| `content_hash` | `TEXT` | `NOT NULL` | Hash of chunk content (idempotent re-ingest) |
+| `embedding` | `vector(384)` | `NULLABLE` | Chunk embedding (`all-MiniLM-L6-v2`) |
+| `created_at` | `TIMESTAMPTZ` | `NOT NULL DEFAULT now()` | Row creation timestamp |
+| `updated_at` | `TIMESTAMPTZ` | `NOT NULL DEFAULT now()` | Last update timestamp |
+
+**Constraints**: `UNIQUE (document_id, heading_path, chunk_index)`.
+**Indexes**: `kb_chunks_embedding_idx` (HNSW, `vector_cosine_ops`), `kb_chunks_category_idx`, `kb_chunks_type_idx`, `kb_chunks_entity_idx`.
 
 ---
 
@@ -282,6 +350,15 @@ export interface CookingPlan {
   - `latest(userId: number, n?: number): Promise<CanonicalFarmState[]>`
 - `ActivityService`:
   - `diff(prev: CanonicalFarmState, curr: CanonicalFarmState): ActivityDiff`
-- `Orchestrator`:
-  - `runAgent(message: string, sessionId: string, userId: number, farmId: string, history?: any[] | null): Promise<{ answer: string; steps: Array<{ tool: string; ok: boolean; cached?: boolean }> }>`
+- `Orchestrator`: owns the 19-tool registry (`tools`) and the conversational entry point. `runAgent` assembles farm context and delegates to `PipelineCoordinator.execute()`.
+  - `runAgent(message: string, sessionId: string, userId: number, farmId: string, history?: any[] | null): Promise<AIChatResponse>` — `AIChatResponse` = `{ success: boolean; answer: string; steps: AIChatStep[]; warnings?: string[]; provenance?: CalculationProvenance }`.
+- `PipelineCoordinator` (static): coordinates the four stages.
+  - `static execute(message: string, context: PipelineContext, tools: ToolExecutorMap, priorHistory?: Array<{ role: string; content: string }>, farmStateSupplier?: () => Promise<{ state: NormalizedFarmState; version?: number } | null>): Promise<PipelineExecutionResult>` — `MAX_TOTAL_TOOL_CALLS = 8`, one targeted retry on `INVALID`.
+- `Planner` (static): `plan(message: string, context: PipelineContext, priorHistory): Promise<PlanResult>` — deterministic tool selection (intent + criteria).
+- `DeterministicValidator`: verifies tool results against `NormalizedFarmState`, precomputes a synthesis, returns a `ValidationReport` (`status`, `synthesis`, `critique`).
+- `Explainer`: `explain(...)` makes the single Groq call from the validated synthesis; `deterministicFallback(...)` renders offline and surfaces the validator `critique` on `INVALID`.
+- `KnowledgeService`:
+  - `search(options: SearchKnowledgeOptions): Promise<KnowledgeChunkResult[]>`
+  - `lookupEntity(entityName: string, limit?: number): Promise<KnowledgeChunkResult[]>`
+  - `getStats(): Promise<{ totalChunks: number; documentsBySource: Array<{ source: string; count: number }>; topCategories: Array<{ category: string; count: number }> }>` — all methods graceful-degrade to safe defaults (`0` / `[]`) when Postgres is unreachable.
 

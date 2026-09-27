@@ -1,0 +1,4514 @@
+{
+  "LAND_4_LAYOUT": {
+    "id": "4",
+    "plots": [
+      {
+        "x": -1,
+        "y": 0
+      },
+      {
+        "x": 0,
+        "y": 0
+      },
+      {
+        "x": 1,
+        "y": 0
+      },
+      {
+        "x": -1,
+        "y": -1
+      },
+      {
+        "x": 0,
+        "y": -1
+      },
+      {
+        "x": 1,
+        "y": -1
+      },
+      {
+        "x": -1,
+        "y": 1
+      },
+      {
+        "x": 0,
+        "y": 1
+      },
+      {
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [
+      {
+        "x": -2,
+        "y": -2
+      }
+    ],
+    "stones": [
+      {
+        "x": 1,
+        "y": -2
+      }
+    ],
+    "trees": [
+      {
+        "x": 1,
+        "y": 3
+      },
+      {
+        "x": -2,
+        "y": 3
+      }
+    ]
+  },
+  "LAND_5_LAYOUT": {
+    "id": "5",
+    "plots": [
+      {
+        "x": -2,
+        "y": -2
+      },
+      {
+        "x": -2,
+        "y": -1
+      },
+      {
+        "x": -1,
+        "y": -2
+      },
+      {
+        "x": -1,
+        "y": -1
+      },
+      {
+        "x": 0,
+        "y": -2
+      },
+      {
+        "x": 0,
+        "y": -1
+      },
+      {
+        "x": 1,
+        "y": -2
+      },
+      {
+        "x": 1,
+        "y": -1
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [
+      {
+        "x": -1,
+        "y": 3
+      }
+    ],
+    "iron": [
+      {
+        "x": -3,
+        "y": 0
+      }
+    ],
+    "stones": [
+      {
+        "x": -3,
+        "y": -1
+      }
+    ],
+    "trees": [
+      {
+        "x": -3,
+        "y": 2
+      }
+    ]
+  },
+  "LAND_6_LAYOUT": {
+    "id": "6",
+    "plots": [
+      {
+        "x": -3,
+        "y": 1
+      },
+      {
+        "x": -3,
+        "y": 0
+      },
+      {
+        "x": -2,
+        "y": 1
+      },
+      {
+        "x": -2,
+        "y": 0
+      },
+      {
+        "x": -1,
+        "y": 1
+      },
+      {
+        "x": -1,
+        "y": 0
+      },
+      {
+        "x": 0,
+        "y": 1
+      },
+      {
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [
+      {
+        "x": 0,
+        "y": -1
+      }
+    ],
+    "trees": [
+      {
+        "x": 1,
+        "y": 2
+      }
+    ]
+  },
+  "LAND_7_LAYOUT": {
+    "id": "7",
+    "plots": [
+      {
+        "x": -1,
+        "y": -1
+      },
+      {
+        "x": 0,
+        "y": -1
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [
+      {
+        "x": 2,
+        "y": 0
+      }
+    ],
+    "stones": [
+      {
+        "x": -3,
+        "y": 1
+      }
+    ],
+    "trees": [
+      {
+        "x": -1,
+        "y": 2
+      }
+    ]
+  },
+  "LAND_8_LAYOUT": {
+    "id": "8",
+    "plots": [
+      {
+        "x": -2,
+        "y": 1
+      },
+      {
+        "x": -2,
+        "y": 0
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [
+      {
+        "x": 1,
+        "y": -1
+      }
+    ],
+    "iron": [],
+    "stones": [
+      {
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "trees": [
+      {
+        "x": 0,
+        "y": 3
+      }
+    ]
+  },
+  "LAND_9_LAYOUT": {
+    "id": "9",
+    "plots": [
+      {
+        "x": 0,
+        "y": 3
+      },
+      {
+        "x": 1,
+        "y": 3
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [
+      {
+        "x": -2,
+        "y": 0
+      }
+    ],
+    "stones": [],
+    "trees": []
+  },
+  "SPRING_LAND_5_LAYOUT": {
+    "id": "spring_5",
+    "plots": [
+      {
+        "x": -2,
+        "y": 0
+      },
+      {
+        "x": -1,
+        "y": 0
+      }
+    ],
+    "fruitPatches": [
+      {
+        "x": -1,
+        "y": 3
+      }
+    ],
+    "gold": [
+      {
+        "x": 1,
+        "y": -2
+      }
+    ],
+    "iron": [
+      {
+        "x": 0,
+        "y": -2
+      }
+    ],
+    "stones": [
+      {
+        "x": -2,
+        "y": -2
+      },
+      {
+        "x": -1,
+        "y": -2
+      }
+    ],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [
+      {
+        "x": 1,
+        "y": 3
+      },
+      {
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "beehives": []
+  },
+  "SPRING_LAND_6_LAYOUT": {
+    "id": "spring_6",
+    "plots": [],
+    "fruitPatches": [
+      {
+        "x": 0,
+        "y": 3
+      }
+    ],
+    "gold": [],
+    "iron": [],
+    "stones": [
+      {
+        "x": -3,
+        "y": 2
+      }
+    ],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [
+      {
+        "x": -2,
+        "y": 3
+      }
+    ],
+    "beehives": [
+      {
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "flowerBeds": [
+      {
+        "x": -1,
+        "y": -1
+      }
+    ]
+  },
+  "SPRING_LAND_7_LAYOUT": {
+    "id": "spring_7",
+    "plots": [
+      {
+        "x": -2,
+        "y": 1
+      },
+      {
+        "x": -2,
+        "y": 0
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [
+      {
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "crimstones": [
+      {
+        "x": -1,
+        "y": -1
+      }
+    ],
+    "sunstones": [],
+    "trees": [
+      {
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "beehives": []
+  },
+  "SPRING_LAND_8_LAYOUT": {
+    "id": "spring_8",
+    "plots": [
+      {
+        "x": -1,
+        "y": -2
+      },
+      {
+        "x": 0,
+        "y": -2
+      }
+    ],
+    "fruitPatches": [
+      {
+        "x": -1,
+        "y": 0
+      }
+    ],
+    "gold": [
+      {
+        "x": -3,
+        "y": 0
+      }
+    ],
+    "iron": [
+      {
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "stones": [
+      {
+        "x": -1,
+        "y": 2
+      }
+    ],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": []
+  },
+  "SPRING_LAND_9_LAYOUT": {
+    "plots": [],
+    "fruitPatches": [
+      {
+        "x": -2,
+        "y": 2
+      }
+    ],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [
+      {
+        "x": -1,
+        "y": -1
+      }
+    ],
+    "trees": [
+      {
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "beehives": [],
+    "id": "spring_9"
+  },
+  "SPRING_LAND_10_LAYOUT": {
+    "plots": [],
+    "fruitPatches": [
+      {
+        "x": -2,
+        "y": 3
+      }
+    ],
+    "gold": [
+      {
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "iron": [
+      {
+        "x": 0,
+        "y": 3
+      }
+    ],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [
+      {
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "flowerBeds": [
+      {
+        "x": -1,
+        "y": -1
+      }
+    ],
+    "id": "spring_10"
+  },
+  "SPRING_LAND_11_LAYOUT": {
+    "plots": [
+      {
+        "x": -2,
+        "y": 2
+      },
+      {
+        "x": -1,
+        "y": 2
+      }
+    ],
+    "fruitPatches": [
+      {
+        "x": -2,
+        "y": -1
+      }
+    ],
+    "gold": [],
+    "iron": [],
+    "stones": [
+      {
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "sunstones": [],
+    "trees": [
+      {
+        "x": 0,
+        "y": -1
+      }
+    ],
+    "beehives": [],
+    "id": "spring_11"
+  },
+  "SPRING_LAND_12_LAYOUT": {
+    "plots": [
+      {
+        "x": -1,
+        "y": 1
+      },
+      {
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "id": "spring_12"
+  },
+  "SPRING_LAND_13_LAYOUT": {
+    "plots": [],
+    "fruitPatches": [
+      {
+        "x": -1,
+        "y": 3
+      }
+    ],
+    "gold": [],
+    "iron": [
+      {
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "stones": [
+      {
+        "x": -2,
+        "y": 1
+      }
+    ],
+    "crimstones": [],
+    "sunstones": [
+      {
+        "x": 0,
+        "y": -1
+      }
+    ],
+    "trees": [
+      {
+        "x": -2,
+        "y": -1
+      }
+    ],
+    "beehives": [],
+    "id": "spring_13"
+  },
+  "SPRING_LAND_14_LAYOUT": {
+    "plots": [
+      {
+        "x": -2,
+        "y": 2
+      },
+      {
+        "x": -2,
+        "y": 1
+      }
+    ],
+    "fruitPatches": [
+      {
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "id": "spring_14"
+  },
+  "SPRING_LAND_15_LAYOUT": {
+    "plots": [
+      {
+        "x": -2,
+        "y": 2
+      }
+    ],
+    "fruitPatches": [
+      {
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "gold": [],
+    "iron": [
+      {
+        "x": -1,
+        "y": -1
+      }
+    ],
+    "stones": [
+      {
+        "x": -2,
+        "y": 0
+      }
+    ],
+    "crimstones": [
+      {
+        "x": -1,
+        "y": 1
+      }
+    ],
+    "sunstones": [],
+    "trees": [
+      {
+        "x": 1,
+        "y": 3
+      }
+    ],
+    "beehives": [],
+    "id": "spring_15"
+  },
+  "SPRING_LAND_16_LAYOUT": {
+    "plots": [
+      {
+        "x": -2,
+        "y": 2
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [
+      {
+        "x": -1,
+        "y": 1
+      }
+    ],
+    "iron": [],
+    "stones": [],
+    "sunstones": [],
+    "trees": [
+      {
+        "x": 0,
+        "y": 3
+      }
+    ],
+    "beehives": [
+      {
+        "x": 0,
+        "y": -1
+      }
+    ],
+    "flowerBeds": [
+      {
+        "x": -1,
+        "y": -2
+      }
+    ],
+    "id": "spring_16"
+  },
+  "SPRING_LAYOUTS": {
+    "5": {
+      "$unparsed": "SPRING_LAND_5_LAYOUT()"
+    },
+    "6": {
+      "$unparsed": "SPRING_LAND_6_LAYOUT()"
+    },
+    "7": {
+      "$unparsed": "SPRING_LAND_7_LAYOUT()"
+    },
+    "8": {
+      "$unparsed": "SPRING_LAND_8_LAYOUT()"
+    },
+    "9": {
+      "$unparsed": "SPRING_LAND_9_LAYOUT()"
+    },
+    "10": {
+      "$unparsed": "SPRING_LAND_10_LAYOUT()"
+    },
+    "11": {
+      "$unparsed": "SPRING_LAND_11_LAYOUT()"
+    },
+    "12": {
+      "$unparsed": "SPRING_LAND_12_LAYOUT()"
+    },
+    "13": {
+      "$unparsed": "SPRING_LAND_13_LAYOUT()"
+    },
+    "14": {
+      "$unparsed": "SPRING_LAND_14_LAYOUT()"
+    },
+    "15": {
+      "$unparsed": "SPRING_LAND_15_LAYOUT()"
+    },
+    "16": {
+      "$unparsed": "SPRING_LAND_16_LAYOUT()"
+    }
+  },
+  "DESERT_LAND_5_LAYOUT": {
+    "id": "desert_5",
+    "plots": [
+      {
+        "x": -1,
+        "y": 1
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [
+      {
+        "x": 2,
+        "y": -2
+      }
+    ],
+    "stones": [
+      {
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [
+      {
+        "x": -3,
+        "y": 0
+      }
+    ]
+  },
+  "DESERT_LAND_6_LAYOUT": {
+    "id": "desert_6",
+    "plots": [],
+    "fruitPatches": [
+      {
+        "x": -3,
+        "y": 0
+      }
+    ],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [
+      {
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "trees": [],
+    "beehives": []
+  },
+  "DESERT_LAND_7_LAYOUT": {
+    "id": "desert_7",
+    "plots": [
+      {
+        "x": -2,
+        "y": -1
+      },
+      {
+        "x": -1,
+        "y": -1
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [
+      {
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "sunstones": [],
+    "trees": [],
+    "beehives": []
+  },
+  "DESERT_LAND_8_LAYOUT": {
+    "id": "desert_8",
+    "plots": [
+      {
+        "x": 0,
+        "y": 0
+      },
+      {
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [
+      {
+        "x": -3,
+        "y": 0
+      }
+    ],
+    "trees": [],
+    "beehives": []
+  },
+  "DESERT_LAND_9_LAYOUT": {
+    "id": "desert_9",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [
+      {
+        "x": 1,
+        "y": -1
+      }
+    ],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [
+      {
+        "x": -2,
+        "y": 2
+      }
+    ],
+    "beehives": []
+  },
+  "DESERT_LAND_10_LAYOUT": {
+    "id": "desert_10",
+    "plots": [
+      {
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [
+      {
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": []
+  },
+  "DESERT_LAND_11_LAYOUT": {
+    "id": "desert_11",
+    "plots": [
+      {
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "fruitPatches": [
+      {
+        "x": -2,
+        "y": 3
+      }
+    ],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": []
+  },
+  "DESERT_LAND_12_LAYOUT": {
+    "id": "desert_12",
+    "plots": [
+      {
+        "x": -2,
+        "y": 2
+      },
+      {
+        "x": -2,
+        "y": 3
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": []
+  },
+  "DESERT_LAND_13_LAYOUT": {
+    "id": "desert_13",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [
+      {
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "beehives": []
+  },
+  "DESERT_LAND_14_LAYOUT": {
+    "id": "desert_14",
+    "plots": [
+      {
+        "x": -2,
+        "y": 2
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [
+      {
+        "x": 1,
+        "y": -1
+      }
+    ],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": []
+  },
+  "DESERT_LAND_15_LAYOUT": {
+    "id": "desert_15",
+    "plots": [
+      {
+        "x": -2,
+        "y": -2
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [
+      {
+        "x": 0,
+        "y": 0
+      }
+    ]
+  },
+  "DESERT_LAND_16_LAYOUT": {
+    "id": "desert_16",
+    "plots": [
+      {
+        "x": -2,
+        "y": 0
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [
+      {
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "beehives": []
+  },
+  "DESERT_LAND_17_LAYOUT": {
+    "id": "desert_17",
+    "plots": [
+      {
+        "x": 0,
+        "y": 0
+      },
+      {
+        "x": -1,
+        "y": 0
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": []
+  },
+  "DESERT_LAND_18_LAYOUT": {
+    "id": "desert_18",
+    "plots": [
+      {
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [
+      {
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": []
+  },
+  "DESERT_LAND_19_LAYOUT": {
+    "id": "desert_19",
+    "plots": [
+      {
+        "x": 2,
+        "y": -2
+      }
+    ],
+    "fruitPatches": [
+      {
+        "x": -2,
+        "y": 3
+      }
+    ],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": []
+  },
+  "DESERT_LAND_20_LAYOUT": {
+    "id": "desert_20",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [
+      {
+        "x": -1,
+        "y": 2
+      }
+    ],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [
+      {
+        "x": 1,
+        "y": 3
+      }
+    ],
+    "beehives": [],
+    "oilReserves": [
+      {
+        "x": 0,
+        "y": 0
+      }
+    ]
+  },
+  "DESERT_LAND_21_LAYOUT": {
+    "id": "desert_21",
+    "plots": [
+      {
+        "x": -2,
+        "y": 2
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [
+      {
+        "x": -1,
+        "y": 2
+      }
+    ],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [
+      {
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "trees": [],
+    "beehives": []
+  },
+  "DESERT_LAND_22_LAYOUT": {
+    "id": "desert_22",
+    "plots": [],
+    "fruitPatches": [
+      {
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [
+      {
+        "x": -2,
+        "y": -1
+      }
+    ],
+    "beehives": []
+  },
+  "DESERT_LAND_23_LAYOUT": {
+    "id": "desert_23",
+    "plots": [
+      {
+        "x": -2,
+        "y": 2
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [
+      {
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "sunstones": [],
+    "trees": [],
+    "beehives": []
+  },
+  "DESERT_LAND_24_LAYOUT": {
+    "id": "desert_24",
+    "plots": [
+      {
+        "x": -1,
+        "y": 1
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [
+      {
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "trees": [],
+    "beehives": []
+  },
+  "DESERT_LAND_25_LAYOUT": {
+    "id": "desert_25",
+    "plots": [
+      {
+        "x": -1,
+        "y": -1
+      }
+    ],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [
+      {
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": []
+  },
+  "DESERT_LAYOUTS": {
+    "5": {
+      "$unparsed": "DESERT_LAND_5_LAYOUT()"
+    },
+    "6": {
+      "$unparsed": "DESERT_LAND_6_LAYOUT()"
+    },
+    "7": {
+      "$unparsed": "DESERT_LAND_7_LAYOUT()"
+    },
+    "8": {
+      "$unparsed": "DESERT_LAND_8_LAYOUT()"
+    },
+    "9": {
+      "$unparsed": "DESERT_LAND_9_LAYOUT()"
+    },
+    "10": {
+      "$unparsed": "DESERT_LAND_10_LAYOUT()"
+    },
+    "11": {
+      "$unparsed": "DESERT_LAND_11_LAYOUT()"
+    },
+    "12": {
+      "$unparsed": "DESERT_LAND_12_LAYOUT()"
+    },
+    "13": {
+      "$unparsed": "DESERT_LAND_13_LAYOUT()"
+    },
+    "14": {
+      "$unparsed": "DESERT_LAND_14_LAYOUT()"
+    },
+    "15": {
+      "$unparsed": "DESERT_LAND_15_LAYOUT()"
+    },
+    "16": {
+      "$unparsed": "DESERT_LAND_16_LAYOUT()"
+    },
+    "17": {
+      "$unparsed": "DESERT_LAND_17_LAYOUT()"
+    },
+    "18": {
+      "$unparsed": "DESERT_LAND_18_LAYOUT()"
+    },
+    "19": {
+      "$unparsed": "DESERT_LAND_19_LAYOUT()"
+    },
+    "20": {
+      "$unparsed": "DESERT_LAND_20_LAYOUT()"
+    },
+    "21": {
+      "$unparsed": "DESERT_LAND_21_LAYOUT()"
+    },
+    "22": {
+      "$unparsed": "DESERT_LAND_22_LAYOUT()"
+    },
+    "23": {
+      "$unparsed": "DESERT_LAND_23_LAYOUT()"
+    },
+    "24": {
+      "$unparsed": "DESERT_LAND_24_LAYOUT()"
+    },
+    "25": {
+      "$unparsed": "DESERT_LAND_25_LAYOUT()"
+    }
+  },
+  "VOLCANO_LAND_6_LAYOUT": {
+    "id": "volcano_6",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_7_LAYOUT": {
+    "id": "volcano_7",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": [
+      {
+        "x": 0,
+        "y": 0
+      }
+    ]
+  },
+  "VOLCANO_LAND_8_LAYOUT": {
+    "id": "volcano_8",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [
+      {
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_9_LAYOUT": {
+    "id": "volcano_9",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_10_LAYOUT": {
+    "id": "volcano_10",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [
+      {
+        "x": -1,
+        "y": 0
+      }
+    ],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_11_LAYOUT": {
+    "id": "volcano_11",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_12_LAYOUT": {
+    "id": "volcano_12",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [
+      {
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_13_LAYOUT": {
+    "id": "volcano_13",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_14_LAYOUT": {
+    "id": "volcano_14",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_15_LAYOUT": {
+    "id": "volcano_15",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": [
+      {
+        "x": 1,
+        "y": 0
+      }
+    ]
+  },
+  "VOLCANO_LAND_16_LAYOUT": {
+    "id": "volcano_16",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [
+      {
+        "x": -1,
+        "y": 1
+      }
+    ],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_17_LAYOUT": {
+    "id": "volcano_17",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [
+      {
+        "x": 0,
+        "y": -1
+      }
+    ],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_18_LAYOUT": {
+    "id": "volcano_18",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_19_LAYOUT": {
+    "id": "volcano_19",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [
+      {
+        "x": 1,
+        "y": -1
+      }
+    ],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_20_LAYOUT": {
+    "id": "volcano_20",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_21_LAYOUT": {
+    "id": "volcano_21",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [
+      {
+        "x": -1,
+        "y": -1
+      }
+    ],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_22_LAYOUT": {
+    "id": "volcano_22",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_23_LAYOUT": {
+    "id": "volcano_23",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [
+      {
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_24_LAYOUT": {
+    "id": "volcano_24",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": [
+      {
+        "x": -1,
+        "y": 0
+      }
+    ]
+  },
+  "VOLCANO_LAND_25_LAYOUT": {
+    "id": "volcano_25",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [
+      {
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_26_LAYOUT": {
+    "id": "volcano_26",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_27_LAYOUT": {
+    "id": "volcano_27",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_28_LAYOUT": {
+    "id": "volcano_28",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [
+      {
+        "x": 0,
+        "y": -1
+      }
+    ],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_29_LAYOUT": {
+    "id": "volcano_29",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAND_30_LAYOUT": {
+    "id": "volcano_30",
+    "plots": [],
+    "fruitPatches": [],
+    "gold": [],
+    "iron": [],
+    "stones": [],
+    "crimstones": [],
+    "sunstones": [
+      {
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "trees": [],
+    "beehives": [],
+    "oilReserves": [],
+    "lavaPits": []
+  },
+  "VOLCANO_LAYOUTS": {
+    "6": {
+      "$unparsed": "VOLCANO_LAND_6_LAYOUT()"
+    },
+    "7": {
+      "$unparsed": "VOLCANO_LAND_7_LAYOUT()"
+    },
+    "8": {
+      "$unparsed": "VOLCANO_LAND_8_LAYOUT()"
+    },
+    "9": {
+      "$unparsed": "VOLCANO_LAND_9_LAYOUT()"
+    },
+    "10": {
+      "$unparsed": "VOLCANO_LAND_10_LAYOUT()"
+    },
+    "11": {
+      "$unparsed": "VOLCANO_LAND_11_LAYOUT()"
+    },
+    "12": {
+      "$unparsed": "VOLCANO_LAND_12_LAYOUT()"
+    },
+    "13": {
+      "$unparsed": "VOLCANO_LAND_13_LAYOUT()"
+    },
+    "14": {
+      "$unparsed": "VOLCANO_LAND_14_LAYOUT()"
+    },
+    "15": {
+      "$unparsed": "VOLCANO_LAND_15_LAYOUT()"
+    },
+    "16": {
+      "$unparsed": "VOLCANO_LAND_16_LAYOUT()"
+    },
+    "17": {
+      "$unparsed": "VOLCANO_LAND_17_LAYOUT()"
+    },
+    "18": {
+      "$unparsed": "VOLCANO_LAND_18_LAYOUT()"
+    },
+    "19": {
+      "$unparsed": "VOLCANO_LAND_19_LAYOUT()"
+    },
+    "20": {
+      "$unparsed": "VOLCANO_LAND_20_LAYOUT()"
+    },
+    "21": {
+      "$unparsed": "VOLCANO_LAND_21_LAYOUT()"
+    },
+    "22": {
+      "$unparsed": "VOLCANO_LAND_22_LAYOUT()"
+    },
+    "23": {
+      "$unparsed": "VOLCANO_LAND_23_LAYOUT()"
+    },
+    "24": {
+      "$unparsed": "VOLCANO_LAND_24_LAYOUT()"
+    },
+    "25": {
+      "$unparsed": "VOLCANO_LAND_25_LAYOUT()"
+    },
+    "26": {
+      "$unparsed": "VOLCANO_LAND_26_LAYOUT()"
+    },
+    "27": {
+      "$unparsed": "VOLCANO_LAND_27_LAYOUT()"
+    },
+    "28": {
+      "$unparsed": "VOLCANO_LAND_28_LAYOUT()"
+    },
+    "29": {
+      "$unparsed": "VOLCANO_LAND_29_LAYOUT()"
+    },
+    "30": {
+      "$unparsed": "VOLCANO_LAND_30_LAYOUT()"
+    }
+  },
+  "BASIC_BASE_NODES": {
+    "Crop Plot": 0,
+    "Tree": 3,
+    "Stone Rock": 2,
+    "Iron Rock": 0,
+    "Gold Rock": 0,
+    "Crimstone Rock": 0,
+    "Sunstone Rock": 0,
+    "Fruit Patch": 0,
+    "Flower Bed": 0,
+    "Beehive": 0,
+    "Oil Reserve": 0,
+    "Lava Pit": 0,
+    "Ascension Crystal": 0
+  },
+  "SPRING_BASE_NODES": {
+    "Crop Plot": 31,
+    "Fruit Patch": 2,
+    "Tree": 9,
+    "Stone Rock": 7,
+    "Iron Rock": 4,
+    "Gold Rock": 2,
+    "Crimstone Rock": 0,
+    "Sunstone Rock": 0,
+    "Beehive": 0,
+    "Oil Reserve": 0,
+    "Flower Bed": 0,
+    "Lava Pit": 0,
+    "Ascension Crystal": 0
+  },
+  "DESERT_BASE_NODES": {
+    "Crop Plot": 45,
+    "Fruit Patch": 11,
+    "Tree": 18,
+    "Stone Rock": 15,
+    "Iron Rock": 9,
+    "Gold Rock": 6,
+    "Crimstone Rock": 2,
+    "Sunstone Rock": 2,
+    "Oil Reserve": 0,
+    "Lava Pit": 0,
+    "Beehive": 3,
+    "Flower Bed": 3,
+    "Ascension Crystal": 0
+  },
+  "VOLCANO_BASE_NODES": {
+    "Crop Plot": 65,
+    "Tree": 23,
+    "Stone Rock": 20,
+    "Iron Rock": 12,
+    "Gold Rock": 7,
+    "Fruit Patch": 15,
+    "Crimstone Rock": 4,
+    "Sunstone Rock": 6,
+    "Oil Reserve": 3,
+    "Lava Pit": 0,
+    "Beehive": 3,
+    "Flower Bed": 3,
+    "Ascension Crystal": 0
+  },
+  "TOTAL_EXPANSION_NODES": {
+    "basic": {
+      "$unparsed": "deriveExpansionNodes(BASIC_BASE_NODES, {\n    4: LAND_4_LAYOUT(),\n    5: LAND_5_LAYOUT(),\n    6: LAND_6_LAYOUT(),\n    7: LAND_7_LAYOUT(),\n    8: LAND_8_LAYOUT(),\n    9: LAND_9_LAYOUT(),\n  })"
+    },
+    "spring": {
+      "$unparsed": "deriveExpansionNodes(SPRING_BASE_NODES, SPRING_LAYOUTS())"
+    },
+    "desert": {
+      "$unparsed": "deriveExpansionNodes(DESERT_BASE_NODES, DESERT_LAYOUTS())"
+    },
+    "volcano": {
+      "$unparsed": "deriveExpansionNodes(VOLCANO_BASE_NODES, VOLCANO_LAYOUTS())"
+    }
+  },
+  "LAND_4_REQUIREMENTS": {
+    "resources": {
+      "Wood": 3
+    },
+    "seconds": 5,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 1
+    }
+  },
+  "LAND_5_REQUIREMENTS": {
+    "resources": {
+      "Wood": 5
+    },
+    "seconds": 5,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 1
+    },
+    "coins": 0.25
+  },
+  "LAND_6_REQUIREMENTS": {
+    "resources": {
+      "Stone": 1
+    },
+    "coins": 60,
+    "seconds": 60,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 2
+    }
+  },
+  "LAND_7_REQUIREMENTS": {
+    "resources": {
+      "Stone": 5,
+      "Iron": 1
+    },
+    "coins": 100,
+    "seconds": 1800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 5
+    }
+  },
+  "LAND_8_REQUIREMENTS": {
+    "resources": {
+      "Iron": 3,
+      "Gold": 1
+    },
+    "coins": 200,
+    "seconds": 14400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 8
+    }
+  },
+  "LAND_9_REQUIREMENTS": {
+    "resources": {
+      "Wood": 100,
+      "Stone": 40,
+      "Iron": 5
+    },
+    "coins": 300,
+    "seconds": 43200,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 11
+    }
+  },
+  "LAND_10_REQUIREMENTS": {
+    "resources": {
+      "Wood": 100,
+      "Stone": 50,
+      "Iron": 5,
+      "Gold": 2,
+      "Gem": 15
+    },
+    "seconds": 86400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 13
+    }
+  },
+  "LAND_11_REQUIREMENTS": {
+    "resources": {
+      "Gold": 10,
+      "Gem": 15
+    },
+    "seconds": 86400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 15
+    }
+  },
+  "LAND_12_REQUIREMENTS": {
+    "resources": {
+      "Wood": 500,
+      "Stone": 20,
+      "Gold": 2,
+      "Gem": 15
+    },
+    "seconds": 86400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 17
+    }
+  },
+  "LAND_13_REQUIREMENTS": {
+    "resources": {
+      "Wood": 100,
+      "Stone": 150,
+      "Gold": 5,
+      "Gem": 15
+    },
+    "seconds": 86400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 20
+    }
+  },
+  "LAND_14_REQUIREMENTS": {
+    "resources": {
+      "Wood": 40,
+      "Stone": 30,
+      "Iron": 10,
+      "Gold": 10,
+      "Gem": 15
+    },
+    "seconds": 129600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 23
+    }
+  },
+  "LAND_15_REQUIREMENTS": {
+    "resources": {
+      "Wood": 200,
+      "Gold": 15,
+      "Gem": 15
+    },
+    "seconds": 129600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 26
+    }
+  },
+  "LAND_16_REQUIREMENTS": {
+    "resources": {
+      "Stone": 150,
+      "Iron": 30,
+      "Gold": 10,
+      "Gem": 15
+    },
+    "seconds": 129600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 30
+    }
+  },
+  "LAND_17_REQUIREMENTS": {
+    "resources": {
+      "Wood": 200,
+      "Stone": 50,
+      "Gold": 25,
+      "Gem": 15
+    },
+    "seconds": 129600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 34
+    }
+  },
+  "LAND_18_REQUIREMENTS": {
+    "resources": {
+      "Wood": 300,
+      "Stone": 200,
+      "Iron": 30,
+      "Gold": 10,
+      "Gem": 15
+    },
+    "seconds": 129600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 37
+    }
+  },
+  "LAND_19_REQUIREMENTS": {
+    "resources": {
+      "Wood": 100,
+      "Stone": 250,
+      "Gold": 30,
+      "Gem": 15
+    },
+    "seconds": 172800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 40
+    }
+  },
+  "LAND_20_REQUIREMENTS": {
+    "resources": {
+      "Wood": 1000,
+      "Stone": 100,
+      "Iron": 10,
+      "Gold": 25,
+      "Gem": 15
+    },
+    "seconds": 172800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 45
+    }
+  },
+  "LAND_21_REQUIREMENTS": {
+    "resources": {
+      "Wood": 1500,
+      "Stone": 100,
+      "Iron": 20,
+      "Gold": 25,
+      "Gem": 30
+    },
+    "seconds": 172800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 50
+    }
+  },
+  "LAND_22_REQUIREMENTS": {
+    "resources": {
+      "Wood": 2000,
+      "Stone": 200,
+      "Iron": 20,
+      "Gold": 40,
+      "Gem": 30
+    },
+    "seconds": 172800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 55
+    }
+  },
+  "LAND_23_REQUIREMENTS": {
+    "resources": {
+      "Wood": 2000,
+      "Stone": 250,
+      "Iron": 50,
+      "Gold": 60,
+      "Gem": 30
+    },
+    "seconds": 172800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 60
+    }
+  },
+  "SPRING_LAND_5_REQUIREMENTS": {
+    "resources": {
+      "Wood": 20
+    },
+    "coins": 100,
+    "seconds": 60,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 11
+    }
+  },
+  "SPRING_LAND_6_REQUIREMENTS": {
+    "resources": {
+      "Wood": 10,
+      "Stone": 5,
+      "Gold": 2
+    },
+    "coins": 200,
+    "seconds": 300,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 13
+    }
+  },
+  "SPRING_LAND_7_REQUIREMENTS": {
+    "resources": {
+      "Wood": 30,
+      "Stone": 20,
+      "Iron": 5,
+      "Gem": 15
+    },
+    "coins": 300,
+    "seconds": 1800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 16
+    }
+  },
+  "SPRING_LAND_8_REQUIREMENTS": {
+    "resources": {
+      "Wood": 20,
+      "Crimstone": 1,
+      "Gem": 15
+    },
+    "coins": 400,
+    "seconds": 7200,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 20
+    }
+  },
+  "SPRING_LAND_9_REQUIREMENTS": {
+    "resources": {
+      "Wood": 50,
+      "Gold": 5,
+      "Gem": 15
+    },
+    "coins": 500,
+    "seconds": 7200,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 23
+    }
+  },
+  "SPRING_LAND_10_REQUIREMENTS": {
+    "resources": {
+      "Stone": 10,
+      "Crimstone": 3,
+      "Gem": 15
+    },
+    "coins": 500,
+    "seconds": 14400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 25
+    }
+  },
+  "SPRING_LAND_11_REQUIREMENTS": {
+    "resources": {
+      "Wood": 100,
+      "Stone": 25,
+      "Gold": 5,
+      "Crimstone": 1,
+      "Gem": 15
+    },
+    "coins": 500,
+    "seconds": 28800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 27
+    }
+  },
+  "SPRING_LAND_12_REQUIREMENTS": {
+    "resources": {
+      "Wood": 50,
+      "Iron": 5,
+      "Crimstone": 3,
+      "Gem": 30
+    },
+    "coins": 500,
+    "seconds": 43200,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 29
+    }
+  },
+  "SPRING_LAND_13_REQUIREMENTS": {
+    "resources": {
+      "Wood": 50,
+      "Stone": 25,
+      "Iron": 10,
+      "Gold": 10,
+      "Gem": 30
+    },
+    "coins": 500,
+    "seconds": 43200,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 32
+    }
+  },
+  "SPRING_LAND_14_REQUIREMENTS": {
+    "resources": {
+      "Wood": 100,
+      "Stone": 10,
+      "Crimstone": 5,
+      "Gem": 30
+    },
+    "coins": 500,
+    "seconds": 86400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 36
+    }
+  },
+  "SPRING_LAND_15_REQUIREMENTS": {
+    "resources": {
+      "Wood": 150,
+      "Stone": 10,
+      "Iron": 10,
+      "Gold": 5,
+      "Crimstone": 5,
+      "Gem": 30
+    },
+    "coins": 500,
+    "seconds": 86400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 40
+    }
+  },
+  "SPRING_LAND_16_REQUIREMENTS": {
+    "resources": {
+      "Wood": 100,
+      "Stone": 10,
+      "Gold": 5,
+      "Crimstone": 8,
+      "Gem": 30
+    },
+    "coins": 500,
+    "seconds": 86400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 43
+    }
+  },
+  "SPRING_LAND_17_REQUIREMENTS": {
+    "resources": {
+      "Wood": 100,
+      "Stone": 20,
+      "Iron": 10,
+      "Gold": 5,
+      "Crimstone": 12,
+      "Gem": 30
+    },
+    "coins": 500,
+    "seconds": 129600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 47
+    }
+  },
+  "SPRING_LAND_18_REQUIREMENTS": {
+    "resources": {
+      "Wood": 150,
+      "Stone": 20,
+      "Iron": 10,
+      "Gold": 5,
+      "Crimstone": 16,
+      "Gem": 30
+    },
+    "coins": 500,
+    "seconds": 129600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 51
+    }
+  },
+  "SPRING_LAND_19_REQUIREMENTS": {
+    "resources": {
+      "Wood": 150,
+      "Stone": 10,
+      "Iron": 5,
+      "Gold": 5,
+      "Crimstone": 20,
+      "Gem": 30
+    },
+    "coins": 500,
+    "seconds": 129600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 53
+    }
+  },
+  "SPRING_LAND_20_REQUIREMENTS": {
+    "resources": {
+      "Wood": 50,
+      "Stone": 5,
+      "Iron": 5,
+      "Gold": 5,
+      "Crimstone": 24,
+      "Gem": 30
+    },
+    "coins": 500,
+    "seconds": 172800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 55
+    }
+  },
+  "DESERT_LAND_5_REQUIREMENTS": {
+    "resources": {
+      "Wood": 50,
+      "Stone": 10,
+      "Iron": 5,
+      "Gold": 5
+    },
+    "sfl": 0,
+    "coins": 500,
+    "seconds": 60,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 40
+    }
+  },
+  "DESERT_LAND_6_REQUIREMENTS": {
+    "resources": {
+      "Wood": 100,
+      "Stone": 20,
+      "Iron": 10,
+      "Gold": 5
+    },
+    "sfl": 0,
+    "coins": 500,
+    "seconds": 300,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 40
+    }
+  },
+  "DESERT_LAND_7_REQUIREMENTS": {
+    "resources": {
+      "Wood": 150,
+      "Stone": 20,
+      "Iron": 10,
+      "Gold": 5,
+      "Gem": 15
+    },
+    "sfl": 0,
+    "coins": 500,
+    "seconds": 1800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 41
+    }
+  },
+  "DESERT_LAND_8_REQUIREMENTS": {
+    "resources": {
+      "Wood": 150,
+      "Stone": 10,
+      "Iron": 5,
+      "Gold": 5,
+      "Crimstone": 3,
+      "Oil": 5,
+      "Gem": 30
+    },
+    "sfl": 0,
+    "coins": 500,
+    "seconds": 7200,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 42
+    }
+  },
+  "DESERT_LAND_9_REQUIREMENTS": {
+    "resources": {
+      "Wood": 50,
+      "Stone": 5,
+      "Iron": 5,
+      "Gold": 5,
+      "Crimstone": 6,
+      "Oil": 5,
+      "Gem": 30
+    },
+    "sfl": 0,
+    "coins": 500,
+    "seconds": 7200,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 43
+    }
+  },
+  "DESERT_LAND_10_REQUIREMENTS": {
+    "resources": {
+      "Wood": 100,
+      "Stone": 50,
+      "Iron": 10,
+      "Gold": 5,
+      "Crimstone": 12,
+      "Oil": 10,
+      "Gem": 45
+    },
+    "sfl": 0,
+    "coins": 384,
+    "seconds": 28800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 44
+    }
+  },
+  "DESERT_LAND_11_REQUIREMENTS": {
+    "resources": {
+      "Wood": 150,
+      "Stone": 75,
+      "Iron": 10,
+      "Gold": 5,
+      "Crimstone": 15,
+      "Oil": 30,
+      "Gem": 45
+    },
+    "sfl": 0,
+    "coins": 768,
+    "seconds": 43200,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 45
+    }
+  },
+  "DESERT_LAND_12_REQUIREMENTS": {
+    "resources": {
+      "Wood": 100,
+      "Stone": 100,
+      "Iron": 5,
+      "Gold": 10,
+      "Crimstone": 18,
+      "Oil": 30,
+      "Gem": 45
+    },
+    "sfl": 0,
+    "coins": 1536,
+    "seconds": 43200,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 47
+    }
+  },
+  "DESERT_LAND_13_REQUIREMENTS": {
+    "resources": {
+      "Wood": 200,
+      "Stone": 50,
+      "Iron": 15,
+      "Gold": 10,
+      "Crimstone": 21,
+      "Oil": 40,
+      "Gem": 45
+    },
+    "sfl": 0,
+    "coins": 3072,
+    "seconds": 86400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 50
+    }
+  },
+  "DESERT_LAND_14_REQUIREMENTS": {
+    "resources": {
+      "Wood": 200,
+      "Stone": 100,
+      "Iron": 15,
+      "Gold": 10,
+      "Crimstone": 24,
+      "Oil": 50,
+      "Gem": 45
+    },
+    "sfl": 0,
+    "coins": 3840,
+    "seconds": 86400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 53
+    }
+  },
+  "DESERT_LAND_15_REQUIREMENTS": {
+    "resources": {
+      "Wood": 300,
+      "Stone": 50,
+      "Iron": 20,
+      "Gold": 10,
+      "Crimstone": 27,
+      "Oil": 75,
+      "Gem": 45
+    },
+    "sfl": 0,
+    "coins": 3840,
+    "seconds": 86400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 56
+    }
+  },
+  "DESERT_LAND_16_REQUIREMENTS": {
+    "resources": {
+      "Wood": 250,
+      "Stone": 125,
+      "Iron": 15,
+      "Gold": 15,
+      "Crimstone": 30,
+      "Oil": 100,
+      "Gem": 60
+    },
+    "sfl": 0,
+    "coins": 3840,
+    "seconds": 129600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 58
+    }
+  },
+  "DESERT_LAND_17_REQUIREMENTS": {
+    "resources": {
+      "Wood": 350,
+      "Stone": 75,
+      "Iron": 20,
+      "Gold": 10,
+      "Crimstone": 33,
+      "Oil": 125,
+      "Gem": 60
+    },
+    "sfl": 0,
+    "coins": 5760,
+    "seconds": 129600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 60
+    }
+  },
+  "DESERT_LAND_18_REQUIREMENTS": {
+    "resources": {
+      "Wood": 400,
+      "Stone": 125,
+      "Iron": 25,
+      "Gold": 15,
+      "Crimstone": 36,
+      "Oil": 150,
+      "Gem": 75
+    },
+    "sfl": 0,
+    "coins": 5760,
+    "seconds": 129600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 63
+    }
+  },
+  "DESERT_LAND_19_REQUIREMENTS": {
+    "resources": {
+      "Wood": 450,
+      "Stone": 150,
+      "Iron": 30,
+      "Gold": 20,
+      "Crimstone": 39,
+      "Oil": 200,
+      "Gem": 60
+    },
+    "sfl": 0,
+    "coins": 7680,
+    "seconds": 129600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 65
+    }
+  },
+  "DESERT_LAND_20_REQUIREMENTS": {
+    "resources": {
+      "Wood": 525,
+      "Stone": 200,
+      "Iron": 35,
+      "Gold": 30,
+      "Crimstone": 42,
+      "Oil": 250,
+      "Gem": 60
+    },
+    "sfl": 0,
+    "coins": 7680,
+    "seconds": 172800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 68
+    }
+  },
+  "DESERT_LAND_21_REQUIREMENTS": {
+    "resources": {
+      "Wood": 550,
+      "Stone": 150,
+      "Iron": 30,
+      "Gold": 25,
+      "Crimstone": 45,
+      "Oil": 350,
+      "Gem": 60
+    },
+    "sfl": 0,
+    "coins": 9600,
+    "seconds": 172800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 70
+    }
+  },
+  "DESERT_LAND_22_REQUIREMENTS": {
+    "resources": {
+      "Wood": 600,
+      "Stone": 200,
+      "Iron": 35,
+      "Gold": 30,
+      "Crimstone": 48,
+      "Oil": 450,
+      "Gem": 75
+    },
+    "sfl": 0,
+    "coins": 9600,
+    "seconds": 172800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 72
+    }
+  },
+  "DESERT_LAND_23_REQUIREMENTS": {
+    "resources": {
+      "Wood": 650,
+      "Stone": 250,
+      "Iron": 40,
+      "Gold": 35,
+      "Crimstone": 51,
+      "Oil": 500,
+      "Gem": 75
+    },
+    "sfl": 0,
+    "coins": 9600,
+    "seconds": 216000,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 73
+    }
+  },
+  "DESERT_LAND_24_REQUIREMENTS": {
+    "resources": {
+      "Wood": 700,
+      "Stone": 300,
+      "Iron": 50,
+      "Gold": 45,
+      "Crimstone": 54,
+      "Oil": 550,
+      "Gem": 75
+    },
+    "sfl": 0,
+    "coins": 11520,
+    "seconds": 216000,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 74
+    }
+  },
+  "DESERT_LAND_25_REQUIREMENTS": {
+    "resources": {
+      "Wood": 750,
+      "Stone": 350,
+      "Iron": 50,
+      "Gold": 50,
+      "Crimstone": 60,
+      "Oil": 650,
+      "Gem": 75
+    },
+    "sfl": 0,
+    "coins": 13440,
+    "seconds": 216000,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 75
+    }
+  },
+  "VOLCANO_LAND_6_REQUIREMENTS": {
+    "resources": {
+      "Wood": 100,
+      "Stone": 50,
+      "Iron": 30,
+      "Gold": 10
+    },
+    "sfl": 0,
+    "coins": 500,
+    "seconds": 10,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 70
+    }
+  },
+  "VOLCANO_LAND_7_REQUIREMENTS": {
+    "resources": {
+      "Wood": 200,
+      "Stone": 75,
+      "Iron": 25,
+      "Gold": 15,
+      "Crimstone": 4,
+      "Oil": 30,
+      "Gem": 30
+    },
+    "sfl": 0,
+    "coins": 384,
+    "seconds": 300,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 72
+    }
+  },
+  "VOLCANO_LAND_8_REQUIREMENTS": {
+    "resources": {
+      "Wood": 300,
+      "Stone": 100,
+      "Iron": 40,
+      "Gold": 20,
+      "Crimstone": 8,
+      "Oil": 60,
+      "Gem": 30
+    },
+    "sfl": 0,
+    "coins": 768,
+    "seconds": 1800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 74
+    }
+  },
+  "VOLCANO_LAND_9_REQUIREMENTS": {
+    "resources": {
+      "Wood": 400,
+      "Stone": 150,
+      "Iron": 35,
+      "Gold": 25,
+      "Crimstone": 12,
+      "Oil": 90,
+      "Gem": 60
+    },
+    "sfl": 0,
+    "coins": 1152,
+    "seconds": 3600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 76
+    }
+  },
+  "VOLCANO_LAND_10_REQUIREMENTS": {
+    "resources": {
+      "Wood": 450,
+      "Stone": 200,
+      "Iron": 30,
+      "Gold": 20,
+      "Crimstone": 16,
+      "Oil": 120,
+      "Obsidian": 1,
+      "Gem": 60
+    },
+    "sfl": 0,
+    "coins": 1920,
+    "seconds": 7200,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 78
+    }
+  },
+  "VOLCANO_LAND_11_REQUIREMENTS": {
+    "resources": {
+      "Wood": 500,
+      "Stone": 175,
+      "Iron": 30,
+      "Gold": 30,
+      "Crimstone": 20,
+      "Oil": 100,
+      "Gem": 90
+    },
+    "sfl": 0,
+    "coins": 3000,
+    "seconds": 14400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 80
+    }
+  },
+  "VOLCANO_LAND_12_REQUIREMENTS": {
+    "resources": {
+      "Wood": 650,
+      "Stone": 225,
+      "Iron": 25,
+      "Gold": 25,
+      "Crimstone": 24,
+      "Oil": 100,
+      "Obsidian": 2,
+      "Gem": 150
+    },
+    "sfl": 0,
+    "coins": 3840,
+    "seconds": 28800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 82
+    }
+  },
+  "VOLCANO_LAND_13_REQUIREMENTS": {
+    "resources": {
+      "Wood": 550,
+      "Stone": 200,
+      "Iron": 40,
+      "Gold": 30,
+      "Crimstone": 28,
+      "Oil": 100,
+      "Gem": 150
+    },
+    "sfl": 0,
+    "coins": 4800,
+    "seconds": 43200,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 84
+    }
+  },
+  "VOLCANO_LAND_14_REQUIREMENTS": {
+    "resources": {
+      "Wood": 700,
+      "Stone": 250,
+      "Iron": 35,
+      "Gold": 35,
+      "Crimstone": 32,
+      "Oil": 100,
+      "Obsidian": 1,
+      "Gem": 150
+    },
+    "sfl": 0,
+    "coins": 5760,
+    "seconds": 43200,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 86
+    }
+  },
+  "VOLCANO_LAND_15_REQUIREMENTS": {
+    "resources": {
+      "Wood": 650,
+      "Stone": 200,
+      "Iron": 30,
+      "Gold": 40,
+      "Crimstone": 36,
+      "Oil": 200,
+      "Obsidian": 2,
+      "Gem": 150
+    },
+    "sfl": 0,
+    "coins": 6720,
+    "seconds": 86400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 88
+    }
+  },
+  "VOLCANO_LAND_16_REQUIREMENTS": {
+    "resources": {
+      "Wood": 750,
+      "Stone": 250,
+      "Iron": 40,
+      "Gold": 30,
+      "Crimstone": 40,
+      "Oil": 200,
+      "Obsidian": 4,
+      "Gem": 150
+    },
+    "sfl": 0,
+    "coins": 7680,
+    "seconds": 86400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 90
+    }
+  },
+  "VOLCANO_LAND_17_REQUIREMENTS": {
+    "resources": {
+      "Wood": 700,
+      "Stone": 200,
+      "Iron": 35,
+      "Gold": 35,
+      "Crimstone": 44,
+      "Oil": 200,
+      "Obsidian": 4,
+      "Gem": 150
+    },
+    "sfl": 0,
+    "coins": 9600,
+    "seconds": 86400,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 92
+    }
+  },
+  "VOLCANO_LAND_18_REQUIREMENTS": {
+    "resources": {
+      "Wood": 800,
+      "Stone": 300,
+      "Iron": 45,
+      "Gold": 45,
+      "Crimstone": 48,
+      "Oil": 200,
+      "Obsidian": 6,
+      "Gem": 180
+    },
+    "sfl": 0,
+    "coins": 12000,
+    "seconds": 129600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 94
+    }
+  },
+  "VOLCANO_LAND_19_REQUIREMENTS": {
+    "resources": {
+      "Wood": 750,
+      "Stone": 250,
+      "Iron": 40,
+      "Gold": 40,
+      "Crimstone": 52,
+      "Oil": 200,
+      "Obsidian": 6,
+      "Gem": 180
+    },
+    "sfl": 0,
+    "coins": 15360,
+    "seconds": 129600,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 96
+    }
+  },
+  "VOLCANO_LAND_20_REQUIREMENTS": {
+    "resources": {
+      "Wood": 850,
+      "Stone": 300,
+      "Iron": 45,
+      "Gold": 30,
+      "Crimstone": 56,
+      "Oil": 200,
+      "Obsidian": 8,
+      "Gem": 180
+    },
+    "sfl": 0,
+    "coins": 18000,
+    "seconds": 172800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 98
+    }
+  },
+  "VOLCANO_LAND_21_REQUIREMENTS": {
+    "resources": {
+      "Wood": 900,
+      "Stone": 325,
+      "Iron": 50,
+      "Gold": 35,
+      "Crimstone": 60,
+      "Oil": 200,
+      "Obsidian": 8,
+      "Gem": 180
+    },
+    "sfl": 0,
+    "coins": 21600,
+    "seconds": 172800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 100
+    }
+  },
+  "VOLCANO_LAND_22_REQUIREMENTS": {
+    "resources": {
+      "Wood": 800,
+      "Stone": 300,
+      "Iron": 45,
+      "Gold": 30,
+      "Crimstone": 64,
+      "Oil": 200,
+      "Obsidian": 10,
+      "Gem": 180
+    },
+    "sfl": 0,
+    "coins": 25200,
+    "seconds": 172800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 102
+    }
+  },
+  "VOLCANO_LAND_23_REQUIREMENTS": {
+    "resources": {
+      "Wood": 950,
+      "Stone": 350,
+      "Iron": 50,
+      "Gold": 35,
+      "Crimstone": 68,
+      "Oil": 200,
+      "Obsidian": 10,
+      "Gem": 180
+    },
+    "sfl": 0,
+    "coins": 30000,
+    "seconds": 172800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 104
+    }
+  },
+  "VOLCANO_LAND_24_REQUIREMENTS": {
+    "resources": {
+      "Wood": 1000,
+      "Stone": 400,
+      "Iron": 55,
+      "Gold": 40,
+      "Crimstone": 72,
+      "Oil": 300,
+      "Obsidian": 12,
+      "Gem": 180
+    },
+    "sfl": 0,
+    "coins": 33600,
+    "seconds": 172800,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 106
+    }
+  },
+  "VOLCANO_LAND_25_REQUIREMENTS": {
+    "resources": {
+      "Wood": 1100,
+      "Stone": 450,
+      "Iron": 60,
+      "Gold": 35,
+      "Crimstone": 80,
+      "Oil": 300,
+      "Obsidian": 12,
+      "Gem": 180
+    },
+    "sfl": 0,
+    "coins": 38400,
+    "seconds": 216000,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 108
+    }
+  },
+  "VOLCANO_LAND_26_REQUIREMENTS": {
+    "resources": {
+      "Wood": 1200,
+      "Stone": 350,
+      "Iron": 65,
+      "Gold": 30,
+      "Crimstone": 85,
+      "Oil": 300,
+      "Obsidian": 18,
+      "Gem": 180
+    },
+    "sfl": 0,
+    "coins": 42000,
+    "seconds": 216000,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 110
+    }
+  },
+  "VOLCANO_LAND_27_REQUIREMENTS": {
+    "resources": {
+      "Wood": 1250,
+      "Stone": 450,
+      "Iron": 70,
+      "Gold": 40,
+      "Crimstone": 95,
+      "Oil": 300,
+      "Obsidian": 24,
+      "Gem": 225
+    },
+    "sfl": 0,
+    "coins": 45600,
+    "seconds": 216000,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 112
+    }
+  },
+  "VOLCANO_LAND_28_REQUIREMENTS": {
+    "resources": {
+      "Wood": 1150,
+      "Stone": 500,
+      "Iron": 60,
+      "Gold": 45,
+      "Crimstone": 100,
+      "Oil": 300,
+      "Obsidian": 30,
+      "Gem": 225
+    },
+    "sfl": 0,
+    "coins": 50400,
+    "seconds": 216000,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 114
+    }
+  },
+  "VOLCANO_LAND_29_REQUIREMENTS": {
+    "resources": {
+      "Wood": 1350,
+      "Stone": 550,
+      "Iron": 65,
+      "Gold": 40,
+      "Crimstone": 105,
+      "Oil": 300,
+      "Obsidian": 36,
+      "Gem": 225
+    },
+    "sfl": 0,
+    "coins": 54000,
+    "seconds": 259200,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 116
+    }
+  },
+  "VOLCANO_LAND_30_REQUIREMENTS": {
+    "resources": {
+      "Wood": 1500,
+      "Stone": 600,
+      "Iron": 70,
+      "Gold": 50,
+      "Crimstone": 125,
+      "Oil": 300,
+      "Obsidian": 42,
+      "Gem": 225
+    },
+    "sfl": 0,
+    "coins": 60000,
+    "seconds": 259200,
+    "bumpkinLevel": {
+      "ascension": 0,
+      "level": 120
+    }
+  },
+  "EXPANSION_REQUIREMENTS": {
+    "basic": {
+      "4": {
+        "resources": {
+          "Wood": 3
+        },
+        "seconds": 5,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 1
+        }
+      },
+      "5": {
+        "resources": {
+          "Wood": 5
+        },
+        "seconds": 5,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 1
+        },
+        "coins": 0.25
+      },
+      "6": {
+        "resources": {
+          "Stone": 1
+        },
+        "coins": 60,
+        "seconds": 60,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 2
+        }
+      },
+      "7": {
+        "resources": {
+          "Stone": 5,
+          "Iron": 1
+        },
+        "coins": 100,
+        "seconds": 1800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 5
+        }
+      },
+      "8": {
+        "resources": {
+          "Iron": 3,
+          "Gold": 1
+        },
+        "coins": 200,
+        "seconds": 14400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 8
+        }
+      },
+      "9": {
+        "resources": {
+          "Wood": 100,
+          "Stone": 40,
+          "Iron": 5
+        },
+        "coins": 300,
+        "seconds": 43200,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 11
+        }
+      },
+      "10": {
+        "resources": {
+          "Wood": 100,
+          "Stone": 50,
+          "Iron": 5,
+          "Gold": 2,
+          "Gem": 15
+        },
+        "seconds": 86400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 13
+        }
+      },
+      "11": {
+        "resources": {
+          "Gold": 10,
+          "Gem": 15
+        },
+        "seconds": 86400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 15
+        }
+      },
+      "12": {
+        "resources": {
+          "Wood": 500,
+          "Stone": 20,
+          "Gold": 2,
+          "Gem": 15
+        },
+        "seconds": 86400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 17
+        }
+      },
+      "13": {
+        "resources": {
+          "Wood": 100,
+          "Stone": 150,
+          "Gold": 5,
+          "Gem": 15
+        },
+        "seconds": 86400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 20
+        }
+      },
+      "14": {
+        "resources": {
+          "Wood": 40,
+          "Stone": 30,
+          "Iron": 10,
+          "Gold": 10,
+          "Gem": 15
+        },
+        "seconds": 129600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 23
+        }
+      },
+      "15": {
+        "resources": {
+          "Wood": 200,
+          "Gold": 15,
+          "Gem": 15
+        },
+        "seconds": 129600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 26
+        }
+      },
+      "16": {
+        "resources": {
+          "Stone": 150,
+          "Iron": 30,
+          "Gold": 10,
+          "Gem": 15
+        },
+        "seconds": 129600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 30
+        }
+      },
+      "17": {
+        "resources": {
+          "Wood": 200,
+          "Stone": 50,
+          "Gold": 25,
+          "Gem": 15
+        },
+        "seconds": 129600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 34
+        }
+      },
+      "18": {
+        "resources": {
+          "Wood": 300,
+          "Stone": 200,
+          "Iron": 30,
+          "Gold": 10,
+          "Gem": 15
+        },
+        "seconds": 129600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 37
+        }
+      },
+      "19": {
+        "resources": {
+          "Wood": 100,
+          "Stone": 250,
+          "Gold": 30,
+          "Gem": 15
+        },
+        "seconds": 172800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 40
+        }
+      },
+      "20": {
+        "resources": {
+          "Wood": 1000,
+          "Stone": 100,
+          "Iron": 10,
+          "Gold": 25,
+          "Gem": 15
+        },
+        "seconds": 172800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 45
+        }
+      },
+      "21": {
+        "resources": {
+          "Wood": 1500,
+          "Stone": 100,
+          "Iron": 20,
+          "Gold": 25,
+          "Gem": 30
+        },
+        "seconds": 172800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 50
+        }
+      },
+      "22": {
+        "resources": {
+          "Wood": 2000,
+          "Stone": 200,
+          "Iron": 20,
+          "Gold": 40,
+          "Gem": 30
+        },
+        "seconds": 172800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 55
+        }
+      },
+      "23": {
+        "resources": {
+          "Wood": 2000,
+          "Stone": 250,
+          "Iron": 50,
+          "Gold": 60,
+          "Gem": 30
+        },
+        "seconds": 172800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 60
+        }
+      }
+    },
+    "spring": {
+      "5": {
+        "resources": {
+          "Wood": 20
+        },
+        "coins": 100,
+        "seconds": 60,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 11
+        }
+      },
+      "6": {
+        "resources": {
+          "Wood": 10,
+          "Stone": 5,
+          "Gold": 2
+        },
+        "coins": 200,
+        "seconds": 300,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 13
+        }
+      },
+      "7": {
+        "resources": {
+          "Wood": 30,
+          "Stone": 20,
+          "Iron": 5,
+          "Gem": 15
+        },
+        "coins": 300,
+        "seconds": 1800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 16
+        }
+      },
+      "8": {
+        "resources": {
+          "Wood": 20,
+          "Crimstone": 1,
+          "Gem": 15
+        },
+        "coins": 400,
+        "seconds": 7200,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 20
+        }
+      },
+      "9": {
+        "resources": {
+          "Wood": 50,
+          "Gold": 5,
+          "Gem": 15
+        },
+        "coins": 500,
+        "seconds": 7200,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 23
+        }
+      },
+      "10": {
+        "resources": {
+          "Stone": 10,
+          "Crimstone": 3,
+          "Gem": 15
+        },
+        "coins": 500,
+        "seconds": 14400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 25
+        }
+      },
+      "11": {
+        "resources": {
+          "Wood": 100,
+          "Stone": 25,
+          "Gold": 5,
+          "Crimstone": 1,
+          "Gem": 15
+        },
+        "coins": 500,
+        "seconds": 28800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 27
+        }
+      },
+      "12": {
+        "resources": {
+          "Wood": 50,
+          "Iron": 5,
+          "Crimstone": 3,
+          "Gem": 30
+        },
+        "coins": 500,
+        "seconds": 43200,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 29
+        }
+      },
+      "13": {
+        "resources": {
+          "Wood": 50,
+          "Stone": 25,
+          "Iron": 10,
+          "Gold": 10,
+          "Gem": 30
+        },
+        "coins": 500,
+        "seconds": 43200,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 32
+        }
+      },
+      "14": {
+        "resources": {
+          "Wood": 100,
+          "Stone": 10,
+          "Crimstone": 5,
+          "Gem": 30
+        },
+        "coins": 500,
+        "seconds": 86400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 36
+        }
+      },
+      "15": {
+        "resources": {
+          "Wood": 150,
+          "Stone": 10,
+          "Iron": 10,
+          "Gold": 5,
+          "Crimstone": 5,
+          "Gem": 30
+        },
+        "coins": 500,
+        "seconds": 86400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 40
+        }
+      },
+      "16": {
+        "resources": {
+          "Wood": 100,
+          "Stone": 10,
+          "Gold": 5,
+          "Crimstone": 8,
+          "Gem": 30
+        },
+        "coins": 500,
+        "seconds": 86400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 43
+        }
+      },
+      "17": {
+        "resources": {
+          "Wood": 100,
+          "Stone": 20,
+          "Iron": 10,
+          "Gold": 5,
+          "Crimstone": 12,
+          "Gem": 30
+        },
+        "coins": 500,
+        "seconds": 129600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 47
+        }
+      },
+      "18": {
+        "resources": {
+          "Wood": 150,
+          "Stone": 20,
+          "Iron": 10,
+          "Gold": 5,
+          "Crimstone": 16,
+          "Gem": 30
+        },
+        "coins": 500,
+        "seconds": 129600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 51
+        }
+      },
+      "19": {
+        "resources": {
+          "Wood": 150,
+          "Stone": 10,
+          "Iron": 5,
+          "Gold": 5,
+          "Crimstone": 20,
+          "Gem": 30
+        },
+        "coins": 500,
+        "seconds": 129600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 53
+        }
+      },
+      "20": {
+        "resources": {
+          "Wood": 50,
+          "Stone": 5,
+          "Iron": 5,
+          "Gold": 5,
+          "Crimstone": 24,
+          "Gem": 30
+        },
+        "coins": 500,
+        "seconds": 172800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 55
+        }
+      }
+    },
+    "desert": {
+      "5": {
+        "resources": {
+          "Wood": 50,
+          "Stone": 10,
+          "Iron": 5,
+          "Gold": 5
+        },
+        "sfl": 0,
+        "coins": 500,
+        "seconds": 60,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 40
+        }
+      },
+      "6": {
+        "resources": {
+          "Wood": 100,
+          "Stone": 20,
+          "Iron": 10,
+          "Gold": 5
+        },
+        "sfl": 0,
+        "coins": 500,
+        "seconds": 300,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 40
+        }
+      },
+      "7": {
+        "resources": {
+          "Wood": 150,
+          "Stone": 20,
+          "Iron": 10,
+          "Gold": 5,
+          "Gem": 15
+        },
+        "sfl": 0,
+        "coins": 500,
+        "seconds": 1800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 41
+        }
+      },
+      "8": {
+        "resources": {
+          "Wood": 150,
+          "Stone": 10,
+          "Iron": 5,
+          "Gold": 5,
+          "Crimstone": 3,
+          "Oil": 5,
+          "Gem": 30
+        },
+        "sfl": 0,
+        "coins": 500,
+        "seconds": 7200,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 42
+        }
+      },
+      "9": {
+        "resources": {
+          "Wood": 50,
+          "Stone": 5,
+          "Iron": 5,
+          "Gold": 5,
+          "Crimstone": 6,
+          "Oil": 5,
+          "Gem": 30
+        },
+        "sfl": 0,
+        "coins": 500,
+        "seconds": 7200,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 43
+        }
+      },
+      "10": {
+        "resources": {
+          "Wood": 100,
+          "Stone": 50,
+          "Iron": 10,
+          "Gold": 5,
+          "Crimstone": 12,
+          "Oil": 10,
+          "Gem": 45
+        },
+        "sfl": 0,
+        "coins": 384,
+        "seconds": 28800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 44
+        }
+      },
+      "11": {
+        "resources": {
+          "Wood": 150,
+          "Stone": 75,
+          "Iron": 10,
+          "Gold": 5,
+          "Crimstone": 15,
+          "Oil": 30,
+          "Gem": 45
+        },
+        "sfl": 0,
+        "coins": 768,
+        "seconds": 43200,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 45
+        }
+      },
+      "12": {
+        "resources": {
+          "Wood": 100,
+          "Stone": 100,
+          "Iron": 5,
+          "Gold": 10,
+          "Crimstone": 18,
+          "Oil": 30,
+          "Gem": 45
+        },
+        "sfl": 0,
+        "coins": 1536,
+        "seconds": 43200,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 47
+        }
+      },
+      "13": {
+        "resources": {
+          "Wood": 200,
+          "Stone": 50,
+          "Iron": 15,
+          "Gold": 10,
+          "Crimstone": 21,
+          "Oil": 40,
+          "Gem": 45
+        },
+        "sfl": 0,
+        "coins": 3072,
+        "seconds": 86400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 50
+        }
+      },
+      "14": {
+        "resources": {
+          "Wood": 200,
+          "Stone": 100,
+          "Iron": 15,
+          "Gold": 10,
+          "Crimstone": 24,
+          "Oil": 50,
+          "Gem": 45
+        },
+        "sfl": 0,
+        "coins": 3840,
+        "seconds": 86400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 53
+        }
+      },
+      "15": {
+        "resources": {
+          "Wood": 300,
+          "Stone": 50,
+          "Iron": 20,
+          "Gold": 10,
+          "Crimstone": 27,
+          "Oil": 75,
+          "Gem": 45
+        },
+        "sfl": 0,
+        "coins": 3840,
+        "seconds": 86400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 56
+        }
+      },
+      "16": {
+        "resources": {
+          "Wood": 250,
+          "Stone": 125,
+          "Iron": 15,
+          "Gold": 15,
+          "Crimstone": 30,
+          "Oil": 100,
+          "Gem": 60
+        },
+        "sfl": 0,
+        "coins": 3840,
+        "seconds": 129600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 58
+        }
+      },
+      "17": {
+        "resources": {
+          "Wood": 350,
+          "Stone": 75,
+          "Iron": 20,
+          "Gold": 10,
+          "Crimstone": 33,
+          "Oil": 125,
+          "Gem": 60
+        },
+        "sfl": 0,
+        "coins": 5760,
+        "seconds": 129600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 60
+        }
+      },
+      "18": {
+        "resources": {
+          "Wood": 400,
+          "Stone": 125,
+          "Iron": 25,
+          "Gold": 15,
+          "Crimstone": 36,
+          "Oil": 150,
+          "Gem": 75
+        },
+        "sfl": 0,
+        "coins": 5760,
+        "seconds": 129600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 63
+        }
+      },
+      "19": {
+        "resources": {
+          "Wood": 450,
+          "Stone": 150,
+          "Iron": 30,
+          "Gold": 20,
+          "Crimstone": 39,
+          "Oil": 200,
+          "Gem": 60
+        },
+        "sfl": 0,
+        "coins": 7680,
+        "seconds": 129600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 65
+        }
+      },
+      "20": {
+        "resources": {
+          "Wood": 525,
+          "Stone": 200,
+          "Iron": 35,
+          "Gold": 30,
+          "Crimstone": 42,
+          "Oil": 250,
+          "Gem": 60
+        },
+        "sfl": 0,
+        "coins": 7680,
+        "seconds": 172800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 68
+        }
+      },
+      "21": {
+        "resources": {
+          "Wood": 550,
+          "Stone": 150,
+          "Iron": 30,
+          "Gold": 25,
+          "Crimstone": 45,
+          "Oil": 350,
+          "Gem": 60
+        },
+        "sfl": 0,
+        "coins": 9600,
+        "seconds": 172800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 70
+        }
+      },
+      "22": {
+        "resources": {
+          "Wood": 600,
+          "Stone": 200,
+          "Iron": 35,
+          "Gold": 30,
+          "Crimstone": 48,
+          "Oil": 450,
+          "Gem": 75
+        },
+        "sfl": 0,
+        "coins": 9600,
+        "seconds": 172800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 72
+        }
+      },
+      "23": {
+        "resources": {
+          "Wood": 650,
+          "Stone": 250,
+          "Iron": 40,
+          "Gold": 35,
+          "Crimstone": 51,
+          "Oil": 500,
+          "Gem": 75
+        },
+        "sfl": 0,
+        "coins": 9600,
+        "seconds": 216000,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 73
+        }
+      },
+      "24": {
+        "resources": {
+          "Wood": 700,
+          "Stone": 300,
+          "Iron": 50,
+          "Gold": 45,
+          "Crimstone": 54,
+          "Oil": 550,
+          "Gem": 75
+        },
+        "sfl": 0,
+        "coins": 11520,
+        "seconds": 216000,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 74
+        }
+      },
+      "25": {
+        "resources": {
+          "Wood": 750,
+          "Stone": 350,
+          "Iron": 50,
+          "Gold": 50,
+          "Crimstone": 60,
+          "Oil": 650,
+          "Gem": 75
+        },
+        "sfl": 0,
+        "coins": 13440,
+        "seconds": 216000,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 75
+        }
+      }
+    },
+    "volcano": {
+      "6": {
+        "resources": {
+          "Wood": 100,
+          "Stone": 50,
+          "Iron": 30,
+          "Gold": 10
+        },
+        "sfl": 0,
+        "coins": 500,
+        "seconds": 10,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 70
+        }
+      },
+      "7": {
+        "resources": {
+          "Wood": 200,
+          "Stone": 75,
+          "Iron": 25,
+          "Gold": 15,
+          "Crimstone": 4,
+          "Oil": 30,
+          "Gem": 30
+        },
+        "sfl": 0,
+        "coins": 384,
+        "seconds": 300,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 72
+        }
+      },
+      "8": {
+        "resources": {
+          "Wood": 300,
+          "Stone": 100,
+          "Iron": 40,
+          "Gold": 20,
+          "Crimstone": 8,
+          "Oil": 60,
+          "Gem": 30
+        },
+        "sfl": 0,
+        "coins": 768,
+        "seconds": 1800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 74
+        }
+      },
+      "9": {
+        "resources": {
+          "Wood": 400,
+          "Stone": 150,
+          "Iron": 35,
+          "Gold": 25,
+          "Crimstone": 12,
+          "Oil": 90,
+          "Gem": 60
+        },
+        "sfl": 0,
+        "coins": 1152,
+        "seconds": 3600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 76
+        }
+      },
+      "10": {
+        "resources": {
+          "Wood": 450,
+          "Stone": 200,
+          "Iron": 30,
+          "Gold": 20,
+          "Crimstone": 16,
+          "Oil": 120,
+          "Obsidian": 1,
+          "Gem": 60
+        },
+        "sfl": 0,
+        "coins": 1920,
+        "seconds": 7200,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 78
+        }
+      },
+      "11": {
+        "resources": {
+          "Wood": 500,
+          "Stone": 175,
+          "Iron": 30,
+          "Gold": 30,
+          "Crimstone": 20,
+          "Oil": 100,
+          "Gem": 90
+        },
+        "sfl": 0,
+        "coins": 3000,
+        "seconds": 14400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 80
+        }
+      },
+      "12": {
+        "resources": {
+          "Wood": 650,
+          "Stone": 225,
+          "Iron": 25,
+          "Gold": 25,
+          "Crimstone": 24,
+          "Oil": 100,
+          "Obsidian": 2,
+          "Gem": 150
+        },
+        "sfl": 0,
+        "coins": 3840,
+        "seconds": 28800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 82
+        }
+      },
+      "13": {
+        "resources": {
+          "Wood": 550,
+          "Stone": 200,
+          "Iron": 40,
+          "Gold": 30,
+          "Crimstone": 28,
+          "Oil": 100,
+          "Gem": 150
+        },
+        "sfl": 0,
+        "coins": 4800,
+        "seconds": 43200,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 84
+        }
+      },
+      "14": {
+        "resources": {
+          "Wood": 700,
+          "Stone": 250,
+          "Iron": 35,
+          "Gold": 35,
+          "Crimstone": 32,
+          "Oil": 100,
+          "Obsidian": 1,
+          "Gem": 150
+        },
+        "sfl": 0,
+        "coins": 5760,
+        "seconds": 43200,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 86
+        }
+      },
+      "15": {
+        "resources": {
+          "Wood": 650,
+          "Stone": 200,
+          "Iron": 30,
+          "Gold": 40,
+          "Crimstone": 36,
+          "Oil": 200,
+          "Obsidian": 2,
+          "Gem": 150
+        },
+        "sfl": 0,
+        "coins": 6720,
+        "seconds": 86400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 88
+        }
+      },
+      "16": {
+        "resources": {
+          "Wood": 750,
+          "Stone": 250,
+          "Iron": 40,
+          "Gold": 30,
+          "Crimstone": 40,
+          "Oil": 200,
+          "Obsidian": 4,
+          "Gem": 150
+        },
+        "sfl": 0,
+        "coins": 7680,
+        "seconds": 86400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 90
+        }
+      },
+      "17": {
+        "resources": {
+          "Wood": 700,
+          "Stone": 200,
+          "Iron": 35,
+          "Gold": 35,
+          "Crimstone": 44,
+          "Oil": 200,
+          "Obsidian": 4,
+          "Gem": 150
+        },
+        "sfl": 0,
+        "coins": 9600,
+        "seconds": 86400,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 92
+        }
+      },
+      "18": {
+        "resources": {
+          "Wood": 800,
+          "Stone": 300,
+          "Iron": 45,
+          "Gold": 45,
+          "Crimstone": 48,
+          "Oil": 200,
+          "Obsidian": 6,
+          "Gem": 180
+        },
+        "sfl": 0,
+        "coins": 12000,
+        "seconds": 129600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 94
+        }
+      },
+      "19": {
+        "resources": {
+          "Wood": 750,
+          "Stone": 250,
+          "Iron": 40,
+          "Gold": 40,
+          "Crimstone": 52,
+          "Oil": 200,
+          "Obsidian": 6,
+          "Gem": 180
+        },
+        "sfl": 0,
+        "coins": 15360,
+        "seconds": 129600,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 96
+        }
+      },
+      "20": {
+        "resources": {
+          "Wood": 850,
+          "Stone": 300,
+          "Iron": 45,
+          "Gold": 30,
+          "Crimstone": 56,
+          "Oil": 200,
+          "Obsidian": 8,
+          "Gem": 180
+        },
+        "sfl": 0,
+        "coins": 18000,
+        "seconds": 172800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 98
+        }
+      },
+      "21": {
+        "resources": {
+          "Wood": 900,
+          "Stone": 325,
+          "Iron": 50,
+          "Gold": 35,
+          "Crimstone": 60,
+          "Oil": 200,
+          "Obsidian": 8,
+          "Gem": 180
+        },
+        "sfl": 0,
+        "coins": 21600,
+        "seconds": 172800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 100
+        }
+      },
+      "22": {
+        "resources": {
+          "Wood": 800,
+          "Stone": 300,
+          "Iron": 45,
+          "Gold": 30,
+          "Crimstone": 64,
+          "Oil": 200,
+          "Obsidian": 10,
+          "Gem": 180
+        },
+        "sfl": 0,
+        "coins": 25200,
+        "seconds": 172800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 102
+        }
+      },
+      "23": {
+        "resources": {
+          "Wood": 950,
+          "Stone": 350,
+          "Iron": 50,
+          "Gold": 35,
+          "Crimstone": 68,
+          "Oil": 200,
+          "Obsidian": 10,
+          "Gem": 180
+        },
+        "sfl": 0,
+        "coins": 30000,
+        "seconds": 172800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 104
+        }
+      },
+      "24": {
+        "resources": {
+          "Wood": 1000,
+          "Stone": 400,
+          "Iron": 55,
+          "Gold": 40,
+          "Crimstone": 72,
+          "Oil": 300,
+          "Obsidian": 12,
+          "Gem": 180
+        },
+        "sfl": 0,
+        "coins": 33600,
+        "seconds": 172800,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 106
+        }
+      },
+      "25": {
+        "resources": {
+          "Wood": 1100,
+          "Stone": 450,
+          "Iron": 60,
+          "Gold": 35,
+          "Crimstone": 80,
+          "Oil": 300,
+          "Obsidian": 12,
+          "Gem": 180
+        },
+        "sfl": 0,
+        "coins": 38400,
+        "seconds": 216000,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 108
+        }
+      },
+      "26": {
+        "resources": {
+          "Wood": 1200,
+          "Stone": 350,
+          "Iron": 65,
+          "Gold": 30,
+          "Crimstone": 85,
+          "Oil": 300,
+          "Obsidian": 18,
+          "Gem": 180
+        },
+        "sfl": 0,
+        "coins": 42000,
+        "seconds": 216000,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 110
+        }
+      },
+      "27": {
+        "resources": {
+          "Wood": 1250,
+          "Stone": 450,
+          "Iron": 70,
+          "Gold": 40,
+          "Crimstone": 95,
+          "Oil": 300,
+          "Obsidian": 24,
+          "Gem": 225
+        },
+        "sfl": 0,
+        "coins": 45600,
+        "seconds": 216000,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 112
+        }
+      },
+      "28": {
+        "resources": {
+          "Wood": 1150,
+          "Stone": 500,
+          "Iron": 60,
+          "Gold": 45,
+          "Crimstone": 100,
+          "Oil": 300,
+          "Obsidian": 30,
+          "Gem": 225
+        },
+        "sfl": 0,
+        "coins": 50400,
+        "seconds": 216000,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 114
+        }
+      },
+      "29": {
+        "resources": {
+          "Wood": 1350,
+          "Stone": 550,
+          "Iron": 65,
+          "Gold": 40,
+          "Crimstone": 105,
+          "Oil": 300,
+          "Obsidian": 36,
+          "Gem": 225
+        },
+        "sfl": 0,
+        "coins": 54000,
+        "seconds": 259200,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 116
+        }
+      },
+      "30": {
+        "resources": {
+          "Wood": 1500,
+          "Stone": 600,
+          "Iron": 70,
+          "Gold": 50,
+          "Crimstone": 125,
+          "Oil": 300,
+          "Obsidian": 42,
+          "Gem": 225
+        },
+        "sfl": 0,
+        "coins": 60000,
+        "seconds": 259200,
+        "bumpkinLevel": {
+          "ascension": 0,
+          "level": 120
+        }
+      }
+    }
+  }
+}

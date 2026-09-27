@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { marked } from "marked";
 import { api } from "./api.js";
@@ -1091,14 +1091,286 @@ function Dashboard({ farm, plan }) {
 }
 
 /* ═════════════════════════════════════════════════════════════════════════════
-   TAB 2: PLANNER
+   TAB 2: PLANNER — Optimization Blueprint & What-If Scenario Simulator
 ═════════════════════════════════════════════════════════════════════════════ */
-function Planner({ plan }) {
+function Planner({ plan, farm, market, onOpenChat }) {
+  // What-If Simulator State
+  const [goalType, setGoalType] = useState('FLOWER'); // 'FLOWER' or 'XP'
+  const [targetValue, setTargetValue] = useState(20);
+  const [whatIfs, setWhatIfs] = useState({
+    greenhouse: true,
+    agingShed: false,
+    cropMachine: false,
+    dairySyndicate: false,
+    cashCrops: false,
+  });
+
+  const toggleWhatIf = (key) => setWhatIfs((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  // Dynamic what-if uplifts based on live market prices & farm state
+  const prices = market?.prices ?? {};
+  const olivePrice = prices['Olive'] ?? 0.85;
+  const ricePrice = prices['Rice'] ?? 0.65;
+  const grapePrice = prices['Grape'] ?? 0.95;
+  const avgGhCrop = ((olivePrice + ricePrice + grapePrice) / 3) * 4 * 1.5; // ~5.2 FLOWER/day for 4 pots
+
+  const whatIfDefinitions = [
+    {
+      id: 'greenhouse',
+      icon: '🌿',
+      name: 'Greenhouse Facility',
+      desc: 'Adds 4 climate-controlled pots (Olive, Rice, Grape)',
+      flowerUplift: +avgGhCrop.toFixed(2),
+      xpUplift: 12000,
+      costText: '200 Wood · 50 Stone · 20 Iron · 150 Oil',
+      materials: { Wood: 200, Stone: 50, Iron: 20, Oil: 150 },
+    },
+    {
+      id: 'agingShed',
+      icon: '🍷',
+      name: 'Aging Shed Fermentation',
+      desc: 'Ferments wine & specialty cheeses with 1.5x price multiplier',
+      flowerUplift: 3.8,
+      xpUplift: 8500,
+      costText: '150 Wood · 40 Stone · 15 Iron',
+      materials: { Wood: 150, Stone: 40, Iron: 15 },
+    },
+    {
+      id: 'cropMachine',
+      icon: '🚜',
+      name: 'Crop Machine 24/7 Automation',
+      desc: 'Automatic oil-fueled continuous replanting on active plots',
+      flowerUplift: 4.5,
+      xpUplift: 25000,
+      costText: '80 Oil / 24h · 100 Iron',
+      materials: { Iron: 100, Oil: 80 },
+    },
+    {
+      id: 'dairySyndicate',
+      icon: '🐮',
+      name: 'Dairy Syndicate (Barn + Deli)',
+      desc: '15 Cows + artisan Deli cheese/butter processing',
+      flowerUplift: 6.1,
+      xpUplift: 18000,
+      costText: '300 Wood · 100 Stone · 30 Gold',
+      materials: { Wood: 300, Stone: 100, Gold: 30 },
+    },
+    {
+      id: 'cashCrops',
+      icon: '🌾',
+      name: 'High-Value Cash Crop Shift',
+      desc: 'Reallocate 54 Desert plots to top live market cash crops',
+      flowerUplift: 3.2,
+      xpUplift: 5000,
+      costText: 'Operational shift (Requires seed capital)',
+      materials: {},
+    },
+  ];
+
+  // Calculate baseline production
+  const baselineFlower = useMemo(() => {
+    let b = 2.4; // standard baseline daily farm output
+    if (farm?.production?.active?.length) {
+      const p = farm.production.active.reduce((sum, item) => sum + (prices[item.item] ?? 0.05), 0);
+      b = Math.max(b, +(p * 2).toFixed(2));
+    }
+    return b;
+  }, [farm, prices]);
+
+  const baselineXp = useMemo(() => {
+    return plan?.buildings?.reduce((sum, b) => sum + (b.batchXp || 0), 0) || 15000;
+  }, [plan]);
+
+  // Calculate simulated totals
+  const { simFlower, simXp } = useMemo(() => {
+    let simFlower = baselineFlower;
+    let simXp = baselineXp;
+    for (const def of whatIfDefinitions) {
+      if (whatIfs[def.id]) {
+        simFlower += def.flowerUplift;
+        simXp += def.xpUplift;
+      }
+    }
+    return { simFlower: +simFlower.toFixed(2), simXp };
+  }, [baselineFlower, baselineXp, whatIfs]);
+
+  const currentSim = goalType === 'FLOWER' ? simFlower : simXp;
+  const currentBaseline = goalType === 'FLOWER' ? baselineFlower : baselineXp;
+  const target = targetValue || 1;
+  const progressPercent = Math.min(Math.round((currentSim / target) * 100), 100);
+  const gap = +(target - currentSim).toFixed(2);
+  const isGoalMet = currentSim >= target;
+
   if (!plan) return <div className="py-12 text-center text-sm text-[#888] animate-pulse">🗺️ Calculating optimal farming route...</div>;
   if (plan.error) return <Callout icon="❌" type="danger" title="Optimization Error">{plan.error}</Callout>;
 
   return (
     <div className="space-y-6">
+      {/* ─── WHAT-IF SCENARIO SIMULATOR & GOAL FORECASTER ─────────────────────────── */}
+      <BlockCard
+        icon="🔮"
+        title="What-If Scenario Simulator & Goal Forecaster"
+        right={<Tag color="amber">Live SFL Engine</Tag>}
+      >
+        <div className="space-y-5">
+          <p className="text-xs text-[#787774] dark:text-[#aaa] leading-relaxed">
+            Test hypothetical farm upgrades in an isolated sandbox. Simulate what happens to your daily <span className="text-amber-500 font-semibold font-mono">FLOWER</span> and <span className="text-emerald-500 font-semibold font-mono">XP</span> production if you construct new facilities or optimize crop rotations.
+          </p>
+
+          {/* Goal Selector Header */}
+          <div className="p-3.5 rounded-xl bg-black/[0.03] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span className="text-sm">🎯</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#333] dark:text-[#ccc]">Target Goal:</span>
+                <div className="flex bg-black/5 dark:bg-white/10 rounded p-0.5 text-xs font-mono">
+                  <button
+                    onClick={() => { setGoalType('FLOWER'); setTargetValue(20); }}
+                    className={`px-2 py-0.5 rounded transition-colors ${goalType === 'FLOWER' ? 'bg-amber-400 text-black font-bold shadow-xs' : 'text-[#888]'}`}
+                  >
+                    🌸 FLOWER / Day
+                  </button>
+                  <button
+                    onClick={() => { setGoalType('XP'); setTargetValue(50000); }}
+                    className={`px-2 py-0.5 rounded transition-colors ${goalType === 'XP' ? 'bg-emerald-400 text-black font-bold shadow-xs' : 'text-[#888]'}`}
+                  >
+                    ⭐ XP / Day
+                  </button>
+                </div>
+              </div>
+
+              {/* Goal Presets */}
+              <div className="flex items-center gap-1.5 text-[11px] font-mono">
+                {goalType === 'FLOWER' ? (
+                  <>
+                    <button onClick={() => setTargetValue(10)} className={`px-2 py-0.5 rounded border transition-colors ${targetValue === 10 ? 'border-amber-400 bg-amber-400/10 text-amber-500 font-bold' : 'border-black/10 dark:border-white/10 text-[#888]'}`}>10 🌸</button>
+                    <button onClick={() => setTargetValue(20)} className={`px-2 py-0.5 rounded border transition-colors ${targetValue === 20 ? 'border-amber-400 bg-amber-400/10 text-amber-500 font-bold' : 'border-black/10 dark:border-white/10 text-[#888]'}`}>20 🌸 (Goal)</button>
+                    <button onClick={() => setTargetValue(50)} className={`px-2 py-0.5 rounded border transition-colors ${targetValue === 50 ? 'border-amber-400 bg-amber-400/10 text-amber-500 font-bold' : 'border-black/10 dark:border-white/10 text-[#888]'}`}>50 🌸</button>
+                  </>
+                ) : (
+                  <>
+                    <button onClick={() => setTargetValue(30000)} className={`px-2 py-0.5 rounded border transition-colors ${targetValue === 30000 ? 'border-emerald-400 bg-emerald-400/10 text-emerald-500 font-bold' : 'border-black/10 dark:border-white/10 text-[#888]'}`}>30k XP</button>
+                    <button onClick={() => setTargetValue(50000)} className={`px-2 py-0.5 rounded border transition-colors ${targetValue === 50000 ? 'border-emerald-400 bg-emerald-400/10 text-emerald-500 font-bold' : 'border-black/10 dark:border-white/10 text-[#888]'}`}>50k XP</button>
+                    <button onClick={() => setTargetValue(100000)} className={`px-2 py-0.5 rounded border transition-colors ${targetValue === 100000 ? 'border-emerald-400 bg-emerald-400/10 text-emerald-500 font-bold' : 'border-black/10 dark:border-white/10 text-[#888]'}`}>100k XP</button>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Projection Comparison Bar */}
+            <div className="pt-2 border-t border-black/5 dark:border-white/5 space-y-2">
+              <div className="flex justify-between items-center text-xs font-mono">
+                <span>
+                  Baseline: <span className="font-bold text-[#888]">{goalType === 'FLOWER' ? `🌸 ${currentBaseline.toFixed(2)}/d` : `⭐ +${fmt(currentBaseline)}/d`}</span>
+                  {' ➔ '}
+                  Simulated: <span className="font-bold text-amber-500 dark:text-amber-400">{goalType === 'FLOWER' ? `🌸 ${simFlower.toFixed(2)}/d` : `⭐ +${fmt(simXp)}/d`}</span>
+                </span>
+                <span className={`font-bold ${isGoalMet ? 'text-emerald-500' : 'text-amber-500'}`}>
+                  {isGoalMet ? `✅ Goal Reached (+${Math.abs(gap)} surplus)` : `⏳ Shortfall: ${gap} ${goalType === 'FLOWER' ? 'FLOWER' : 'XP'} needed`}
+                </span>
+              </div>
+
+              {/* Progress bar */}
+              <div className="h-2.5 bg-black/10 dark:bg-white/10 rounded-full overflow-hidden">
+                <div
+                  className={`h-full transition-all duration-500 rounded-full ${isGoalMet ? 'bg-gradient-to-r from-emerald-500 to-emerald-400' : 'bg-gradient-to-r from-amber-500 to-amber-400'}`}
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+              <div className="flex justify-between text-[10px] font-mono text-[#888]">
+                <span>0</span>
+                <span>{progressPercent}% of {target} {goalType === 'FLOWER' ? 'FLOWER' : 'XP'} Target</span>
+                <span>{target}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive What-If Scenario Toggles */}
+          <div className="space-y-2">
+            <div className="text-xs font-bold uppercase tracking-wider text-[#787774] dark:text-[#aaa] mb-1">
+              Apply Hypothetical Conditions:
+            </div>
+            <div className="grid sm:grid-cols-2 gap-2.5">
+              {whatIfDefinitions.map((def) => {
+                const active = whatIfs[def.id];
+                const inv = farm?.inventory ?? {};
+                // Check inventory feasibility
+                const missingMats = Object.entries(def.materials).filter(([mat, need]) => (inv[mat] ?? 0) < need);
+                const isAffordable = missingMats.length === 0;
+
+                return (
+                  <div
+                    key={def.id}
+                    onClick={() => toggleWhatIf(def.id)}
+                    className={`cursor-pointer p-3 rounded-xl border transition-all select-none ${
+                      active
+                        ? 'border-amber-400 bg-amber-400/5 dark:bg-amber-400/10 shadow-xs'
+                        : 'border-black/10 dark:border-white/10 hover:border-black/20 dark:hover:border-white/20 bg-white/40 dark:bg-black/20 opacity-80'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-lg">{def.icon}</span>
+                        <div>
+                          <div className="text-xs font-bold text-[#1a1a1a] dark:text-white flex items-center gap-1.5">
+                            {def.name}
+                            {active && <span className="text-[10px] font-mono text-amber-500 font-normal">Active</span>}
+                          </div>
+                          <div className="text-[11px] text-[#787774] dark:text-[#999]">{def.desc}</div>
+                        </div>
+                      </div>
+                      <input
+                        type="checkbox"
+                        checked={active}
+                        onChange={() => {}}
+                        className="rounded border-gray-400 text-amber-500 focus:ring-amber-400 mt-1 pointer-events-none"
+                      />
+                    </div>
+
+                    <div className="mt-2 pt-2 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-[11px] font-mono">
+                      <span className="text-amber-500 font-semibold">
+                        +🌸 {def.flowerUplift.toFixed(2)}/d · +⭐ {fmt(def.xpUplift)}/d
+                      </span>
+                      <span className={`text-[10px] ${isAffordable ? 'text-emerald-500' : 'text-[#888]'}`}>
+                        {def.costText}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Actionable Strategy Recommendation */}
+          <div className="p-3.5 rounded-xl bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-transparent border border-amber-500/20 text-xs space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-[#1a1a1a] dark:text-white flex items-center gap-1.5">
+                <span>💡</span> Strategic Recommendation for {target} {goalType === 'FLOWER' ? 'FLOWER' : 'XP'}/Day:
+              </span>
+              {onOpenChat && (
+                <button
+                  onClick={() => onOpenChat(`What if I build a Greenhouse? How can I reach my goal of ${target} FLOWER per day?`)}
+                  className="text-[11px] font-mono text-amber-500 hover:text-amber-400 hover:underline flex items-center gap-1"
+                >
+                  Ask the Jester ↗
+                </button>
+              )}
+            </div>
+            <p className="text-[#666] dark:text-[#bbb] leading-relaxed">
+              {isGoalMet ? (
+                <>
+                  With your selected hypothetical configuration, your farm is projected to produce <strong className="text-amber-500 font-mono">🌸 {simFlower.toFixed(2)} FLOWER/day</strong>, successfully meeting your {target} {goalType} target! Prioritize securing <strong>200 Wood</strong> and <strong>150 Oil</strong> to bring the Greenhouse and automated processing online.
+                </>
+              ) : (
+                <>
+                  Your current selected hypotheticals reach <strong className="text-amber-500 font-mono">🌸 {simFlower.toFixed(2)} FLOWER/day</strong>, leaving a shortfall of <strong className="text-rose-400 font-mono">{gap} FLOWER</strong>. Enable additional upgrades above or combine with high-tier cooking deliveries to reach your {target} FLOWER milestone.
+                </>
+              )}
+            </p>
+          </div>
+        </div>
+      </BlockCard>
+
       {/* Notion Database Table View */}
       <BlockCard
         icon="📋"
@@ -1178,6 +1450,7 @@ function Planner({ plan }) {
     </div>
   );
 }
+
 
 /* ═════════════════════════════════════════════════════════════════════════════
    TAB 3: MARKET
@@ -1267,68 +1540,1256 @@ function Market({ farm, market }) {
 }
 
 /* ═════════════════════════════════════════════════════════════════════════════
-   TAB 4: ACTIVITY
+   TAB 4: DELTA TRACKER — Activity + Daily Production with FLOWER Valuation
 ═════════════════════════════════════════════════════════════════════════════ */
-function Activity() {
-  const [a, setA] = useState(null);
-  useEffect(() => { api.activity().then(setA); }, []);
+/* Helper to resolve client-side item valuation when displaying itemized movements */
+function resolveClientPrice(item, prices = {}) {
+  if (!item) return 0;
+  if (prices[item] != null && prices[item] > 0) return prices[item];
+  if (item === 'FLOWER' || item === 'FLOWER (Direct)') return 1.0;
+  if (item.endsWith(' Seed')) {
+    const crop = item.slice(0, -5).trim();
+    const cp = resolveClientPrice(crop, prices);
+    if (cp > 0) return +(cp * 0.4).toFixed(6);
+  }
+  if (item.endsWith(' Plant')) {
+    const crop = item.slice(0, -6).trim();
+    const cp = resolveClientPrice(crop, prices);
+    if (cp > 0) return +(cp * 0.4).toFixed(6);
+  }
+  const woodPrice = prices['Wood'] ?? 0.0019;
+  const stonePrice = prices['Stone'] ?? 0.002;
+  const ironPrice = prices['Iron'] ?? 0.005;
+  const goldPrice = prices['Gold'] ?? 0.01;
+  if (item === 'Axe') return +(5 * woodPrice + 1 * stonePrice).toFixed(6);
+  if (item === 'Pickaxe') return +(5 * woodPrice + 2 * stonePrice).toFixed(6);
+  if (item === 'Stone Pickaxe') return +(3 * stonePrice + 5 * woodPrice).toFixed(6);
+  if (item === 'Iron Pickaxe') return +(5 * ironPrice + 5 * woodPrice).toFixed(6);
+  if (item === 'Gold Pickaxe') return +(5 * goldPrice + 5 * woodPrice).toFixed(6);
+  if (item === 'Rod') return +(5 * woodPrice).toFixed(6);
+  if (item === 'Sand Shovel') return +(2 * woodPrice + 1 * stonePrice).toFixed(6);
+  if (item === 'Sand Drill') return +(5 * woodPrice + 1 * ironPrice).toFixed(6);
+  if (item === 'Oil Drill') return +(5 * woodPrice + 5 * ironPrice).toFixed(6);
+  const wheatPrice = prices['Wheat'] ?? 0.035;
+  const cornPrice = prices['Corn'] ?? 0.015;
+  const barleyPrice = prices['Barley'] ?? 0.012;
+  if (item === 'Hay') return +(3 * wheatPrice).toFixed(6);
+  if (item === 'Kernel Blend') return +(3 * cornPrice).toFixed(6);
+  if (item === 'NutriBarley') return +(3 * barleyPrice).toFixed(6);
+  if (item === 'Mixed Grain') return +(2 * wheatPrice + 2 * cornPrice + 1 * barleyPrice).toFixed(6);
+  if (item === 'Omnifeed') return 0.05;
+  return 0;
+}
 
-  if (!a) return <div className="py-12 text-center text-sm text-[#888] animate-pulse">📊 Analyzing snapshot differences...</div>;
-  if (a.error || a.note) {
+/* ═════════════════════════════════════════════════════════════════════════════
+   INTERACTIVE PRODUCTION & EXPENDITURE GRAPH CHART
+═════════════════════════════════════════════════════════════════════════════ */
+function ProductionGraphChart({
+  days = [],
+  daysWindow = 7,
+  setDaysWindow,
+  selectedDay,
+  onSelectDay,
+}) {
+  const [chartMode, setChartMode] = useState('bars'); // 'bars' | 'area'
+  const [showProduced, setShowProduced] = useState(true);
+  const [showSpent, setShowSpent] = useState(true);
+  const [showNet, setShowNet] = useState(true);
+  const [hoveredIdx, setHoveredIdx] = useState(null);
+
+  if (!days || days.length === 0) {
     return (
-      <Callout icon="📊" type="info" title="Snapshot History Pending">
-        {a.note ?? a.error} Activity compares your two most recent snapshots. Play Sunflower Land and refresh the farm to generate delta reports.
-      </Callout>
+      <div className="py-12 text-center text-xs text-[#888] font-mono">
+        No daily production records available for the selected timeframe.
+      </div>
     );
   }
 
-  const obs = Object.entries(a.observed ?? {}).sort(([, x], [, y]) => Math.abs(y) - Math.abs(x));
-  const inf = Object.entries(a.inferred ?? {}).sort(([, x], [, y]) => Math.abs(y) - Math.abs(x));
-  const Delta = ({ v }) => (
-    <span className={`font-mono font-semibold ${v > 0 ? "text-emerald-500" : "text-rose-400"}`}>
-      {v > 0 ? "+" : ""}{fmt(v, 2)}
-    </span>
+  const svgWidth = 760;
+  const svgHeight = 260;
+  const pad = { top: 25, right: 30, bottom: 40, left: 55 };
+  const plotW = svgWidth - pad.left - pad.right; // 675
+  const plotH = svgHeight - pad.top - pad.bottom; // 195
+  const baselineY = pad.top + plotH;
+
+  // Max value for Y scale
+  const maxFlowerVal = Math.max(
+    ...days.map((d) =>
+      Math.max(
+        showProduced ? d.producedFlower ?? 0 : 0,
+        showSpent ? d.spentFlower ?? 0 : 0,
+        showNet ? Math.max(0, d.netFlower ?? 0) : 0
+      )
+    ),
+    0.05
   );
+  // Add 15% breathing room, rounded to a clean number
+  const yMax = Math.ceil(maxFlowerVal * 1.15 * 10) / 10 || 1;
+
+  const yPos = (val) => baselineY - (Math.max(0, val) / yMax) * plotH;
+
+  const N = days.length;
+  const slotW = plotW / N;
+  const barW = Math.min(Math.max(slotW * 0.28, 8), 24);
+
+  // Month abbreviations
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const formatDayLabel = (dateStr) => {
+    if (!dateStr) return '';
+    const parts = dateStr.split('-');
+    if (parts.length < 3) return dateStr;
+    const m = monthNames[parseInt(parts[1], 10) - 1] || parts[1];
+    return `${m} ${parts[2]}`;
+  };
+
+  // Points for curves
+  const pointsProduced = days.map((d, i) => ({
+    x: N > 1 ? pad.left + (i / (N - 1)) * plotW : pad.left + plotW / 2,
+    y: yPos(d.producedFlower ?? 0),
+    val: d.producedFlower ?? 0,
+    day: d,
+  }));
+
+  const pointsSpent = days.map((d, i) => ({
+    x: N > 1 ? pad.left + (i / (N - 1)) * plotW : pad.left + plotW / 2,
+    y: yPos(d.spentFlower ?? 0),
+    val: d.spentFlower ?? 0,
+    day: d,
+  }));
+
+  const pointsNet = days.map((d, i) => ({
+    x: N > 1 ? pad.left + (i / (N - 1)) * plotW : pad.left + plotW / 2,
+    y: yPos(Math.max(0, d.netFlower ?? 0)),
+    val: d.netFlower ?? 0,
+    day: d,
+  }));
+
+  // Smooth cubic Bézier spline generator
+  const createSpline = (pts) => {
+    if (pts.length === 0) return '';
+    if (pts.length === 1) return `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
+    let path = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p0 = i === 0 ? pts[0] : pts[i - 1];
+      const p1 = pts[i];
+      const p2 = pts[i + 1];
+      const p3 = i + 2 < pts.length ? pts[i + 2] : p2;
+      const cp1x = p1.x + (p2.x - p0.x) / 6;
+      const cp1y = p1.y + (p2.y - p0.y) / 6;
+      const cp2x = p2.x - (p3.x - p1.x) / 6;
+      const cp2y = p2.y - (p3.y - p1.y) / 6;
+      path += ` C ${cp1x.toFixed(1)} ${cp1y.toFixed(1)}, ${cp2x.toFixed(1)} ${cp2y.toFixed(1)}, ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
+    }
+    return path;
+  };
+
+  const splineProduced = createSpline(pointsProduced);
+  const areaProduced =
+    pointsProduced.length > 1
+      ? `${splineProduced} L ${pointsProduced[pointsProduced.length - 1].x.toFixed(1)} ${baselineY} L ${pointsProduced[0].x.toFixed(1)} ${baselineY} Z`
+      : '';
+
+  const splineSpent = createSpline(pointsSpent);
+  const areaSpent =
+    pointsSpent.length > 1
+      ? `${splineSpent} L ${pointsSpent[pointsSpent.length - 1].x.toFixed(1)} ${baselineY} L ${pointsSpent[0].x.toFixed(1)} ${baselineY} Z`
+      : '';
+
+  const splineNet = createSpline(pointsNet);
+
+  // Y-axis ticks
+  const yTicks = [0, yMax * 0.25, yMax * 0.5, yMax * 0.75, yMax];
+
+  const hoveredDay = hoveredIdx != null ? days[hoveredIdx] : null;
+  const hoveredX =
+    hoveredIdx != null
+      ? chartMode === 'bars'
+        ? pad.left + (hoveredIdx + 0.5) * slotW
+        : N > 1
+        ? pad.left + (hoveredIdx / (N - 1)) * plotW
+        : pad.left + plotW / 2
+      : null;
+
+  const inspectedDay = selectedDay ? days.find((d) => d.date === selectedDay) : null;
 
   return (
-    <div className="space-y-6">
-      <div className="grid sm:grid-cols-2 gap-3">
-        <MetricStat icon="⭐" label="XP Delta" value={`+${fmt(a.xpDelta)}`} sub="between last two snapshots" trend="Live Delta" />
-        <MetricStat icon="🕒" label="Observation Window" value={a.from && a.to ? `${((a.to - a.from) / 3600000).toFixed(1)}h` : "—"} sub={a.to ? new Date(a.to).toLocaleString() : ""} />
-      </div>
+    <div className="space-y-4">
+      {/* Chart Card */}
+      <BlockCard
+        icon="📈"
+        title="Production & Expenditure Graph Chart"
+        right={
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Chart Mode Toggle */}
+            <div className="flex bg-black/5 dark:bg-white/10 rounded-lg p-0.5 text-xs font-mono">
+              <button
+                onClick={() => setChartMode('bars')}
+                className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
+                  chartMode === 'bars'
+                    ? 'bg-amber-400 text-black font-bold shadow-xs'
+                    : 'text-[#888] hover:text-white'
+                }`}
+              >
+                📊 Grouped Bars
+              </button>
+              <button
+                onClick={() => setChartMode('area')}
+                className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
+                  chartMode === 'area'
+                    ? 'bg-amber-400 text-black font-bold shadow-xs'
+                    : 'text-[#888] hover:text-white'
+                }`}
+              >
+                📈 Area Trend
+              </button>
+            </div>
 
-      <BlockCard icon="⚡" title="Observed Event Counters" right={<Tag color="green">exact · farmActivity</Tag>}>
-        {obs.length === 0 ? (
-          <p className="text-xs text-[#888] font-mono">No counter changes detected in this window.</p>
-        ) : (
-          <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-xs font-mono">
-            {obs.map(([k, v]) => (
-              <div key={k} className="flex justify-between py-1.5 border-b border-black/5 dark:border-white/5">
-                <span className="text-[#787774] dark:text-[#aaa] truncate">{k}</span>
-                <Delta v={v} />
-              </div>
-            ))}
+            {/* Days Window Selector */}
+            {setDaysWindow && (
+              <select
+                value={daysWindow}
+                onChange={(e) => setDaysWindow(Number(e.target.value))}
+                className="bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 rounded px-2 py-0.5 text-xs text-[#555] dark:text-white outline-none cursor-pointer font-mono"
+              >
+                <option value={3}>Last 3 days</option>
+                <option value={7}>Last 7 days</option>
+                <option value={14}>Last 14 days</option>
+                <option value={30}>Last 30 days</option>
+              </select>
+            )}
           </div>
-        )}
-      </BlockCard>
+        }
+      >
+        <div className="space-y-3">
+          {/* Legend & Series Toggle Filter Chips */}
+          <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono pt-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                onClick={() => setShowProduced(!showProduced)}
+                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all border cursor-pointer ${
+                  showProduced
+                    ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-600 dark:text-emerald-400'
+                    : 'bg-black/5 dark:bg-white/5 border-transparent text-[#888] opacity-60'
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>🌸 Produced (Inflow)</span>
+              </button>
 
-      <BlockCard icon="📦" title="Inferred Inventory Fluctuations" right={<Tag color="gray">inferred · cross-check</Tag>}>
-        {inf.length === 0 ? (
-          <p className="text-xs text-[#888] font-mono">No net inventory movements recorded.</p>
-        ) : (
-          <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-xs font-mono">
-            {inf.map(([k, v]) => (
-              <div key={k} className="flex justify-between py-1.5 border-b border-black/5 dark:border-white/5">
-                <span className="text-[#787774] dark:text-[#aaa] truncate">{k}</span>
-                <Delta v={v} />
-              </div>
-            ))}
+              <button
+                onClick={() => setShowSpent(!showSpent)}
+                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all border cursor-pointer ${
+                  showSpent
+                    ? 'bg-rose-500/15 border-rose-500/40 text-rose-500 dark:text-rose-400'
+                    : 'bg-black/5 dark:bg-white/5 border-transparent text-[#888] opacity-60'
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full bg-rose-500"></span>
+                <span>💸 Spent (Outflow)</span>
+              </button>
+
+              <button
+                onClick={() => setShowNet(!showNet)}
+                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all border cursor-pointer ${
+                  showNet
+                    ? 'bg-cyan-500/15 border-cyan-500/40 text-cyan-600 dark:text-cyan-400'
+                    : 'bg-black/5 dark:bg-white/5 border-transparent text-[#888] opacity-60'
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+                <span>⚖️ Net Profit</span>
+              </button>
+            </div>
+
+            <span className="text-[10px] text-[#888] italic hidden sm:inline">
+              Hover over graph points for valuations · Click a day to inspect
+            </span>
           </div>
-        )}
+
+          {/* Interactive SVG Graph Area */}
+          <div className="relative w-full overflow-hidden select-none bg-black/[0.02] dark:bg-black/20 rounded-xl border border-black/5 dark:border-white/5 p-2">
+            <svg
+              viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+              className="w-full h-auto overflow-visible"
+              preserveAspectRatio="xMidYMid meet"
+              onMouseLeave={() => setHoveredIdx(null)}
+            >
+              <defs>
+                {/* Bar Gradients */}
+                <linearGradient id="chart-prod-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#10b981" stopOpacity="0.95" />
+                  <stop offset="100%" stopColor="#059669" stopOpacity="0.6" />
+                </linearGradient>
+
+                <linearGradient id="chart-spent-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#f43f5e" stopOpacity="0.95" />
+                  <stop offset="100%" stopColor="#e11d48" stopOpacity="0.6" />
+                </linearGradient>
+
+                {/* Area Gradients */}
+                <linearGradient id="chart-prod-area" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#10b981" stopOpacity="0.38" />
+                  <stop offset="85%" stopColor="#10b981" stopOpacity="0.04" />
+                  <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+                </linearGradient>
+
+                <linearGradient id="chart-spent-area" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#f43f5e" stopOpacity="0.32" />
+                  <stop offset="85%" stopColor="#f43f5e" stopOpacity="0.03" />
+                  <stop offset="100%" stopColor="#f43f5e" stopOpacity="0.0" />
+                </linearGradient>
+
+                {/* Glow Filter */}
+                <filter id="chart-glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+              </defs>
+
+              {/* Horizontal Gridlines & Y-Axis Ticks */}
+              {yTicks.map((val, idx) => {
+                const y = yPos(val);
+                return (
+                  <g key={idx}>
+                    <line
+                      x1={pad.left}
+                      y1={y}
+                      x2={pad.left + plotW}
+                      y2={y}
+                      stroke="currentColor"
+                      strokeDasharray="3 3"
+                      className="text-black/10 dark:text-white/10"
+                    />
+                    <text
+                      x={pad.left - 8}
+                      y={y + 3.5}
+                      textAnchor="end"
+                      className="text-[10px] font-mono fill-[#888]"
+                    >
+                      {val.toFixed(val >= 10 ? 1 : 2)}
+                    </text>
+                  </g>
+                );
+              })}
+
+              {/* Baseline axis line */}
+              <line
+                x1={pad.left}
+                y1={baselineY}
+                x2={pad.left + plotW}
+                y2={baselineY}
+                stroke="currentColor"
+                className="text-black/20 dark:text-white/20"
+              />
+
+              {/* X-Axis Date Labels */}
+              {days.map((d, i) => {
+                const x =
+                  chartMode === 'bars'
+                    ? pad.left + (i + 0.5) * slotW
+                    : N > 1
+                    ? pad.left + (i / (N - 1)) * plotW
+                    : pad.left + plotW / 2;
+                const isHovered = hoveredIdx === i;
+                const isSelected = selectedDay === d.date;
+
+                return (
+                  <text
+                    key={d.date}
+                    x={x}
+                    y={baselineY + 18}
+                    textAnchor="middle"
+                    className={`text-[10px] font-mono transition-colors ${
+                      isSelected
+                        ? 'fill-amber-400 font-bold'
+                        : isHovered
+                        ? 'fill-white font-bold'
+                        : 'fill-[#787774] dark:fill-[#aaa]'
+                    }`}
+                  >
+                    {formatDayLabel(d.date)}
+                  </text>
+                );
+              })}
+
+              {/* ─── RENDER BARS MODE ────────────────────────────────────────── */}
+              {chartMode === 'bars' && (
+                <g>
+                  {days.map((d, i) => {
+                    const cx = pad.left + (i + 0.5) * slotW;
+                    const prodVal = d.producedFlower ?? 0;
+                    const spentVal = d.spentFlower ?? 0;
+                    const netVal = d.netFlower ?? (prodVal - spentVal);
+
+                    const prodH = Math.max((prodVal / yMax) * plotH, prodVal > 0 ? 3 : 0);
+                    const prodY = baselineY - prodH;
+
+                    const spentH = Math.max((spentVal / yMax) * plotH, spentVal > 0 ? 3 : 0);
+                    const spentY = baselineY - spentH;
+
+                    const isHovered = hoveredIdx === i;
+                    const isSelected = selectedDay === d.date;
+
+                    return (
+                      <g
+                        key={d.date}
+                        className="cursor-pointer"
+                        onClick={() => onSelectDay && onSelectDay(isSelected ? null : d.date)}
+                      >
+                        {/* Day Column Hover Highlight Background */}
+                        {(isHovered || isSelected) && (
+                          <rect
+                            x={pad.left + i * slotW + 2}
+                            y={pad.top}
+                            width={slotW - 4}
+                            height={plotH}
+                            rx="6"
+                            fill="currentColor"
+                            className={
+                              isSelected
+                                ? 'text-amber-500/15'
+                                : 'text-black/5 dark:text-white/5'
+                            }
+                          />
+                        )}
+
+                        {/* Produced Bar */}
+                        {showProduced && prodVal > 0 && (
+                          <rect
+                            x={showSpent ? cx - barW - 2 : cx - barW / 2}
+                            y={prodY}
+                            width={barW}
+                            height={prodH}
+                            rx="3"
+                            fill="url(#chart-prod-grad)"
+                            className="transition-all duration-300"
+                            filter={isHovered ? 'url(#chart-glow)' : undefined}
+                          />
+                        )}
+
+                        {/* Spent Bar */}
+                        {showSpent && spentVal > 0 && (
+                          <rect
+                            x={showProduced ? cx + 2 : cx - barW / 2}
+                            y={spentY}
+                            width={barW}
+                            height={spentH}
+                            rx="3"
+                            fill="url(#chart-spent-grad)"
+                            className="transition-all duration-300"
+                            filter={isHovered ? 'url(#chart-glow)' : undefined}
+                          />
+                        )}
+
+                        {/* Net Indicator Point */}
+                        {showNet && (
+                          <circle
+                            cx={cx}
+                            cy={yPos(Math.max(0, netVal))}
+                            r={isHovered ? 4.5 : 3}
+                            fill="#06b6d4"
+                            stroke="#18181b"
+                            strokeWidth="1.5"
+                          />
+                        )}
+                      </g>
+                    );
+                  })}
+                </g>
+              )}
+
+              {/* ─── RENDER AREA / SPLINE MODE ───────────────────────────────── */}
+              {chartMode === 'area' && (
+                <g>
+                  {/* Produced Area & Curve */}
+                  {showProduced && areaProduced && (
+                    <path d={areaProduced} fill="url(#chart-prod-area)" />
+                  )}
+                  {showProduced && splineProduced && (
+                    <path
+                      d={splineProduced}
+                      fill="none"
+                      stroke="#10b981"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    />
+                  )}
+
+                  {/* Spent Area & Curve */}
+                  {showSpent && areaSpent && (
+                    <path d={areaSpent} fill="url(#chart-spent-area)" />
+                  )}
+                  {showSpent && splineSpent && (
+                    <path
+                      d={splineSpent}
+                      fill="none"
+                      stroke="#f43f5e"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    />
+                  )}
+
+                  {/* Net Profit Curve */}
+                  {showNet && splineNet && (
+                    <path
+                      d={splineNet}
+                      fill="none"
+                      stroke="#06b6d4"
+                      strokeWidth="2"
+                      strokeDasharray="4 3"
+                      strokeLinecap="round"
+                    />
+                  )}
+
+                  {/* Points on Curve */}
+                  {days.map((d, i) => {
+                    const isHovered = hoveredIdx === i;
+                    const pPt = pointsProduced[i];
+                    const sPt = pointsSpent[i];
+
+                    return (
+                      <g key={d.date}>
+                        {showProduced && (
+                          <circle
+                            cx={pPt.x}
+                            cy={pPt.y}
+                            r={isHovered ? 5.5 : 3.5}
+                            fill="#10b981"
+                            stroke="#18181b"
+                            strokeWidth="1.5"
+                            className="transition-all"
+                            filter={isHovered ? 'url(#chart-glow)' : undefined}
+                          />
+                        )}
+                        {showSpent && sPt.val > 0 && (
+                          <circle
+                            cx={sPt.x}
+                            cy={sPt.y}
+                            r={isHovered ? 5.5 : 3.5}
+                            fill="#f43f5e"
+                            stroke="#18181b"
+                            strokeWidth="1.5"
+                            className="transition-all"
+                            filter={isHovered ? 'url(#chart-glow)' : undefined}
+                          />
+                        )}
+                      </g>
+                    );
+                  })}
+                </g>
+              )}
+
+              {/* Vertical Guide Line on Hover */}
+              {hoveredX != null && (
+                <line
+                  x1={hoveredX}
+                  y1={pad.top}
+                  x2={hoveredX}
+                  y2={baselineY}
+                  stroke="#fbbf24"
+                  strokeWidth="1.5"
+                  strokeDasharray="3 3"
+                  className="pointer-events-none"
+                />
+              )}
+
+              {/* Invisible Full-Height Hover Capture Slices */}
+              {days.map((d, i) => {
+                const sliceX =
+                  chartMode === 'bars'
+                    ? pad.left + i * slotW
+                    : N > 1
+                    ? pad.left + (i - 0.5) * (plotW / (N - 1))
+                    : pad.left;
+                const sliceW = chartMode === 'bars' ? slotW : plotW / Math.max(1, N - 1);
+
+                return (
+                  <rect
+                    key={`slice-${d.date}`}
+                    x={sliceX}
+                    y={pad.top}
+                    width={sliceW}
+                    height={plotH}
+                    fill="transparent"
+                    className="cursor-pointer"
+                    onMouseEnter={() => setHoveredIdx(i)}
+                    onClick={() =>
+                      onSelectDay &&
+                      onSelectDay(selectedDay === d.date ? null : d.date)
+                    }
+                  />
+                );
+              })}
+            </svg>
+
+            {/* Floating Glassmorphism Tooltip */}
+            {hoveredDay && hoveredX != null && (
+              <div
+                className="absolute pointer-events-none z-30 px-3.5 py-2.5 rounded-xl bg-[#1c1c1f]/95 text-white border border-white/10 shadow-2xl backdrop-blur-md text-xs font-mono transition-all duration-100 min-w-[210px] space-y-1.5"
+                style={{
+                  left: `${Math.min(
+                    Math.max((hoveredX / svgWidth) * 100, 18),
+                    82
+                  )}%`,
+                  top: '12px',
+                  transform: 'translateX(-50%)',
+                }}
+              >
+                <div className="font-bold text-amber-400 border-b border-white/10 pb-1 flex items-center justify-between gap-3">
+                  <span>📅 {hoveredDay.date}</span>
+                  <span className="text-[10px] text-[#888]">
+                    {hoveredDay.snapshotCount} snapshot{hoveredDay.snapshotCount !== 1 ? 's' : ''}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-emerald-400">
+                  <span className="flex items-center gap-1">🌸 Produced:</span>
+                  <span className="font-bold">+{hoveredDay.producedFlower.toFixed(4)} FLOWER</span>
+                </div>
+                <div className="flex items-center justify-between text-rose-400">
+                  <span className="flex items-center gap-1">💸 Spent:</span>
+                  <span className="font-bold">-{hoveredDay.spentFlower.toFixed(4)} FLOWER</span>
+                </div>
+                <div className="flex items-center justify-between pt-1 border-t border-white/10 font-bold">
+                  <span>⚖️ Net Profit:</span>
+                  <span
+                    className={
+                      hoveredDay.netFlower >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                    }
+                  >
+                    {hoveredDay.netFlower >= 0 ? '+' : ''}
+                    {hoveredDay.netFlower.toFixed(4)} FLOWER
+                  </span>
+                </div>
+                {hoveredDay.xpGained > 0 && (
+                  <div className="flex items-center justify-between text-amber-300 text-[10px]">
+                    <span>⭐ XP Gained:</span>
+                    <span>+{fmt(hoveredDay.xpGained)} XP</span>
+                  </div>
+                )}
+                <div className="text-[9px] text-[#888] pt-0.5 text-center italic">
+                  Click to inspect itemized breakdown
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Selected Day Drilldown Inspector */}
+          {inspectedDay && (
+            <div className="p-3.5 rounded-xl bg-black/[0.03] dark:bg-white/[0.03] border border-amber-500/30 space-y-2.5">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-black/10 dark:border-white/10 pb-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-base">🔎</span>
+                  <span className="font-bold text-sm text-[#1a1a1a] dark:text-white font-mono">
+                    Day Inspection: {inspectedDay.date}
+                  </span>
+                  <span className="text-[10px] font-mono text-[#888] border border-black/10 dark:border-white/10 px-2 py-0.5 rounded">
+                    {inspectedDay.snapshotCount} snapshot{inspectedDay.snapshotCount !== 1 ? 's' : ''}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold">
+                    +{inspectedDay.producedFlower.toFixed(4)} 🌸
+                  </span>
+                  <span className="text-xs font-mono text-rose-500 font-bold">
+                    -{inspectedDay.spentFlower.toFixed(4)} 🌸
+                  </span>
+                  <span
+                    className={`px-2 py-0.5 rounded text-[11px] font-mono font-bold border ${
+                      inspectedDay.netFlower >= 0
+                        ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+                        : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20'
+                    }`}
+                  >
+                    Net: {inspectedDay.netFlower >= 0 ? '+' : ''}
+                    {inspectedDay.netFlower.toFixed(4)} FLOWER
+                  </span>
+                  <button
+                    onClick={() => onSelectDay && onSelectDay(null)}
+                    className="text-xs text-[#888] hover:text-white font-mono px-2 py-0.5 rounded hover:bg-white/10 transition-colors cursor-pointer"
+                    title="Close day inspection"
+                  >
+                    ✕ Close
+                  </button>
+                </div>
+              </div>
+
+              {/* Side-by-Side Day Item Breakdown */}
+              <div className="grid md:grid-cols-2 gap-3 text-xs font-mono">
+                {/* Produced On This Day */}
+                <div className="p-2.5 rounded-lg bg-emerald-500/5 border border-emerald-500/15">
+                  <div className="flex items-center justify-between font-bold text-emerald-600 dark:text-emerald-400 mb-1.5 pb-1 border-b border-emerald-500/20">
+                    <span>🟢 Items Produced (Inflow)</span>
+                    <span>+{inspectedDay.producedFlower.toFixed(4)} FLOWER</span>
+                  </div>
+                  {Object.keys(inspectedDay.produced ?? {}).length === 0 ? (
+                    <p className="text-[10px] text-[#888] py-1">No items produced on this day.</p>
+                  ) : (
+                    <div className="space-y-1 max-h-48 overflow-y-auto">
+                      {Object.entries(inspectedDay.produced ?? {})
+                        .sort(
+                          ([a], [b]) =>
+                            (inspectedDay.valuedProduced?.[b] ?? 0) -
+                            (inspectedDay.valuedProduced?.[a] ?? 0)
+                        )
+                        .map(([item, qty]) => (
+                          <div key={item} className="flex justify-between items-center text-[11px]">
+                            <span className="text-[#787774] dark:text-[#aaa] truncate">
+                              +{qty.toFixed(1)} {item}
+                            </span>
+                            <span className="text-emerald-500 font-semibold">
+                              {inspectedDay.valuedProduced?.[item]
+                                ? `+🌸 ${inspectedDay.valuedProduced[item].toFixed(4)}`
+                                : '—'}
+                            </span>
+                          </div>
+                        ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Spent On This Day */}
+                <div className="p-2.5 rounded-lg bg-rose-500/5 border border-rose-500/15">
+                  <div className="flex items-center justify-between font-bold text-rose-500 dark:text-rose-400 mb-1.5 pb-1 border-b border-rose-500/20">
+                    <span>🔴 Items Spent / Inputs (Outflow)</span>
+                    <span>-{inspectedDay.spentFlower.toFixed(4)} FLOWER</span>
+                  </div>
+                  {Object.keys(inspectedDay.spent ?? {}).length === 0 ? (
+                    <p className="text-[10px] text-[#888] py-1">No items consumed on this day.</p>
+                  ) : (
+                    <div className="space-y-1 max-h-48 overflow-y-auto">
+                      {Object.entries(inspectedDay.spent ?? {})
+                        .sort(
+                          ([a], [b]) =>
+                            (inspectedDay.valuedSpent?.[b] ?? 0) -
+                            (inspectedDay.valuedSpent?.[a] ?? 0)
+                        )
+                        .map(([item, qty]) => (
+                          <div key={item} className="flex justify-between items-center text-[11px]">
+                            <span className="text-[#787774] dark:text-[#aaa] truncate">
+                              -{qty.toFixed(1)} {item}
+                            </span>
+                            <span className="text-rose-400 font-semibold">
+                              {inspectedDay.valuedSpent?.[item]
+                                ? `-🌸 ${inspectedDay.valuedSpent[item].toFixed(4)}`
+                                : '—'}
+                            </span>
+                          </div>
+                        ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </BlockCard>
     </div>
   );
 }
+
+function Activity({ farm, market, onRefresh, refreshing }) {
+  const [a, setA] = useState(null);
+  const [daily, setDaily] = useState(null);
+  const [dailyDays, setDailyDays] = useState(7);
+  const [syncing, setSyncing] = useState(false);
+  const [breakdownTab, setBreakdownTab] = useState('both'); // 'both' | 'produced' | 'spent'
+  const [expandedDay, setExpandedDay] = useState(null);
+  const [fluctuationFilter, setFluctuationFilter] = useState('all'); // 'all' | 'gains' | 'spent'
+
+  const fetchDeltaData = useCallback(() => {
+    api.activity().then(setA).catch(() => {});
+    api.dailyProduction(dailyDays).then(setDaily).catch(() => {});
+  }, [dailyDays]);
+
+  useEffect(() => {
+    fetchDeltaData();
+  }, [fetchDeltaData]);
+
+  const handleManualSync = async () => {
+    setSyncing(true);
+    try {
+      if (onRefresh) await onRefresh();
+      // Delay slightly for Postgres snapshot commit
+      setTimeout(() => {
+        fetchDeltaData();
+        setSyncing(false);
+      }, 600);
+    } catch {
+      setSyncing(false);
+    }
+  };
+
+  // Active In-Ground & Facility Production (Live Capacity)
+  const prices = market?.prices ?? {};
+  const activeProduction = useMemo(() => {
+    const rawItems = farm?.production?.active ?? [];
+    if (rawItems.length === 0) return { items: [], totalFlower: 0, totalSlots: 0 };
+
+    const counts = {};
+    for (const p of rawItems) {
+      const name = p.item || 'Crop';
+      counts[name] = (counts[name] || 0) + (p.amount || 1);
+    }
+
+    let totalFlower = 0;
+    const items = Object.entries(counts).map(([item, qty]) => {
+      const price = resolveClientPrice(item, prices);
+      const flower = +(qty * price).toFixed(4);
+      totalFlower += flower;
+      return { item, qty, price, flower };
+    }).sort((a, b) => b.flower - a.flower);
+
+    return { items, totalFlower: +totalFlower.toFixed(4), totalSlots: rawItems.length };
+  }, [farm, prices]);
+
+  const Delta = ({ v }) => (
+    <span className={`font-mono font-semibold ${v > 0 ? "text-emerald-500" : "text-rose-400"}`}>
+      {v > 0 ? "+" : ""}{fmt(v, 4)}
+    </span>
+  );
+
+  const renderActivity = () => {
+    if (!a) return <div className="py-8 text-center text-sm text-[#888] animate-pulse">Analyzing snapshot delta...</div>;
+    if (!a.hasEnoughData) {
+      return (
+        <Callout icon="📊" type="info" title="Snapshot History Initializing">
+          {a.note ?? "Need at least 2 snapshots to compute delta. Click 'Sync Farm State Now' or refresh after playing Sunflower Land."}
+        </Callout>
+      );
+    }
+    const obs = Object.entries(a.observed ?? {}).sort(([, x], [, y]) => Math.abs(y) - Math.abs(x));
+    const inf = Object.entries(a.inferred ?? {}).sort(([, x], [, y]) => Math.abs(y) - Math.abs(x));
+    const valuation = a.valuation ?? {};
+    const producedItems = Object.entries(valuation.producedPerItem ?? valuation.perItem ?? {}).sort(([, a], [, b]) => b - a);
+    const spentItems = Object.entries(valuation.spentPerItem ?? {}).sort(([, a], [, b]) => b - a);
+    const producedFlower = valuation.producedFlower ?? valuation.totalFlower ?? 0;
+    const spentFlower = valuation.spentFlower ?? 0;
+    const netFlower = valuation.netFlower ?? (producedFlower - spentFlower);
+
+    const hasNetChanges = obs.length > 0 || inf.length > 0 || producedFlower > 0 || spentFlower > 0 || (a.xpDelta ?? 0) !== 0;
+
+    const filteredInf = inf.filter(([, v]) => {
+      if (fluctuationFilter === 'gains') return v > 0;
+      if (fluctuationFilter === 'spent') return v < 0;
+      return true;
+    });
+
+    return (
+      <div className="space-y-4">
+        {/* Top 4 Metrics: Produced, Spent, Net, XP */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <MetricStat icon="🌸" label="Produced (Inflow)" value={`+${producedFlower.toFixed(4)}`} sub="gross gains value" trend="Inflow" />
+          <MetricStat icon="💸" label="Spent (Outflow)" value={`-${spentFlower.toFixed(4)}`} sub="seeds, feed & inputs" trend="Outflow" />
+          <MetricStat
+            icon="⚖️"
+            label="Net Balance"
+            value={`${netFlower >= 0 ? '+' : ''}${netFlower.toFixed(4)}`}
+            sub={netFlower >= 0 ? "net profit surplus" : "net input cost"}
+            trend={netFlower >= 0 ? "Surplus" : "Deficit"}
+          />
+          <MetricStat icon="⭐" label="XP Delta" value={`+${fmt(Math.max(0, a.xpDelta ?? 0))}`} sub="since last snapshot" trend="Live Delta" />
+        </div>
+
+        {/* If no net changes occurred between the snapshots */}
+        {!hasNetChanges && (
+          <div className="p-3.5 rounded-xl border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] flex items-start gap-3">
+            <span className="text-xl">🛡️</span>
+            <div className="text-xs space-y-1">
+              <div className="font-bold text-[#1a1a1a] dark:text-white flex items-center gap-2">
+                <span>Farm State Fully Synchronized</span>
+                <span className="text-[10px] font-mono text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded">0 Net Delta</span>
+              </div>
+              <p className="text-[#787774] dark:text-[#aaa] leading-relaxed">
+                No inventory or XP movements were recorded between the last two recorded snapshots. As you harvest crops, chop timber, or cook dishes in Sunflower Land, click <strong className="text-amber-500">Sync Farm State Now</strong> to pull live Polygon state and log fresh earnings.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Dual Production vs Spent Breakdown Cards */}
+        {(producedItems.length > 0 || spentItems.length > 0) && (
+          <div className="grid md:grid-cols-2 gap-4">
+            {/* Produced Gains */}
+            <BlockCard icon="🌸" title="Produced Items (Inflow)" right={<Tag color="green">+{producedFlower.toFixed(4)} FLOWER</Tag>}>
+              {producedItems.length === 0 ? (
+                <p className="text-xs text-[#888] font-mono py-2">No positive inventory gains in this window.</p>
+              ) : (
+                <div className="space-y-1 text-xs font-mono">
+                  {producedItems.map(([item, flower]) => (
+                    <div key={item} className="flex justify-between py-1 border-b border-black/5 dark:border-white/5">
+                      <span className="text-[#787774] dark:text-[#aaa] truncate flex items-center gap-1.5">
+                        <span className="text-emerald-500 font-bold">+{fmt(a.inferred?.[item] ?? 0)}</span>
+                        <span>{item}</span>
+                      </span>
+                      <span className="text-emerald-500 font-semibold">🌸 +{flower.toFixed(4)}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </BlockCard>
+
+            {/* Spent Costs */}
+            <BlockCard icon="💸" title="Spent Items (Outflow)" right={<Tag color="red">-{spentFlower.toFixed(4)} FLOWER</Tag>}>
+              {spentItems.length === 0 ? (
+                <p className="text-xs text-[#888] font-mono py-2">No items consumed/spent in this window.</p>
+              ) : (
+                <div className="space-y-1 text-xs font-mono">
+                  {spentItems.map(([item, flower]) => (
+                    <div key={item} className="flex justify-between py-1 border-b border-black/5 dark:border-white/5">
+                      <span className="text-[#787774] dark:text-[#aaa] truncate flex items-center gap-1.5">
+                        <span className="text-rose-400 font-bold">-{fmt(Math.abs(a.inferred?.[item] ?? 0))}</span>
+                        <span>{item}</span>
+                      </span>
+                      <span className="text-rose-400 font-semibold">🌸 -{flower.toFixed(4)}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </BlockCard>
+          </div>
+        )}
+
+        <BlockCard icon="⚡" title="Observed Event Counters" right={<Tag color="green">exact · farmActivity</Tag>}>
+          {obs.length === 0
+            ? <p className="text-xs text-[#888] font-mono">No counter changes detected in this window.</p>
+            : <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-xs font-mono">
+                {obs.map(([k, v]) => (
+                  <div key={k} className="flex justify-between py-1.5 border-b border-black/5 dark:border-white/5">
+                    <span className="text-[#787774] dark:text-[#aaa] truncate">{k}</span><Delta v={v} />
+                  </div>
+                ))}
+              </div>}
+        </BlockCard>
+
+        <BlockCard
+          icon="📦"
+          title="Inferred Inventory Fluctuations"
+          right={
+            <div className="flex bg-black/5 dark:bg-white/10 rounded p-0.5 text-[10px] font-mono">
+              <button
+                onClick={() => setFluctuationFilter('all')}
+                className={`px-1.5 py-0.5 rounded transition-all ${fluctuationFilter === 'all' ? 'bg-amber-400 text-black font-bold' : 'text-[#888]'}`}
+              >
+                All ({inf.length})
+              </button>
+              <button
+                onClick={() => setFluctuationFilter('gains')}
+                className={`px-1.5 py-0.5 rounded transition-all ${fluctuationFilter === 'gains' ? 'bg-emerald-500 text-white font-bold' : 'text-[#888]'}`}
+              >
+                🟢 Gains ({inf.filter(([, v]) => v > 0).length})
+              </button>
+              <button
+                onClick={() => setFluctuationFilter('spent')}
+                className={`px-1.5 py-0.5 rounded transition-all ${fluctuationFilter === 'spent' ? 'bg-rose-500 text-white font-bold' : 'text-[#888]'}`}
+              >
+                🔴 Spent ({inf.filter(([, v]) => v < 0).length})
+              </button>
+            </div>
+          }
+        >
+          {filteredInf.length === 0
+            ? <p className="text-xs text-[#888] font-mono py-2">No inventory movements matching this filter.</p>
+            : <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-xs font-mono">
+                {filteredInf.map(([k, v]) => {
+                  const unitPrice = resolveClientPrice(k, prices);
+                  const flowerVal = unitPrice > 0 ? (Math.abs(v) * unitPrice).toFixed(4) : null;
+                  return (
+                    <div key={k} className="flex justify-between py-1.5 border-b border-black/5 dark:border-white/5">
+                      <span className="text-[#787774] dark:text-[#aaa] truncate flex items-center gap-1.5">
+                        <span className={v > 0 ? "text-emerald-500" : "text-rose-400"}>{v > 0 ? "🟢" : "🔴"}</span>
+                        <span>{k}</span>
+                      </span>
+                      <div className="flex items-center gap-2">
+                        {flowerVal && (
+                          <span className={`text-[10px] ${v > 0 ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-rose-500 font-semibold'}`}>
+                            {v > 0 ? `+🌸 ${flowerVal}` : `-🌸 ${flowerVal}`}
+                          </span>
+                        )}
+                        <Delta v={v} />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>}
+        </BlockCard>
+      </div>
+    );
+  };
+
+  const renderDailyProduction = () => {
+    if (!daily) return <div className="py-8 text-center text-sm text-[#888] animate-pulse">Loading daily production data...</div>;
+    if (!daily.hasEnoughData) {
+      return (
+        <Callout icon="📅" type="info" title="Daily Production & Spending Tracking">
+          {daily.note ?? "Capture multiple farm snapshots over time to see daily production trends and FLOWER earnings."}
+        </Callout>
+      );
+    }
+    const days = daily.days ?? [];
+    const totals = daily.totals ?? {};
+    const totalProduced = totals.totalProducedFlower ?? totals.totalFlower ?? 0;
+    const totalSpent = totals.totalSpentFlower ?? 0;
+    const netFlower = totals.netFlower ?? (totalProduced - totalSpent);
+    const profitMargin = totals.profitMarginPct != null
+      ? `${totals.profitMarginPct}% margin`
+      : totalProduced > 0
+        ? `${(((totalProduced - totalSpent) / totalProduced) * 100).toFixed(1)}% margin`
+        : '0% margin';
+
+    const sanitizedTotalXp = Math.max(0, totals.totalXp ?? 0);
+
+    const topProducedList = totals.topProduced ?? totals.topItems ?? [];
+    const topSpentList = totals.topSpent ?? [];
+
+    return (
+      <div className="space-y-4">
+        {/* 4 Summary Stat Cards: Produced, Spent, Net Balance, XP */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <MetricStat icon="🌸" label={`${dailyDays}-Day Produced`} value={`+${totalProduced.toFixed(4)}`} sub="gross harvest & collection" trend="Inflow" />
+          <MetricStat icon="💸" label={`${dailyDays}-Day Spent`} value={`-${totalSpent.toFixed(4)}`} sub="seeds, feed, tools & inputs" trend="Outflow" />
+          <MetricStat
+            icon="⚖️"
+            label={`${dailyDays}-Day Net Profit`}
+            value={`${netFlower >= 0 ? '+' : ''}${netFlower.toFixed(4)}`}
+            sub={netFlower >= 0 ? `surplus (${profitMargin})` : "net input cost"}
+            trend={netFlower >= 0 ? "Surplus" : "Deficit"}
+          />
+          <MetricStat icon="⭐" label={`${dailyDays}-Day XP`} value={`+${fmt(sanitizedTotalXp)}`} sub="total XP gained" trend="Progress" />
+        </div>
+
+        {/* Interactive Production & Expenditure Graph Chart (Replaces horizontal progress bars) */}
+        {days.length > 0 && (
+          <ProductionGraphChart
+            days={days}
+            daysWindow={dailyDays}
+            setDaysWindow={setDailyDays}
+            selectedDay={expandedDay}
+            onSelectDay={setExpandedDay}
+          />
+        )}
+
+        {/* Itemized Ledgers: Produced vs Spent */}
+        <BlockCard
+          icon="📊"
+          title="Itemized Production & Expenditure Ledgers"
+          right={
+            <div className="flex bg-black/5 dark:bg-white/10 rounded-lg p-0.5 text-xs font-mono">
+              <button
+                onClick={() => setBreakdownTab('both')}
+                className={`px-2 py-0.5 rounded transition-all ${breakdownTab === 'both' ? 'bg-amber-400 text-black font-bold shadow-xs' : 'text-[#888]'}`}
+              >
+                Dual Ledger
+              </button>
+              <button
+                onClick={() => setBreakdownTab('produced')}
+                className={`px-2 py-0.5 rounded transition-all ${breakdownTab === 'produced' ? 'bg-emerald-500 text-white font-bold shadow-xs' : 'text-[#888]'}`}
+              >
+                Top Produced
+              </button>
+              <button
+                onClick={() => setBreakdownTab('spent')}
+                className={`px-2 py-0.5 rounded transition-all ${breakdownTab === 'spent' ? 'bg-rose-500 text-white font-bold shadow-xs' : 'text-[#888]'}`}
+              >
+                Top Spent
+              </button>
+            </div>
+          }
+        >
+          {breakdownTab === 'both' && (
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Left Column: Top Produced */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs font-bold font-mono text-emerald-600 dark:text-emerald-400 pb-1.5 border-b border-emerald-500/20">
+                  <span className="flex items-center gap-1.5">
+                    <span>🟢</span> TOP PRODUCED (INFLOW)
+                  </span>
+                  <span>+{totalProduced.toFixed(4)} FLOWER</span>
+                </div>
+                {topProducedList.length === 0 ? (
+                  <p className="text-xs text-[#888] font-mono py-2">No production items recorded.</p>
+                ) : (
+                  <div className="space-y-1.5 text-xs font-mono">
+                    {topProducedList.slice(0, 10).map((item, i) => (
+                      <div key={item.item} className="flex items-center justify-between py-1 border-b border-black/5 dark:border-white/5">
+                        <span className="text-[#787774] dark:text-[#aaa] truncate flex items-center gap-1.5">
+                          <span className="text-[10px] text-[#555]">#{i + 1}</span>
+                          <span className="font-medium text-[#1a1a1a] dark:text-white">{item.item}</span>
+                          <span className="text-[10px] text-emerald-600 dark:text-emerald-400">+{item.quantity.toFixed(1)}</span>
+                        </span>
+                        <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{item.flower > 0 ? `+🌸 ${item.flower.toFixed(4)}` : '—'}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Right Column: Top Spent */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs font-bold font-mono text-rose-500 dark:text-rose-400 pb-1.5 border-b border-rose-500/20">
+                  <span className="flex items-center gap-1.5">
+                    <span>🔴</span> TOP SPENT / CONSUMED (OUTFLOW)
+                  </span>
+                  <span>-{totalSpent.toFixed(4)} FLOWER</span>
+                </div>
+                {topSpentList.length === 0 ? (
+                  <p className="text-xs text-[#888] font-mono py-2">No items spent/consumed in this window (planting seeds, feeding animals & cooking dishes appear here).</p>
+                ) : (
+                  <div className="space-y-1.5 text-xs font-mono">
+                    {topSpentList.slice(0, 10).map((item, i) => (
+                      <div key={item.item} className="flex items-center justify-between py-1 border-b border-black/5 dark:border-white/5">
+                        <span className="text-[#787774] dark:text-[#aaa] truncate flex items-center gap-1.5">
+                          <span className="text-[10px] text-[#555]">#{i + 1}</span>
+                          <span className="font-medium text-[#1a1a1a] dark:text-white">{item.item}</span>
+                          <span className="text-[10px] text-rose-500 dark:text-rose-400">-{item.quantity.toFixed(1)}</span>
+                        </span>
+                        <span className="text-rose-500 dark:text-rose-400 font-semibold">{item.flower > 0 ? `-🌸 ${item.flower.toFixed(4)}` : '—'}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {breakdownTab === 'produced' && (
+            <div className="space-y-2">
+              <div className="text-xs font-mono text-[#888] mb-2">Items harvested, collected, and crafted that added economic value to your farm:</div>
+              <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-xs font-mono">
+                {topProducedList.map((item, i) => (
+                  <div key={item.item} className="flex items-center justify-between py-1.5 border-b border-black/5 dark:border-white/5">
+                    <span className="text-[#787774] dark:text-[#aaa] truncate flex items-center gap-1.5">
+                      <span className="text-[10px] text-[#555]">#{i + 1}</span>
+                      <span className="font-medium text-[#1a1a1a] dark:text-white">{item.item}</span>
+                      <span className="text-[10px] text-emerald-500 font-bold">+{item.quantity.toFixed(1)}</span>
+                    </span>
+                    <span className="text-emerald-500 font-semibold">{item.flower > 0 ? `+🌸 ${item.flower.toFixed(4)}` : '—'}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {breakdownTab === 'spent' && (
+            <div className="space-y-2">
+              <div className="text-xs font-mono text-[#888] mb-2">Seeds planted, animal feed consumed, and crafting ingredients spent:</div>
+              {topSpentList.length === 0 ? (
+                <p className="text-xs text-[#888] font-mono py-4 text-center">No spent items recorded in this window.</p>
+              ) : (
+                <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-xs font-mono">
+                  {topSpentList.map((item, i) => (
+                    <div key={item.item} className="flex items-center justify-between py-1.5 border-b border-black/5 dark:border-white/5">
+                      <span className="text-[#787774] dark:text-[#aaa] truncate flex items-center gap-1.5">
+                        <span className="text-[10px] text-[#555]">#{i + 1}</span>
+                        <span className="font-medium text-[#1a1a1a] dark:text-white">{item.item}</span>
+                        <span className="text-[10px] text-rose-500 font-bold">-{item.quantity.toFixed(1)}</span>
+                      </span>
+                      <span className="text-rose-400 font-semibold">{item.flower > 0 ? `-🌸 ${item.flower.toFixed(4)}` : '—'}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </BlockCard>
+      </div>
+    );
+  };
+
+  const isSyncBusy = syncing || refreshing;
+
+  return (
+    <div className="space-y-8">
+      {/* Top Sync & Snapshot Action Bar */}
+      <div className="p-3 rounded-xl border border-black/10 dark:border-white/10 bg-[#fbfbfa] dark:bg-[#1f1f1f] flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">🔄</span>
+          <div>
+            <div className="text-xs font-bold text-[#1a1a1a] dark:text-white flex items-center gap-1.5">
+              <span>Polygon RPC & Farm State Tracker</span>
+              <span className={`w-2 h-2 rounded-full ${farm?.stale ? 'bg-amber-400' : 'bg-emerald-400 animate-pulse'}`}></span>
+            </div>
+            <div className="text-[10px] font-mono text-[#888]">
+              {farm?.rawHash ? `State Fingerprint: ${farm.rawHash.slice(0, 12)}...` : 'Connected to live gateway'}
+            </div>
+          </div>
+        </div>
+
+        <button
+          onClick={handleManualSync}
+          disabled={isSyncBusy}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-mono transition-all ${
+            isSyncBusy
+              ? 'bg-black/10 dark:bg-white/10 text-[#888] cursor-not-allowed'
+              : 'bg-amber-500 hover:bg-amber-400 text-black shadow-sm active:scale-95'
+          }`}
+        >
+          <span className={isSyncBusy ? 'animate-spin' : ''}>🔄</span>
+          <span>{isSyncBusy ? 'Capturing Snapshot...' : 'Sync Farm State Now'}</span>
+        </button>
+      </div>
+
+      {/* ─── ACTIVE IN-GROUND & FACILITY PRODUCTION (LIVE CAPACITY) ────────────────── */}
+      {activeProduction.items.length > 0 && (
+        <section>
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-base">🌾</span>
+            <h2 className="text-sm font-bold text-[#1a1a1a] dark:text-white uppercase tracking-wider">Active In-Ground & Facility Production</h2>
+            <span className="text-[10px] font-mono text-emerald-500 border border-emerald-500/30 px-2 py-0.5 rounded">
+              {activeProduction.totalSlots} slots active
+            </span>
+          </div>
+          <BlockCard
+            icon="🌱"
+            title="Growing Crops & Active Facilities"
+            right={
+              <span className="font-mono text-xs font-bold text-amber-500">
+                Est. Harvest: 🌸 {activeProduction.totalFlower.toFixed(4)} FLOWER
+              </span>
+            }
+          >
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2 text-xs font-mono">
+              {activeProduction.items.map((prod) => (
+                <div key={prod.item} className="p-2 rounded-lg bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 flex items-center justify-between">
+                  <div className="truncate">
+                    <span className="font-semibold text-[#1a1a1a] dark:text-white">{prod.item}</span>
+                    <span className="text-[#888] text-[10px] ml-1">×{prod.qty}</span>
+                  </div>
+                  <span className="text-amber-500 font-semibold text-[11px]">🌸 {prod.flower.toFixed(4)}</span>
+                </div>
+              ))}
+            </div>
+          </BlockCard>
+        </section>
+      )}
+
+      <div className="border-t border-black/10 dark:border-white/10" />
+
+      {/* ─── RECENT ACTIVITY DELTA ─────────────────────────────────────────────────── */}
+      <section>
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-base">⚡</span>
+          <h2 className="text-sm font-bold text-[#1a1a1a] dark:text-white uppercase tracking-wider">Recent Activity Delta</h2>
+          <span className="text-[10px] font-mono text-[#888] border border-black/10 dark:border-white/10 px-2 py-0.5 rounded">last 2 snapshots</span>
+        </div>
+        {renderActivity()}
+      </section>
+
+      <div className="border-t border-black/10 dark:border-white/10" />
+
+      {/* ─── DAILY PRODUCTION & EXPENDITURE TRACKER ─────────────────────────────────── */}
+      <section>
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-base">📅</span>
+          <h2 className="text-sm font-bold text-[#1a1a1a] dark:text-white uppercase tracking-wider">Daily Production & Expenditure Tracker</h2>
+          <span className="text-[10px] font-mono text-amber-400 border border-amber-400/30 px-2 py-0.5 rounded">🌸 live P2P valuation</span>
+        </div>
+        {renderDailyProduction()}
+      </section>
+    </div>
+  );
+}
+
 
 /* ═════════════════════════════════════════════════════════════════════════════
    TAB 5 (NEW): RECIPES — All building recipes with live farm data
@@ -3452,11 +4913,16 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
       ]);
       return;
     }
+    // Snapshot prior history for zero-lag server continuity
+    const historyPayload = msgs.map((m) => ({
+      role: m.role === "you" || m.role === "user" ? "user" : "assistant",
+      content: m.text ?? m.content ?? "",
+    }));
     setMsgs((m) => [...m, { role: "you", text }]);
     setInput("");
     setBusy(true);
     try {
-      const r = await api.chat(text, sessionId);
+      const r = await api.chat(text, sessionId, historyPayload);
       if (r?.creditsRemaining !== undefined && onCreditsUpdated) {
         onCreditsUpdated(r.creditsRemaining);
       }
@@ -3521,7 +4987,7 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
             <div className="flex items-center gap-2">
               <span className="text-amber-500 font-bold">✨</span>
               <span className="font-semibold text-[#1a1a1a] dark:text-white font-display text-xs">
-                Dr. Bumpkin
+                Jester
               </span>
               <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-amber-500/15 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/30 dark:border-amber-500/20 font-medium">
                 Gemini
@@ -3593,7 +5059,7 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
             /* Antigravity Welcome Screen */
             <div className="h-full flex flex-col items-center justify-center text-center max-w-lg mx-auto py-8">
               <div className="w-16 h-16 rounded-2xl bg-white dark:bg-[#242429] border border-amber-500/40 dark:border-amber-500/30 flex items-center justify-center text-3xl mb-4 shadow-xl shadow-amber-500/10 select-none">
-                <img src="https://animations.sunflower-land.com/animated_webp/0_v1_32_1_5_185_46_22_240_395_0_228_0_0_0_0_0_266/idle-small" alt="Dr. Bumpkin" className="w-10 h-10" />
+                <img src="https://animations.sunflower-land.com/animated_webp/0_v1_32_1_5_185_46_22_240_395_0_228_0_0_0_0_0_266/idle-small" alt="Jester" className="w-10 h-10" />
               </div>
               <h2 className="text-xl font-bold font-display text-[#1a1a1a] dark:text-white mb-1.5">
                 How can I help you?
@@ -3658,7 +5124,7 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
                 ) : (
                   <div key={i} className="flex items-start gap-3">
                     <div className="w-12 h-12 rounded-xl flex items-center justify-center text-sm shrink-0 select-none">
-                      <img src="/bumpkin-chibi.webp" alt="Dr. Bumpkin" className="w-12 h-12 object-contain [image-rendering:pixelated]" />
+                      <img src="/bumpkin-chibi (1).webp" alt="Jester" className="w-12 h-12 object-contain [image-rendering:pixelated]" />
                     </div>
                     <div className="flex-1 min-w-0 space-y-2">
                       {m.steps?.length > 0 && (
@@ -3688,7 +5154,7 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
               {busy && (
                 <div className="flex items-center gap-2.5 text-xs text-[#666] dark:text-[#888] font-mono p-3 bg-black/5 dark:bg-white/5 rounded-xl border border-black/5 dark:border-white/5 max-w-sm">
                   <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-                  <span>Dr. Bumpkin is thinking...</span>
+                  <span>The Jester is thinking...</span>
                 </div>
               )}
               <div ref={endRef} className="h-px" />
@@ -3719,7 +5185,7 @@ function AntigravityChatModal({ open, onClose, sessionId, msgs, setMsgs, onNewSe
               value={input}
               disabled={!isDev && currentCredits <= 0}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={!isDev && currentCredits <= 0 ? "AI credits exhausted (0 remaining)..." : "Ask Dr. Bumpkin (e.g. What should I cook?)..."}
+              placeholder={!isDev && currentCredits <= 0 ? "AI credits exhausted (0 remaining)..." : "Ask the Jester (e.g. What should I cook?)..."}
               className="flex-1 bg-transparent px-3 py-2 text-xs text-[#1a1a1a] dark:text-white placeholder-[#888] dark:placeholder-[#777] outline-none font-sans disabled:opacity-50"
             />
             <button
@@ -3948,11 +5414,11 @@ export default function App() {
     setCopilotOpen(true);
   };
 
-  const load = async () => {
+  const load = async (force = false) => {
     setRefreshing(true);
     try {
       const [f, p, m, rec] = await Promise.all([
-        api.farm().catch(() => null),
+        api.farm(force).catch(() => null),
         api.planner().catch(() => null),
         api.market().catch(() => null),
         api.recipes().catch(() => null),
@@ -4152,7 +5618,7 @@ export default function App() {
             🔄
           </button>
 
-          {/* AI Credits Badge (Click opens Dr. Bumpkin) */}
+          {/* AI Credits Badge (Click opens the Jester) */}
           <button
             onClick={() => setCopilotOpen(true)}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono border transition-all shrink-0 cursor-pointer shadow-xs hover:scale-105 select-none ${
@@ -4174,10 +5640,10 @@ export default function App() {
           <button
             onClick={() => setCopilotOpen(!copilotOpen)}
             className={`flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium border transition-all shrink-0 ${copilotOpen ? "bg-amber-500 text-slate-950 font-bold border-amber-400" : "bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 hover:border-amber-500/40 text-amber-600 dark:text-amber-400"}`}
-            title="Toggle Dr. Bumpkin (Ctrl+J)"
+            title="Toggle the Jester (Ctrl+J)"
           >
-            <img src="/bumpkin-chibi.webp" alt="Dr. Bumpkin" className="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain [image-rendering:pixelated] shrink-0" />
-            <span className="hidden md:inline">Dr. Bumpkin</span>
+            <img src="/bumpkin-chibi.webp" alt="Jester" className="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain [image-rendering:pixelated] shrink-0" />
+            <span className="hidden md:inline">Jester</span>
             <span className="text-[10px] opacity-60 font-mono hidden sm:inline">⌘J</span>
           </button>
 
@@ -4237,13 +5703,13 @@ export default function App() {
           </div>
 
           <div className="flex flex-col items-center gap-1.5 md:gap-2 w-full relative">
-            {/* Dr. Bumpkin Copilot Toggle */}
+            {/* Jester Copilot Toggle */}
             <button
               onClick={() => setCopilotOpen(!copilotOpen)}
               className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm transition-all ${copilotOpen ? "bg-amber-500 text-slate-950 font-bold" : "hover:bg-black/5 dark:hover:bg-white/5 text-amber-500"}`}
-              title="Dr. Bumpkin"
+              title="Jester"
             >
-              <img src="/bumpkin-chibi.webp" alt="Dr. Bumpkin" className="w-6 h-6 object-contain [image-rendering:pixelated] shrink-0" />
+              <img src="/bumpkin-chibi.webp" alt="Jester" className="w-6 h-6 object-contain [image-rendering:pixelated] shrink-0" />
             </button>
             <div className="w-6 h-px bg-black/10 dark:bg-white/10 my-0.5 md:my-1" />
 
@@ -4508,10 +5974,10 @@ export default function App() {
 
             {/* Active Document Page Body */}
             {tab === "Dashboard" && <Dashboard farm={farm} plan={plan} />}
-            {tab === "Planner" && <Planner plan={plan} />}
+            {tab === "Planner" && <Planner plan={plan} farm={farm} market={market} onOpenChat={(q) => setCopilotOpen(true)} />}
             {(tab === "Cooking" || tab === "Recipes") && <CookingPage recipesData={recipesData} farm={farm} />}
             {tab === "Market" && <Market farm={farm} market={market} />}
-            {tab === "Activity" && <Activity />}
+            {tab === "Activity" && <Activity farm={farm} market={market} onRefresh={() => load(true)} refreshing={refreshing} />}
             {tab === "Quests" && <Quests farm={farm} />}
             {tab === "History" && <History onResume={handleResume} />}
             {tab === "Processing" && <ProcessingPage farm={farm} market={market} />}
@@ -4550,10 +6016,10 @@ export default function App() {
         <button
           onClick={() => setCopilotOpen(true)}
           className="fixed bottom-8 right-3 sm:bottom-9 sm:right-6 md:bottom-9 md:right-6 z-40 flex items-center gap-1.5 md:gap-2 px-2.5 py-1.5 md:px-3.5 md:py-2 rounded-full bg-white dark:bg-[#18181b] border border-black/15 dark:border-amber-500/40 hover:border-amber-500 text-[#1a1a1a] dark:text-white shadow-xl shadow-black/15 dark:shadow-black/60 hover:scale-105 transition-all group select-none"
-          title="Open Dr. Bumpkin (Ctrl+J)"
+          title="Open the Jester (Ctrl+J)"
         >
           <span className="text-amber-500 dark:text-amber-400 text-xs md:text-sm group-hover:rotate-12 transition-transform">✨</span>
-          <span className="text-[11px] md:text-xs font-semibold font-display">Ask Dr. Bumpkin</span>
+          <span className="text-[11px] md:text-xs font-semibold font-display">Ask the Jester</span>
           <span className="hidden sm:inline-block text-[10px] font-mono text-[#666] dark:text-[#aaa] bg-black/5 dark:bg-white/10 px-1.5 py-0.5 rounded">⌘J</span>
           <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></span>
         </button>
@@ -4579,7 +6045,7 @@ export default function App() {
           <button
             onClick={() => setCopilotOpen(true)}
             className="flex items-center gap-1 hover:text-amber-500 transition-colors cursor-pointer select-none"
-            title="AI Copilot Balance (Click to open Dr. Bumpkin)"
+            title="AI Copilot Balance (Click to open the Jester)"
           >
             <span className="text-amber-500">⚡</span>
             <span>Credits:</span>

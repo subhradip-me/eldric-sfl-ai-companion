@@ -1,0 +1,110 @@
+{
+  "QUESTS": {
+    "Farmer Quest 1": {
+      "description": "Harvest 1000 Sunflowers",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Sunflower Harvested\"] || 0"
+      },
+      "requirement": 1000,
+      "wearable": "Red Farmer Shirt"
+    },
+    "Fruit Quest 1": {
+      "description": "Harvest 10 Blueberries",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Blueberry Harvested\"] || 0"
+      },
+      "requirement": 10,
+      "wearable": "Fruit Picker Shirt",
+      "deadline": {
+        "$unparsed": "new Date(Date.now() + 10000000000).toISOString()"
+      }
+    },
+    "Fruit Quest 2": {
+      "description": "Harvest 100 Oranges",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Orange Harvested\"] || 0"
+      },
+      "requirement": 100,
+      "wearable": "Fruit Picker Apron",
+      "deadline": {
+        "$unparsed": "new Date(Date.now() + 10000000000).toISOString()"
+      }
+    },
+    "Fruit Quest 3": {
+      "description": "Harvest 750 Apples",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Apple Harvested\"] || 0"
+      },
+      "requirement": 750,
+      "wearable": "Fruit Bowl",
+      "deadline": {
+        "$unparsed": "new Date(Date.now() + 10000000000).toISOString()"
+      }
+    },
+    "Pirate Quest 1": {
+      "description": "Dig 30 holes",
+      "progress": {
+        "$unparsed": "(gameState.farmActivity[\"Treasure Dug\"] || 0) +\n      (gameState.farmActivity[\"Treasure Drilled\"] || 0)"
+      },
+      "requirement": 30,
+      "wearable": "Striped Blue Shirt",
+      "deadline": {
+        "$unparsed": "new Date(Date.now() + 10000000000).toISOString()"
+      }
+    },
+    "Pirate Quest 2": {
+      "description": "Collect 10 Seaweeds",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Seaweed Dug\"] || 0"
+      },
+      "requirement": 10,
+      "wearable": "Peg Leg",
+      "deadline": {
+        "$unparsed": "new Date(Date.now() + 10000000000).toISOString()"
+      }
+    },
+    "Pirate Quest 3": {
+      "description": "Collect 10 Pipis",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Pipi Dug\"] || 0"
+      },
+      "requirement": 10,
+      "wearable": "Pirate Potion",
+      "deadline": {
+        "$unparsed": "new Date(Date.now() + 10000000000).toISOString()"
+      }
+    },
+    "Pirate Quest 4": {
+      "description": "Collect 5 Corals",
+      "progress": {
+        "$unparsed": "gameState.farmActivity[\"Coral Dug\"] || 0"
+      },
+      "requirement": 5,
+      "wearable": "Pirate Hat",
+      "deadline": {
+        "$unparsed": "new Date(Date.now() + 10000000000).toISOString()"
+      }
+    }
+  },
+  "BUMPKIN_QUEST_IDS": {
+    "Farmer Quest 1": 100001,
+    "Reindeer Quest 1": 100002,
+    "Reindeer Quest 2": 100003,
+    "Reindeer Quest 3": 100004,
+    "Fruit Quest 1": 100005,
+    "Fruit Quest 2": 100006,
+    "Fruit Quest 3": 100007,
+    "Lunar New Year Quest 1": 100009,
+    "Lunar New Year Quest 2": 100010,
+    "Pirate Quest 1": 100011,
+    "Pirate Quest 2": 100012,
+    "Pirate Quest 3": 100013,
+    "Pirate Quest 4": 100014,
+    "Cupid Quest 1": 100015,
+    "Cupid Quest 2": 100016,
+    "Cupid Quest 3": 100017,
+    "Cupid Quest 4": 100018,
+    "Leprechaun Quest 1": 100019,
+    "Easter Quest 1": 100020
+  }
+}

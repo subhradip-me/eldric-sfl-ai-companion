@@ -1,14 +1,43 @@
 import pg from "pg";
 import bcrypt from "bcryptjs";
 
+/**
+ * Decide the pg SSL setting from the environment.
+ *
+ *  - Local dev, docker-compose, and Render *Internal* database URLs → no SSL.
+ *    Render's private network is plain TCP, and disabling SSL here also fixes
+ *    ECONNRESET on Docker Desktop for Windows.
+ *  - Render *External* URLs (host ends in `.render.com`) or an explicit
+ *    `sslmode=require` in the URL → TLS with relaxed cert verification
+ *    (Render terminates its public database endpoint with its own CA).
+ *  - `DATABASE_SSL=true|false` forces the choice and overrides auto-detection.
+ */
+export function resolvePgSsl(
+  databaseUrl: string = process.env.DATABASE_URL ?? "",
+  override: string | undefined = process.env.DATABASE_SSL,
+): false | { rejectUnauthorized: boolean } {
+  if (override === "true") return { rejectUnauthorized: false };
+  if (override === "false") return false;
+  if (/\.render\.com/i.test(databaseUrl) || /[?&]sslmode=require/i.test(databaseUrl)) {
+    return { rejectUnauthorized: false };
+  }
+  return false;
+}
+
+if (!process.env.DATABASE_URL) {
+  console.warn(
+    "⚠️  DATABASE_URL is not set — pg will fall back to 127.0.0.1:5432 and fail on Render. " +
+      "Set DATABASE_URL to your database's Internal connection string.",
+  );
+}
+
 export const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   max: 10,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 5000,
   allowExitOnIdle: false,
-  // Fixes ECONNRESET on Docker Desktop for Windows
-  ssl: false,
+  ssl: resolvePgSsl(),
   keepAlive: true,
   keepAliveInitialDelayMillis: 10000,
 });
@@ -76,6 +105,7 @@ export async function init() {
   await pool.query(`
     ALTER TABLE snapshots     ADD COLUMN IF NOT EXISTS user_id INTEGER;
     ALTER TABLE chat_messages ADD COLUMN IF NOT EXISTS user_id INTEGER;
+    ALTER TABLE chat_messages ADD COLUMN IF NOT EXISTS embedding vector(384);
   `);
 
   // Add FK constraints idempotently (skip if constraint already exists)
@@ -140,11 +170,81 @@ export async function init() {
         ['dev', 'dev@sunflower-ai.internal', devHash, '346853928974080']
       );
       console.log('🛠️  Developer account seeded: username: dev / password: developer123 / farm: 346853928974080 (role: DEVELOPER, unlimited credits)');
-    } else {
+    } else if (process.env.NODE_ENV !== 'production') {
       await pool.query(`UPDATE users SET role = 'DEVELOPER', ai_credits = 999999 WHERE username = 'dev'`);
     }
-  } catch (seedErr) {
+  } catch (seedErr: any) {
     console.warn('⚠️  Could not seed dev account (will proceed):', seedErr.message);
+  }
+
+  // ── 10. Knowledge Base tables (unified for wiki + AST game data) ───────────
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS kb_documents (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        source TEXT NOT NULL DEFAULT 'sfl-wiki',
+        path TEXT NOT NULL UNIQUE,
+        url TEXT,
+        title TEXT,
+        description TEXT,
+        author_name TEXT,
+        wiki_updated_at TIMESTAMPTZ,
+        content_hash TEXT NOT NULL,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+
+      CREATE TABLE IF NOT EXISTS kb_chunks (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        document_id UUID NOT NULL REFERENCES kb_documents(id) ON DELETE CASCADE,
+        heading_path TEXT[] NOT NULL,
+        chunk_index INT NOT NULL DEFAULT 0,
+        category TEXT,
+        type TEXT,
+        entity TEXT,
+        content TEXT NOT NULL,
+        structured_data JSONB,
+        content_hash TEXT NOT NULL,
+        embedding vector(384),
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        UNIQUE (document_id, heading_path, chunk_index)
+      );
+
+      CREATE INDEX IF NOT EXISTS kb_chunks_embedding_idx ON kb_chunks USING hnsw (embedding vector_cosine_ops);
+      CREATE INDEX IF NOT EXISTS kb_chunks_category_idx ON kb_chunks (category);
+      CREATE INDEX IF NOT EXISTS kb_chunks_type_idx ON kb_chunks (type);
+      CREATE INDEX IF NOT EXISTS kb_chunks_entity_idx ON kb_chunks (entity);
+    `);
+  } catch (kbErr: any) {
+    console.warn('⚠️  Could not init knowledge base tables:', kbErr.message);
+  }
+
+  // ── 11. Strategy plans audit (append-only trail of every committed background plan) ──
+  //    Sits alongside the hot (Redis, 7-day TTL) policy cache; strategyPlanAuditStore writes here.
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS strategy_plans (
+        id SERIAL PRIMARY KEY,
+        farm_id TEXT NOT NULL,
+        goal_id TEXT NOT NULL DEFAULT 'DEFAULT',
+        user_id INTEGER,
+        status TEXT NOT NULL,
+        objective TEXT NOT NULL,
+        horizon_days INTEGER NOT NULL,
+        computed_at BIGINT NOT NULL,
+        plan_changed_at BIGINT NOT NULL,
+        projected JSONB NOT NULL,
+        plan JSONB NOT NULL,
+        counterfactuals JSONB NOT NULL,
+        calibration JSONB NOT NULL,
+        provenance JSONB NOT NULL,
+        recorded_at BIGINT NOT NULL
+      );
+      CREATE INDEX IF NOT EXISTS idx_strategy_plans_farm_goal ON strategy_plans(farm_id, goal_id, computed_at DESC);
+    `);
+  } catch (spErr: any) {
+    console.warn('⚠️  Could not init strategy_plans table:', spErr.message);
   }
 }
 

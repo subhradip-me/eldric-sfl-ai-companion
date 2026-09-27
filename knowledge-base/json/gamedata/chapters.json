@@ -1,0 +1,238 @@
+{
+  "CHAPTER_ORDER": {
+    "Solar Flare": 1,
+    "Dawn Breaker": 2,
+    "Witches' Eve": 3,
+    "Catch the Kraken": 4,
+    "Spring Blossom": 5,
+    "Clash of Factions": 6,
+    "Pharaoh's Treasure": 7,
+    "Bull Run": 8,
+    "Winds of Change": 9,
+    "Great Bloom": 10,
+    "Better Together": 11,
+    "Paw Prints": 12,
+    "Crabs and Traps": 13,
+    "Salt Awakening": 14,
+    "Ascension Age": 15
+  },
+  "CHAPTERS": {
+    "Solar Flare": {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-05-01T00:00:00.000Z"
+    },
+    "Dawn Breaker": {
+      "startDate": "2023-05-01T00:00:00.000Z",
+      "endDate": "2023-08-01T00:00:00.000Z"
+    },
+    "Witches' Eve": {
+      "startDate": "2023-08-01T00:00:00.000Z",
+      "endDate": "2023-11-01T00:00:00.000Z"
+    },
+    "Catch the Kraken": {
+      "startDate": "2023-11-01T00:00:00.000Z",
+      "endDate": "2024-02-01T00:00:00.000Z"
+    },
+    "Spring Blossom": {
+      "startDate": "2024-02-01T00:00:00.000Z",
+      "endDate": "2024-05-01T00:00:00.000Z"
+    },
+    "Clash of Factions": {
+      "startDate": "2024-05-01T00:00:00.000Z",
+      "endDate": "2024-08-01T00:00:00.000Z"
+    },
+    "Pharaoh's Treasure": {
+      "startDate": "2024-08-01T00:00:00.000Z",
+      "endDate": "2024-11-01T00:00:00.000Z"
+    },
+    "Bull Run": {
+      "startDate": "2024-11-01T00:00:00.000Z",
+      "endDate": "2025-02-03T00:00:00.000Z"
+    },
+    "Winds of Change": {
+      "startDate": "2025-02-03T00:00:00.000Z",
+      "endDate": "2025-05-01T00:00:00.000Z"
+    },
+    "Great Bloom": {
+      "startDate": "2025-05-01T00:00:00.000Z",
+      "endDate": "2025-08-04T00:00:00.000Z"
+    },
+    "Better Together": {
+      "startDate": "2025-08-04T00:00:00.000Z",
+      "endDate": "2025-11-03T00:00:00.000Z"
+    },
+    "Paw Prints": {
+      "startDate": "2025-11-03T00:00:00.000Z",
+      "endDate": "2026-02-02T00:00:00.000Z"
+    },
+    "Crabs and Traps": {
+      "startDate": "2026-02-02T00:00:00.000Z",
+      "endDate": "2026-05-04T00:00:00.000Z",
+      "tasksBegin": "2026-02-09T00:00:00.000Z"
+    },
+    "Salt Awakening": {
+      "startDate": "2026-05-04T00:00:00.000Z",
+      "tasksBegin": "2026-05-11T00:00:00.000Z",
+      "endDate": "2026-08-03T00:00:00.000Z"
+    },
+    "Ascension Age": {
+      "startDate": "2026-08-03T00:00:00.000Z",
+      "tasksBegin": "2026-08-10T00:00:00.000Z",
+      "endDate": "2026-11-02T00:00:00.000Z"
+    }
+  },
+  "CHAPTER_BANNERS": {
+    "Solar Flare Banner": "Solar Flare",
+    "Dawn Breaker Banner": "Dawn Breaker",
+    "Witches' Eve Banner": "Witches' Eve",
+    "Catch the Kraken Banner": "Catch the Kraken",
+    "Spring Blossom Banner": "Spring Blossom",
+    "Clash of Factions Banner": "Clash of Factions",
+    "Pharaoh's Treasure Banner": "Pharaoh's Treasure",
+    "Bull Run Banner": "Bull Run",
+    "Winds of Change Banner": "Winds of Change",
+    "Great Bloom Banner": "Great Bloom",
+    "Better Together Banner": "Better Together",
+    "Paw Prints Banner": "Paw Prints",
+    "Crabs and Traps Banner": "Crabs and Traps",
+    "Salt Awakening Banner": "Salt Awakening",
+    "Ascension Age Banner": "Ascension Age"
+  },
+  "CHAPTER_TICKET_NAME": {
+    "Solar Flare": "Solar Flare Ticket",
+    "Dawn Breaker": "Dawn Breaker Ticket",
+    "Witches' Eve": "Crow Feather",
+    "Catch the Kraken": "Mermaid Scale",
+    "Spring Blossom": "Tulip Bulb",
+    "Clash of Factions": "Scroll",
+    "Pharaoh's Treasure": "Amber Fossil",
+    "Bull Run": "Horseshoe",
+    "Winds of Change": "Timeshard",
+    "Great Bloom": "Geniseed",
+    "Better Together": "Bracelet",
+    "Paw Prints": "Pet Cookie",
+    "Crabs and Traps": "Floater",
+    "Salt Awakening": "Salt Rock",
+    "Ascension Age": "Shiny Feather"
+  },
+  "CHAPTER_RAFFLE_TICKET_NAME": {
+    "Solar Flare": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Dawn Breaker": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Witches' Eve": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Catch the Kraken": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Spring Blossom": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Clash of Factions": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Pharaoh's Treasure": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Bull Run": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Winds of Change": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Great Bloom": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Better Together": {
+      "$unresolvedIdentifier": "undefined"
+    },
+    "Paw Prints": "Paw Prints Raffle Ticket",
+    "Crabs and Traps": "Crabs and Traps Raffle Ticket",
+    "Salt Awakening": "Salt Awakening Raffle Ticket",
+    "Ascension Age": "Ascension Age Raffle Ticket"
+  },
+  "CHAPTER_ARTEFACT_NAME": {
+    "Solar Flare": "Scarab",
+    "Dawn Breaker": "Scarab",
+    "Witches' Eve": "Scarab",
+    "Catch the Kraken": "Scarab",
+    "Spring Blossom": "Scarab",
+    "Clash of Factions": "Scarab",
+    "Pharaoh's Treasure": "Scarab",
+    "Bull Run": "Cow Skull",
+    "Winds of Change": "Ancient Clock",
+    "Great Bloom": "Broken Pillar",
+    "Better Together": "Coprolite",
+    "Paw Prints": "Moon Crystal",
+    "Crabs and Traps": "Ammonite Shell",
+    "Salt Awakening": "Salt Dino Egg",
+    "Ascension Age": "Otter Pebble"
+  },
+  "CHAPTER_MARVEL_FISH": {
+    "Solar Flare": "Crimson Carp",
+    "Dawn Breaker": "Crimson Carp",
+    "Witches' Eve": "Crimson Carp",
+    "Catch the Kraken": "Crimson Carp",
+    "Spring Blossom": "Crimson Carp",
+    "Clash of Factions": "Battle Fish",
+    "Pharaoh's Treasure": "Lemon Shark",
+    "Bull Run": "Longhorn Cowfish",
+    "Winds of Change": "Jellyfish",
+    "Great Bloom": "Pink Dolphin",
+    "Better Together": "Poseidon",
+    "Paw Prints": "Super Star",
+    "Crabs and Traps": "Giant Isopod",
+    "Salt Awakening": "Deep Sea Pig",
+    "Ascension Age": "Seahorse Dad"
+  },
+  "CHAPTER_BANNER_IMAGES": {
+    "Solar Flare Banner": {
+      "$unresolvedIdentifier": "solarFlareBanner"
+    },
+    "Dawn Breaker Banner": {
+      "$unresolvedIdentifier": "dawnBreakerBanner"
+    },
+    "Witches' Eve Banner": {
+      "$unresolvedIdentifier": "witchesEveBanner"
+    },
+    "Catch the Kraken Banner": {
+      "$unresolvedIdentifier": "catchTheKrakenBanner"
+    },
+    "Spring Blossom Banner": {
+      "$unresolvedIdentifier": "springBlossomBanner"
+    },
+    "Clash of Factions Banner": {
+      "$unresolvedIdentifier": "clashOfFactionsBanner"
+    },
+    "Pharaoh's Treasure Banner": {
+      "$unresolvedIdentifier": "pharaohsTreasureBanner"
+    },
+    "Bull Run Banner": {
+      "$unresolvedIdentifier": "bullsRunBanner"
+    },
+    "Winds of Change Banner": {
+      "$unresolvedIdentifier": "windsOfChangeBanner"
+    },
+    "Great Bloom Banner": {
+      "$unresolvedIdentifier": "greatBloomBanner"
+    },
+    "Better Together Banner": {
+      "$unresolvedIdentifier": "betterTogetherBanner"
+    },
+    "Paw Prints Banner": {
+      "$unresolvedIdentifier": "pawPrintsBanner"
+    },
+    "Crabs and Traps Banner": {
+      "$unresolvedIdentifier": "crabChapterBanner"
+    },
+    "Salt Awakening Banner": {
+      "$unresolvedIdentifier": "saltAwakeningBanner"
+    },
+    "Ascension Age Banner": {
+      "$unresolvedIdentifier": "ascensionAgeBanner"
+    }
+  }
+}

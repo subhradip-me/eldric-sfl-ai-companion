@@ -115,56 +115,60 @@ const load = async () => {
 
 ---
 
-### 2.3 Agentic Tool Execution Loop (`Orchestrator.ts`)
-The conversational AI engine coordinates an iterative multi-turn tool execution loop with Groq Cloud LLMs:
+### 2.3 Four-Stage AI Pipeline (`PipelineCoordinator.execute`)
+`orchestrator.runAgent()` assembles pre-computed farm context, then delegates to the static `PipelineCoordinator.execute()`. Tools are **planned deterministically** (the LLM no longer emits `tool_calls`), executed against live state, validated, and only then explained with a single Groq call:
 
 ```typescript
-// server/services/ai/Orchestrator.ts - Iterative Agent Loop
-export class Orchestrator {
-  async runAgent(message: string, sessionId: string, userId: number, farmId: string, history: any[] | null = null) {
-    const steps: Array<{ tool: string; ok: boolean; cached?: boolean }> = [];
-    const seen = new Map<string, any>(); // In-turn tool call dedup cache
-    const context: ToolContext = { sessionId, userId, farmId, userGoal: message };
+// server/services/ai/pipeline/PipelineCoordinator.ts - Four-stage coordinator
+export class PipelineCoordinator {
+  private static readonly MAX_TOTAL_TOOL_CALLS = 8;
 
-    const MAX_ROUNDS = 8;
-    for (let i = 0; i < MAX_ROUNDS; i++) {
-      const j = await this.groq(messages);
-      const m = j.choices?.[0]?.message ?? {};
+  public static async execute(
+    message: string,
+    context: PipelineContext,
+    tools: ToolExecutorMap,
+    priorHistory: Array<{ role: string; content: string }> = [],
+    farmStateSupplier?: () => Promise<{ state: NormalizedFarmState; version?: number } | null>
+  ): Promise<PipelineExecutionResult> {
+    const steps: PipelineStep[] = [];
+    let toolCallsCount = 0;
 
-      // If the model finished without tool calls, we have our final answer
-      if (!m.tool_calls?.length) {
-        const answer = this.textOf(m);
-        if (answer) return { answer, steps };
+    // ── STAGE 1 (PLAN): deterministic tool selection — no LLM ────────────────
+    const plan = await Planner.plan(message, context, priorHistory);
+
+    // ── STAGE 2 (ACT): execute planned tools against live state (≤ 8 calls) ──
+    const toolResults: Array<AIToolResult<unknown>> = [];
+    let activeFarmState = context.farmState;
+    for (const spec of plan.plannedTools) {
+      if (toolCallsCount >= this.MAX_TOTAL_TOOL_CALLS) break;
+      const tool = tools[spec.name];
+      if (!tool) continue;
+      toolCallsCount++;
+      const res = await tool.exec(spec.args, context);
+      toolResults.push(res);
+      if (spec.name === 'get_farm_state' && res.success) {
+        activeFarmState = (res.data as any)?.farm ?? activeFarmState;
       }
-
-      // Execute requested tools
-      for (const tc of m.tool_calls) {
-        const name = tc.function?.name;
-        const parsedArgs = this.safeParseArgs(tc.function?.arguments);
-        const forceRefresh = !!parsedArgs?.force;
-        if (forceRefresh) delete parsedArgs.force;
-
-        const key = `${name}:${JSON.stringify(parsedArgs)}`;
-        let result: any;
-
-        // Dedup cache check: skip duplicate tool executions unless force: true is passed
-        if (!forceRefresh && seen.has(key)) {
-          result = { note: 'Duplicate call — using cached data.', ...seen.get(key) };
-          steps.push({ tool: name, ok: true, cached: true });
-        } else {
-          const tool = this.tools[name];
-          result = await tool.exec(parsedArgs, context);
-          steps.push({ tool: name, ok: !result?.error });
-          seen.set(key, result);
-        }
-
-        messages.push({ role: 'tool', tool_call_id: tc.id, content: JSON.stringify(result) });
-      }
+      steps.push({ stage: 'ORCHESTRATOR', tool: spec.name, ok: res.success });
     }
-    // Fallback answer generation if round limit reached...
+
+    // ── STAGE 3 (CHECK): verify vs NormalizedFarmState + precompute synthesis ─
+    let validationReport = DeterministicValidator.validate(plan.criteria, toolResults, activeFarmState, context);
+
+    // FIX: one targeted single-tool retry pass when the report is INVALID
+    if (validationReport.status === 'INVALID' && validationReport.targetTool && toolCallsCount < this.MAX_TOTAL_TOOL_CALLS) {
+      const retryRes = await tools[validationReport.targetTool.name]?.exec(validationReport.targetTool.args, context);
+      if (retryRes) { toolResults.push(retryRes); validationReport = DeterministicValidator.validate(plan.criteria, toolResults, activeFarmState, context); }
+    }
+
+    // ── STAGE 4: Explainer makes the single Groq call from the synthesis ─────
+    const answer = await Explainer.explain(message, toolResults, validationReport, context, priorHistory);
+    return { success: true, answer, steps, /* warnings, provenance */ };
   }
 }
 ```
+
+> The in-turn `force: true` dedup bypass still exists at the tool layer in `Orchestrator.ts`; the coordinator itself bounds work with `MAX_TOTAL_TOOL_CALLS = 8` rather than a model-driven round loop.
 
 ---
 

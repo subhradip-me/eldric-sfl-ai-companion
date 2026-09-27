@@ -93,8 +93,74 @@ describe('Phase 6: Live AI / AI Orchestrator', () => {
       assert.ok(result.staleness === 'FRESH' || result.staleness === 'STALE');
       assert.ok(result.data.inventory);
       assert.equal(result.data.coins, 15000);
+      assert.ok(result.data.nextLevel);
+      assert.equal(result.data.nextLevel.level, 42);
+      assert.ok(result.data.nextLevel.remainingXp > 0);
       assert.ok(result.provenance);
       assert.equal(result.provenance.farmId, testContext.farmId);
+    });
+
+    it('calculates authoritative level requirements for next level and target milestones', async () => {
+      const nextLevelResult = await orchestrator.tools['get_level_requirements'].exec({}, testContext);
+      assert.equal(nextLevelResult.tool, 'get_level_requirements');
+      assert.equal(nextLevelResult.success, true);
+      assert.equal(nextLevelResult.epistemicTier, 'AUTHORITATIVE');
+      assert.equal(nextLevelResult.data.currentLevel, 41);
+      assert.equal(nextLevelResult.data.targetLevel, 42);
+      assert.ok(nextLevelResult.data.remainingXpToTarget > 0);
+
+      // Query Level 100 milestone
+      const lv100Result = await orchestrator.tools['get_level_requirements'].exec({ targetLevel: 100 }, testContext);
+      assert.equal(lv100Result.success, true);
+      assert.equal(lv100Result.data.targetLevel, 100);
+      assert.equal(lv100Result.data.targetRequiredCumulativeXp, 24083905);
+      assert.equal(lv100Result.data.remainingXpToTarget, 24083905 - 520000);
+      assert.ok(lv100Result.data.milestones && lv100Result.data.milestones.length > 0);
+    });
+
+    it('serves authoritative skill tree catalog and unlock status (get_skills_tree)', async () => {
+      const canonicalMock = {
+        farmId: 'farm-skills-test',
+        bumpkin: {
+          id: 90001,
+          level: 64,
+          experience: 2903625,
+          skills: { 'Green Thumb': 1, "Lumberjack's Extra": 1 },
+          equipped: {},
+        },
+        balance: '150.00',
+        coins: 15000,
+        inventory: {},
+        buildings: { 'Fire Pit': {}, Kitchen: {}, Bakery: {} },
+        farmActivity: {},
+        buffs: { vip: false },
+      };
+
+      orchestrator.setFarmState('farm-skills-test', canonicalMock, 'FRESH');
+      const skillsContext = { ...testContext, farmId: 'farm-skills-test' };
+
+      const result = await orchestrator.tools['get_skills_tree'].exec({}, skillsContext);
+      assert.equal(result.tool, 'get_skills_tree');
+      assert.equal(result.success, true);
+      assert.equal(result.epistemicTier, 'AUTHORITATIVE');
+
+      const data = result.data;
+      assert.equal(data.player.level, 64);
+      assert.equal(data.player.unlockedCount, 2);
+      assert.ok(data.catalogue.totalSkillsCount > 50);
+      assert.ok(data.catalogue.lockedSkillsCount > 40);
+      assert.equal(data.catalogue.branches.length, 11);
+
+      // Verify recommendations structure
+      assert.ok(data.topRecommendations.forXpGain.length > 0);
+      assert.ok(data.topRecommendations.forProductivity.length > 0);
+      assert.ok(data.topRecommendations.forFlowerEconomy.length > 0);
+
+      // Verify category filter works
+      const cropsOnly = await orchestrator.tools['get_skills_tree'].exec({ category: 'Crops' }, skillsContext);
+      assert.equal(cropsOnly.success, true);
+      assert.ok(cropsOnly.data.lockedSkillsByBranch['Crops']);
+      assert.equal(Object.keys(cropsOnly.data.lockedSkillsByBranch).length, 1);
     });
   });
 

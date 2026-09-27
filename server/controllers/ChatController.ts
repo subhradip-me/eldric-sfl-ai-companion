@@ -47,9 +47,14 @@ export class ChatController {
         }
       }
 
+      // Extract client-transmitted conversation history if available (guarantees zero-lag continuity)
+      const clientHistory = Array.isArray(req.body.history) && req.body.history.length > 0
+        ? req.body.history
+        : null;
+
       let response;
       try {
-        const priorMessages = await chatStoreService.getSession(sessionId, userId).catch(() => []);
+        const priorMessages = clientHistory ?? (await chatStoreService.getSession(sessionId, userId).catch(() => []));
         response = await orchestrator.runAgent(message, sessionId, userId, effectiveFarmId, priorMessages);
       } catch (aiError) {
         // If the AI call itself throws, refund the reserved credit

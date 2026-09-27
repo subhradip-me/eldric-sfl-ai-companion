@@ -1,0 +1,195 @@
+{
+  "FULL_MOON_FRUITS": [
+    "Celestine",
+    "Lunara",
+    "Duskberry"
+  ],
+  "PATCH_FRUIT_SEEDS": {
+    "Tomato Seed": {
+      "price": 5,
+      "description": "Rich in Lycopene",
+      "plantSeconds": 7200,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 13
+      },
+      "yield": "Tomato",
+      "plantingSpot": "Fruit Patch"
+    },
+    "Lemon Seed": {
+      "price": 15,
+      "description": "Because sometimes, you just can't squeeze an orange!",
+      "plantSeconds": 14400,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 12
+      },
+      "yield": "Lemon",
+      "plantingSpot": "Fruit Patch"
+    },
+    "Blueberry Seed": {
+      "price": 30,
+      "description": "A Goblin's weakness",
+      "plantSeconds": 21600,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 13
+      },
+      "yield": "Blueberry",
+      "plantingSpot": "Fruit Patch"
+    },
+    "Orange Seed": {
+      "price": 50,
+      "description": "Vitamin C to keep your Bumpkin Healthy",
+      "plantSeconds": 28800,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 14
+      },
+      "yield": "Orange",
+      "plantingSpot": "Fruit Patch"
+    },
+    "Apple Seed": {
+      "price": 70,
+      "description": "Perfect for homemade Apple Pie",
+      "plantSeconds": 43200,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 15
+      },
+      "yield": "Apple",
+      "plantingSpot": "Fruit Patch"
+    },
+    "Banana Plant": {
+      "price": 70,
+      "description": "Oh banana!",
+      "plantSeconds": 43200,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 16
+      },
+      "yield": "Banana",
+      "plantingSpot": "Fruit Patch"
+    },
+    "Celestine Seed": {
+      "price": 300,
+      "description": "A rare berry that grows in the dark.",
+      "plantSeconds": 21600,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 12
+      },
+      "yield": "Celestine",
+      "plantingSpot": "Fruit Patch"
+    },
+    "Lunara Seed": {
+      "price": 750,
+      "description": "A rare berry that grows in the dark.",
+      "plantSeconds": 43200,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 12
+      },
+      "yield": "Lunara",
+      "plantingSpot": "Fruit Patch"
+    },
+    "Duskberry Seed": {
+      "price": 1250,
+      "description": "A rare berry that grows in the dark.",
+      "plantSeconds": 86400,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 12
+      },
+      "yield": "Duskberry",
+      "plantingSpot": "Fruit Patch"
+    }
+  },
+  "PATCH_FRUIT": {
+    "Tomato": {
+      "description": "Rich in Lycopene",
+      "name": "Tomato",
+      "sellPrice": 2,
+      "seed": "Tomato Seed",
+      "isBush": true
+    },
+    "Lemon": {
+      "description": "Because sometimes, you just can't squeeze an orange!",
+      "name": "Lemon",
+      "sellPrice": 6,
+      "seed": "Lemon Seed"
+    },
+    "Blueberry": {
+      "description": "A Goblin's weakness",
+      "name": "Blueberry",
+      "sellPrice": 12,
+      "isBush": true,
+      "seed": "Blueberry Seed"
+    },
+    "Orange": {
+      "description": "Vitamin C to keep your Bumpkin Healthy",
+      "name": "Orange",
+      "sellPrice": 18,
+      "seed": "Orange Seed"
+    },
+    "Apple": {
+      "description": "Perfect for homemade Apple Pie",
+      "name": "Apple",
+      "sellPrice": 25,
+      "seed": "Apple Seed"
+    },
+    "Banana": {
+      "description": "Oh banana!",
+      "name": "Banana",
+      "sellPrice": 25,
+      "isBush": true,
+      "seed": "Banana Plant"
+    },
+    "Celestine": {
+      "description": "A rare berry that grows in the dark.",
+      "name": "Celestine",
+      "sellPrice": 200,
+      "seed": "Celestine Seed",
+      "isBush": true
+    },
+    "Lunara": {
+      "description": "A rare berry that grows in the dark.",
+      "name": "Lunara",
+      "sellPrice": 500,
+      "seed": "Lunara Seed",
+      "isBush": true
+    },
+    "Duskberry": {
+      "description": "A rare berry that grows in the dark.",
+      "name": "Duskberry",
+      "sellPrice": 1000,
+      "seed": "Duskberry Seed",
+      "isBush": true
+    }
+  },
+  "GREENHOUSE_FRUIT_SEEDS": {
+    "Grape Seed": {
+      "price": 160,
+      "description": "A bunch of grapes",
+      "plantSeconds": 43200,
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 40
+      },
+      "yield": "Grape",
+      "plantingSpot": "Greenhouse"
+    }
+  },
+  "GREENHOUSE_FRUIT": {
+    "Grape": {
+      "description": "A bunch of grapes",
+      "name": "Grape",
+      "sellPrice": 240,
+      "seed": "Grape Seed",
+      "bumpkinLevel": {
+        "ascension": 0,
+        "level": 40
+      }
+    }
+  }
+}

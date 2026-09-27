@@ -1,0 +1,324 @@
+{
+  "PLACEABLE_LOCATIONS": [
+    "farm",
+    "home",
+    "petHouse",
+    "interior",
+    "level_one"
+  ],
+  "HELIOS_BLACKSMITH_ITEMS": {
+    "Basic Scarecrow": {
+      "description": "Boost nearby Basic Crops.",
+      "boost": "x0.8 Basic Crops Growth Time",
+      "coins": 0,
+      "ingredients": {
+        "Wood": 2
+      },
+      "inventoryLimit": 1
+    },
+    "Scary Mike": {
+      "description": "Boost nearby Medium Crops.",
+      "boost": "+0.2 Medium Crops",
+      "coins": 4800,
+      "ingredients": {
+        "Wood": 30,
+        "Carrot": 50,
+        "Wheat": 10,
+        "Parsnip": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Laurie the Chuckle Crow": {
+      "description": "Boost nearby Advanced Crops.",
+      "boost": "+0.2 Advanced Crops",
+      "coins": 14400,
+      "ingredients": {
+        "Wood": 100,
+        "Radish": 60,
+        "Kale": 40,
+        "Wheat": 20
+      },
+      "inventoryLimit": 1
+    },
+    "Bale": {
+      "description": "A golden touch of the harvest.",
+      "boost": "+{{value}} Egg",
+      "coins": 1600,
+      "ingredients": {
+        "Egg": 200,
+        "Wheat": 200,
+        "Wood": 100,
+        "Stone": 30
+      },
+      "inventoryLimit": 1
+    },
+    "Immortal Pear": {
+      "description": "Increase the survival of your fruit patches.",
+      "boost": "+1 Fruit Patch Harvest per seed",
+      "ingredients": {
+        "Gold": 5,
+        "Apple": 10,
+        "Blueberry": 10,
+        "Orange": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Squirrel": {
+      "description": "Squirrel likes hanging out in the forest.",
+      "boost": "+0.1 Wood",
+      "coins": 1000,
+      "ingredients": {
+        "Wood": 100
+      },
+      "inventoryLimit": 1
+    },
+    "Iron Beetle": {
+      "description": "Beetle made of iron.",
+      "boost": "+0.1 Iron",
+      "coins": 2000,
+      "ingredients": {
+        "Iron": 20
+      },
+      "inventoryLimit": 1
+    },
+    "Gold Beetle": {
+      "description": "Beetle made of gold.",
+      "boost": "+0.1 Gold",
+      "coins": 10000,
+      "ingredients": {
+        "Gold": 20
+      },
+      "inventoryLimit": 1
+    },
+    "Fairy Circle": {
+      "description": "Circle of fairy mushrooms.",
+      "boost": "+0.2 Wild Mushroom",
+      "coins": 25000,
+      "ingredients": {
+        "Wild Mushroom": 20
+      },
+      "inventoryLimit": 1
+    },
+    "Macaw": {
+      "description": "Macaw loves picking fruits.",
+      "boost": "+0.1 Fruit Patch Yield",
+      "coins": 10000,
+      "ingredients": {
+        "Apple": 10,
+        "Blueberry": 10,
+        "Orange": 10,
+        "Banana": 10,
+        "Tomato": 10,
+        "Lemon": 10
+      },
+      "inventoryLimit": 1
+    },
+    "Butterfly": {
+      "description": "Butterfly loves the scent of flowers.",
+      "boost": "20% chance of +1 flower",
+      "coins": 15000,
+      "ingredients": {},
+      "inventoryLimit": 1
+    },
+    "Salt Sculpture": {
+      "description": "A progressive sculpture providing Salt & Aging buffs",
+      "boost": "Cumulative Salt & Aging buffs per level",
+      "coins": 2000,
+      "ingredients": {
+        "Refined Salt": 30
+      },
+      "inventoryLimit": 1
+    }
+  },
+  "ARTEFACT_SHOP_KEYS": {
+    "Treasure Key": {
+      "ingredients": {
+        "Sand": 10,
+        "Hieroglyph": 3
+      },
+      "description": "A magic key that can unlock the basic chest located in the plaza near Tywin."
+    },
+    "Rare Key": {
+      "ingredients": {
+        "Sand": 30,
+        "Hieroglyph": 10
+      },
+      "description": "A magic key that can unlock the rare chest located in the south of the beach."
+    },
+    "Luxury Key": {
+      "ingredients": {
+        "Sand": 100,
+        "Hieroglyph": 30
+      },
+      "description": "A magic key that can unlock the luxury chest located in the plaza near Bert."
+    }
+  },
+  "TREASURE_COLLECTIBLE_ITEM": {
+    "Treasure Map": {
+      "description": "An enchanted map that leads the holder to valuable treasure. +20% profit from beach bounty items.",
+      "boost": "+20% Coins Treasure Sale Price",
+      "ingredients": {
+        "Sand": 50,
+        "Hieroglyph": 20
+      },
+      "inventoryLimit": 1
+    },
+    "Adrift Ark": {
+      "ingredients": {
+        "Sand": 125
+      },
+      "description": "A sandcastle on the shore intricately crafted to resemble a capsized boat, complete with shell portholes and seaweed flags fluttering atop its sculpted hull."
+    },
+    "Castellan": {
+      "ingredients": {
+        "Sand": 750
+      },
+      "description": "Castellan is a charming sandcastle figure adorned with colorful accessories, symbolizing playful spirit and creativity."
+    },
+    "Sunlit Citadel": {
+      "ingredients": {
+        "Sand": 1500,
+        "Scarab": 40
+      },
+      "description": "A Castle to show your pride and dedication",
+      "from": {
+        "$unparsed": "CHAPTERS[\"Pharaoh's Treasure\"].startDate"
+      },
+      "to": {
+        "$unparsed": "CHAPTERS[\"Pharaoh's Treasure\"].endDate"
+      }
+    },
+    "Baobab Tree": {
+      "ingredients": {
+        "Scarab": 35
+      },
+      "description": "A nice looking tree!",
+      "from": {
+        "$unparsed": "CHAPTERS[\"Pharaoh's Treasure\"].startDate"
+      },
+      "to": {
+        "$unparsed": "CHAPTERS[\"Pharaoh's Treasure\"].endDate"
+      }
+    },
+    "Camel": {
+      "ingredients": {
+        "Scarab": 200
+      },
+      "description": "A mean looking camel!",
+      "from": {
+        "$unparsed": "CHAPTERS[\"Pharaoh's Treasure\"].startDate"
+      },
+      "to": {
+        "$unparsed": "CHAPTERS[\"Pharaoh's Treasure\"].endDate"
+      }
+    },
+    "Treasure Key": {
+      "ingredients": {
+        "Sand": 10,
+        "Hieroglyph": 3
+      },
+      "description": "A magic key that can unlock the basic chest located in the plaza near Tywin."
+    },
+    "Rare Key": {
+      "ingredients": {
+        "Sand": 30,
+        "Hieroglyph": 10
+      },
+      "description": "A magic key that can unlock the rare chest located in the south of the beach."
+    },
+    "Luxury Key": {
+      "ingredients": {
+        "Sand": 100,
+        "Hieroglyph": 30
+      },
+      "description": "A magic key that can unlock the luxury chest located in the plaza near Bert."
+    }
+  },
+  "POTION_HOUSE_ITEMS": {
+    "Lab Grown Carrot": {
+      "name": "Lab Grown Carrot",
+      "description": "+0.2 Carrot Yield",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 6000
+      },
+      "inventoryLimit": 1
+    },
+    "Lab Grown Radish": {
+      "name": "Lab Grown Radish",
+      "description": "+0.4 Radish Yield",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 8000
+      },
+      "inventoryLimit": 1
+    },
+    "Lab Grown Pumpkin": {
+      "name": "Lab Grown Pumpkin",
+      "description": "+0.3 Pumpkin Yield",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 7000
+      },
+      "inventoryLimit": 1
+    }
+  },
+  "POTION_HOUSE_EXOTIC_CROPS": {
+    "Black Magic": {
+      "name": "Black Magic",
+      "description": "A dark and mysterious flower!",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 8000
+      }
+    },
+    "Golden Helios": {
+      "name": "Golden Helios",
+      "description": "Sun-kissed grandeur!",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 4000
+      }
+    },
+    "Chiogga": {
+      "name": "Chiogga",
+      "description": "A rainbow beet!",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 2000
+      }
+    },
+    "Purple Cauliflower": {
+      "name": "Purple Cauliflower",
+      "description": "A regal purple cauliflower",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 800
+      }
+    },
+    "Adirondack Potato": {
+      "name": "Adirondack Potato",
+      "description": "A rugged spud, Adirondack style!",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 600
+      }
+    },
+    "Warty Goblin Pumpkin": {
+      "name": "Warty Goblin Pumpkin",
+      "description": "A whimsical, wart-covered pumpkin",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 400
+      }
+    },
+    "White Carrot": {
+      "name": "White Carrot",
+      "description": "A pale carrot with pale roots",
+      "coins": 0,
+      "ingredients": {
+        "Potion Ticket": 200
+      }
+    }
+  }
+}

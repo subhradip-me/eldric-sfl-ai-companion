@@ -14,6 +14,12 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-producti
 const ACCESS_TOKEN_TTL = (process.env.ACCESS_TOKEN_TTL || '15m') as `${number}${'s'|'m'|'h'|'d'}`;
 const REFRESH_TOKEN_TTL = (process.env.REFRESH_TOKEN_TTL || '30d') as `${number}${'s'|'m'|'h'|'d'}`;
 
+// Fail fast in production if JWT_SECRET is not configured
+if (!process.env.JWT_SECRET && process.env.NODE_ENV === 'production') {
+  console.error('FATAL: JWT_SECRET environment variable is not set. Refusing to start.');
+  process.exit(1);
+}
+
 export class AuthService {
   /** Hash a plaintext password with bcrypt (10 rounds). */
   async hashPassword(password: string): Promise<string> {

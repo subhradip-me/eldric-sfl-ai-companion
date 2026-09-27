@@ -7,7 +7,7 @@ import { pool } from '../../db/database.js';
 import { embeddingService } from '../ai/EmbeddingService.js';
 
 export class ChatStoreService {
-  /** Persist a chat message, optionally with a vector embedding for RAG. */
+  /** Persist a chat message immediately, with async background vector embedding for RAG. */
   async saveMessage(input: SaveMessageInput): Promise<void> {
     const { sessionId, role, content, userId, embedding = null } = input;
     if (!userId) {
@@ -15,17 +15,31 @@ export class ChatStoreService {
       return;
     }
 
-    let vec: string | null = null;
+    // 1. Immediate synchronous insert to guarantee conversational continuity with zero latency
+    let msgId: number | null = null;
     try {
-      vec = embeddingService.toVec(await embeddingService.embed(content));
-    } catch {
-      /* embeddings are optional */
+      const res = await pool.query(
+        'INSERT INTO chat_messages (session_id, role, content, embedding, user_id, created_at) VALUES ($1,$2,$3,$4,$5,$6) RETURNING id',
+        [sessionId, role, content, embedding, userId, Date.now()]
+      );
+      msgId = res.rows[0]?.id;
+    } catch (err) {
+      console.warn('Failed to insert chat message:', (err as Error).message);
+      return;
     }
 
-    await pool.query(
-      'INSERT INTO chat_messages (session_id, role, content, embedding, user_id, created_at) VALUES ($1,$2,$3,$4,$5,$6)',
-      [sessionId, role, content, vec, userId, Date.now()]
-    );
+    // 2. Compute vector embedding asynchronously in background — never delays message persistence
+    if (msgId && !embedding) {
+      embeddingService
+        .embed(content)
+        .then(async (rawVec) => {
+          const vec = embeddingService.toVec(rawVec);
+          await pool.query('UPDATE chat_messages SET embedding = $1 WHERE id = $2', [vec, msgId]);
+        })
+        .catch(() => {
+          /* embeddings are optional */
+        });
+    }
   }
 
   /**
